@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
+//  $Id: filesys.hpp,v 1.3 2005/03/02 08:39:03 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILESYS_FILESYS_HPP
 #define PHOTON_UTIL_FILESYS_FILESYS_HPP
@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-// Title: File System
+// Title: filesys::
 
 namespace photon
 {
