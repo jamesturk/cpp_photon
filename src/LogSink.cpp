@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.cpp,v 1.4 2005/02/05 03:01:04 cozman Exp $
+//  $Id: LogSink.cpp,v 1.5 2005/02/07 01:48:27 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.cpp,v $
+//  Revision 1.5  2005/02/07 01:48:27  cozman
+//  string references
+//
 //  Revision 1.4  2005/02/05 03:01:04  cozman
 //  removed getStream() (useless)
 //
@@ -32,7 +35,7 @@ namespace photon
 
 //LogSink
 
-LogSink::LogSink(std::string name) :
+LogSink::LogSink(const std::string& name) :
     name_(name)
 {
 }
@@ -48,7 +51,7 @@ std::string LogSink::getName() const
 
 //ConsoleSink
 
-ConsoleSink::ConsoleSink(std::string name) :
+ConsoleSink::ConsoleSink(const std::string& name) :
     LogSink(name)
 {
 }
@@ -57,7 +60,7 @@ ConsoleSink::~ConsoleSink()
 {
 }
 
-void ConsoleSink::writeMessage(LogLevel level, std::string msg)
+void ConsoleSink::writeMessage(LogLevel level, const std::string& msg)
 {
     static char* pre[] = { "    NOTE: ",
                            " VERBOSE: ",
@@ -70,7 +73,7 @@ void ConsoleSink::writeMessage(LogLevel level, std::string msg)
 
 //TextSink
 
-TextSink::TextSink(std::string name) :
+TextSink::TextSink(const std::string& name) :
     LogSink(name),
     out_(std::string(name+".txt").c_str())
 {
@@ -81,7 +84,7 @@ TextSink::~TextSink()
     out_.close();
 }
 
-void TextSink::writeMessage(LogLevel level, std::string msg)
+void TextSink::writeMessage(LogLevel level, const std::string& msg)
 {
     static char* pre[] = { "    NOTE: ",
                            " VERBOSE: ",
@@ -94,7 +97,7 @@ void TextSink::writeMessage(LogLevel level, std::string msg)
 
 //HTMLSink
 
-HTMLSink::HTMLSink(std::string name) :
+HTMLSink::HTMLSink(const std::string& name) :
     LogSink(name),
     out_(std::string(name+".html").c_str())
 {
@@ -118,7 +121,7 @@ HTMLSink::~HTMLSink()
     out_.close();
 }
 
-void HTMLSink::writeMessage(LogLevel level, std::string msg)
+void HTMLSink::writeMessage(LogLevel level, const std::string& msg)
 {
     static char* css[] = {"note","verbose","warning","error","critical"};
     static char* pre[] = { "    NOTE: ",

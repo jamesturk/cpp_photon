@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.h,v 1.4 2005/02/05 03:01:03 cozman Exp $
+//  $Id: LogSink.h,v 1.5 2005/02/07 01:48:26 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.h,v $
+//  Revision 1.5  2005/02/07 01:48:26  cozman
+//  string references
+//
 //  Revision 1.4  2005/02/05 03:01:03  cozman
 //  removed getStream() (useless)
 //
@@ -77,7 +80,7 @@ public:
     //
     // Parameters:
     //  name_ - Name of LogSink, every LogSink should have a unique name.
-    LogSink(std::string name);
+    LogSink(const std::string& name);
 
     // Function: ~LogSink
     //  Virtual destructor, available to make inheritance safe.
@@ -93,7 +96,7 @@ public:
     // Parameters:
     //  level - <LogLevel> of log event.
     //  msg - String describing log message.
-    virtual void writeMessage(LogLevel level, std::string msg)=0;
+    virtual void writeMessage(LogLevel level, const std::string& msg)=0;
 
 // Group: Accessors
 public:
@@ -129,10 +132,10 @@ typedef shared_ptr<LogSink> LogSinkPtr;
 class ConsoleSink : public LogSink
 {
 public:
-    ConsoleSink(std::string name);
+    ConsoleSink(const std::string& name);
     virtual ~ConsoleSink();
     
-    virtual void writeMessage(LogLevel level, std::string msg);
+    virtual void writeMessage(LogLevel level, const std::string& msg);
 };
 
 // Class: TextSink
@@ -146,10 +149,10 @@ public:
 class TextSink : public LogSink
 {
 public:
-    TextSink(std::string name);
+    TextSink(const std::string& name);
     virtual ~TextSink();
     
-    virtual void writeMessage(LogLevel level, std::string msg);
+    virtual void writeMessage(LogLevel level, const std::string& msg);
 private:
     std::ofstream out_;
 };
@@ -165,10 +168,10 @@ private:
 class HTMLSink : public LogSink
 {
 public:
-    HTMLSink(std::string name);
+    HTMLSink(const std::string& name);
     virtual ~HTMLSink();
     
-    virtual void writeMessage(LogLevel level, std::string msg);
+    virtual void writeMessage(LogLevel level, const std::string& msg);
 private:
     std::ofstream out_;
 };

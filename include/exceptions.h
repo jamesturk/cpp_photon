@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.h,v 1.4 2005/02/06 21:28:47 cozman Exp $
+//  $Id: exceptions.h,v 1.5 2005/02/07 01:48:26 cozman Exp $
 //
 // Revisions:
 //  $Log: exceptions.h,v $
+//  Revision 1.5  2005/02/07 01:48:26  cozman
+//  string references
+//
 //  Revision 1.4  2005/02/06 21:28:47  cozman
 //  removed require
 //
@@ -59,8 +62,8 @@ public:
     //  description - description of why exception was thrown [default: empty]
     //  file - name of file where exception was thrown [default: empty]
     //  line - line in file where exception was thrown [default: 0]
-    Throwable(std::string description = std::string(),
-                std::string file = std::string(),
+    Throwable(const std::string& description = std::string(),
+                const std::string& file = std::string(),
                 uint line=0) throw();
     virtual ~Throwable() throw()=0;
 
@@ -97,8 +100,8 @@ private:
 class Exception : public Throwable
 {
 public:
-    Exception(std::string description = std::string(),
-                std::string file = std::string(),
+    Exception(const std::string& description = std::string(),
+                const std::string& file = std::string(),
                 uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const Exception& rhs);
@@ -116,8 +119,8 @@ public:
 class ArgumentException : public Exception
 {
 public:
-    ArgumentException(std::string description = std::string(),
-                        std::string file = std::string(),
+    ArgumentException(const std::string& description = std::string(),
+                        const std::string& file = std::string(),
                         uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const ArgumentException& rhs);
@@ -134,8 +137,8 @@ public:
 class PreconditionException : public Exception
 {
 public:
-    PreconditionException(std::string description = std::string(),
-                            std::string file = std::string(),
+    PreconditionException(const std::string& description = std::string(),
+                            const std::string& file = std::string(),
                             uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const PreconditionException& rhs);
@@ -154,8 +157,8 @@ class RangeException : public Exception
 {
 public:
     RangeException() throw();
-    RangeException(std::string description = std::string(),
-                    std::string file = std::string(),
+    RangeException(const std::string& description = std::string(),
+                    const std::string& file = std::string(),
                     uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const RangeException& rhs);
@@ -174,8 +177,8 @@ class ResourceException : public Exception
 {
 public:
     ResourceException() throw();
-    ResourceException(std::string description = std::string(),
-                        std::string file = std::string(),
+    ResourceException(const std::string& description = std::string(),
+                        const std::string& file = std::string(),
                         uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const ResourceException& rhs);
@@ -205,8 +208,8 @@ class Error : public Throwable
 {
 public:
     Error() throw();
-    Error(std::string description = std::string(),
-            std::string file = std::string(),
+    Error(const std::string&description = std::string(),
+            const std::string& file = std::string(),
             uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const Error& rhs);
@@ -224,8 +227,8 @@ class MemoryError : public Error
 {
 public:
     MemoryError() throw();
-    MemoryError(std::string description = std::string(),
-                std::string file = std::string(),
+    MemoryError(const std::string& description = std::string(),
+                const std::string& file = std::string(),
                 uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const MemoryError& rhs);
@@ -244,8 +247,8 @@ class APIError : public Error
 {
 public:
     APIError() throw();
-    APIError(std::string description = std::string(),
-                std::string file = std::string(),
+    APIError(const std::string& description = std::string(),
+                const std::string& file = std::string(),
                 uint line=0) throw();
     friend std::ostream& operator<<(std::ostream& os,
                                     const APIError& rhs);

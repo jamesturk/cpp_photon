@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.cpp,v 1.2 2005/01/31 15:44:38 cozman Exp $
+//  $Id: exceptions.cpp,v 1.3 2005/02/07 01:48:27 cozman Exp $
 //
 // Revisions:
 //  $Log: exceptions.cpp,v $
+//  Revision 1.3  2005/02/07 01:48:27  cozman
+//  string references
+//
 //  Revision 1.2  2005/01/31 15:44:38  cozman
 //  simplified exceptions
 //
@@ -24,8 +27,8 @@
 namespace photon 
 {
 
-Throwable::Throwable(std::string description,
-                        std::string file, uint line) throw() :
+Throwable::Throwable(const std::string& description,
+                        const std::string& file, uint line) throw() :
     description_(description), file_(file), line_(line)
 {}
 
@@ -46,40 +49,40 @@ std::string Throwable::getDesc() const throw()
 
 //exceptions//
 
-Exception::Exception(std::string description,
-                        std::string file, uint line) throw() :
+Exception::Exception(const std::string& description,
+                        const std::string& file, uint line) throw() :
     Throwable(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const Exception& rhs)
 {
     return os << "General exception occured: " << rhs.getDesc();
 }
 
-ArgumentException::ArgumentException(std::string description,
-                                    std::string file, uint line) throw() :
+ArgumentException::ArgumentException(const std::string& description,
+                                const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const ArgumentException& rhs)
 {
     return os << "Invalid argument exception occured. " << rhs.getDesc();
 }
 
-PreconditionException::PreconditionException(std::string description,
-                                        std::string file, uint line) throw() :
+PreconditionException::PreconditionException(const std::string& description,
+                                const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const PreconditionException& rhs)
 {
     return os << "Precondition exception occured: " << rhs.getDesc();
 }
 
-RangeException::RangeException(std::string description,
-                                std::string file, uint line) throw() :
+RangeException::RangeException(const std::string& description,
+                                const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const RangeException& rhs)
 {
     return os << "Out-of-range exception: " << rhs.getDesc();
 }
 
-ResourceException::ResourceException(std::string description,
-                                        std::string file, uint line) throw() :
+ResourceException::ResourceException(const std::string& description,
+                                const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const ResourceException& rhs)
 {
@@ -88,23 +91,24 @@ std::ostream& operator<<(std::ostream& os, const ResourceException& rhs)
 
 //errors//
 
-Error::Error(std::string description, std::string file, uint line) throw() :
+Error::Error(const std::string& description,
+                const std::string& file, uint line) throw() :
     Throwable(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const Error& rhs)
 {
     return os << "General error occured: " << rhs.getDesc();
 }
 
-MemoryError::MemoryError(std::string description,
-                            std::string file, uint line) throw() :
+MemoryError::MemoryError(const std::string& description,
+                            const std::string& file, uint line) throw() :
     Error(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const MemoryError& rhs)
 {
     return os << "Memory error occured: " << rhs.getDesc();
 }
 
-APIError::APIError(std::string description,
-                    std::string file, uint line) throw() :
+APIError::APIError(const std::string& description,
+                    const std::string& file, uint line) throw() :
     Error(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const APIError& rhs)
 {

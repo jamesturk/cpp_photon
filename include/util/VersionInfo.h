@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.h,v 1.2 2005/02/05 02:57:07 cozman Exp $
+//  $Id: VersionInfo.h,v 1.3 2005/02/07 01:48:26 cozman Exp $
 //
 // Revisions:
 //  $Log: VersionInfo.h,v $
+//  Revision 1.3  2005/02/07 01:48:26  cozman
+//  string references
+//
 //  Revision 1.2  2005/02/05 02:57:07  cozman
 //  *** empty log message ***
 //
@@ -31,32 +34,32 @@ namespace util {
 //  Format is Major.Minor.Release [ExtraInfo].
 //
 // Operators:
-//   VersionInfo < VersionInfo
-//   VersionInfo <= VersionInfo
-//   VersionInfo == VersionInfo
-//   VersionInfo >= VersionInfo
-//   VersionInfo > VersionInfo
-//   ostream& << VersionInfo
+//   - VersionInfo < VersionInfo
+//   - VersionInfo <= VersionInfo
+//   - VersionInfo == VersionInfo
+//   - VersionInfo >= VersionInfo
+//   - VersionInfo > VersionInfo
+//   - ostream& << VersionInfo
 class VersionInfo
 {
 public:
     // Group: Variables
 
-    // Variable: Major
+    // Variable: major
     //  Major version number, should be changed when major changes take place.
     unsigned int major;
 
-    // Variable: Minor
+    // Variable: minor
     //  Minor version number, should be changed when key features are
     //  added/removed/changed.
     unsigned int minor;
 
-    // Variable: Release
+    // Variable: release
     //  Release number, should be changed upon every release that isn't
     //  signifigant enough to reflect a change in the minor versioning number.
     unsigned int release;
 
-    // Variable: Extra
+    // Variable: extra
     //  String for holding extra data, such as a release name or special tag.
     std::string extra;
 

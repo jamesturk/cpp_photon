@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.h,v 1.1 2005/02/06 21:30:10 cozman Exp $
+//  $Id: FileBuffer.h,v 1.2 2005/02/07 01:48:26 cozman Exp $
 //
 // Revisions:
 //  $Log: FileBuffer.h,v $
+//  Revision 1.2  2005/02/07 01:48:26  cozman
+//  string references
+//
 //  Revision 1.1  2005/02/06 21:30:10  cozman
 //  PhysFS initial integration
 //
@@ -46,7 +49,7 @@ public:
     //
     // Parameters:
     //   filename - Name of file to load.
-    FileBuffer(std::string filename);
+    FileBuffer(const std::string& filename);
 
     //  Function: ~FileBuffer
     //  Destructor, calls <close>.
@@ -60,7 +63,7 @@ public:
     //
     // Parameters:
     //   filename - Name of file to load.
-    void open(std::string filename);
+    void open(const std::string& filename);
 
     // Function: close
     //  Frees memory occupied by loaded data.
@@ -95,7 +98,7 @@ public:
     //   Size of currently loaded data.
     uint getSize() const;
     
-    // Function: eof
+    // Function: isEOF
     //  Checks if internal cursor is at end of file.
     //
     // Returns:

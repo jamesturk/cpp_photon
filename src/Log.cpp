@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.cpp,v 1.2 2005/02/04 08:11:54 cozman Exp $
+//  $Id: Log.cpp,v 1.3 2005/02/07 01:48:27 cozman Exp $
 //
 // Revisions:
 //  $Log: Log.cpp,v $
+//  Revision 1.3  2005/02/07 01:48:27  cozman
+//  string references
+//
 //  Revision 1.2  2005/02/04 08:11:54  cozman
 //  switched Log to shared_ptrs and added extra flushes
 //
@@ -53,7 +56,7 @@ void Log::addSink(LogSinkPtr sink)
     sinks_.push_back(sink);
 }
 
-void Log::removeSink(std::string sinkName)
+void Log::removeSink(const std::string& sinkName)
 {
     flush();
     

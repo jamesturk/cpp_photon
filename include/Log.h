@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.h,v 1.2 2005/02/04 08:11:54 cozman Exp $
+//  $Id: Log.h,v 1.3 2005/02/07 01:48:26 cozman Exp $
 //
 // Revisions:
 //  $Log: Log.h,v $
+//  Revision 1.3  2005/02/07 01:48:26  cozman
+//  string references
+//
 //  Revision 1.2  2005/02/04 08:11:54  cozman
 //  switched Log to shared_ptrs and added extra flushes
 //
@@ -30,8 +33,8 @@ namespace photon
 { 
 
 // Class: Log
-//  Log class for photon, Log passes all messages to any attached sinks, which
-//  can then take care of any output which is desired.
+//  Log class for photon, Log passes all messages to any attached <LogSinks>,
+//  which can then take care of any output which is desired.
 class Log
 {
 
@@ -55,7 +58,7 @@ public:
     //
     //  Parameters:
     //      sinkName - Name of sink to remove.
-    void removeSink(std::string sinkName);
+    void removeSink(const std::string& sinkName);
 
     // Function: removeSink
     //  Remove a sink from the log.
