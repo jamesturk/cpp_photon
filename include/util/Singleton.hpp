@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.5 2005/03/03 09:25:20 cozman Exp $
+//  $Id: Singleton.hpp,v 1.6 2005/03/04 13:06:49 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
@@ -43,7 +43,7 @@ namespace util
 //
 // Using The Singleton:
 //  (code)
-//  YourClass::initialize();
+//  YourClass::initialize();    //optional
 //  YourClass& yc(YourClass::getInstance());
 //
 //  // use yc
@@ -56,7 +56,9 @@ class Singleton : public boost::noncopyable
 public:
     
     // Function: initialize
-    //  Initialize the instance of the singleton, must be done explicitly.
+    //  Initialize the instance of the singleton, can be done explicitly if
+    //  order of construction matters.  Will be done on first call to
+    //  getInstance otherwise.
     static void initialize();
     
     // Function: destroy
@@ -110,8 +112,7 @@ T& Singleton<T>::getInstance()
 {
     if(instance_.get() == 0)
     {
-        throw PreconditionException("Attempt to get instance of uninitialized "
-                                    "singleton.");
+        initialize();   //initialize if nonexistant
     }
 
     return *instance_;  //return dereferenced version

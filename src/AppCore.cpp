@@ -5,10 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.3 2005/03/02 08:43:33 cozman Exp $
+//  $Id: AppCore.cpp,v 1.4 2005/03/04 13:06:49 cozman Exp $
 
 #include "AppCore.hpp"
 
+#include <boost/lexical_cast.hpp>
 #include "glfw.h"   //This file depends on glfw
 
 #include "exceptions.hpp"
@@ -34,6 +35,8 @@ void AppCore::createDisplay(uint width, uint height,
     dispHeight_ = height;
     
     glfwSetWindowTitle(title.c_str());  // title is set separately
+    
+    quitRequested_ = false; //now that a window is open, no quit requested
 }
 
 void AppCore::createDisplay(uint width, uint height, uint bpp, 
@@ -41,7 +44,7 @@ void AppCore::createDisplay(uint width, uint height, uint bpp,
                             const std::string &title)
 {
     // call main version of createDisplay with individual values for rgba bits
-    switch(depthBits)
+    switch(bpp)
     {
         case 8:
             createDisplay(width, height, 3, 3, 2, 0, depthBits, stencilBits, 
@@ -61,7 +64,8 @@ void AppCore::createDisplay(uint width, uint height, uint bpp,
             break;
         default:
             throw ArgumentException("bpp argument of createDisplay must be " 
-                                    "8,16,24, or 32.");
+                                    "8,16,24, or 32, passed " + 
+                                    boost::lexical_cast<std::string>(bpp) );
     }
 }
 

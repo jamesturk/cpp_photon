@@ -34,10 +34,12 @@ Group: photon::  {
    File: Basic Types  (types.hpp)
    File: Entrypoint  (entrypoint.hpp)
    File: Exception/Error Types  (exceptions.hpp)
+   File: Kernel  (Kernel.hpp)
    File: Log  (Log.hpp)
    File: Logging Utilities  (LogSink.hpp)
    File: ResourceManaged  (ResourceManaged.hpp)
    File: ResourceManager  (ResourceManager.hpp)
+   File: Task  (Task.hpp)
 
    Group: audio::  {
 
@@ -70,6 +72,7 @@ Group: photon::  {
       File: VideoCore  (video\VideoCore.hpp)
       }  # Group: video::
 
+   
    }  # Group: photon::
 
 Group: Index  {

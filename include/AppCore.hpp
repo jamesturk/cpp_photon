@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.3 2005/03/02 08:40:51 cozman Exp $
+//  $Id: AppCore.hpp,v 1.4 2005/03/04 13:06:49 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
@@ -50,7 +50,7 @@ public:
     void createDisplay(uint width, uint height, 
                         uint redBits, uint greenBits, uint blueBits, 
                         uint alphaBits, uint depthBits, uint stencilBits,
-                        bool fullscreen, const std::string &title);
+                        bool fullscreen, const std::string& title);
 
     // Function: createDisplay
     //  This function attempts to create a display with the given parameters.
@@ -65,7 +65,7 @@ public:
     //  title       - title of application   
     void createDisplay(uint width, uint height, uint bpp, 
                         uint depthBits, uint stencilBits, bool fullscreen,
-                        const std::string &title);
+                        const std::string& title);
 
 // Group: Input
 public:

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.3 2005/03/04 13:06:49 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -37,17 +37,18 @@ int mainclass(int argc, char *argv[])
         StrVec args;
         for(int i=0; i < argc; ++i)
             args.push_back(argv[i]);
-        App app(argv[0]);
+        App::setInitOptions(argv[0]);
+        App app;
         return app.main(args);
     }
     catch(photon::Exception &e)
     {
-        photon::log.error() << e;
+        photon::Log::getInstance().error() << e;
         return 0;
     }
     catch(photon::Error &e)
     {
-        photon::log.critical() << e;
+        photon::Log::getInstance().critical() << e;
         return 1;
     }
 }

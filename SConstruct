@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.3 2005/03/02 08:46:45 cozman Exp $
+#  $Id: SConstruct,v 1.4 2005/03/04 13:06:49 cozman Exp $
 
 import os,os.path
 import glob
@@ -40,7 +40,7 @@ class Builder:
     def getFiles(self, path, pat):
         """Get all files which match a glob in a directory"""
         return glob.glob( os.path.join(path,pat) )
-        
+
     def checkLibrary(self, name, lib, header):
         """Check if a library/header pair exists, report and bail if not"""
         if not self.conf.CheckLibWithHeader(lib, header, 'C++'):
@@ -89,6 +89,10 @@ class Builder:
         self.namedBuild('photon', os.path.join('lib',libName), 'Library',
                         default=True,
                         source = self.srcFiles, CPPPATH = self.incDirs)
+        self.namedBuild('test00', 'test00', 'Program', default=False, 
+                        source = 'test00.cpp', CPPPATH = self.incDirs, 
+                        LIBPATH='./lib', 
+                        LIBS=['photon','openal32','glfw','opengl32','glu32','physfs'])
         self.buildSuperHeader(libName)
         ndoc = self.env.Command('docs/index.html', './include',
             """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""",
