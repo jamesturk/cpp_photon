@@ -1,7 +1,7 @@
 [Project]
 FileName=photon.dev
 Name=photon
-UnitCount=15
+UnitCount=13
 Type=2
 Ver=1
 ObjFiles=
@@ -89,27 +89,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit7]
-FileName=..\include\util\ZipBuffer.h
-CompileCpp=1
-Folder=include/util
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit8]
-FileName=..\src\Log.cpp
-CompileCpp=1
-Folder=src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit9]
 FileName=..\src\LogSink.cpp
 CompileCpp=1
 Folder=src
@@ -119,7 +99,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit10]
+[Unit9]
 FileName=..\src\util\ConfigFile.cpp
 CompileCpp=1
 Folder=src/util
@@ -129,7 +109,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit11]
+[Unit10]
 FileName=..\src\util\RandGen.cpp
 CompileCpp=1
 Folder=src/util
@@ -139,7 +119,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit12]
+[Unit11]
 FileName=..\src\util\VersionInfo.cpp
 CompileCpp=1
 Folder=src/util
@@ -150,9 +130,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=..\src\util\ZipBuffer.cpp
+FileName=..\include\exceptions.h
 CompileCpp=1
-Folder=src/util
+Folder=include
 Compile=1
 Link=1
 Priority=1000
@@ -191,6 +171,26 @@ BuildCmd=
 FileName=..\include\exceptions.h
 CompileCpp=1
 Folder=include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=..\src\Log.cpp
+CompileCpp=1
+Folder=src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit12]
+FileName=..\src\exceptions.cpp
+CompileCpp=1
+Folder=src
 Compile=1
 Link=1
 Priority=1000
