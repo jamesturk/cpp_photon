@@ -5,12 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.6 2005/03/04 13:06:49 cozman Exp $
+//  $Id: Singleton.hpp,v 1.7 2005/03/15 18:51:00 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
 
-#include <memory>
 #include <boost/utility.hpp>
 
 #include "exceptions.hpp"
@@ -27,34 +26,24 @@ namespace util
 // Defining a Singleton:
 //  (code)
 //  YourClass : public Singleton<Class>
-//  {
-//      // class specific data
-//  
-//      // Singleton-required code
-//      private:
-//          // Singleton-required code  
-//          YourClass();
-//          ~YourClass();
-//  
-//          friend class util::Singleton<YourClass>;
-//          friend class std::auto_ptr<YourClass>;
+//  { 
+//      // class definition
 //  };
 //  (end)
 //
 // Using The Singleton:
 //  (code)
-//  YourClass::initialize();    //optional
+//  new YourClass;
 //  YourClass& yc(YourClass::getInstance());
 //
 //  // use yc
 //
-//  YourClass::destroy();   //optional
+//  YourClass::destroy(); 
 //  (end)
 template<class T>
 class Singleton : public boost::noncopyable
 {
 public:
-    
     // Function: initialize
     //  Initialize the instance of the singleton, can be done explicitly if
     //  order of construction matters.  Will be done on first call to
@@ -71,14 +60,26 @@ public:
     static T& getInstance();
 
 protected:
-    virtual ~Singleton()=0; // allow inheritance
+    Singleton();
+    virtual ~Singleton();   // allow inheritance
 
 private:
-    static std::auto_ptr<T> instance_;
+    static T* instance_;
 };
 
 
 // template implementation
+
+template<class T>
+Singleton<T>::Singleton()
+{
+    if(instance_ != 0)
+    {
+        throw PreconditionException("Attempt to double-initialize singleton.");
+    }
+
+    instance_ = static_cast<T*>(this);  // cast self to type of T*
+}
 
 template<class T>
 Singleton<T>::~Singleton() 
@@ -86,40 +87,33 @@ Singleton<T>::~Singleton()
 }
 
 template<class T>
-void Singleton<T>::initialize()
-{
-    if(instance_.get() != 0)
-    {
-        throw PreconditionException("Attempt to double-initialize singleton.");
-    }
-
-    instance_ = std::auto_ptr<T>(new T);
-}
-
-template<class T>
 void Singleton<T>::destroy()
 {
-    if(instance_.get() == 0)
+    if(instance_ == 0)
     {
         throw PreconditionException("Attempt to destroy null singleton.");
     }
 
-    instance_.reset();
+    if(instance_)
+    {
+        delete instance_;
+        instance_ = 0;
+    }
 }
 
 template<class T>
 T& Singleton<T>::getInstance()
 {
-    if(instance_.get() == 0)
+    if(instance_ == 0)
     {
-        initialize();   //initialize if nonexistant
+        throw PreconditionException("Attempt to access null singleton.");
     }
 
-    return *instance_;  //return dereferenced version
+    return *instance_;  //return dereferenced instance
 }
 
 template<class T> 
-std::auto_ptr<T> Singleton<T>::instance_(0);
+T* Singleton<T>::instance_(0);
 
 }
 }
