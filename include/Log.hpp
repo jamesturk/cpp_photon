@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.4 2005/03/01 07:51:04 cozman Exp $
+//  $Id: Log.hpp,v 1.5 2005/03/15 19:12:59 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP
@@ -28,6 +28,17 @@ namespace photon
 //  <Singleton>
 class Log : public util::Singleton<Log>
 {
+
+// Group: (Con/De)structors
+public:
+    // Function: Log
+    //  Log constructor, initializes log singleton.
+    Log();
+    
+    // Function: ~Log
+    //  Log destructor, destroys log singleton.
+    ~Log();
+
 // Group: Sink Maintenance
 public:
 
@@ -109,13 +120,6 @@ private:
     std::stringstream buffer_;
     LogLevel lastLevel_;
     std::list<LogSinkPtr> sinks_;
-    
-    // singleton stuff
-private:
-    friend class util::Singleton<Log>;
-    friend class std::auto_ptr<Log>;
-    Log();
-    ~Log();
 };
 
 }
