@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.h,v 1.2 2005/02/07 01:48:50 cozman Exp $
+//  $Id: filesys.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
 //
 // Revisions:
-//  $Log: filesys.h,v $
+//  $Log: filesys.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:04  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/07 01:48:50  cozman
 //  fixed several issues in testing
 //
@@ -17,10 +20,10 @@
 //
 //
 
-#ifndef PHOTON_UTIL_FILESYS_FILESYS_H
-#define PHOTON_UTIL_FILESYS_FILESYS_H
+#ifndef PHOTON_UTIL_FILESYS_FILESYS_HPP
+#define PHOTON_UTIL_FILESYS_FILESYS_HPP
 
-#include "exceptions.h"
+#include "exceptions.hpp"
 
 #include "physfs.h"
 
@@ -213,4 +216,4 @@ PHYSFS_sint64 getModTime(const std::string& item);
 }
 }
 
-#endif  //PHOTON_UTIL_FILESYS_FILESYS_H
+#endif  //PHOTON_UTIL_FILESYS_FILESYS_HPP

@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.h,v 1.3 2005/02/07 01:48:26 cozman Exp $
+//  $Id: Log.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
-//  $Log: Log.h,v $
+//  $Log: Log.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.3  2005/02/07 01:48:26  cozman
 //  string references
 //
@@ -20,14 +23,14 @@
 //
 //
 
-#ifndef PHOTON_LOG_H
-#define PHOTON_LOG_H
+#ifndef PHOTON_LOG_HPP
+#define PHOTON_LOG_HPP
 
 #include <string>
 #include <list>
 #include <sstream>
 
-#include "LogSink.h"
+#include "LogSink.hpp"
 
 namespace photon
 { 
@@ -134,4 +137,4 @@ extern Log log;
 
 }
 
-#endif  //PHOTON_LOG_H
+#endif  //PHOTON_LOG_HPP

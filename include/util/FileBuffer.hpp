@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.h,v 1.2 2005/02/07 01:48:26 cozman Exp $
+//  $Id: FileBuffer.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
 //
 // Revisions:
-//  $Log: FileBuffer.h,v $
+//  $Log: FileBuffer.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:04  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/07 01:48:26  cozman
 //  string references
 //
@@ -17,10 +20,10 @@
 //
 //
 
-#ifndef PHOTON_UTIL_FILEBUFFER_H
-#define PHOTON_UTIL_FILEBUFFER_H
+#ifndef PHOTON_UTIL_FILEBUFFER_HPP
+#define PHOTON_UTIL_FILEBUFFER_HPP
 
-#include "types.h"
+#include "types.hpp"
 
 #include "physfs.h"
 
@@ -120,4 +123,4 @@ private:
 }
 }
 
-#endif  //PHOTON_UTIL_FILEBUFFER_H
+#endif  //PHOTON_UTIL_FILEBUFFER_HPP

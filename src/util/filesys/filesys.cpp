@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.cpp,v 1.2 2005/02/07 01:48:51 cozman Exp $
+//  $Id: filesys.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: filesys.cpp,v $
+//  Revision 1.3  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/07 01:48:51  cozman
 //  fixed several issues in testing
 //
@@ -18,7 +21,7 @@
 //
 
 
-#include "util/filesys/filesys.h"
+#include "util/filesys/filesys.hpp"
 
 namespace photon
 {

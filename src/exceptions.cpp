@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.cpp,v 1.3 2005/02/07 01:48:27 cozman Exp $
+//  $Id: exceptions.cpp,v 1.4 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: exceptions.cpp,v $
+//  Revision 1.4  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.3  2005/02/07 01:48:27  cozman
 //  string references
 //
@@ -21,7 +24,7 @@
 //
 
 
-#include "exceptions.h"
+#include "exceptions.hpp"
 
 
 namespace photon 

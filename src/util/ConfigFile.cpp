@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.cpp,v 1.2 2005/01/31 15:44:13 cozman Exp $
+//  $Id: ConfigFile.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: ConfigFile.cpp,v $
+//  Revision 1.3  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/01/31 15:44:13  cozman
 //  ConfigFile rewrite
 //
@@ -17,8 +20,8 @@
 //
 //
 
-#include "util/ConfigFile.h"
-#include "exceptions.h"
+#include "util/ConfigFile.hpp"
+#include "exceptions.hpp"
 #include <cctype>
 #include <fstream>
 

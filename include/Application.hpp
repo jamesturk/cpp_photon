@@ -5,20 +5,26 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.h,v 1.1 2005/02/07 02:00:48 cozman Exp $
+//  $Id: Application.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
-//  $Log: Application.h,v $
+//  $Log: Application.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.1  2005/02/07 02:00:48  cozman
 //  Application re-integrated
 //
 //
 
-#ifndef PHOTON_APPLICATION_H
-#define PHOTON_APPLICATION_H
+#ifndef PHOTON_APPLICATION_HPP
+#define PHOTON_APPLICATION_HPP
 
 #include <vector>
 #include <string>
+
+#include "types.hpp"
+#include "util/VersionInfo.hpp"
 
 namespace photon
 {
@@ -56,8 +62,37 @@ public:
     // See Also:
     //  <ENTRYPOINT>
     virtual int main(StrVec args)=0;
+    
+// Group: API Initialization
+private:
+    // Function: ensureVersion
+    //  Checks a version of a library against the required version, throws
+    //  an APIError if the version is not met.
+    //
+    // Parameters:
+    //  library - Name of library being initialized.
+    //  version - Version of library being used.
+    //  required - Required version of library.
+    void ensureVersion(const std::string& library,
+                        const util::VersionInfo& version,
+                        const util::VersionInfo& required);
+    
+    // Function: initPhysFS
+    //  Initialize PhysFS for use.
+    //
+    // Parameters:
+    //  arg0 - Path to application (argv[0])
+    util::VersionInfo initPhysFS(const char* arg0);
+    
+    // Function: initGLFW
+    //  Initialize GLFW for use.
+    util::VersionInfo initGLFW();
+
+// VersionInfos
+private:
+    util::VersionInfo photonVer;
 };
 
 }
 
-#endif  //PHOTON_APPLICATION_H
+#endif  //PHOTON_APPLICATION_HPP

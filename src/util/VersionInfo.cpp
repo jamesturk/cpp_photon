@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.cpp,v 1.2 2005/02/05 02:57:07 cozman Exp $
+//  $Id: VersionInfo.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: VersionInfo.cpp,v $
+//  Revision 1.3  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/05 02:57:07  cozman
 //  *** empty log message ***
 //
@@ -17,16 +20,19 @@
 //
 //
 
-#include "util/VersionInfo.h"
+#include "util/VersionInfo.hpp"
 
 namespace photon { 
 namespace util { 
 
-VersionInfo::VersionInfo(unsigned int maj, unsigned int min, unsigned int rel,
+VersionInfo::VersionInfo(unsigned int maj, unsigned int min, unsigned int pat,
                             std::string ext) :
-    major(maj), minor(min), release(rel), extra(ext)
-{
-}
+    major(maj), minor(min), patch(pat), extra(ext)
+{}
+
+VersionInfo::VersionInfo() :
+    major(0), minor(0), patch(0)
+{}
 
 bool VersionInfo::operator<(const VersionInfo &rhs) const
 {
@@ -39,7 +45,7 @@ bool VersionInfo::operator<(const VersionInfo &rhs) const
             return true;
         else if(this->minor == rhs.minor)
         {
-            if(this->release < rhs.release)
+            if(this->patch < rhs.patch)
                 return true;
         }
     }
@@ -53,7 +59,7 @@ bool VersionInfo::operator<=(const VersionInfo &rhs) const
 
 bool VersionInfo::operator==(const VersionInfo &rhs) const
 {
-    return this->extra == rhs.extra && this->release == rhs.release &&
+    return this->extra == rhs.extra && this->patch == rhs.patch &&
             this->minor == rhs.minor && this->major == rhs.major;
 }
 
@@ -69,7 +75,7 @@ bool VersionInfo::operator>(const VersionInfo &rhs) const
 
 std::ostream& operator<<(std::ostream &o, const VersionInfo &rhs)
 {
-    return o << rhs.major << '.' << rhs.minor << '.' << rhs.release <<
+    return o << rhs.major << '.' << rhs.minor << '.' << rhs.patch <<
             " [" << rhs.extra << "]";
 }
 

@@ -5,20 +5,23 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.h,v 1.1 2005/02/07 02:00:48 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
-//  $Log: entrypoint.h,v $
+//  $Log: entrypoint.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.1  2005/02/07 02:00:48  cozman
 //  Application re-integrated
 //
 //
 
 
-#ifndef PHOTON_ENTRYPOINT_H
-#define PHOTON_ENTRYPOINT_H
+#ifndef PHOTON_ENTRYPOINT_HPP
+#define PHOTON_ENTRYPOINT_HPP
 
-#include "Log.h"
+#include "Log.hpp"
 
 /* Title: Entrypoint */
 
@@ -61,4 +64,4 @@ int mainclass(int argc, char *argv[])
 
 }
 
-#endif  //PHOTON_ENTRYPOINT_H
+#endif  //PHOTON_ENTRYPOINT_HPP

@@ -30,7 +30,7 @@ CompilerSet=0
 CompilerSettings=0000001000000000000000
 
 [Unit1]
-FileName=..\include\types.h
+FileName=..\include\types.hpp
 CompileCpp=1
 Folder=include
 Compile=1
@@ -40,7 +40,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=..\include\Log.h
+FileName=..\include\Log.hpp
 CompileCpp=1
 Folder=include
 Compile=1
@@ -50,7 +50,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=..\include\LogSink.h
+FileName=..\include\LogSink.hpp
 CompileCpp=1
 Folder=include
 Compile=1
@@ -60,7 +60,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=..\include\util\ConfigFile.h
+FileName=..\include\util\ConfigFile.hpp
 CompileCpp=1
 Folder=include/util
 Compile=1
@@ -70,7 +70,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=..\include\util\RandGen.h
+FileName=..\include\util\RandGen.hpp
 CompileCpp=1
 Folder=include/util
 Compile=1
@@ -80,7 +80,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=..\include\util\VersionInfo.h
+FileName=..\include\util\VersionInfo.hpp
 CompileCpp=1
 Folder=include/util
 Compile=1
@@ -130,7 +130,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=..\include\exceptions.h
+FileName=..\include\exceptions.hpp
 CompileCpp=1
 Folder=include
 Compile=1
@@ -158,7 +158,7 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit14]
-FileName=..\include\util\FileBuffer.h
+FileName=..\include\util\FileBuffer.hpp
 CompileCpp=1
 Folder=include/util
 Compile=1
@@ -198,7 +198,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit17]
-FileName=..\include\util\filesys\filesys.h
+FileName=..\include\util\filesys\filesys.hpp
 CompileCpp=1
 Folder=include/util
 Compile=1
@@ -218,7 +218,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
-FileName=..\include\Application.h
+FileName=..\include\Application.hpp
 CompileCpp=1
 Folder=include
 Compile=1
@@ -238,7 +238,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit20]
-FileName=..\include\entrypoint.h
+FileName=..\include\entrypoint.hpp
 CompileCpp=1
 Folder=include
 Compile=1

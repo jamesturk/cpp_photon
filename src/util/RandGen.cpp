@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.cpp,v 1.2 2005/02/04 21:56:40 cozman Exp $
+//  $Id: RandGen.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: RandGen.cpp,v $
+//  Revision 1.3  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/04 21:56:40  cozman
 //  RandGen implemented/tested
 //
@@ -64,7 +67,7 @@
 //http://www.math.keio.ac.jp/matumoto/emt.html
 //email: matumoto@math.keio.ac.jp
 
-#include "util/RandGen.h"
+#include "util/RandGen.hpp"
 #include <ctime>
 
 namespace photon { 

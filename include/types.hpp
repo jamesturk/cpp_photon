@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.h,v 1.3 2005/02/07 01:48:26 cozman Exp $
+//  $Id: types.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
-//  $Log: types.h,v $
+//  $Log: types.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.3  2005/02/07 01:48:26  cozman
 //  string references
 //
@@ -20,8 +23,8 @@
 //
 //
 
-#ifndef PHOTON_TYPES_H
-#define PHOTON_TYPES_H
+#ifndef PHOTON_TYPES_HPP
+#define PHOTON_TYPES_HPP
 
 #include <boost/shared_ptr.hpp>
 
@@ -56,4 +59,4 @@ namespace photon {
 
 }
 
-#endif  //PHOTON_TYPES_H
+#endif  //PHOTON_TYPES_HPP

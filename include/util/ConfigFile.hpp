@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.h,v 1.4 2005/02/05 03:00:41 cozman Exp $
+//  $Id: ConfigFile.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
 //
 // Revisions:
-//  $Log: ConfigFile.h,v $
+//  $Log: ConfigFile.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:04  cozman
+//  .h->.hpp
+//
 //  Revision 1.4  2005/02/05 03:00:41  cozman
 //  fixed binary_function
 //
@@ -23,8 +26,8 @@
 //
 //
 
-#ifndef PHOTON_UTIL_CONFIGFILE_H
-#define PHOTON_UTIL_CONFIGFILE_H
+#ifndef PHOTON_UTIL_CONFIGFILE_HPP
+#define PHOTON_UTIL_CONFIGFILE_HPP
 
 #include <string>
 #include <list>
@@ -247,4 +250,4 @@ ConfigFile::getVariable(const std::string& sec,
 }
 }
 
-#endif  //PHOTON_UTIL_CONFIGFILE_H
+#endif  //PHOTON_UTIL_CONFIGFILE_HPP

@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.cpp,v 1.5 2005/02/07 01:48:27 cozman Exp $
+//  $Id: LogSink.cpp,v 1.6 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.cpp,v $
+//  Revision 1.6  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.5  2005/02/07 01:48:27  cozman
 //  string references
 //
@@ -26,7 +29,7 @@
 //
 //
 
-#include "LogSink.h"
+#include "LogSink.hpp"
 
 #include <iostream>
 

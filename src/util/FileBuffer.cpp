@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.cpp,v 1.2 2005/02/07 01:48:27 cozman Exp $
+//  $Id: FileBuffer.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
 //  $Log: FileBuffer.cpp,v $
+//  Revision 1.3  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/07 01:48:27  cozman
 //  string references
 //
@@ -17,9 +20,9 @@
 //
 //
 
-#include "util/FileBuffer.h"
+#include "util/FileBuffer.hpp"
 
-#include "exceptions.h"
+#include "exceptions.hpp"
 
 namespace photon
 {

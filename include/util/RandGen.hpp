@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.h,v 1.2 2005/02/04 21:56:39 cozman Exp $
+//  $Id: RandGen.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
 //
 // Revisions:
-//  $Log: RandGen.h,v $
+//  $Log: RandGen.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:04  cozman
+//  .h->.hpp
+//
 //  Revision 1.2  2005/02/04 21:56:39  cozman
 //  RandGen implemented/tested
 //
@@ -17,8 +20,8 @@
 //
 //
 
-#ifndef PHOTON_UTIL_RANDGEN_H
-#define PHOTON_UTIL_RANDGEN_H
+#ifndef PHOTON_UTIL_RANDGEN_HPP
+#define PHOTON_UTIL_RANDGEN_HPP
 
 namespace photon { 
 namespace util { 
@@ -121,4 +124,4 @@ private:    //state data
 }
 }
 
-#endif  //PHOTON_UTIL_RANDGEN_H
+#endif  //PHOTON_UTIL_RANDGEN_HPP

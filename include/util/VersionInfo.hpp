@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.h,v 1.3 2005/02/07 01:48:26 cozman Exp $
+//  $Id: VersionInfo.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
 //
 // Revisions:
-//  $Log: VersionInfo.h,v $
+//  $Log: VersionInfo.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:04  cozman
+//  .h->.hpp
+//
 //  Revision 1.3  2005/02/07 01:48:26  cozman
 //  string references
 //
@@ -20,8 +23,8 @@
 //
 //
 
-#ifndef PHOTON_UTIL_VERSIONINFO_H
-#define PHOTON_UTIL_VERSIONINFO_H
+#ifndef PHOTON_UTIL_VERSIONINFO_HPP
+#define PHOTON_UTIL_VERSIONINFO_HPP
 
 #include <string>
 #include <ostream>
@@ -54,27 +57,30 @@ public:
     //  added/removed/changed.
     unsigned int minor;
 
-    // Variable: release
-    //  Release number, should be changed upon every release that isn't
+    // Variable: patch
+    //  Patch number, should be changed upon every release that isn't
     //  signifigant enough to reflect a change in the minor versioning number.
-    unsigned int release;
+    unsigned int patch;
 
     // Variable: extra
     //  String for holding extra data, such as a release name or special tag.
     std::string extra;
 
     // Group: (Con/De)structors
+    
+    // Function: VersionInfo
+    //  Default constructor.
+    VersionInfo();
 
     // Function: VersionInfo
-    //  Initializing constructor, VersionInfo must be initalized with this
-    //  constructor.
+    //  Initializing constructor.
     //
     // Parameters:
     //  maj - Major version number.
     //  min - Minor version number.
-    //  rel - Release number.
+    //  pat - Patch number.
     //  ext - Extra info string. [default: ""]
-    VersionInfo(unsigned int maj, unsigned int min, unsigned int rel,
+    VersionInfo(unsigned int maj, unsigned int min, unsigned int pat,
                 std::string ext="");
 
     //operators
@@ -91,4 +97,4 @@ public:
 }
 }
 
-#endif  //PHOTON_UTIL_VERSIONINFO_H
+#endif  //PHOTON_UTIL_VERSIONINFO_HPP

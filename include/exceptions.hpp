@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.h,v 1.5 2005/02/07 01:48:26 cozman Exp $
+//  $Id: exceptions.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
 //
 // Revisions:
-//  $Log: exceptions.h,v $
+//  $Log: exceptions.hpp,v $
+//  Revision 1.1  2005/02/13 22:12:03  cozman
+//  .h->.hpp
+//
 //  Revision 1.5  2005/02/07 01:48:26  cozman
 //  string references
 //
@@ -26,10 +29,10 @@
 //
 //
 
-#ifndef PHOTON_EXCEPTIONS_H
-#define PHOTON_EXCEPTIONS_H
+#ifndef PHOTON_EXCEPTIONS_HPP
+#define PHOTON_EXCEPTIONS_HPP
 
-#include "types.h"
+#include "types.hpp"
 #include <string>
 #include <sstream>
 #include <ostream>
@@ -256,4 +259,4 @@ public:
 
 }
 
-#endif  //PHOTON_EXCEPTIONS_H
+#endif  //PHOTON_EXCEPTIONS_HPP
