@@ -14,7 +14,6 @@
 #include "Task.hpp"
 #include "types.hpp"
 #include "audio/AudioCore.hpp"
-#include "glfw/types_glfw.hpp"
 #include "math/Circle.hpp"
 #include "math/math.hpp"
 #include "math/Rect.hpp"

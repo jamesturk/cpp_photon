@@ -5,33 +5,37 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.4 2005/03/04 13:06:49 cozman Exp $
+//  $Id: AppCore.hpp,v 1.5 2005/03/15 19:22:07 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
 
 #include "types.hpp"
-#include "glfw/types_glfw.hpp"
 #include "util/VersionInfo.hpp"
 #include "util/Singleton.hpp"
+#include "Task.hpp"
 
 namespace photon
 {
 
 // Class: AppCore
-//  Photon's <Singleton> core for application behavior.  Defines the interface 
+//  Photon's <Singleton> core for application behavior.  Defines the interface
 //  through which all "application" related functions are performed.
 //
-//  AppCore is the Core that essentially represents the window management, 
+//  AppCore is the Core that essentially represents the window management,
 //  input, and timing systems.
 //
 // Parent:
 //  <Singleton>
 class AppCore : public util::Singleton<AppCore>
 {
-   
+
+public:
+    AppCore();
+    ~AppCore();
+
 // Group: Video
-public: 
+public:
 
     // Function: createDisplay
     //  This function attempts to create a display with the given parameters.
@@ -46,11 +50,11 @@ public:
     //  depthBits   - desired bitdepth of depth buffer
     //  stencilBits - desired bitdepth of stencil buffer
     //  fullscreen  - true: fullscreen, false: windowed
-    //  title       - title of application   
-    void createDisplay(uint width, uint height, 
-                        uint redBits, uint greenBits, uint blueBits, 
+    //  [title       - title of application, optional]
+    void createDisplay(uint width, uint height,
+                        uint redBits, uint greenBits, uint blueBits,
                         uint alphaBits, uint depthBits, uint stencilBits,
-                        bool fullscreen, const std::string& title);
+                        bool fullscreen, const std::string& title="Photon App");
 
     // Function: createDisplay
     //  This function attempts to create a display with the given parameters.
@@ -62,24 +66,24 @@ public:
     //  depthBits   - desired bitdepth of depth buffer
     //  stencilBits - desired bitdepth of stencil buffer
     //  fullscreen  - true: fullscreen, false: windowed
-    //  title       - title of application   
-    void createDisplay(uint width, uint height, uint bpp, 
+    //  [title       - title of application, optional]
+    void createDisplay(uint width, uint height, uint bpp,
                         uint depthBits, uint stencilBits, bool fullscreen,
-                        const std::string& title);
+                        const std::string& title="Photon App");
 
 // Group: Input
 public:
 
     // Function: keyPressed
     //  Check if a given key is currently pressed.
-    // 
+    //
     // Parameters:
     //  key - <KeyCode> of key to determine status of.
     //
     // Returns:
     //  true: key is pressed, false: key isn't pressed
     bool keyPressed(KeyCode key);
-    
+
     // Function: mouseButtonPressed
     //  Check if a given mouse button is currently pressed.
     //
@@ -105,7 +109,7 @@ public:
     int getMouseY();
 
     // Function: getMouseWheelPos
-    //  Gets current location of mouse wheel, treated as if wheel describes a 
+    //  Gets current location of mouse wheel, treated as if wheel describes a
     //  third axis of movement for the mouse.
     //
     // Returns:
@@ -122,56 +126,41 @@ public:
     //  Time, represented as a floating-point number in seconds, application has
     //  been running.
     scalar getTime();
-    
-// Group: General 
+
+// Group: General
 public:
-    // Function: update
-    //  Updates the internals of the application, including the display.
-    void update();
 
     // Function: setTitle
     //  Sets title of application that shows up in title bar.
-    // 
+    //
     // Parameters:
     //  title - New title of application.
     void setTitle(const std::string& title);
 
-    // Function: requestQuit
-    //  Sets the internal quit flag to true.
-    void requestQuit();
-
-    // Function: quitRequested
-    //  Checks the internal quit flag, if a quit has been requested, 
-    //  the application should comply.
-    //
-    // Returns: 
-    //  State of internal quit flag, if true application should quit ASAP.
-    bool quitRequested();
-
     // Function: isActive
-    //  Checks if application is active, which on most systems simply means it 
+    //  Checks if application is active, which on most systems simply means it
     //  has focus.
-    // 
-    // Returns:    
+    //
+    // Returns:
     //  True if application is active, false otherwise.
     bool isActive();
 
     // Function: getElapsedTime
-    //  Finds the amount of time passed between frames, useful for time-based 
+    //  Finds the amount of time passed between frames, useful for time-based
     //  movement.
-    // 
-    // Returns: 
+    //
+    // Returns:
     //  Time between current frame and last frame. (1/<getFramerate>())
     double getElapsedTime();
-    
+
     // Function: getFramerate
     //  Gets number of frames per second the application is currently being run at.
-    // 
-    // Returns: 
+    //
+    // Returns:
     //  Current frames per second.
     double getFramerate();
 
-// Group: Accessors    
+// Group: Accessors
 public:
     // Function: getDisplayWidth
     //  Get the width of the display.
@@ -179,7 +168,7 @@ public:
     // Returns:
     //  Width of display in pixels.
     uint getDisplayWidth();
-    
+
     // Function: getDisplayHeight
     //  Get the height of the display.
     //
@@ -187,30 +176,37 @@ public:
     //  Height of display in pixels.
     uint getDisplayHeight();
 
+    class UpdateTask : public Task
+    {
+
+    friend class AppCore;
+
+    public:
+        UpdateTask();
+
+        void update();
+
+    private:
+        uint mouseX_;
+        uint mouseY_;
+        bool active_;
+        bool timerPaused_;
+        bool unpauseOnActive_;
+        scalar lastPause_;
+        scalar pausedTime_;
+        scalar secPerFrame_;
+        scalar lastUpdate_;
+    };
+
 // data members
 private:
     uint dispWidth_;
     uint dispHeight_;
-    bool quitRequested_;
-    bool active_;
-    bool timerPaused_;
-    bool unpauseOnActive_;
-    scalar lastPause_;
-    scalar pausedTime_;
-    scalar secPerFrame_;
-    scalar lastUpdate_;
+    shared_ptr<UpdateTask> task_;
 
 // API initialization
 private:
     util::VersionInfo initGLFW();
-
-// Singleton-required code
-private:  
-    AppCore();
-    ~AppCore();
-
-    friend class util::Singleton<AppCore>;
-    friend class std::auto_ptr<AppCore>;
 };
 
 }

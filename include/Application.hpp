@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.6 2005/03/02 08:40:51 cozman Exp $
+//  $Id: Application.hpp,v 1.7 2005/03/15 19:22:07 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -17,6 +17,7 @@
 
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
+#include "Task.hpp"
 
 namespace photon
 {
@@ -26,10 +27,10 @@ namespace photon
 //  implementations of Application.
 //
 //  Derived classes are made entrypoint via <ENTRYPOINT>.
-class Application : public boost::noncopyable
+class Application
 {
 
-// Group: (Con/De)structors 
+// Group: (Con/De)structors
 public:
     // Function: Application
     //  Default constructor, initializes the internal state & dependencies.
@@ -39,10 +40,12 @@ public:
     //  Default destructor, shuts down dependencies.
     virtual ~Application();
 
+// Group: Main
+public:
     // Function: main
     //  Pure virtual, must be defined by derived class, using some preprocessor
     //  magic (<MAINCLASS>) on the derived class
-    //  this becomes the entry point for a Amph application. 
+    //  this becomes the entry point for a Amph application.
     //
     // Parameters:
     //  args - <ArgList> containing arguments passed to program.
@@ -52,34 +55,20 @@ public:
     //
     // See Also:
     //  <ENTRYPOINT>
-    virtual int main(StrVec args)=0;
+    virtual int main(const StrVec& args)=0;
 
-// Behind the scenes
+// behind the scenes
 public:
-    // Function: setInitOptions(const char* arg0)
-    //  Internal use function, used to set initialization options.
-    //  (params not documented since function signature is subject to change and
-    //  should not be relied on by user-level code)
-    static void setInitOptions(const char* appPath);
-    
+    static void setInitOptions(const char* arg0);
+
 // Group: API Initialization
 private:
-    // Function: initPhysFS
-    //  Initialize PhysFS for use.
-    //
-    // Parameters:
-    //  arg0 - Path to application (argv[0])
-    //
-    // Returns:
-    //  <VersionInfo> with PhysFS version.
     util::VersionInfo initPhysFS(const char* arg0);
 
-// Data Members
 private:
     // version number for photon
     util::VersionInfo photonVer_;
 
-    // arg0 from command line
     static std::string arg0_;
 };
 

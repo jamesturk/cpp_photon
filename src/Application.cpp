@@ -5,15 +5,20 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.5 2005/02/27 07:43:37 cozman Exp $
-
+//  $Id: Application.cpp,v 1.6 2005/03/15 19:22:07 cozman Exp $
 
 #include "Application.hpp"
-#include "exceptions.hpp"
 
 #include "physfs.h"
+#include "gl/gl.h"
 
-#include <sstream>
+#include <boost/lexical_cast.hpp>
+
+#include "exceptions.hpp"
+#include "Log.hpp"
+#include "Kernel.hpp"
+#include "AppCore.hpp"
+#include "video/VideoCore.hpp"
 
 namespace photon
 {
@@ -22,13 +27,37 @@ Application::Application() :
     photonVer_(0,0,1)    // this is the current version
 {
     util::VersionInfo physfsReq(1,0,0); // requires PhysFS 1.0.0
+    
+    // create the singletons
+    new Log;
+    new Kernel;
+    new AppCore;
+    new video::VideoCore;
 
+    // StrVec args;
+    // 
+    // for(int i=0; i < argc; ++i)
+    // {
+    //     args.push_back(argv[i]);
+    // }
+    
     util::ensureVersion("PhysFS", initPhysFS(arg0_.c_str()), physfsReq);
 }
 
 Application::~Application()
 {
     PHYSFS_deinit();    //shutdown PhysFS
+
+    // destroy the singletons
+    AppCore::destroy();
+    video::VideoCore::destroy();
+    Kernel::destroy();
+    Log::destroy();
+}
+
+void Application::setInitOptions(const char* arg0)
+{
+    arg0_ = arg0;
 }
 
 util::VersionInfo Application::initPhysFS(const char* arg0)
@@ -40,11 +69,6 @@ util::VersionInfo Application::initPhysFS(const char* arg0)
     return util::VersionInfo(ver.major, ver.minor, ver.patch);
 }
 
-void Application::setInitOptions(const char* appPath) 
-{
-    arg0_ = appPath;
-}
-
-std::string Application::arg0_; //static initializer
+std::string Application::arg0_;
 
 }

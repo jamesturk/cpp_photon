@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.4 2005/03/04 13:06:49 cozman Exp $
+#  $Id: SConstruct,v 1.5 2005/03/15 19:21:51 cozman Exp $
 
 import os,os.path
 import glob
@@ -87,12 +87,14 @@ class Builder:
         self.checkDepends()
 
         self.namedBuild('photon', os.path.join('lib',libName), 'Library',
-                        default=True,
-                        source = self.srcFiles, CPPPATH = self.incDirs)
+                        default=True, 
+                        source = self.srcFiles, CPPPATH = 'include',
+                        CPPFLAGS = '-Wall -pedantic -pg')
         self.namedBuild('test00', 'test00', 'Program', default=False, 
                         source = 'test00.cpp', CPPPATH = self.incDirs, 
                         LIBPATH='./lib', 
-                        LIBS=['photon','openal32','glfw','opengl32','glu32','physfs'])
+                        LIBS=['photon','openal32','glfw','opengl32','glu32','physfs'],
+                        CPPFLAGS = '-Wall -pedantic -pg', LINKFLAGS='-pg')
         self.buildSuperHeader(libName)
         ndoc = self.env.Command('docs/index.html', './include',
             """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""",
