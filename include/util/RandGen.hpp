@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.hpp,v 1.3 2005/03/03 09:25:20 cozman Exp $
+//  $Id: RandGen.hpp,v 1.4 2005/03/15 18:47:46 cozman Exp $
 
 #ifndef PHOTON_UTIL_RANDGEN_HPP
 #define PHOTON_UTIL_RANDGEN_HPP
@@ -100,7 +100,7 @@ private:    // utilities
 private:    // constants
     static const unsigned long N=624;
     static const unsigned long M=397;
-    static const unsigned long MATRIX_A=0x9908b0dfUL;;
+    static const unsigned long MATRIX_A=0x9908b0dfUL;
     static const unsigned long UPPER_MASK=0x80000000UL;
     static const unsigned long LOWER_MASK=0x7fffffffUL;
 
