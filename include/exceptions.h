@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.h,v 1.1 2005/01/27 03:35:23 cozman Exp $
+//  $Id: exceptions.h,v 1.2 2005/01/27 05:24:11 cozman Exp $
 //
 // Revisions:
 //  $Log: exceptions.h,v $
+//  Revision 1.2  2005/01/27 05:24:11  cozman
+//  minor documentation update
+//
 //  Revision 1.1  2005/01/27 03:35:23  cozman
 //  initial import (exceptions,types, and logging,oh my!)
 //
@@ -22,6 +25,8 @@
 
 namespace photon 
 { 
+
+// Title: Exception/Error Types
 
 // Class: Throwable
 //  Throwable is the base exception class for Photon.
@@ -54,7 +59,7 @@ private:
 //  recoverable.
 //
 // See Also:
-//      <Error>
+//  <Error>
 //
 // Parent:
 //  <Throwable>
@@ -187,6 +192,8 @@ public:
                                     const APIError& rhs);
 };
 
+
+// Section: Utility Functions
 
 // Function: require
 //  Similar to an assert, given a condition checks if it is true, and if it is

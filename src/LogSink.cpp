@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.cpp,v 1.1 2005/01/27 03:35:24 cozman Exp $
+//  $Id: LogSink.cpp,v 1.2 2005/01/27 05:24:11 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.cpp,v $
+//  Revision 1.2  2005/01/27 05:24:11  cozman
+//  minor documentation update
+//
 //  Revision 1.1  2005/01/27 03:35:24  cozman
 //  initial import (exceptions,types, and logging,oh my!)
 //
@@ -88,9 +91,9 @@ void TextSink::writeMessage(LogLevel level, std::string msg)
     out_ << pre[static_cast<int>(level)] << msg << std::endl;
 }
 
-//HtmlSink
+//HTMLSink
 
-HtmlSink::HtmlSink(std::string name, bool dynamic) :
+HTMLSink::HTMLSink(std::string name, bool dynamic) :
     LogSink(name,dynamic),
     out_(std::string(name+".html").c_str())
 {
@@ -108,13 +111,13 @@ HtmlSink::HtmlSink(std::string name, bool dynamic) :
          << std::endl << "<body>" << std::endl;
 }
 
-HtmlSink::~HtmlSink()
+HTMLSink::~HTMLSink()
 {
     out_ << "</body></html>" << std::endl;
     out_.close();
 }
 
-void HtmlSink::writeMessage(LogLevel level, std::string msg)
+void HTMLSink::writeMessage(LogLevel level, std::string msg)
 {
     static char* css[] = {"note","verbose","warning","error","critical"};
     static char* pre[] = { "    NOTE: ",

@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.h,v 1.1 2005/01/27 03:35:23 cozman Exp $
+//  $Id: LogSink.h,v 1.2 2005/01/27 05:24:11 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.h,v $
+//  Revision 1.2  2005/01/27 05:24:11  cozman
+//  minor documentation update
+//
 //  Revision 1.1  2005/01/27 03:35:23  cozman
 //  initial import (exceptions,types, and logging,oh my!)
 //
@@ -23,6 +26,8 @@
 namespace photon
 { 
 
+// Title: Logging Utilities
+    
 // Enum: LogLevel
 //      Enumeration defining severity of an error.
 //
@@ -48,6 +53,11 @@ enum LogLevel
 //  Base class for all LogSinks to be used with <Log>, derived classes must
 //  define message(LogLevel level, std::string string).
 //  A LogSink recieves any messages passed to the log it's registered with.
+//
+// Children:
+//  <ConsoleSink>
+//  <TextSink>
+//  <HTMLSink>
 class LogSink
 {
 
@@ -109,6 +119,12 @@ private:
 
 // Class: ConsoleSink
 //  <LogSink> to be used with <Log> for simple console output.
+//
+// See Also:
+//  <TextSink>, <HTMLSink>
+//
+// Parent:
+//  <LogSink>
 class ConsoleSink : public LogSink
 {
 public:
@@ -120,6 +136,12 @@ public:
 
 // Class: TextSink
 //  <LogSink> to be used with <Log> for simple text file output.
+//
+// See Also:
+//  <ConsoleSink>, <HTMLSink>
+//
+// Parent:
+//  <LogSink>
 class TextSink : public LogSink
 {
 public:
@@ -131,13 +153,19 @@ private:
     std::ofstream out_;
 };
 
-// Class: HtmlSink
+// Class: HTMLSink
 //  <LogSink> to be used with <Log> for simple HTML output.
-class HtmlSink : public LogSink
+//
+// See Also:
+//  <TextSink>, <ConsoleSink>
+//
+// Parent:
+//  <LogSink>
+class HTMLSink : public LogSink
 {
 public:
-    HtmlSink(std::string name, bool dynamic=false);
-    virtual ~HtmlSink();
+    HTMLSink(std::string name, bool dynamic=false);
+    virtual ~HTMLSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
 private:
