@@ -5,13 +5,13 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: makefile,v 1.3 2005/02/27 05:52:22 cozman Exp $
+#  $Id: makefile,v 1.4 2005/02/27 09:00:13 cozman Exp $
 
 INCLUDE_DIR = ./include
 SRC_DIR = ./src
 LIB_DIR = ./lib
 
-SUBDIRS =  util util/filesys audio
+SUBDIRS =  audio math util util/filesys
 INCLUDE_DIRS = $(INCLUDE_DIR) $(foreach dir,$(SUBDIRS),$(INCLUDE_DIR)/$(dir))
 SRC_DIRS = $(SRC_DIR) $(foreach dir,$(SUBDIRS),$(SRC_DIR)/$(dir))
 
@@ -19,7 +19,7 @@ SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 INCLUDES = $(foreach dir,$(INCLUDE_DIRS),$(wildcard $(dir)/*.hpp))
 OBJS = $(SRCS:.cpp=.o)
 
-LIBS = -lphysfs -lglfw -lOpenGL32 -lOpenAL
+LIBS = -lphysfs -lglfw -lOpenGL32 -lOpenAL32
 
 LIBNAME = photon
 LIBFILE = $(LIB_DIR)/lib$(LIBNAME).a
