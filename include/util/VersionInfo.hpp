@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
+//  $Id: VersionInfo.hpp,v 1.3 2005/02/27 05:50:39 cozman Exp $
 
 #ifndef PHOTON_UTIL_VERSIONINFO_HPP
 #define PHOTON_UTIL_VERSIONINFO_HPP
@@ -77,6 +77,18 @@ public:
     //output operator
     friend std::ostream& operator<<(std::ostream &o, const VersionInfo &rhs);
 };
+
+// Function: ensureVersion
+//  Checks a version of a library against the required version, throws
+//  an APIError if the version is not met.
+//
+// Parameters:
+//  library - Name of library being initialized.
+//  version - Version of library being used.
+//  required - Required version of library.
+void ensureVersion(const std::string& library,
+                    const util::VersionInfo& version,
+                    const util::VersionInfo& required);
 
 }
 }
