@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.3 2005/03/14 05:34:08 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.4 2005/03/15 18:41:27 cozman Exp $
 
 #ifndef PHOTON_AUDIO_AUDIOCORE_HPP
 #define PHOTON_AUDIO_AUDIOCORE_HPP
@@ -13,7 +13,7 @@
 #include "al.h"
 #include "alc.h"
 
-#include "Task.hpp"
+#include "util/Singleton.hpp"
 #include "util/VersionInfo.hpp"
 
 namespace photon
@@ -27,7 +27,7 @@ namespace audio
 //
 // Parent:
 //  <Singleton>
-class AudioCore : public Singleton<AudioCore>
+class AudioCore : public util::Singleton<AudioCore>
 {
 
 // Group: (Con/De)structors

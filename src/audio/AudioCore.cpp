@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.3 2005/03/14 05:34:25 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.4 2005/03/15 18:42:40 cozman Exp $
 
 #include "audio/AudioCore.hpp"
 
@@ -17,11 +17,9 @@ namespace photon
 namespace audio
 {
 
-AudioCore::AudioCore() :
-    Task("AudioCore",PRI_CORE)
+AudioCore::AudioCore()
 {
     util::VersionInfo oalReq(1,0,0);    // requires OpenAL 1.0 (TODO: check?)
-
     util::ensureVersion("OpenAL", initOpenAL(), oalReq);
 }
 
@@ -51,10 +49,10 @@ util::VersionInfo AudioCore::initOpenAL()
 {
     ALCdevice* device(0);
     ALCcontext* context(0);
-    std::stringstream ss;
-    std::string junks;
-    char junkc;
-    uint major,minor;
+    std::stringstream ss;   // stream for parsing version
+    std::string junks;      // junk string for parsing
+    char junkc;             // junk character for parsing
+    uint major,minor;       // version numbers
 
     // obtain default device if no deviceName is set, otherwise use deviceName
     device = alcOpenDevice(deviceName_.empty() ? 0 :
@@ -119,6 +117,7 @@ std::string AudioCore::checkOpenALError()
 void AudioCore::setDesiredDevice(const std::string& name)
 {
     // deviceName_ is used inside initOpenAL, must be set prior to construction
+    // or not set at all (in which case default device will be used)
     deviceName_ = name;
 }
 
