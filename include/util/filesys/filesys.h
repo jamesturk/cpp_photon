@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.h,v 1.1 2005/02/06 21:30:10 cozman Exp $
+//  $Id: filesys.h,v 1.2 2005/02/07 01:48:50 cozman Exp $
 //
 // Revisions:
 //  $Log: filesys.h,v $
+//  Revision 1.2  2005/02/07 01:48:50  cozman
+//  fixed several issues in testing
+//
 //  Revision 1.1  2005/02/06 21:30:10  cozman
 //  PhysFS initial integration
 //
@@ -32,22 +35,6 @@ namespace util
 {
 namespace filesys
 {
-
-// Function: getDirSeparator
-//  Gets the system standard directory separator.
-//  (/ on unix, \\ on windows, : on MacOS)
-//
-// Returns:
-//  System directory separator.
-std::string getDirSeparator();
-
-// Function: permitSymbolicLinks
-//  Enables or disables symbolic linking. (which is off by default)
-//
-// Parameters:
-//  allow - true if you wish to enable linking, false if you wish to disable it
-void permitSymbolicLinks(bool allow);
-
 
 // Group: System Directories ///////////////////////////////////////////////////
 
@@ -73,7 +60,6 @@ std::string getBaseDir();
 //  Path to user's home directory.
 std::string getUserDir();
 
-
 // Group: Search Path //////////////////////////////////////////////////////////
 
 // Function: addToSearchPath
@@ -87,7 +73,7 @@ std::string getUserDir();
 // See Also:
 //  <removeFromSearchPath>
 //  <getSearchPath>
-void addToSearchPath(std::string dir, bool append);
+void addToSearchPath(const std::string& dir, bool append);
 
 // Function: removeFromSearchPath
 //  Removes a directory from the search path, if it exists on the path.
@@ -99,7 +85,7 @@ void addToSearchPath(std::string dir, bool append);
 // See Also:
 //  <addToSearchPath>
 //  <getSearchPath>
-void removeFromSearchPath(std::string dir);
+void removeFromSearchPath(const std::string& dir);
 
 // Function: getSearchPath
 //  Obtain the currently configured search path.
@@ -114,6 +100,26 @@ std::vector<std::string> getSearchPath();
 
 // Group: Manipulation /////////////////////////////////////////////////////////
 
+// Function: setWriteDir
+//  Sets the writing directory, used by <mkdir> and <remove>.
+//
+// Parameters:
+//  dir - Directory to make writeable
+//
+// See Also:
+//  <getWriteDir>
+void setWriteDir(const std::string& dir);
+
+// Function: getWriteDir
+//  Gets the writing directory.
+//
+// Returns:
+//  Writable directory, if set.
+//
+// See Also:
+//  <setWriteDir>
+std::string getWriteDir();
+
 // Function: mkdir
 //  Attempts to create a directory.
 //
@@ -122,7 +128,7 @@ std::vector<std::string> getSearchPath();
 //
 // Returns:
 //  true iff directory was created, false if not
-bool mkdir(std::string dir);
+bool mkdir(const std::string& dir);
 
 // Function: remove
 //  Attempts to remove a file or directory.
@@ -132,7 +138,7 @@ bool mkdir(std::string dir);
 //
 // Returns:
 //  true iff file/directory was removed, false if not
-bool remove(std::string item);
+bool remove(const std::string& item);
 
 // Group: Searching ////////////////////////////////////////////////////////////
 
@@ -144,7 +150,7 @@ bool remove(std::string item);
 //
 // Returns:
 //  list of strings representing items found in 'dir'
-std::vector<std::string> listDir(std::string dir);
+std::vector<std::string> listDir(const std::string& dir);
 
 // Function: exists
 //  Checks if a file/directory exists.
@@ -154,9 +160,9 @@ std::vector<std::string> listDir(std::string dir);
 //
 // Returns:
 //  true iff file/directory exists, false if not
-bool exists(std::string item);
+bool exists(const std::string& item);
 
-// Function: isDirectory
+// Function: isDir
 //  Checks if a name refers to a directory.
 //
 // Parameters:
@@ -164,7 +170,7 @@ bool exists(std::string item);
 //
 // Returns:
 //  true iff item is a directory, false if not
-bool isDirectory(std::string item);
+bool isDir(const std::string& item);
 
 // Function: isSymbolicLink
 //  Checks if a name refers to a symbolic link.
@@ -174,7 +180,24 @@ bool isDirectory(std::string item);
 //
 // Returns:
 //  true iff item is a symbolic link, false if not
-bool isSymbolicLink(std::string item);
+bool isSymbolicLink(const std::string& item);
+
+// Group: Other ////////////////////////////////////////////////////////////////
+
+// Function: getDirSeparator
+//  Gets the system standard directory separator.
+//  (/ on unix, \\ on windows, : on MacOS)
+//
+// Returns:
+//  System directory separator.
+std::string getDirSeparator();
+
+// Function: permitSymbolicLinks
+//  Enables or disables symbolic linking. (which is off by default)
+//
+// Parameters:
+//  allow - true if you wish to enable linking, false if you wish to disable it
+void permitSymbolicLinks(bool allow);
 
 // Function: getModTime
 //  Gets last modification time for a file.
@@ -184,7 +207,7 @@ bool isSymbolicLink(std::string item);
 //
 // Returns:
 //  Last modification time of a file in seconds since the epoch.
-PHYSFS_sint64 getModTime(std::string item);
+PHYSFS_sint64 getModTime(const std::string& item);
 
 }
 }

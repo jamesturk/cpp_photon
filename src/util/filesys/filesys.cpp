@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.cpp,v 1.1 2005/02/06 21:30:10 cozman Exp $
+//  $Id: filesys.cpp,v 1.2 2005/02/07 01:48:51 cozman Exp $
 //
 // Revisions:
 //  $Log: filesys.cpp,v $
+//  Revision 1.2  2005/02/07 01:48:51  cozman
+//  fixed several issues in testing
+//
 //  Revision 1.1  2005/02/06 21:30:10  cozman
 //  PhysFS initial integration
 //
@@ -23,16 +26,6 @@ namespace util
 {
 namespace filesys
 {
-
-std::string getDirSeparator()
-{
-    return PHYSFS_getDirSeparator();
-}
-
-void permitSymbolicLinks(bool allow)
-{
-    PHYSFS_permitSymbolicLinks(allow);
-}
 
 std::vector<std::string> getCDDirs()
 {
@@ -66,21 +59,17 @@ std::string getUserDir()
     return PHYSFS_getUserDir();
 }
 
-void addToSearchPath(std::string dir, bool append)
+void addToSearchPath(const std::string& dir, bool append)
 {
-    //only attempt if dir exists
-    if(exists(dir))
+    int success = PHYSFS_addToSearchPath(dir.c_str(), append);
+    if(!success)
     {
-        int success = PHYSFS_addToSearchPath(dir.c_str(), append);
-        if(!success)
-        {
-            throw APIError(std::string("addToSearchPath failed (") +
-                            PHYSFS_getLastError() + ")");
-        }
+        throw APIError(std::string("addToSearchPath failed (") +
+                        PHYSFS_getLastError() + ")");
     }
 }
 
-void removeFromSearchPath(std::string dir)
+void removeFromSearchPath(const std::string& dir)
 {
     //ignore return value (useless)
     PHYSFS_removeFromSearchPath(dir.c_str());
@@ -108,17 +97,35 @@ std::vector<std::string> getSearchPath()
     return dirs;
 }
 
-bool mkdir(std::string dir)
+void setWriteDir(const std::string& dir)
+{
+    //set write dir to either NULL (disabled) or the directory passed in
+    if(PHYSFS_setWriteDir( dir.empty() ? 0 : dir.c_str() ) == 0)
+    {
+        throw APIError(std::string("setWriteDir failed (") +
+                        PHYSFS_getLastError() + ")");
+    }
+}
+
+std::string getWriteDir()
+{
+    const char* dir = PHYSFS_getWriteDir();
+    
+    //return name of directory or empty string if dir is null
+    return dir != 0 ? dir : std::string();
+}
+
+bool mkdir(const std::string& dir)
 {
     return PHYSFS_mkdir(dir.c_str()) != 0;
 }
 
-bool remove(std::string item)
+bool remove(const std::string& item)
 {
     return PHYSFS_delete(item.c_str()) != 0;
 }
 
-std::vector<std::string> listDir(std::string dir)
+std::vector<std::string> listDir(const std::string& dir)
 {
     std::vector<std::string> files;
     char** buf( PHYSFS_enumerateFiles(dir.c_str()) );
@@ -140,22 +147,32 @@ std::vector<std::string> listDir(std::string dir)
     return files;
 }
 
-bool exists(std::string item)
+bool exists(const std::string& item)
 {
     return PHYSFS_exists(item.c_str()) != 0;
 }
 
-bool isDirectory(std::string item)
+bool isDir(const std::string& item)
 {
     return PHYSFS_isDirectory(item.c_str()) != 0;
 }
 
-bool isSymbolicLink(std::string item)
+bool isSymbolicLink(const std::string& item)
 {
     return PHYSFS_isSymbolicLink(item.c_str()) != 0;
 }
 
-PHYSFS_sint64 getModTime(std::string item)
+std::string getDirSeparator()
+{
+    return PHYSFS_getDirSeparator();
+}
+
+void permitSymbolicLinks(bool allow)
+{
+    PHYSFS_permitSymbolicLinks(allow);
+}
+
+PHYSFS_sint64 getModTime(const std::string& item)
 {
     return PHYSFS_getLastModTime(item.c_str());
 }
