@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.2 2005/02/27 06:27:57 cozman Exp $
+//  $Id: Singleton.hpp,v 1.3 2005/02/27 07:43:37 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
@@ -22,11 +22,11 @@ template<class T>
 class Singleton : public boost::noncopyable
 {
 public:
-    static void initSingleton();
+    static void initialize();
     
-    static void destroySingleton();
+    static void destroy();
 
-    static T& getSingleton();
+    static T& getInstance();
 
 protected:    
     virtual ~Singleton()=0;
@@ -44,26 +44,26 @@ Singleton<T>::~Singleton()
 }
 
 template<class T>
-void Singleton<T>::initSingleton()
+void Singleton<T>::initialize()
 {
     assert(instance_.get() == 0);
-    
+
     instance_ = std::auto_ptr<T>(new T);
 }
 
 template<class T>
-void Singleton<T>::destroySingleton()
+void Singleton<T>::destroy()
 {
     assert(instance_.get() != 0);
-    
+
     instance_.reset();
 }
 
 template<class T>
-T& Singleton<T>::getSingleton()
+T& Singleton<T>::getInstance()
 {
     assert(instance_.get() != 0);
-    
+
     return *instance_;
 }
 
