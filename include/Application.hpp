@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.2 2005/02/16 04:26:22 cozman Exp $
-//
-// Revisions:
-//  $Log: Application.hpp,v $
-//  Revision 1.2  2005/02/16 04:26:22  cozman
-//  constructor fixes
-//
-//  Revision 1.1  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.1  2005/02/07 02:00:48  cozman
-//  Application re-integrated
-//
-//
+//  $Id: Application.hpp,v 1.3 2005/02/16 06:58:05 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP

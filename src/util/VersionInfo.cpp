@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: VersionInfo.cpp,v $
-//  Revision 1.3  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/02/05 02:57:07  cozman
-//  *** empty log message ***
-//
-//  Revision 1.1  2005/01/27 03:35:24  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: VersionInfo.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
 
 #include "util/VersionInfo.hpp"
 

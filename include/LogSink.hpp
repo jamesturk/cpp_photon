@@ -5,29 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: LogSink.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.5  2005/02/07 01:48:26  cozman
-//  string references
-//
-//  Revision 1.4  2005/02/05 03:01:03  cozman
-//  removed getStream() (useless)
-//
-//  Revision 1.3  2005/02/04 08:11:54  cozman
-//  switched Log to shared_ptrs and added extra flushes
-//
-//  Revision 1.2  2005/01/27 05:24:11  cozman
-//  minor documentation update
-//
-//  Revision 1.1  2005/01/27 03:35:23  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: LogSink.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
 
 #ifndef PHOTON_LOGSINK_HPP
 #define PHOTON_LOGSINK_HPP

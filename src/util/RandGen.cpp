@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: RandGen.cpp,v $
-//  Revision 1.3  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/02/04 21:56:40  cozman
-//  RandGen implemented/tested
-//
-//  Revision 1.1  2005/01/27 03:35:24  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: RandGen.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
 
 //  The source in this file is based on MT19937, with much of the source
 // replicated from mt19937ar.c, because of this the original license

@@ -5,14 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: makefile,v 1.1 2005/02/16 04:26:51 cozman Exp $
-#
-# Revisions:
-#  $Log: makefile,v $
-#  Revision 1.1  2005/02/16 04:26:51  cozman
-#  added makefile, so far tested only w/ mgw
-#
-#
+#  $Id: makefile,v 1.2 2005/02/16 06:58:26 cozman Exp $
 
 INCLUDE_DIR = ./include
 SRC_DIR = ./src

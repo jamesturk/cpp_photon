@@ -5,23 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.cpp,v 1.4 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: Log.cpp,v $
-//  Revision 1.4  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.3  2005/02/07 01:48:27  cozman
-//  string references
-//
-//  Revision 1.2  2005/02/04 08:11:54  cozman
-//  switched Log to shared_ptrs and added extra flushes
-//
-//  Revision 1.1  2005/01/27 03:35:24  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: Log.cpp,v 1.5 2005/02/16 06:58:26 cozman Exp $
 
 #include "Log.hpp"
 

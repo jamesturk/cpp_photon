@@ -5,23 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
-//
-// Revisions:
-//  $Log: VersionInfo.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:04  cozman
-//  .h->.hpp
-//
-//  Revision 1.3  2005/02/07 01:48:26  cozman
-//  string references
-//
-//  Revision 1.2  2005/02/05 02:57:07  cozman
-//  *** empty log message ***
-//
-//  Revision 1.1  2005/01/27 03:35:23  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: VersionInfo.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
 
 #ifndef PHOTON_UTIL_VERSIONINFO_HPP
 #define PHOTON_UTIL_VERSIONINFO_HPP

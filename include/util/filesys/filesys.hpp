@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
-//
-// Revisions:
-//  $Log: filesys.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:04  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/02/07 01:48:50  cozman
-//  fixed several issues in testing
-//
-//  Revision 1.1  2005/02/06 21:30:10  cozman
-//  PhysFS initial integration
-//
-//
+//  $Id: filesys.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILESYS_FILESYS_HPP
 #define PHOTON_UTIL_FILESYS_FILESYS_HPP

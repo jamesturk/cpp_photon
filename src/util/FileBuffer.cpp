@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: FileBuffer.cpp,v $
-//  Revision 1.3  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/02/07 01:48:27  cozman
-//  string references
-//
-//  Revision 1.1  2005/02/06 21:30:10  cozman
-//  PhysFS initial integration
-//
-//
+//  $Id: FileBuffer.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
 
 #include "util/FileBuffer.hpp"
 

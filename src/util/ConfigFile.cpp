@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: ConfigFile.cpp,v $
-//  Revision 1.3  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/01/31 15:44:13  cozman
-//  ConfigFile rewrite
-//
-//  Revision 1.1  2005/01/27 03:35:24  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: ConfigFile.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
 
 #include "util/ConfigFile.hpp"
 #include "exceptions.hpp"

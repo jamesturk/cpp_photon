@@ -5,23 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: Log.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.3  2005/02/07 01:48:26  cozman
-//  string references
-//
-//  Revision 1.2  2005/02/04 08:11:54  cozman
-//  switched Log to shared_ptrs and added extra flushes
-//
-//  Revision 1.1  2005/01/27 03:35:23  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: Log.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP

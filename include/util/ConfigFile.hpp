@@ -5,26 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
-//
-// Revisions:
-//  $Log: ConfigFile.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:04  cozman
-//  .h->.hpp
-//
-//  Revision 1.4  2005/02/05 03:00:41  cozman
-//  fixed binary_function
-//
-//  Revision 1.3  2005/02/03 20:38:56  cozman
-//  conversion to LF
-//
-//  Revision 1.2  2005/01/31 15:44:13  cozman
-//  ConfigFile rewrite
-//
-//  Revision 1.1  2005/01/27 03:35:23  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: ConfigFile.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
 
 #ifndef PHOTON_UTIL_CONFIGFILE_HPP
 #define PHOTON_UTIL_CONFIGFILE_HPP

@@ -5,23 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: types.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.3  2005/02/07 01:48:26  cozman
-//  string references
-//
-//  Revision 1.2  2005/02/04 08:12:14  cozman
-//  shared_ptr
-//
-//  Revision 1.1  2005/01/27 03:35:23  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: types.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP

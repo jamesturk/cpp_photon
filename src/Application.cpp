@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.3 2005/02/16 04:26:23 cozman Exp $
-//
-// Revisions:
-//  $Log: Application.cpp,v $
-//  Revision 1.3  2005/02/16 04:26:23  cozman
-//  constructor fixes
-//
-//  Revision 1.2  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.1  2005/02/07 02:00:49  cozman
-//  Application re-integrated
-//
-//
+//  $Id: Application.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
 
 
 #include "Application.hpp"

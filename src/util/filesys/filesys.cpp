@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.cpp,v 1.3 2005/02/13 22:12:03 cozman Exp $
-//
-// Revisions:
-//  $Log: filesys.cpp,v $
-//  Revision 1.3  2005/02/13 22:12:03  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/02/07 01:48:51  cozman
-//  fixed several issues in testing
-//
-//  Revision 1.1  2005/02/06 21:30:10  cozman
-//  PhysFS initial integration
-//
-//
+//  $Id: filesys.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
 
 
 #include "util/filesys/filesys.hpp"

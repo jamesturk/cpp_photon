@@ -5,20 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.hpp,v 1.1 2005/02/13 22:12:04 cozman Exp $
-//
-// Revisions:
-//  $Log: RandGen.hpp,v $
-//  Revision 1.1  2005/02/13 22:12:04  cozman
-//  .h->.hpp
-//
-//  Revision 1.2  2005/02/04 21:56:39  cozman
-//  RandGen implemented/tested
-//
-//  Revision 1.1  2005/01/27 03:35:23  cozman
-//  initial import (exceptions,types, and logging,oh my!)
-//
-//
+//  $Id: RandGen.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
 
 #ifndef PHOTON_UTIL_RANDGEN_HPP
 #define PHOTON_UTIL_RANDGEN_HPP
