@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.h,v 1.3 2005/01/31 15:44:38 cozman Exp $
+//  $Id: exceptions.h,v 1.4 2005/02/06 21:28:47 cozman Exp $
 //
 // Revisions:
 //  $Log: exceptions.h,v $
+//  Revision 1.4  2005/02/06 21:28:47  cozman
+//  removed require
+//
 //  Revision 1.3  2005/01/31 15:44:38  cozman
 //  simplified exceptions
 //
@@ -247,43 +250,6 @@ public:
     friend std::ostream& operator<<(std::ostream& os,
                                     const APIError& rhs);
 };
-
-
-// Section: Utility Functions
-
-// Function: require
-//  Similar to an assert, given a condition checks if it is true, and if it is
-//  not, throws an exception.
-//
-//  An example of when to use require would be in a function that does an
-//  operation to a certain pouinter:
-//  void func()
-//  {
-//      require<PreconditionException>(pouinter != NULL,"pouinter must be valid");
-//
-//      pouinter->doSomething();
-//  }
-//
-// Template Parameters:
-//  ExceptionT - type of exception to throw
-//
-// Parameters:
-//  condition - boolean expression to be satisfied
-//  description - description of this condition (optional parameter)
-template<class ExceptionT>
-void require(bool condition, std::string description = std::string(),
-                std::string file = std::string(), uint line=0);
-
-//definition of require template
-template<class ExceptionT>
-void require(bool condition, std::string description,
-                std::string file, uint line)
-{
-    if(!condition)
-    {
-        throw ExceptionT(description,file,line);
-    }
-}
 
 }
 
