@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.2 2005/03/01 07:51:23 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.3 2005/03/14 05:34:08 cozman Exp $
 
 #ifndef PHOTON_AUDIO_AUDIOCORE_HPP
 #define PHOTON_AUDIO_AUDIOCORE_HPP
@@ -13,7 +13,7 @@
 #include "al.h"
 #include "alc.h"
 
-#include "util/Singleton.hpp"
+#include "Task.hpp"
 #include "util/VersionInfo.hpp"
 
 namespace photon
@@ -22,13 +22,23 @@ namespace audio
 {
 
 // Class: AudioCore
-//  Photon's <Singleton> core for audio manipulation/control.  Defines the 
+//  Photon's <Singleton> core for audio manipulation/control.  Defines the
 //  interface through which all audio related functions are performed.
 //
 // Parent:
 //  <Singleton>
-class AudioCore : public util::Singleton<AudioCore>
+class AudioCore : public Singleton<AudioCore>
 {
+
+// Group: (Con/De)structors
+public:
+    // Function: AudioCore
+    //  Initialize underlying APIs and setup <Task> internals.
+    AudioCore();
+
+    // Function: ~AudioCore
+    //  Shutdown underlying APIs.
+    ~AudioCore();
 
 // Group: Accessors
 public:
@@ -38,21 +48,21 @@ public:
     // Returns:
     //  Name of audio device currently in use.
     std::string getAudioDeviceName() const;
-    
+
 // Group: Initialization
 public:
     // Function: setDesiredDevice
-    //  Set the name of the desired audio device to use.  Static function of 
+    //  Set the name of the desired audio device to use.  Static function of
     //  AudioCore, must be called before AudioCore::initialize() or not at all.
     //
-    //  If called, the initialization of the audio library will attempt to 
+    //  If called, the initialization of the audio library will attempt to
     //  use the specified audio device, otherwise the default device will be
     //  used.
     //
     // Parameters:
     //  name - Name of audio device to use.
     static void setDesiredDevice(const std::string& name);
-    
+
 // OpenAL specifics
 private:
     util::VersionInfo initOpenAL();
@@ -60,15 +70,7 @@ private:
 
 // data members
 private:
-    static std::string deviceName_; 
-    
-// Singleton-required code
-private:  
-    AudioCore();
-    ~AudioCore();
-
-    friend class util::Singleton<AudioCore>;
-    friend class std::auto_ptr<AudioCore>;
+    static std::string deviceName_;
 };
 
 
