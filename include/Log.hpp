@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
+//  $Id: Log.hpp,v 1.3 2005/02/27 05:53:01 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP
@@ -14,6 +14,7 @@
 #include <list>
 #include <sstream>
 
+#include "util/Singleton.hpp"
 #include "LogSink.hpp"
 
 namespace photon
@@ -22,13 +23,8 @@ namespace photon
 // Class: Log
 //  Log class for photon, Log passes all messages to any attached <LogSinks>,
 //  which can then take care of any output which is desired.
-class Log
+class Log : public util::Singleton<Log>
 {
-
-public:
-    Log();
-    ~Log();
-
 // Group: Sink Maintenance
 public:
 
@@ -110,14 +106,14 @@ private:
     std::stringstream buffer_;
     LogLevel lastLevel_;
     std::list<LogSinkPtr> sinks_;
-
-    //assignment left undefined
-    Log(const Log &rhs);
-    Log& operator=(const Log &rhs);
+    
+    // singleton stuff
+private:
+    friend class util::Singleton<Log>;
+    friend class std::auto_ptr<Log>;
+    Log();
+    ~Log();
 };
-
-//Define a log to be used throughout photon
-extern Log log;
 
 }
 

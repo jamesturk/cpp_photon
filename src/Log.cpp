@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.cpp,v 1.5 2005/02/16 06:58:26 cozman Exp $
+//  $Id: Log.cpp,v 1.6 2005/02/27 05:53:01 cozman Exp $
 
 #include "Log.hpp"
 
@@ -127,7 +127,5 @@ std::ostream& Log::critical()
     lastLevel_ = LOG_CRITICAL;
     return buffer_;
 }
-
-Log log;
 
 }
