@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.cpp,v 1.1 2005/01/27 03:35:24 cozman Exp $
+//  $Id: exceptions.cpp,v 1.2 2005/01/31 15:44:38 cozman Exp $
 //
 // Revisions:
 //  $Log: exceptions.cpp,v $
+//  Revision 1.2  2005/01/31 15:44:38  cozman
+//  simplified exceptions
+//
 //  Revision 1.1  2005/01/27 03:35:24  cozman
 //  initial import (exceptions,types, and logging,oh my!)
 //
@@ -21,81 +24,91 @@
 namespace photon 
 {
 
-Throwable::Throwable() throw() {}
-Throwable::Throwable(std::string description) throw() :
-    description_(description) {}
-Throwable::~Throwable() throw() {}
+Throwable::Throwable(std::string description,
+                        std::string file, uint line) throw() :
+    description_(description), file_(file), line_(line)
+{}
+
+Throwable::~Throwable() throw()
+{}
+
 std::string Throwable::getDesc() const throw()
 {
-    return description_;
+    std::ostringstream ss;
+
+    ss << description_;
+    if(!file_.empty())
+    {
+        ss << " (" << file_ << ":" << line_ << ")";
+    }
+    return ss.str();
 }
 
 //exceptions//
 
-Exception::Exception() throw() {}
-Exception::Exception(std::string description) throw() :
-    Throwable(description) {}
+Exception::Exception(std::string description,
+                        std::string file, uint line) throw() :
+    Throwable(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const Exception& rhs)
 {
-    return os << "General exception occured. " << rhs.getDesc();
+    return os << "General exception occured: " << rhs.getDesc();
 }
 
-ArgumentException::ArgumentException() throw() {}
-ArgumentException::ArgumentException(std::string description) throw() :
-    Exception(description) {}
+ArgumentException::ArgumentException(std::string description,
+                                    std::string file, uint line) throw() :
+    Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const ArgumentException& rhs)
 {
     return os << "Invalid argument exception occured. " << rhs.getDesc();
 }
 
-PreconditionException::PreconditionException() throw() {}
-PreconditionException::PreconditionException(std::string description) throw() :
-    Exception(description) {}
+PreconditionException::PreconditionException(std::string description,
+                                        std::string file, uint line) throw() :
+    Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const PreconditionException& rhs)
 {
-    return os << "Precondition exception occured. " << rhs.getDesc();
+    return os << "Precondition exception occured: " << rhs.getDesc();
 }
 
-RangeException::RangeException() throw() {}
-RangeException::RangeException(std::string description) throw() :
-    Exception(description) {}
+RangeException::RangeException(std::string description,
+                                std::string file, uint line) throw() :
+    Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const RangeException& rhs)
 {
-    return os << "Out-of-range exception. " << rhs.getDesc();
+    return os << "Out-of-range exception: " << rhs.getDesc();
 }
 
-ResourceException::ResourceException() throw() {}
-ResourceException::ResourceException(std::string description) throw() :
-    Exception(description) {}
+ResourceException::ResourceException(std::string description,
+                                        std::string file, uint line) throw() :
+    Exception(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const ResourceException& rhs)
 {
-    return os << "Resource exception. " << rhs.getDesc();
+    return os << "Resource exception: " << rhs.getDesc();
 }
 
 //errors//
 
-Error::Error() throw() {}
-Error::Error(std::string description) throw() :
-    Throwable(description) {}
+Error::Error(std::string description, std::string file, uint line) throw() :
+    Throwable(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const Error& rhs)
 {
-    return os << "General error occured. " << rhs.getDesc();
+    return os << "General error occured: " << rhs.getDesc();
 }
 
-MemoryError::MemoryError() throw() {}
-MemoryError::MemoryError(std::string description) throw() :
-    Error(description) {}
+MemoryError::MemoryError(std::string description,
+                            std::string file, uint line) throw() :
+    Error(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const MemoryError& rhs)
 {
-    return os << "Memory error occured. " << rhs.getDesc();
+    return os << "Memory error occured: " << rhs.getDesc();
 }
 
-APIError::APIError() throw() {}
-APIError::APIError(std::string description) throw() :
-    Error(description) {}
+APIError::APIError(std::string description,
+                    std::string file, uint line) throw() :
+    Error(description,file,line) {}
 std::ostream& operator<<(std::ostream& os, const APIError& rhs)
 {
-    return os << "Error occured within another library. " << rhs.getDesc();
+    return os << "Error occured within another library: " << rhs.getDesc();
 }
 
 }
