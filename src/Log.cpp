@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.cpp,v 1.1 2005/01/27 03:35:24 cozman Exp $
+//  $Id: Log.cpp,v 1.2 2005/02/04 08:11:54 cozman Exp $
 //
 // Revisions:
 //  $Log: Log.cpp,v $
+//  Revision 1.2  2005/02/04 08:11:54  cozman
+//  switched Log to shared_ptrs and added extra flushes
+//
 //  Revision 1.1  2005/01/27 03:35:24  cozman
 //  initial import (exceptions,types, and logging,oh my!)
 //
@@ -32,16 +35,18 @@ Log::~Log()
     removeSinks();
 }
 
-void Log::addSink(LogSink *sink)
+void Log::addSink(LogSinkPtr sink)
 {
-    for(std::list<LogSink*>::iterator it = sinks_.begin();
+    flush();
+
+    for(std::list<LogSinkPtr>::iterator it = sinks_.begin();
         it != sinks_.end();
         ++it)
     {
         if(sink == *it || sink->getName() == (*it)->getName())
         {
-            throw Exception("Log already contains sink: " +
-                                    sink->getName());
+            throw PreconditionException("Log already contains sink: " +
+                                        sink->getName());
         }
     }
 
@@ -50,47 +55,36 @@ void Log::addSink(LogSink *sink)
 
 void Log::removeSink(std::string sinkName)
 {
-    for(std::list<LogSink*>::iterator it = sinks_.begin();
+    flush();
+    
+    for(std::list<LogSinkPtr>::iterator it = sinks_.begin();
         it != sinks_.end();
         ++it)
     {
         if((*it)->getName() == sinkName)
         {
-            if((*it)->isDynamic())
-            {
-                delete *it;
-            }
             sinks_.erase(it);
         }
     }
 }
 
-void Log::removeSink(LogSink *sink)
+void Log::removeSink(LogSinkPtr sink)
 {
-    std::list<LogSink*>::iterator it =
+    flush();
+    
+    std::list<LogSinkPtr>::iterator it =
         std::find(sinks_.begin(),sinks_.end(),sink);
 
     if(it != sinks_.end())
     {
-        if((*it)->isDynamic())
-        {
-            delete *it;
-        }
         sinks_.erase(it);
     }
 }
 
 void Log::removeSinks()
 {
-    for(std::list<LogSink*>::iterator it = sinks_.begin();
-        it != sinks_.end();
-        ++it)
-    {
-        if((*it)->isDynamic())
-        {
-            delete *it;
-        }
-    }
+    flush();
+
     sinks_.clear();
 }
 
@@ -99,7 +93,7 @@ void Log::flush()
     std::string str = buffer_.str();
     if(str.length())
     {
-        for(std::list<LogSink*>::iterator it = sinks_.begin();
+        for(std::list<LogSinkPtr>::iterator it = sinks_.begin();
             it != sinks_.end();
             ++it)
         {

@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.h,v 1.1 2005/01/27 03:35:23 cozman Exp $
+//  $Id: Log.h,v 1.2 2005/02/04 08:11:54 cozman Exp $
 //
 // Revisions:
 //  $Log: Log.h,v $
+//  Revision 1.2  2005/02/04 08:11:54  cozman
+//  switched Log to shared_ptrs and added extra flushes
+//
 //  Revision 1.1  2005/01/27 03:35:23  cozman
 //  initial import (exceptions,types, and logging,oh my!)
 //
@@ -45,7 +48,7 @@ public:
     //
     // Parameters:
     //  sink - Pointer to <LogSink> to add to Log.
-    void addSink(LogSink *sink);
+    void addSink(LogSinkPtr sink);
 
     // Function: removeSink
     //  Remove a sink from the log by name.
@@ -59,7 +62,7 @@ public:
     //
     // Parameters:
     //  sink - Pointer to sink to remove.
-    void removeSink(LogSink *sink);
+    void removeSink(LogSinkPtr sink);
 
     // Function: removeSinks
     //  Remove all sinks from log.
@@ -116,7 +119,7 @@ public:
 private:
     std::stringstream buffer_;
     LogLevel lastLevel_;
-    std::list<LogSink*> sinks_;
+    std::list<LogSinkPtr> sinks_;
 
     //assignment left undefined
     Log(const Log &rhs);

@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.h,v 1.2 2005/01/27 05:24:11 cozman Exp $
+//  $Id: LogSink.h,v 1.3 2005/02/04 08:11:54 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.h,v $
+//  Revision 1.3  2005/02/04 08:11:54  cozman
+//  switched Log to shared_ptrs and added extra flushes
+//
 //  Revision 1.2  2005/01/27 05:24:11  cozman
 //  minor documentation update
 //
@@ -22,6 +25,8 @@
 
 #include <string>
 #include <fstream>
+
+#include "types.h"
 
 namespace photon
 { 
@@ -69,10 +74,7 @@ public:
     //
     // Parameters:
     //  name_ - Name of LogSink, every LogSink should have a unique name.
-    //  dynamic_ - Tells if the sink is dynamically allocated.
-    //            This flag is false by default, and should be true if Log
-    //            should delete the sink when it is done.
-    LogSink(std::string name, bool dynamic=false);
+    LogSink(std::string name);
 
     // Function: ~LogSink
     //  Virtual destructor, available to make inheritance safe.
@@ -99,23 +101,21 @@ public:
     // Returns:
     //  Name of the LogSink.
     std::string getName() const;
-
-    // Function: isDynamic
-    //  Checks if sink is dynamic.
-    //
-    // Returns:
-    //  True if log is dynamically allocated, false if not.
-    bool isDynamic() const;
+    
+    virtual std::ostream& getStream()=0;
     
 private:
     std::string name_;
-    bool dynamic_;
 
     //assignment left undefined
     LogSink(const LogSink&);
     LogSink& operator=(const LogSink&);
 };
 
+// Type: LogSinkPtr
+//  Pointer to a log sink, used since LogSink is abstract and will always
+//  be accessed via a pointer.
+typedef shared_ptr<LogSink> LogSinkPtr;
 
 // Class: ConsoleSink
 //  <LogSink> to be used with <Log> for simple console output.
@@ -128,10 +128,11 @@ private:
 class ConsoleSink : public LogSink
 {
 public:
-    ConsoleSink(std::string name, bool dynamic=false);
+    ConsoleSink(std::string name);
     virtual ~ConsoleSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
+    virtual std::ostream& getStream();
 };
 
 // Class: TextSink
@@ -145,10 +146,11 @@ public:
 class TextSink : public LogSink
 {
 public:
-    TextSink(std::string name, bool dynamic=false);
+    TextSink(std::string name);
     virtual ~TextSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
+    virtual std::ostream& getStream();
 private:
     std::ofstream out_;
 };
@@ -164,10 +166,11 @@ private:
 class HTMLSink : public LogSink
 {
 public:
-    HTMLSink(std::string name, bool dynamic=false);
+    HTMLSink(std::string name);
     virtual ~HTMLSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
+    virtual std::ostream& getStream();
 private:
     std::ofstream out_;
 };

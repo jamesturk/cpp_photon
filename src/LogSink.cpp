@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.cpp,v 1.2 2005/01/27 05:24:11 cozman Exp $
+//  $Id: LogSink.cpp,v 1.3 2005/02/04 08:11:54 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.cpp,v $
+//  Revision 1.3  2005/02/04 08:11:54  cozman
+//  switched Log to shared_ptrs and added extra flushes
+//
 //  Revision 1.2  2005/01/27 05:24:11  cozman
 //  minor documentation update
 //
@@ -26,8 +29,8 @@ namespace photon
 
 //LogSink
 
-LogSink::LogSink(std::string name, bool dynamic) :
-    name_(name),dynamic_(dynamic)
+LogSink::LogSink(std::string name) :
+    name_(name)
 {
 }
 
@@ -40,15 +43,10 @@ std::string LogSink::getName() const
     return name_;
 }
 
-bool LogSink::isDynamic() const
-{
-    return dynamic_;
-}
-
 //ConsoleSink
 
-ConsoleSink::ConsoleSink(std::string name, bool dynamic) :
-    LogSink(name,dynamic)
+ConsoleSink::ConsoleSink(std::string name) :
+    LogSink(name)
 {
 }
 
@@ -67,10 +65,15 @@ void ConsoleSink::writeMessage(LogLevel level, std::string msg)
     std::cerr << pre[static_cast<int>(level)] << msg << std::endl;
 }
 
+std::ostream& ConsoleSink::getStream()
+{
+    return std::cerr;
+}
+
 //TextSink
 
-TextSink::TextSink(std::string name, bool dynamic) :
-    LogSink(name,dynamic),
+TextSink::TextSink(std::string name) :
+    LogSink(name),
     out_(std::string(name+".txt").c_str())
 {
 }
@@ -91,17 +94,22 @@ void TextSink::writeMessage(LogLevel level, std::string msg)
     out_ << pre[static_cast<int>(level)] << msg << std::endl;
 }
 
+std::ostream& TextSink::getStream()
+{
+    return out_;
+}
+
 //HTMLSink
 
-HTMLSink::HTMLSink(std::string name, bool dynamic) :
-    LogSink(name,dynamic),
+HTMLSink::HTMLSink(std::string name) :
+    LogSink(name),
     out_(std::string(name+".html").c_str())
 {
     out_ << "<html><head><title>Error Log</title>\n<style type=\"text/css\">"
          << std::endl << "<!--" << std::endl
          << "p { margin: 0 }" << std::endl
          << ".note { font-style:italic color:gray }" << std::endl
-         << ".verbose { font-style:italic; background:yellow; font-size:small }"
+         << ".verbose { font-style:italic; font-size:small }"
          << std::endl
          << ".warning { font-weight:bold; background:yellow }" << std::endl
          << ".error { font-weight:bold; background:orange }" << std::endl
@@ -128,6 +136,11 @@ void HTMLSink::writeMessage(LogLevel level, std::string msg)
 
     out_ << "<p class=\"" << css[static_cast<int>(level)] << "\">"
             << pre[static_cast<int>(level)] << msg << "</p>" << std::endl;
+}
+
+std::ostream& HTMLSink::getStream()
+{
+    return out_;
 }
 
 }
