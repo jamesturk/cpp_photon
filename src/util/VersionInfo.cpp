@@ -5,9 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
+//  $Id: VersionInfo.cpp,v 1.5 2005/02/27 05:53:36 cozman Exp $
 
 #include "util/VersionInfo.hpp"
+
+#include <sstream>
+
+#include "exceptions.hpp"
 
 namespace photon { 
 namespace util { 
@@ -63,7 +67,21 @@ bool VersionInfo::operator>(const VersionInfo &rhs) const
 std::ostream& operator<<(std::ostream &o, const VersionInfo &rhs)
 {
     return o << rhs.major << '.' << rhs.minor << '.' << rhs.patch <<
-            " [" << rhs.extra << "]";
+            (rhs.extra.empty() ? "" : " [" + rhs.extra + "]");
+}
+
+void ensureVersion(const std::string& library,
+                    const util::VersionInfo& version,
+                    const util::VersionInfo& required)
+{
+    std::stringstream ss;
+
+    if(version < required)
+    {
+        ss << library << " version " << required << " required; " <<
+            version << " used, please update.";
+        throw APIError(ss.str());
+    }
 }
 
 }
