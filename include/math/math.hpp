@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.hpp,v 1.2 2005/03/01 07:51:23 cozman Exp $
+//  $Id: math.hpp,v 1.3 2005/03/02 10:55:54 cozman Exp $
 
 #ifndef PHOTON_MATH_MATH_HPP
 #define PHOTON_MATH_MATH_HPP
@@ -22,6 +22,9 @@ namespace math
 class Vector2;
 
 // Title: Math Utilities
+
+// Group: Constants
+const scalar Pi=3.1415926535897932384626433832795;
 
 // Group: Generic
 
