@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Circle.hpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: Circle.hpp,v 1.2 2005/03/03 09:25:19 cozman Exp $
 
 #ifndef PHOTON_MATH_CIRCLE_HPP
 #define PHOTON_MATH_CIRCLE_HPP
@@ -22,7 +22,8 @@ class Rect;
 // Class: Circle
 //  Defines geometric entity known as a circle.
 // 
-//  A plane curve everywhere equidistant from a given fixed point, the center. <http://dictionary.com>
+//  A plane curve everywhere equidistant from a given fixed point, the center. 
+//  <http://dictionary.com>
 // 
 // Operators:
 //  - Circle == Circle
@@ -115,11 +116,25 @@ public:
 // Group: Accessors
 public:    
     // Function: getCenter
-    //  Get center coordinate.
+    //  Get center <Point2>.
     // 
     // Returns: 
-    //  Center coordinate.
+    //  Center point.
     Point2 getCenter() const;
+    
+    // Function: getCenterX
+    //  Get center x coordinate.
+    // 
+    // Returns: 
+    //  Center x coordinate.
+    scalar getCenterX() const;
+    
+    // Function: getCenterY
+    //  Get center y coordinate.
+    // 
+    // Returns: 
+    //  Center y coordinate.
+    scalar getCenterY() const;
     
     // Function: getRadius
     //  Get radius of Circle.

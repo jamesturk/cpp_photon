@@ -5,23 +5,23 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
+//  $Id: RandGen.hpp,v 1.3 2005/03/03 09:25:20 cozman Exp $
 
 #ifndef PHOTON_UTIL_RANDGEN_HPP
 #define PHOTON_UTIL_RANDGEN_HPP
 
-namespace photon { 
-namespace util { 
+namespace photon 
+{ 
+namespace util 
+{ 
 
 // Class: RandGen
 //  Psuedorandom number generator class which uses Mersenne Twister.
 //  MT19937 is described at <http://www.math.keio.ac.jp/matumoto/emt.html>.
 class RandGen
 {
+// Group: (Con/De)structors
 public:
-
-    // Group: (Con/De)structors
-
     // Function: RandGen
     //  Constructor for random generator, using time as seed.
     RandGen();
@@ -37,7 +37,8 @@ public:
     //  <seed>
     RandGen(unsigned long seedVal);
 
-    // Group: General
+// Group: General
+public:
 
     // Function: seed
     //  Reseed random generator, a given seed will always turn out same string

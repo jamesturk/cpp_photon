@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Rect.hpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: Rect.hpp,v 1.2 2005/03/03 09:25:19 cozman Exp $
 
 #ifndef PHOTON_MATH_RECT_HPP
 #define PHOTON_MATH_RECT_HPP
@@ -16,11 +16,13 @@ namespace photon
 {
 namespace math
 {
+    
+class Circle;
 
 // Class: Rect
 //  Defines geometric entity known as a rectangle.
 // 
-// A four-sided plane figure with four right angles. <http://dictionary.com>
+//  A four-sided plane figure with four right angles. <http://dictionary.com>
 // 
 // Operators:
 //  - Rect == Rect
@@ -104,6 +106,16 @@ public:
     // Returns:
     //  True if Rect intersects rect, false otherwise.
     bool intersects(const Rect &rect) const;
+    
+    // Function: intersects
+    //  Check for intersection between the <Rect> and <Circle>.
+    // 
+    // Parameters:
+    //  circle - <Circle> with which to check for intersection.
+    // 
+    // Returns:
+    //  True if Rect intersects circle, false otherwise.
+    bool intersects(const Circle &circle) const;
     
     // Function: contains
     //  Check if a point is contained within the Rect.

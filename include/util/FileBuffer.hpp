@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.hpp,v 1.2 2005/02/16 06:58:06 cozman Exp $
+//  $Id: FileBuffer.hpp,v 1.3 2005/03/03 09:25:20 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILEBUFFER_HPP
 #define PHOTON_UTIL_FILEBUFFER_HPP
@@ -45,7 +45,6 @@ public:
     //  Destructor, calls <close>.
     ~FileBuffer();
 
-    
 // Group: General
 public:
     // Function: open

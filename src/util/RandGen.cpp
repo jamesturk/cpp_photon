@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
+//  $Id: RandGen.cpp,v 1.5 2005/03/03 09:25:47 cozman Exp $
 
 //  The source in this file is based on MT19937, with much of the source
 // replicated from mt19937ar.c, because of this the original license
@@ -57,8 +57,10 @@
 #include "util/RandGen.hpp"
 #include <ctime>
 
-namespace photon { 
-namespace util { 
+namespace photon 
+{ 
+namespace util 
+{ 
 
 //static consts
 const unsigned long RandGen::N;

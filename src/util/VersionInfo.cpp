@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.cpp,v 1.5 2005/02/27 05:53:36 cozman Exp $
+//  $Id: VersionInfo.cpp,v 1.6 2005/03/03 09:25:47 cozman Exp $
 
 #include "util/VersionInfo.hpp"
 
@@ -13,8 +13,10 @@
 
 #include "exceptions.hpp"
 
-namespace photon { 
-namespace util { 
+namespace photon 
+{ 
+namespace util 
+{ 
 
 VersionInfo::VersionInfo(unsigned int maj, unsigned int min, unsigned int pat,
                             std::string ext) :
@@ -27,20 +29,29 @@ VersionInfo::VersionInfo() :
 
 bool VersionInfo::operator<(const VersionInfo &rhs) const
 {
+    bool less(false);
+    
     //chained compares, compare numbers in order of importance
     if(this->major < rhs.major)
-        return true;
+    {
+        less = true;
+    }
     else if(this->major == rhs.major)
     {
         if(this->minor < rhs.minor)
-            return true;
+        {
+            less = true;
+        }
         else if(this->minor == rhs.minor)
         {
             if(this->patch < rhs.patch)
-                return true;
+            {
+                less = true;
+            }
         }
     }
-    return false;   //if it reaches this point rhs is >=
+    
+    return less;    //false unless set to true within if-chain
 }
 
 bool VersionInfo::operator<=(const VersionInfo &rhs) const
@@ -66,6 +77,7 @@ bool VersionInfo::operator>(const VersionInfo &rhs) const
 
 std::ostream& operator<<(std::ostream &o, const VersionInfo &rhs)
 {
+    // output major.minor.path [extra] (extra is only printed if not empty)
     return o << rhs.major << '.' << rhs.minor << '.' << rhs.patch <<
             (rhs.extra.empty() ? "" : " [" + rhs.extra + "]");
 }
@@ -80,7 +92,7 @@ void ensureVersion(const std::string& library,
     {
         ss << library << " version " << required << " required; " <<
             version << " used, please update.";
-        throw APIError(ss.str());
+        throw APIError(ss.str());   // throw APIError if requirement isn't met
     }
 }
 

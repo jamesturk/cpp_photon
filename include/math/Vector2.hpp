@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.hpp,v 1.2 2005/03/01 07:51:23 cozman Exp $
+//  $Id: Vector2.hpp,v 1.3 2005/03/03 09:25:19 cozman Exp $
 
 #ifndef PHOTON_MATH_VECTOR2_HPP
 #define PHOTON_MATH_VECTOR2_HPP
@@ -157,7 +157,6 @@ public:
     // Returns: 
     //  Angle of vector (in degrees).
     scalar getAngleDeg() const;
-    
     
     // Function: getAngleRad
     //  Angle of vector in radians, angle is calculated with respect to positive

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Circle.cpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: Circle.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
 
 #include "math/Circle.hpp"
 
@@ -68,7 +68,7 @@ bool Circle::intersects(const Rect &rect) const
 {
     scalar newX;
     scalar newY;
-    Rect circBound(center_-Vector2(radius_,radius_),2*radius_,2*radius_);
+    Rect circBound(center_-Point2(radius_,radius_),2*radius_,2*radius_);
 
     //reference of rects, 'rect' is shown as rect 5
     //      _____________
@@ -123,6 +123,18 @@ Point2 Circle::getCenter() const
 {
     return center_;
 }
+
+scalar Circle::getCenterX() const
+{
+    return center_.x;
+}
+
+
+scalar Circle::getCenterY() const
+{
+    return center_.y;
+}
+
 
 scalar Circle::getRadius() const
 {

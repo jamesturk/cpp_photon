@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.hpp,v 1.3 2005/03/02 10:55:54 cozman Exp $
+//  $Id: math.hpp,v 1.4 2005/03/03 09:25:19 cozman Exp $
 
 #ifndef PHOTON_MATH_MATH_HPP
 #define PHOTON_MATH_MATH_HPP
@@ -24,7 +24,10 @@ class Vector2;
 // Title: Math Utilities
 
 // Group: Constants
-const scalar Pi=3.1415926535897932384626433832795;
+
+// Constant: PI
+//  Defined constant for pi: 3.1415926535897932384626433832795
+const scalar PI=3.1415926535897932384626433832795;
 
 // Group: Generic
 
@@ -62,7 +65,7 @@ bool scalarCompare(scalar val1, scalar val2, scalar epsilon=0.000001);
 // 
 // Returns:
 //  Scalar distance between the two points.
-scalar distance(Vector2 v1, Vector2 v2);
+scalar distance(const Vector2& v1, const Vector2& v2);
 
 // Group: Degrees/Radians
 
@@ -74,6 +77,9 @@ scalar distance(Vector2 v1, Vector2 v2);
 // 
 // Returns: 
 //  Radian equivalent of 'degrees'.
+//
+// See Also:
+//  <radToDeg>
 scalar degToRad(scalar degrees);
 
 // Function: radToDeg
@@ -84,9 +90,12 @@ scalar degToRad(scalar degrees);
 // 
 // Returns: 
 //  Degree equivalent of 'radians'
+//
+// See Also:
+//  <degToRad>
 scalar radToDeg(scalar radians);
 
-//template implementation
+// clamp template implementation
 
 template<typename T, typename C>
 T clamp(T val, C low, C high)

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.cpp,v 1.1 2005/03/02 10:55:29 cozman Exp $
+//  $Id: Pen.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
 
 #include "video/Pen.hpp"
 
@@ -28,7 +28,7 @@ Pen::Pen(ubyte r, ubyte g, ubyte b, ubyte a) :
 {
 }
 
-Pen::Pen(Color color) :
+Pen::Pen(const Color& color) :
     color_(color)
 {
 }
@@ -38,12 +38,12 @@ void Pen::setColor(ubyte r, ubyte g, ubyte b, ubyte a)
     color_.setColor(r,g,b,a);
 }
 
-void Pen::setColor(Color color)
+void Pen::setColor(const Color& color)
 {
     color_ = color;
 }
 
-void Pen::drawPoint(math::Point2 point) const
+void Pen::drawPoint(const math::Point2& point) const
 {
     glBindTexture(GL_TEXTURE_2D,0);
     color_.makeGLColor();
@@ -53,7 +53,7 @@ void Pen::drawPoint(math::Point2 point) const
     glColor4ub(255,255,255,255);
 }
 
-void Pen::drawLine(math::Point2 p1, math::Point2 p2) const
+void Pen::drawLine(const math::Point2& p1, const math::Point2& p2) const
 {
     glBindTexture(GL_TEXTURE_2D,0);
     color_.makeGLColor();
@@ -64,17 +64,18 @@ void Pen::drawLine(math::Point2 p1, math::Point2 p2) const
     glColor4ub(255,255,255,255);
 }
 
-void Pen::drawVector(math::Point2 point, math::Vector2 vector) const
+void Pen::drawVector(const math::Point2& point, 
+                        const math::Vector2& vector) const
 {
     double x2,y2,x3,y3,x4,y4;
     math::Vector2 v;
     x2 = point.x+vector.x;
     y2 = point.y+vector.y; 
     //calculate an arrow (5pi/6)
-    v.resolveRad(vector.getMagnitude()/5,vector.getAngleRad()+(5./6)*math::Pi);
+    v.resolveRad(vector.getMagnitude()/5,vector.getAngleRad()+(5./6)*math::PI);
     x3 = x2+v.x;
     y3 = y2-v.y;
-    v.resolveRad(vector.getMagnitude()/5,vector.getAngleRad()-(5./6)*math::Pi);
+    v.resolveRad(vector.getMagnitude()/5,vector.getAngleRad()-(5./6)*math::PI);
     x4 = x2+v.x;
     y4 = y2-v.y;
 

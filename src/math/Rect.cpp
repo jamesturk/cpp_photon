@@ -5,11 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Rect.cpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: Rect.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
 
 #include "math/Rect.hpp"
 
 #include <algorithm>
+
+#include "math/Circle.hpp"
 
 namespace photon
 {
@@ -73,6 +75,11 @@ bool Rect::intersects(const Rect &rect) const
             rect.topLeft_.x > bottomRight_.x ||
             topLeft_.y > rect.bottomRight_.y || 
             rect.topLeft_.y > bottomRight_.y);
+}
+
+bool Rect::intersects(const Circle &circle) const
+{
+    return circle.intersects(*this);
 }
 
 bool Rect::contains(const Point2 &point) const

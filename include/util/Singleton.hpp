@@ -5,13 +5,15 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.4 2005/03/01 07:51:23 cozman Exp $
+//  $Id: Singleton.hpp,v 1.5 2005/03/03 09:25:20 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
 
 #include <memory>
 #include <boost/utility.hpp>
+
+#include "exceptions.hpp"
 
 namespace photon
 {
@@ -67,7 +69,7 @@ public:
     static T& getInstance();
 
 protected:
-    virtual ~Singleton()=0;
+    virtual ~Singleton()=0; // allow inheritance
 
 private:
     static std::auto_ptr<T> instance_;
@@ -84,7 +86,10 @@ Singleton<T>::~Singleton()
 template<class T>
 void Singleton<T>::initialize()
 {
-    assert(instance_.get() == 0);
+    if(instance_.get() != 0)
+    {
+        throw PreconditionException("Attempt to double-initialize singleton.");
+    }
 
     instance_ = std::auto_ptr<T>(new T);
 }
@@ -92,7 +97,10 @@ void Singleton<T>::initialize()
 template<class T>
 void Singleton<T>::destroy()
 {
-    assert(instance_.get() != 0);
+    if(instance_.get() == 0)
+    {
+        throw PreconditionException("Attempt to destroy null singleton.");
+    }
 
     instance_.reset();
 }
@@ -100,9 +108,13 @@ void Singleton<T>::destroy()
 template<class T>
 T& Singleton<T>::getInstance()
 {
-    assert(instance_.get() != 0);
+    if(instance_.get() == 0)
+    {
+        throw PreconditionException("Attempt to get instance of uninitialized "
+                                    "singleton.");
+    }
 
-    return *instance_;
+    return *instance_;  //return dereferenced version
 }
 
 template<class T> 

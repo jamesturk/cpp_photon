@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.cpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: math.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
 
 #include "math/math.hpp"
 
@@ -21,7 +21,7 @@ bool scalarCompare(scalar val1, scalar val2, scalar epsilon)
     return std::fabs(val1-val2) < epsilon;
 }
 
-scalar distance(Vector2 v1, Vector2 v2)
+scalar distance(const Vector2& v1, const Vector2& v2)
 {
     return magnitude(v1-v2);
 }

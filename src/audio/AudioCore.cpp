@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.1 2005/02/27 05:55:18 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
 
 #include "audio/AudioCore.hpp"
 
@@ -27,8 +27,8 @@ std::string AudioCore::getAudioDeviceName() const
 
 util::VersionInfo AudioCore::initOpenAL()
 {
-    ALCdevice* device;
-    ALCcontext* context;
+    ALCdevice* device(0);
+    ALCcontext* context(0);
     std::stringstream ss;
     std::string junks;
     char junkc;
@@ -53,8 +53,9 @@ util::VersionInfo AudioCore::initOpenAL()
                         checkOpenALError());
     }
 
-    alcMakeContextCurrent(context);
+    alcMakeContextCurrent(context); // context must be current to get version 
 
+    // Version is in format "OpenAL 1.0"
     ss << alGetString(AL_VERSION);
     ss >> junks >> major >> junkc >> minor;
     return util::VersionInfo(major,minor,0);
@@ -86,7 +87,7 @@ std::string AudioCore::checkOpenALError()
         err = "OpenAL out of memory";
         break;
     default:
-        err = "Unknown OpenAL error.";
+        err = "Unknown OpenAL error";
         break;
     }
 
@@ -95,6 +96,7 @@ std::string AudioCore::checkOpenALError()
 
 void AudioCore::setDesiredDevice(const std::string& name)
 {
+    // deviceName_ is used inside initOpenAL, must be set prior to construction
     deviceName_ = name;
 }
     
@@ -102,13 +104,14 @@ std::string AudioCore::deviceName_;
 
 AudioCore::AudioCore()
 {
-    util::VersionInfo oalReq(1,0,0);    // requires OpenAL 1.0
+    util::VersionInfo oalReq(1,0,0);    // requires OpenAL 1.0 (TODO: check?)
 
     util::ensureVersion("OpenAL", initOpenAL(), oalReq);
 }
 
 AudioCore::~AudioCore()
 {
+    // retrieve both the context and device
     ALCcontext* context( alcGetCurrentContext() );
     ALCdevice*  device( alcGetContextsDevice(context) );
 

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
+//  $Id: ConfigFile.hpp,v 1.3 2005/03/03 09:25:19 cozman Exp $
 
 #ifndef PHOTON_UTIL_CONFIGFILE_HPP
 #define PHOTON_UTIL_CONFIGFILE_HPP
@@ -122,6 +122,7 @@ public:
                         const std::string& var,
                         varType defVal) const;
 
+// behind the scenes utils
 private:
     static std::string cleanString(const std::string& str);
     static std::string bracketString(const std::string& str);
@@ -164,14 +165,14 @@ ConfigFile::setVariable(const std::string& sec,
     {
         layout_.push_back( NamedSection( secBrac, Section() )  );
         
-        //search again, assert that it now exists
+        // search again
         secIter = std::find_if( layout_.begin(),
                                 layout_.end(),
-                                std::bind2nd(StrPairEq<NamedSection>(), secBrac) );
-        assert(secIter != layout_.end());
+                                std::bind2nd(StrPairEq<NamedSection>(), 
+                                                secBrac) );
     }
 
-    //search for variable
+    // search for variable
     varIter = std::find_if( secIter->second.begin(),
                             secIter->second.end(),
                             std::bind2nd(StrPairEq<Variable>(), var) );

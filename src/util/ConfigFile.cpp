@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
+//  $Id: ConfigFile.cpp,v 1.5 2005/03/03 09:25:47 cozman Exp $
 
 #include "util/ConfigFile.hpp"
 #include "exceptions.hpp"
@@ -16,8 +16,6 @@ namespace photon
 { 
 namespace util
 {
-
-
 
 //(Con/De)structors
 
@@ -42,7 +40,7 @@ void ConfigFile::open(const std::string& filename)
     filename_ = filename;
     if(filename_.empty())
     {
-        throw PreconditionException("No filename in ConfigFile::open");
+        throw PreconditionException("Empty filename in ConfigFile::open");
     }
 
     std::string section, var, val, str, clean;

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.hpp,v 1.1 2005/03/02 10:55:29 cozman Exp $
+//  $Id: Pen.hpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
 
 #ifndef PHOTON_VIDEO_PEN_HPP
 #define PHOTON_VIDEO_PEN_HPP
@@ -56,7 +56,7 @@ public:
     // 
     // See Also:
     //  <setColor>
-    Pen(Color color);
+    Pen(const Color& color);
 
 // Group: Color 
 public:
@@ -75,7 +75,7 @@ public:
     // 
     // Parameters:
     //  color - <Color> to use for drawing.
-    void setColor(Color color);
+    void setColor(const Color& color);
 
 // Group: Drawing 
 public:
@@ -84,7 +84,7 @@ public:
     // 
     // Parameters:
     //  point - Point to draw.
-    void drawPoint(math::Point2 point) const;
+    void drawPoint(const math::Point2& point) const;
     
     // Function: drawLine
     //  Draw a line from one point to another.
@@ -92,7 +92,7 @@ public:
     // Parameters:
     //  p1 - First endpoint of line.
     //  p2 - Second endpoint of line.
-    void drawLine(math::Point2 p1, math::Point2 p2) const;
+    void drawLine(const math::Point2& p1, const math::Point2& p2) const;
     
     // Function: drawVector
     //  Draw a vector, including small arrow, with base at a given point.
@@ -100,7 +100,8 @@ public:
     // Parameters:
     //  point - Base point for vector.
     //  vector - Vector to draw.
-    void drawVector(math::Point2 point, math::Vector2 vector) const;
+    void drawVector(const math::Point2& point, 
+                    const math::Vector2& vector) const;
     
     // Function: drawRectangle
     //  Draw an empty rectangle.

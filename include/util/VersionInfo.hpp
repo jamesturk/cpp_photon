@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.hpp,v 1.4 2005/03/01 07:51:24 cozman Exp $
+//  $Id: VersionInfo.hpp,v 1.5 2005/03/03 09:25:20 cozman Exp $
 
 #ifndef PHOTON_UTIL_VERSIONINFO_HPP
 #define PHOTON_UTIL_VERSIONINFO_HPP
@@ -13,8 +13,10 @@
 #include <string>
 #include <ostream>
 
-namespace photon { 
-namespace util { 
+namespace photon 
+{ 
+namespace util 
+{ 
 
 // Class: VersionInfo
 //  Class which stores version information, such as release numbers.
