@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.1 2005/02/27 05:50:54 cozman Exp $
+//  $Id: Singleton.hpp,v 1.2 2005/02/27 06:27:57 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
@@ -65,14 +65,6 @@ T& Singleton<T>::getSingleton()
     assert(instance_.get() != 0);
     
     return *instance_;
-}
-
-template<class T>
-std::auto_ptr<T> Singleton<T>::getSingletonPtr()
-{
-    assert(instance_.get() != 0);
-    
-    return instance_;
 }
 
 template<class T> 
