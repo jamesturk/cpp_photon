@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.hpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: Vector2.hpp,v 1.2 2005/03/01 07:51:23 cozman Exp $
 
 #ifndef PHOTON_MATH_VECTOR2_HPP
 #define PHOTON_MATH_VECTOR2_HPP
@@ -207,8 +207,11 @@ public:
 
 Vector2 operator*(scalar lhs, const Vector2 &rhs);
 
+// Group: External Utilities
+
 // Function: magnitude
-//  Find length of a vector.
+//  Find length of a vector.  
+//  Same as a call to v.getMagnitude() but provided for convinience.
 // 
 // Parameters:
 //  v - Vector to calculate magnitude of
@@ -216,6 +219,8 @@ Vector2 operator*(scalar lhs, const Vector2 &rhs);
 // Returns: 
 //  Length of the vector.
 scalar magnitude(const Vector2 &v);
+
+// Group: Aliases
 
 // Typedef: Point2
 //  Alias for Vector2 type.

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.3 2005/02/27 07:43:37 cozman Exp $
+//  $Id: Singleton.hpp,v 1.4 2005/03/01 07:51:23 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
@@ -18,17 +18,55 @@ namespace photon
 namespace util
 {
 
+// Class: Singleton
+//  Template class for singleton pattern.  Is non-copyable to enforce
+//  correct behavior.
+//
+// Defining a Singleton:
+//  (code)
+//  YourClass : public Singleton<Class>
+//  {
+//      // class specific data
+//  
+//      // Singleton-required code
+//      private:
+//          // Singleton-required code  
+//          YourClass();
+//          ~YourClass();
+//  
+//          friend class util::Singleton<YourClass>;
+//          friend class std::auto_ptr<YourClass>;
+//  };
+//  (end)
+//
+// Using The Singleton:
+//  (code)
+//  YourClass::initialize();
+//  YourClass& yc(YourClass::getInstance());
+//
+//  // use yc
+//
+//  YourClass::destroy();   //optional
+//  (end)
 template<class T>
 class Singleton : public boost::noncopyable
 {
 public:
+    
+    // Function: initialize
+    //  Initialize the instance of the singleton, must be done explicitly.
     static void initialize();
     
+    // Function: destroy
+    //  Destroy the instance of the singleton, can be done explicitly if order
+    //  of destruction matters.  Will be done automatically if not done.
     static void destroy();
 
+    // Function: getInstance
+    //  Get a reference to the instance of the derived class.
     static T& getInstance();
 
-protected:    
+protected:
     virtual ~Singleton()=0;
 
 private:

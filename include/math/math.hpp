@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.hpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: math.hpp,v 1.2 2005/03/01 07:51:23 cozman Exp $
 
 #ifndef PHOTON_MATH_MATH_HPP
 #define PHOTON_MATH_MATH_HPP
@@ -20,6 +20,10 @@ namespace math
 {
 
 class Vector2;
+
+// Title: Math Utilities
+
+// Group: Generic
 
 // Function: clamp
 //  Clamp a value between two boundaries.
@@ -56,6 +60,8 @@ bool scalarCompare(scalar val1, scalar val2, scalar epsilon=0.000001);
 // Returns:
 //  Scalar distance between the two points.
 scalar distance(Vector2 v1, Vector2 v2);
+
+// Group: Degrees/Radians
 
 // Function: degToRad
 //  Convert degrees to radians.

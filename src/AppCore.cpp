@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.1 2005/02/27 07:43:37 cozman Exp $
+//  $Id: AppCore.cpp,v 1.2 2005/03/01 07:52:20 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -95,7 +95,71 @@ int AppCore::getMouseWheelPos()
 
 scalar AppCore::getTime()
 {
-    return glfwGetTime();
+    return glfwGetTime() - pausedTime_;
+}
+
+void AppCore::update()
+{
+    scalar curTime = getTime();
+    
+    // keep track of time between frames
+    secPerFrame_ = curTime-lastUpdate_;
+    lastUpdate_ = curTime;
+    
+    // quit on window closing or Alt-F4/Alt-X
+    if(!glfwGetWindowParam(GLFW_OPENED) || 
+        ( (glfwGetKey(GLFW_KEY_LALT) || glfwGetKey(GLFW_KEY_RALT)) && 
+          (glfwGetKey(GLFW_KEY_F4) || glfwGetKey('X')) ) )
+    {
+        quitRequested_ = true;
+    }
+
+    // hold active-state
+    active_ = (glfwGetWindowParam(GLFW_ACTIVE) == GL_TRUE);
+
+    // automatically pause/unpause app timer on focus
+    if(!active_ && !timerPaused_)
+    {
+        timerPaused_ = true;
+        lastPause_ = curTime;
+        unpauseOnActive_ = true;
+    }
+    else if(active_ && unpauseOnActive_)
+    {
+        timerPaused_ = true;
+        pausedTime_ += curTime - lastPause_;
+        unpauseOnActive_ = false;
+    }
+}
+
+void AppCore::setTitle(const std::string& title)
+{
+    glfwSetWindowTitle(title.c_str());
+}
+
+void AppCore::requestQuit()
+{
+    quitRequested_ = true;
+}
+
+bool AppCore::quitRequested()
+{
+    return quitRequested_;
+}
+
+bool AppCore::isActive()
+{
+    return active_;
+}
+
+double AppCore::getElapsedTime()
+{
+    return secPerFrame_;
+}
+
+double AppCore::getFramerate()
+{
+    return 1/secPerFrame_;
 }
 
 util::VersionInfo AppCore::initGLFW()
@@ -109,7 +173,10 @@ util::VersionInfo AppCore::initGLFW()
     return util::VersionInfo(maj,min,patch);
 }
 
-AppCore::AppCore()
+AppCore::AppCore() :
+    quitRequested_(true), active_(false), timerPaused_(false), 
+    unpauseOnActive_(false), lastPause_(0), pausedTime_(0),
+    secPerFrame_(0), lastUpdate_(0)
 {
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
 

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.1 2005/02/27 05:55:18 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.2 2005/03/01 07:51:23 cozman Exp $
 
 #ifndef PHOTON_AUDIO_AUDIOCORE_HPP
 #define PHOTON_AUDIO_AUDIOCORE_HPP
@@ -21,18 +21,44 @@ namespace photon
 namespace audio
 {
 
+// Class: AudioCore
+//  Photon's <Singleton> core for audio manipulation/control.  Defines the 
+//  interface through which all audio related functions are performed.
+//
+// Parent:
+//  <Singleton>
 class AudioCore : public util::Singleton<AudioCore>
 {
-public:
-    std::string getAudioDeviceName() const;
 
+// Group: Accessors
+public:
+    // Function: getAudioDeviceName
+    //  Get name of active audio device.
+    //
+    // Returns:
+    //  Name of audio device currently in use.
+    std::string getAudioDeviceName() const;
+    
+// Group: Initialization
+public:
+    // Function: setDesiredDevice
+    //  Set the name of the desired audio device to use.  Static function of 
+    //  AudioCore, must be called before AudioCore::initialize() or not at all.
+    //
+    //  If called, the initialization of the audio library will attempt to 
+    //  use the specified audio device, otherwise the default device will be
+    //  used.
+    //
+    // Parameters:
+    //  name - Name of audio device to use.
+    static void setDesiredDevice(const std::string& name);
+    
+// OpenAL specifics
 private:
     util::VersionInfo initOpenAL();
     static std::string checkOpenALError();
 
-public:
-    static void setDesiredDevice(const std::string& name);
-    
+// data members
 private:
     static std::string deviceName_; 
     
