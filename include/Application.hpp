@@ -5,13 +5,15 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.4 2005/02/27 07:43:37 cozman Exp $
+//  $Id: Application.hpp,v 1.5 2005/03/01 07:51:04 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
 
 #include <vector>
 #include <string>
+
+#include <boost/utility.hpp>
 
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
@@ -24,7 +26,7 @@ namespace photon
 //  implementations of Application.
 //
 //  Derived classes are made entrypoint via <ENTRYPOINT>.
-class Application
+class Application : public boost::noncopyable
 {
 
 // Group: (Con/De)structors 
@@ -52,6 +54,14 @@ public:
     //  <ENTRYPOINT>
     virtual int main(StrVec args)=0;
 
+// Behind the scenes
+public:
+    // Function: setInitOptions(const char* arg0)
+    //  Internal use function, used to set initialization options.
+    //  (params not documented since function signature is subject to change and
+    //  should not be relied on by user-level code)
+    static void setInitOptions(const char* appPath);
+    
 // Group: API Initialization
 private:
     // Function: initPhysFS
@@ -64,14 +74,6 @@ private:
     //  <VersionInfo> with PhysFS version.
     util::VersionInfo initPhysFS(const char* arg0);
 
-// Behind the scenes
-public:
-    // Function: setInitOptions(const char* arg0)
-    //  Internal use function, used to set initialization options.
-    //  (params not documented since function signature is subject to change and
-    //  should not be relied on by user-level code)
-    static void setInitOptions(const char* appPath);
-
 // Data Members
 private:
     scalar secPerFrame_;
@@ -80,13 +82,10 @@ private:
     bool unpauseOnActive_;
     bool quitRequested_;
 
-    // Variable: photonVer_
-    //  Contains version identifier for photon.
+    // version number for photon
     util::VersionInfo photonVer_;
 
-    // Variable: arg0_
-    //  Contains 0th argument from command line, obtained via <setInitOptions>
-    //  and used by PhysFS initialization.
+    // arg0 from command line
     static std::string arg0_;
 };
 

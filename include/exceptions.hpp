@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.hpp,v 1.3 2005/02/27 05:51:59 cozman Exp $
+//  $Id: exceptions.hpp,v 1.4 2005/03/01 07:51:04 cozman Exp $
 
 #ifndef PHOTON_EXCEPTIONS_HPP
 #define PHOTON_EXCEPTIONS_HPP
@@ -29,6 +29,9 @@ namespace photon
 //  Error are available for non-specific exceptions. All exceptions have the
 //  same interface as Throwable.
 //
+// Operators:
+//  ostream& << Throwable - All exceptions defined here can be output via '<<'
+//
 // Children:
 //  <Exception> - Base class for all non-fatal exceptions.
 //  <Error> - Base class for all potentially fatal exceptions.
@@ -48,6 +51,12 @@ public:
                 uint line=0) throw();
     virtual ~Throwable() throw()=0;
 
+    // Function: what
+    //  Similar to the std::exception family, all photon exceptions (the  
+    //  Throwable family) define what() that returns a description of the
+    //  exception.
+    //
+    // Returns: std::string describing the error
     std::string virtual what() const throw();
     friend std::ostream& operator<<(std::ostream& os, const Throwable& rhs);
 

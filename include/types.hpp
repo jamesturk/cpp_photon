@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.3 2005/02/27 07:43:37 cozman Exp $
+//  $Id: types.hpp,v 1.4 2005/03/01 07:51:04 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP
@@ -19,7 +19,7 @@
 
 namespace photon {
 
-// Group: Types
+// Group: Basic Types
 
 // Type: ubyte
 //  Unsigned byte, alias for unsigned char.
@@ -33,6 +33,8 @@ typedef unsigned int uint;
 //  Scalar value, used throughout photon. (double or float)
 typedef double scalar;
 
+// Group: STL/Boost Types
+
 // Type: StrVec
 //  Typedef for vector of strings, which is used all throughout photon.
 typedef std::vector<std::string> StrVec;
@@ -41,6 +43,7 @@ typedef std::vector<std::string> StrVec;
 //  Shared pointer type. (uses the boost implementation)
 using boost::shared_ptr;
 
+// Group: Enums
 
 // Enum: KeyCode
 // Enumeration defining keys, used in <AppCore::keyPressed>.
@@ -163,8 +166,8 @@ using boost::shared_ptr;
 //  KEY_NUM_8        - Numpad 8 key
 //  KEY_NUM_9        - Numpad 9 key
 
-// Enum: KeyCode
-// Enumeration defining keys, used in <AppCore::keyPressed>.
+// Enum: MouseButton
+// Enumeration defining buttons, used in <AppCore::mouseButtonPressed>.
 // 
 //  MB_LEFT     - Left mouse button.
 //  MB_MIDDLE   - Middle mouse button.

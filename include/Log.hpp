@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.3 2005/02/27 05:53:01 cozman Exp $
+//  $Id: Log.hpp,v 1.4 2005/03/01 07:51:04 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP
@@ -21,8 +21,11 @@ namespace photon
 { 
 
 // Class: Log
-//  Log class for photon, Log passes all messages to any attached <LogSinks>,
-//  which can then take care of any output which is desired.
+//  <Singleton> log class for photon, Log passes all messages to any attached 
+//  <LogSinks>, which can then take care of any output which is desired.
+//
+// Parent:
+//  <Singleton>
 class Log : public util::Singleton<Log>
 {
 // Group: Sink Maintenance

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.1 2005/02/27 07:43:37 cozman Exp $
+//  $Id: AppCore.hpp,v 1.2 2005/03/01 07:51:04 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
@@ -18,6 +18,15 @@
 namespace photon
 {
 
+// Class: AppCore
+//  Photon's <Singleton> core for application behavior.  Defines the interface 
+//  through which all "application" related functions are performed.
+//
+//  AppCore is the Core that essentially represents the window management, 
+//  input, and timing systems.
+//
+// Parent:
+//  <Singleton>
 class AppCore : public util::Singleton<AppCore>
 {
    
@@ -61,7 +70,7 @@ public:
     // Function: updateDisplay
     //  Updates the display, usually involves flipping the front/back buffers.
     void updateDisplay();
-    
+
 // Group: Input
 public:
 
@@ -110,17 +119,76 @@ public:
 // Group: Timing
 public:
 
-    // Function: 
+    // Function: getTime
     //  Get time, in seconds, that application has been running.
     //
     // Returns:
     //  Time, represented as a floating-point number in seconds, application has
     //  been running.
     scalar getTime();
-   
+    
+// Group: Application 
+public:
+    // Function: update
+    //  Updates the  
+    void update();
+
+    // Function: setTitle
+    //  Sets title of application that shows up in title bar.
+    // 
+    // Parameters:
+    //  title - New title of application.
+    void setTitle(const std::string& title);
+
+    // Function: requestQuit
+    //  Sets the internal quit flag to true.
+    void requestQuit();
+
+    // Function: quitRequested
+    //  Checks the internal quit flag, if a quit has been requested, 
+    //  the application should comply.
+    //
+    // Returns: 
+    //  State of internal quit flag, if true application should quit ASAP.
+    bool quitRequested();
+
+    // Function: isActive
+    //  Checks if application is active, which on most systems simply means it 
+    //  has focus.
+    // 
+    // Returns:    
+    //  True if application is active, false otherwise.
+    bool isActive();
+
+    // Function: getElapsedTime
+    //  Finds the amount of time passed between frames, useful for time-based 
+    //  movement.
+    // 
+    // Returns: 
+    //  Time between current frame and last frame. (1/<getFramerate>())
+    double getElapsedTime();
+    
+    // Function: getFramerate
+    //  Gets number of frames per second the application is currently being run at.
+    // 
+    // Returns: 
+    //  Current frames per second.
+    double getFramerate();
+
+// data members
+private:
+    bool quitRequested_;
+    bool active_;
+    bool timerPaused_;
+    bool unpauseOnActive_;
+    scalar lastPause_;
+    scalar pausedTime_;
+    scalar secPerFrame_;
+    scalar lastUpdate_;
+
+// API initialization
 private:
     util::VersionInfo initGLFW();
-    
 
 // Singleton-required code
 private:  
