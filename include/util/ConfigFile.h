@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.h,v 1.3 2005/02/03 20:38:56 cozman Exp $
+//  $Id: ConfigFile.h,v 1.4 2005/02/05 03:00:41 cozman Exp $
 //
 // Revisions:
 //  $Log: ConfigFile.h,v $
+//  Revision 1.4  2005/02/05 03:00:41  cozman
+//  fixed binary_function
+//
 //  Revision 1.3  2005/02/03 20:38:56  cozman
 //  conversion to LF
 //
@@ -50,12 +53,9 @@ public: // types used in ConfigFile
 
     //predicate for search
     template<class pairT>
-    class StrPairEq
+    class StrPairEq : public std::binary_function<pairT, std::string, bool>
     {
     public:
-        typedef pairT first_argument_type;
-        typedef std::string second_argument_type;
-        typedef bool result_type;
         bool operator()(const pairT& lhs, const std::string& rhs) const;
     };
 
