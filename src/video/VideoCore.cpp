@@ -5,27 +5,35 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.1 2005/03/02 08:45:58 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.2 2005/03/15 18:53:27 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
+#include "exceptions.hpp"
+
 #include "gl/gl.h"
-#include "glfw.h"
+#include "gl/glu.h"
 
 namespace photon
 {
 namespace video
 {
+    
+VideoCore::VideoCore() : 
+    displayWidth_(0), displayHeight_(0), 
+    viewportWidth_(0), viewportHeight_(0) 
+{
+    initOpenGL();
+}
+
+VideoCore::~VideoCore()
+{
+}
 
 void VideoCore::clear()
 {
     // TODO: clear depth/stencil if requested
     glClear(GL_COLOR_BUFFER_BIT);
-}
-
-void VideoCore::update()
-{
-    // do nothing at the moment, handled in AppCore
 }
 
 void VideoCore::setOrthoView(int x, int y, int viewWidth, int viewHeight, 
@@ -39,15 +47,15 @@ void VideoCore::setOrthoView(int x, int y, int viewWidth, int viewHeight,
 void VideoCore::setOrthoView(scalar width, scalar height)
 {
     // set viewport to fullscreen, then set ortho (alternative ratio)
-    setViewport(0, 0, appCore_.getDisplayWidth(), appCore_.getDisplayHeight());
+    setViewport(0, 0, displayWidth_, displayHeight_);
     setOrthoProjection(width,height);
 }
 
 void VideoCore::setOrthoView()
 {
     // set viewport to fullscreen, then set ortho (1:1 ratio)
-    setViewport(0, 0, appCore_.getDisplayWidth(), appCore_.getDisplayHeight());
-    setOrthoProjection(appCore_.getDisplayWidth(), appCore_.getDisplayHeight());
+    setViewport(0, 0, displayWidth_, displayHeight_);
+    setOrthoProjection(displayWidth_, displayHeight_);
 }
 
 void VideoCore::setPerspectiveView(int x, int y, int width, int height, 
@@ -61,14 +69,14 @@ void VideoCore::setPerspectiveView(int x, int y, int width, int height,
 void VideoCore::setPerspectiveView(scalar fovy, scalar zNear, scalar zFar)
 {
     // set viewport fullscreen, then set perspective
-    setViewport(0, 0, appCore_.getDisplayWidth(), appCore_.getDisplayHeight());
+    setViewport(0, 0, displayWidth_, displayHeight_);
     setPerspectiveProjection(fovy, zNear, zFar);
 }
 
 void VideoCore::setViewport(int x, int y, int width, int height)
 {
     // viewport described from bottom corner, so flip y
-    glViewport(x, appCore_.getDisplayHeight()-(y+height), width, height);
+    glViewport(x, displayHeight_-(y+height), width, height);
     viewportWidth_ = width;
     viewportHeight_ = height;
 }
@@ -121,14 +129,20 @@ void VideoCore::initOpenGL()
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 }
 
-VideoCore::VideoCore() : 
-    appCore_(AppCore::getInstance()), viewportWidth_(0), viewportHeight_(0) 
+void VideoCore::setDisplaySize(uint width, uint height)
 {
-    initOpenGL();
+    displayWidth_ = width;
+    displayHeight_ = height;
 }
 
-VideoCore::~VideoCore()
+uint VideoCore::getDisplayWidth()
 {
+    return displayWidth_;
+}
+
+uint VideoCore::getDisplayHeight()
+{
+    return displayHeight_;
 }
 
 }

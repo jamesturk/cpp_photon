@@ -5,13 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.hpp,v 1.1 2005/03/02 08:40:11 cozman Exp $
+//  $Id: VideoCore.hpp,v 1.2 2005/03/15 18:53:12 cozman Exp $
 
 #ifndef PHOTON_VIDEO_VIDEOCORE_HPP
 #define PHOTON_VIDEO_VIDEOCORE_HPP
 
 #include "types.hpp"
-#include "AppCore.hpp"
 #include "util/Singleton.hpp"
 
 namespace photon
@@ -33,16 +32,22 @@ namespace video
 //  <Singleton>
 class VideoCore : public util::Singleton<VideoCore>
 {
-
+// Group: (Con/De)structors
+public:
+    // Function: VideoCore
+    //  Initialize underlying APIs and setup <Task> internals.
+    VideoCore();
+    
+    // Function: ~VideoCore
+    //  Shutdown underlying APIs.
+    ~VideoCore();
+    
 // Group: Display Management
 public: 
+
     // Function: clearDisplay
     //  Clears the display. 
     void clear();
-    
-    // Function: update
-    //  Updates the video display.
-    void update();
 
 // Group: Viewport 
 //  Functions to set the working viewport and perspective. Orthographic and
@@ -62,7 +67,7 @@ public:
     //  orthoHeight - Height of ortho perspective.
     void setOrthoView(int x, int y, int viewWidth, int viewHeight, 
                             scalar orthoWidth, scalar orthoHeight);
-    
+
     // Function: setOrthoView
     //  Sets entire screen as current viewport with a given ortho perspective.
     // 
@@ -70,7 +75,7 @@ public:
     //  width - Width of view.
     //  height - Height of view.
     void setOrthoView(scalar width, scalar height);
-    
+
     // Function: setOrthoView
     //  Sets entire screen as current viewport with a given ortho perspective.
     void setOrthoView();
@@ -127,6 +132,30 @@ public:
     //  zNear - Distance from viewer to near clipping plane.
     //  zFar - Distance from viewer to far clipping plane.
     void setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFar);
+    
+// Group: Display 
+public:
+    // Function: setDisplaySize
+    //  Set the new display size, should be called whenever window size changes.
+    //
+    // Parameters:
+    //  width - Width of display.
+    //  height - height of display
+    void setDisplaySize(uint width, uint height);
+    
+    // Function: getDisplayWidth
+    //  Get the width of the display.
+    //
+    // Returns:
+    //  Width of display in pixels.
+    uint getDisplayWidth();
+
+    // Function: getDisplayHeight
+    //  Get the height of the display.
+    //
+    // Returns:
+    //  Height of display in pixels.
+    uint getDisplayHeight();
 
 // behind the scenes
 private: 
@@ -134,17 +163,10 @@ private:
     
 // data members
 private:
-    AppCore& appCore_;
+    uint displayWidth_;
+    uint displayHeight_;
     uint viewportWidth_;
     uint viewportHeight_;
-    
-// Singleton-required code
-private:
-    VideoCore();
-    ~VideoCore();
-
-    friend class util::Singleton<VideoCore>;
-    friend class std::auto_ptr<VideoCore>;
 };
 
 }

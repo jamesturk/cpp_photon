@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.cpp,v 1.1 2005/03/02 08:44:16 cozman Exp $
+//  $Id: Timer.cpp,v 1.2 2005/03/15 18:52:07 cozman Exp $
 
 #include "util/Timer.hpp"
 
@@ -55,8 +55,7 @@ double Timer::getTime() const
     if(paused_) 
     {
         //when paused timer adjusted to subtract currently paused time
-        return appCore_.getTime() - 
-                (pausedTime_ + (appCore_.getTime() - lastPause_));
+        return lastPause_ - pausedTime_;
     }
     else
     {
