@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
+//  $Id: exceptions.hpp,v 1.3 2005/02/27 05:51:59 cozman Exp $
 
 #ifndef PHOTON_EXCEPTIONS_HPP
 #define PHOTON_EXCEPTIONS_HPP
@@ -48,7 +48,8 @@ public:
                 uint line=0) throw();
     virtual ~Throwable() throw()=0;
 
-    std::string getDesc() const throw();
+    std::string virtual what() const throw();
+    friend std::ostream& operator<<(std::ostream& os, const Throwable& rhs);
 
 private:
     std::string description_;
@@ -61,11 +62,8 @@ private:
 //  it, and it inherits from <Throwable>.
 //  Exception should be used for hard to classify exceptions.
 //
-//  Exception's children should be used when a problem occurs which is 
+//  Exception and children should be used when a problem occurs which is 
 //  recoverable.
-//
-// Operators:
-//  ostream&<<
 //
 // See Also:
 //  <Error>
@@ -84,16 +82,12 @@ public:
     Exception(const std::string& description = std::string(),
                 const std::string& file = std::string(),
                 uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const Exception& rhs);
+    std::string what() const throw();
 };
 
 // Class: ArgumentException
 //  ArgumentException should be thrown when an argument is passed to a function
 //  that is invalid.
-//
-// Operators:
-//  ostream&<<
 //
 // Parent:
 //  <Exception>
@@ -103,15 +97,11 @@ public:
     ArgumentException(const std::string& description = std::string(),
                         const std::string& file = std::string(),
                         uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const ArgumentException& rhs);
+    std::string what() const throw();
 }; 
 
 // Class: PreconditionException
 //  PreconditionException should be thrown when a precondition is not met.
-//
-// Operators:
-//  ostream&<<
 //
 // Parent:
 //  <Exception>
@@ -121,60 +111,46 @@ public:
     PreconditionException(const std::string& description = std::string(),
                             const std::string& file = std::string(),
                             uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const PreconditionException& rhs);
+    std::string what() const throw();
 }; 
 
 // Class: RangeException
 //  RangeException should be thrown if something (such as an array bound) is out
 //  of bounds.
 //
-// Operators:
-//  ostream&<<
-//
 // Parent:
 //  <Exception>
 class RangeException : public Exception
 {
 public:
-    RangeException() throw();
     RangeException(const std::string& description = std::string(),
                     const std::string& file = std::string(),
                     uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const RangeException& rhs);
+    std::string what() const throw();
 }; 
 
 // Class: ResourceException
 //  ResourceException should be thrown if there is a problem accessing a
 //  resource.
 //
-// Operators:
-//  ostream&<<
-//
 // Parent:
 //  <Exception>
 class ResourceException : public Exception
 {
 public:
-    ResourceException() throw();
     ResourceException(const std::string& description = std::string(),
                         const std::string& file = std::string(),
                         uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const ResourceException& rhs);
+    std::string what() const throw();
 }; 
 
 // Class: Error
-//  GeneralError is the base error class, all errors inherit from it, and it
-//  inherits from <Throwable>.
+//  Error is the base error class, all errors inherit from it, and it inherits 
+//  from <Throwable>.
 //  Error should be used for hard to classify errors.
 //
 //  Errors should be used when a problem occurs which is difficult to just
 //  ignore, usually more severe than exceptions.
-//
-// Operators:
-//  ostream&<<
 //  
 // See Also:
 //  <Exception>
@@ -183,57 +159,45 @@ public:
 //  <Throwable>
 //
 // Children:
-//  <MemoryError>
 //  <APIError>
+//  <MemoryError>
 class Error : public Throwable
 {
 public:
-    Error() throw();
     Error(const std::string&description = std::string(),
             const std::string& file = std::string(),
             uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const Error& rhs);
+    std::string what() const throw();
 };
 
 // Class: MemoryError
-//  MemoryError should be thrown if there is an error allocating memory.
-//
-// Operators:
-//  ostream&<<
+//  MemoryError should be thrown if an error occurs while allocating memory.
 //
 // Parent:
 //  <Error>
 class MemoryError : public Error
 {
 public:
-    MemoryError() throw();
     MemoryError(const std::string& description = std::string(),
                 const std::string& file = std::string(),
                 uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const MemoryError& rhs);
-};
+    std::string what() const throw();
+}; 
 
 // Class: APIError
 //  APIError should be thrown if an error occurs in code which is not part of
 //  Photon.
 //
-// Operators:
-//  ostream&<<
-//
 // Parent:
-//  <Error>
+//  <Throwable>
 class APIError : public Error
 {
 public:
-    APIError() throw();
     APIError(const std::string& description = std::string(),
                 const std::string& file = std::string(),
                 uint line=0) throw();
-    friend std::ostream& operator<<(std::ostream& os,
-                                    const APIError& rhs);
-};
+    std::string what() const throw();
+}; 
 
 }
 

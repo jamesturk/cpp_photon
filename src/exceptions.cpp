@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.cpp,v 1.5 2005/02/16 06:58:26 cozman Exp $
+//  $Id: exceptions.cpp,v 1.6 2005/02/27 05:52:00 cozman Exp $
 
 
 #include "exceptions.hpp"
@@ -22,7 +22,7 @@ Throwable::Throwable(const std::string& description,
 Throwable::~Throwable() throw()
 {}
 
-std::string Throwable::getDesc() const throw()
+std::string Throwable::what() const throw()
 {
     std::ostringstream ss;
 
@@ -34,46 +34,51 @@ std::string Throwable::getDesc() const throw()
     return ss.str();
 }
 
+std::ostream& operator<<(std::ostream& os, const Throwable& rhs)
+{
+    return os << rhs.what();
+}
+
 //exceptions//
 
 Exception::Exception(const std::string& description,
                         const std::string& file, uint line) throw() :
     Throwable(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const Exception& rhs)
+std::string Exception::what() const throw()
 {
-    return os << "General exception occured: " << rhs.getDesc();
+    return "General exception occured: " + Throwable::what();
 }
 
 ArgumentException::ArgumentException(const std::string& description,
                                 const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const ArgumentException& rhs)
+std::string ArgumentException::what() const throw()
 {
-    return os << "Invalid argument exception occured. " << rhs.getDesc();
+    return "Invalid argument exception occured: " + Throwable::what();
 }
 
 PreconditionException::PreconditionException(const std::string& description,
                                 const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const PreconditionException& rhs)
+std::string PreconditionException::what() const throw()
 {
-    return os << "Precondition exception occured: " << rhs.getDesc();
+    return "Precondition exception occured: " + Throwable::what();
 }
 
 RangeException::RangeException(const std::string& description,
                                 const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const RangeException& rhs)
+std::string RangeException::what() const throw()
 {
-    return os << "Out-of-range exception: " << rhs.getDesc();
+    return "Out-of-range exception: " + Throwable::what();
 }
 
 ResourceException::ResourceException(const std::string& description,
                                 const std::string& file, uint line) throw() :
     Exception(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const ResourceException& rhs)
+std::string ResourceException::what() const throw()
 {
-    return os << "Resource exception: " << rhs.getDesc();
+    return "Resource exception: " + Throwable::what();
 }
 
 //errors//
@@ -81,25 +86,25 @@ std::ostream& operator<<(std::ostream& os, const ResourceException& rhs)
 Error::Error(const std::string& description,
                 const std::string& file, uint line) throw() :
     Throwable(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const Error& rhs)
+std::string Error::what() const throw()
 {
-    return os << "General error occured: " << rhs.getDesc();
+    return "General error occured: " + Throwable::what();
 }
 
 MemoryError::MemoryError(const std::string& description,
                             const std::string& file, uint line) throw() :
     Error(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const MemoryError& rhs)
+std::string MemoryError::what() const throw()
 {
-    return os << "Memory error occured: " << rhs.getDesc();
+    return "Memory error occured: " + Throwable::what();
 }
 
 APIError::APIError(const std::string& description,
                     const std::string& file, uint line) throw() :
     Error(description,file,line) {}
-std::ostream& operator<<(std::ostream& os, const APIError& rhs)
+std::string APIError::what() const throw()
 {
-    return os << "Error occured within another library: " << rhs.getDesc();
+    return "Error occured within another library: " + Throwable::what();
 }
 
 }
