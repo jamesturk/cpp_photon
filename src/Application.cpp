@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.2 2005/02/13 22:12:03 cozman Exp $
+//  $Id: Application.cpp,v 1.3 2005/02/16 04:26:23 cozman Exp $
 //
 // Revisions:
 //  $Log: Application.cpp,v $
+//  Revision 1.3  2005/02/16 04:26:23  cozman
+//  constructor fixes
+//
 //  Revision 1.2  2005/02/13 22:12:03  cozman
 //  .h->.hpp
 //
@@ -29,13 +32,13 @@
 namespace photon
 {
 
-Application::Application(const char* arg0) :
-    photonVer(0,0,1)    // this is the current version
+Application::Application() :
+    photonVer_(0,0,1)    // this is the current version
 {
     util::VersionInfo physfsReq(1,0,0); // requires PhysFS 1.0.0
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     
-    ensureVersion("PhysFS", initPhysFS(arg0), physfsReq);
+    ensureVersion("PhysFS", initPhysFS(arg0_.c_str()), physfsReq);
     ensureVersion("GLFW", initGLFW(), glfwReq);
 }
 
@@ -75,5 +78,12 @@ util::VersionInfo Application::initGLFW()
     glfwGetVersion(&maj,&min,&patch);
     return util::VersionInfo(maj,min,patch);
 }
+
+void Application::setInitOptions(const char* appPath) 
+{
+    arg0_ = appPath;
+}
+
+std::string Application::arg0_; //static initializer
 
 }

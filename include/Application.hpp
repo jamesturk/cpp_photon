@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.1 2005/02/13 22:12:03 cozman Exp $
+//  $Id: Application.hpp,v 1.2 2005/02/16 04:26:22 cozman Exp $
 //
 // Revisions:
 //  $Log: Application.hpp,v $
+//  Revision 1.2  2005/02/16 04:26:22  cozman
+//  constructor fixes
+//
 //  Revision 1.1  2005/02/13 22:12:03  cozman
 //  .h->.hpp
 //
@@ -39,10 +42,7 @@ class Application
 public:
     // Function: Application
     //  Default constructor, initializes the internal state & dependencies.
-    //
-    // Parameters:
-    //  arg0 - Path to application (argv[0])
-    Application(const char* arg0);
+    Application();
 
     // Function: ~Application
     //  Default destructor, shuts down dependencies.
@@ -87,10 +87,25 @@ private:
     // Function: initGLFW
     //  Initialize GLFW for use.
     util::VersionInfo initGLFW();
+    
+// Behind the scenes
+public:
+    // Function: setInitOptions(const char* arg0)
+    //  Internal use function, used to set initialization options.
+    //  (params not documented since function signature is subject to change and
+    //  should not be relied on by user-level code)
+    static void setInitOptions(const char* appPath);
 
-// VersionInfos
+// Data Members
 private:
-    util::VersionInfo photonVer;
+    // Variable: photonVer_
+    //  Contains version identifier for photon.
+    util::VersionInfo photonVer_;
+    
+    // Variable: arg0_
+    //  Contains 0th argument from command line, obtained via <setInitOptions>
+    //  and used by PhysFS initialization.
+    static std::string arg0_;
 };
 
 }
