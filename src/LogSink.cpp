@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.cpp,v 1.3 2005/02/04 08:11:54 cozman Exp $
+//  $Id: LogSink.cpp,v 1.4 2005/02/05 03:01:04 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.cpp,v $
+//  Revision 1.4  2005/02/05 03:01:04  cozman
+//  removed getStream() (useless)
+//
 //  Revision 1.3  2005/02/04 08:11:54  cozman
 //  switched Log to shared_ptrs and added extra flushes
 //
@@ -65,11 +68,6 @@ void ConsoleSink::writeMessage(LogLevel level, std::string msg)
     std::cerr << pre[static_cast<int>(level)] << msg << std::endl;
 }
 
-std::ostream& ConsoleSink::getStream()
-{
-    return std::cerr;
-}
-
 //TextSink
 
 TextSink::TextSink(std::string name) :
@@ -92,11 +90,6 @@ void TextSink::writeMessage(LogLevel level, std::string msg)
                            "CRITICAL: " };
 
     out_ << pre[static_cast<int>(level)] << msg << std::endl;
-}
-
-std::ostream& TextSink::getStream()
-{
-    return out_;
 }
 
 //HTMLSink
@@ -136,11 +129,6 @@ void HTMLSink::writeMessage(LogLevel level, std::string msg)
 
     out_ << "<p class=\"" << css[static_cast<int>(level)] << "\">"
             << pre[static_cast<int>(level)] << msg << "</p>" << std::endl;
-}
-
-std::ostream& HTMLSink::getStream()
-{
-    return out_;
 }
 
 }

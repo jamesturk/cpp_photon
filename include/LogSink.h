@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.h,v 1.3 2005/02/04 08:11:54 cozman Exp $
+//  $Id: LogSink.h,v 1.4 2005/02/05 03:01:03 cozman Exp $
 //
 // Revisions:
 //  $Log: LogSink.h,v $
+//  Revision 1.4  2005/02/05 03:01:03  cozman
+//  removed getStream() (useless)
+//
 //  Revision 1.3  2005/02/04 08:11:54  cozman
 //  switched Log to shared_ptrs and added extra flushes
 //
@@ -102,8 +105,6 @@ public:
     //  Name of the LogSink.
     std::string getName() const;
     
-    virtual std::ostream& getStream()=0;
-    
 private:
     std::string name_;
 
@@ -132,7 +133,6 @@ public:
     virtual ~ConsoleSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
-    virtual std::ostream& getStream();
 };
 
 // Class: TextSink
@@ -150,7 +150,6 @@ public:
     virtual ~TextSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
-    virtual std::ostream& getStream();
 private:
     std::ofstream out_;
 };
@@ -170,7 +169,6 @@ public:
     virtual ~HTMLSink();
     
     virtual void writeMessage(LogLevel level, std::string msg);
-    virtual std::ostream& getStream();
 private:
     std::ofstream out_;
 };
