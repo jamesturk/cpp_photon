@@ -5,10 +5,11 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.1 2005/03/01 07:50:22 cozman Exp $
+#  $Id: SConstruct,v 1.2 2005/03/01 10:43:34 cozman Exp $
 
 import os,os.path
 import glob
+import string
 
 subDirs = ['', 'audio', 'math', 'util', 'util/filesys']
 libName = 'photon'
@@ -23,6 +24,14 @@ class Builder:
         self.srcFiles = [f.replace('src','build') for f in self.srcFiles]
         self.incFiles = Flatten([self.getFiles(d, '*.hpp') 
                                 for d in self.incDirs])
+                                
+    def getFilesRecursive(self, path, pat):
+        files = glob.glob( os.path.join(path,pat) )
+        for item in os.walk(path):
+            basePath = item[0]
+            for subdir in item[1]:
+                files += glob.glob( os.path.join(basePath,subdir,pat) )
+        return [modf.replace(path+os.sep, '').replace(os.sep,'/') for modf in files]
 
     def combine(self, prefix, dirs):
         """Add a prefix to all directories"""
@@ -64,6 +73,15 @@ class Builder:
             self.env.Default(reg)
         return reg
         
+    def buildSuperHeader(self,libName):
+        header = file('include/'+libName+'.hpp','w')
+        incGuard = string.upper(libName)+'_HPP'
+        header.write('#ifndef '+incGuard+'\n')
+        header.write('#define '+incGuard+'\n\n')
+        for inc in self.getFilesRecursive('./include','*.hpp'):
+            header.write('#include "'+inc+'"\n')
+        header.write('\n#endif // '+incGuard+'\n')
+        
     def build(self):
         BuildDir('build', 'src', duplicate=0)
         self.checkDepends()
@@ -71,6 +89,7 @@ class Builder:
         self.namedBuild('photon', os.path.join('lib',libName), 'Library',
                         default=True,
                         source = self.srcFiles, CPPPATH = self.incDirs)
+        self.buildSuperHeader(libName)
 
     
 b = Builder(subDirs)
