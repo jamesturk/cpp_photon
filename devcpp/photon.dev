@@ -17,8 +17,8 @@ IsCpp=1
 Icon=
 ExeOutput=..\lib
 ObjectOutput=..\devcpp
-OverrideOutput=0
-OverrideOutputName=photon.a
+OverrideOutput=1
+OverrideOutputName=libphoton.a
 HostApplication=
 Folders=include,include/util,src,src/util
 CommandLine=
@@ -27,7 +27,7 @@ CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=0000000000000000000000
+CompilerSettings=0000001000000000000000
 
 [Unit1]
 FileName=..\include\types.h
