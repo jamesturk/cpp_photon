@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.2 2005/03/01 07:51:04 cozman Exp $
+//  $Id: AppCore.hpp,v 1.3 2005/03/02 08:40:51 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
@@ -67,10 +67,6 @@ public:
                         uint depthBits, uint stencilBits, bool fullscreen,
                         const std::string &title);
 
-    // Function: updateDisplay
-    //  Updates the display, usually involves flipping the front/back buffers.
-    void updateDisplay();
-
 // Group: Input
 public:
 
@@ -127,10 +123,10 @@ public:
     //  been running.
     scalar getTime();
     
-// Group: Application 
+// Group: General 
 public:
     // Function: update
-    //  Updates the  
+    //  Updates the internals of the application, including the display.
     void update();
 
     // Function: setTitle
@@ -175,8 +171,26 @@ public:
     //  Current frames per second.
     double getFramerate();
 
+// Group: Accessors    
+public:
+    // Function: getDisplayWidth
+    //  Get the width of the display.
+    //
+    // Returns:
+    //  Width of display in pixels.
+    uint getDisplayWidth();
+    
+    // Function: getDisplayHeight
+    //  Get the height of the display.
+    //
+    // Returns:
+    //  Height of display in pixels.
+    uint getDisplayHeight();
+
 // data members
 private:
+    uint dispWidth_;
+    uint dispHeight_;
     bool quitRequested_;
     bool active_;
     bool timerPaused_;

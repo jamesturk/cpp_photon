@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.2 2005/03/01 07:52:20 cozman Exp $
+//  $Id: AppCore.cpp,v 1.3 2005/03/02 08:43:33 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -29,6 +29,9 @@ void AppCore::createDisplay(uint width, uint height,
     {
         throw APIError("Failed to create display.");
     }
+    
+    dispWidth_ = width;
+    dispHeight_ = height;
     
     glfwSetWindowTitle(title.c_str());  // title is set separately
 }
@@ -56,12 +59,10 @@ void AppCore::createDisplay(uint width, uint height, uint bpp,
             createDisplay(width, height, 8, 8, 8, 8, depthBits, stencilBits, 
                             fullscreen, title);
             break;
+        default:
+            throw ArgumentException("bpp argument of createDisplay must be " 
+                                    "8,16,24, or 32.");
     }
-}
-
-void AppCore::updateDisplay()
-{
-    glfwSwapBuffers();
 }
 
 bool AppCore::keyPressed(KeyCode key)
@@ -101,6 +102,9 @@ scalar AppCore::getTime()
 void AppCore::update()
 {
     scalar curTime = getTime();
+    
+    // update the display here instead of VideoCore (since it belongs to glfw)
+    glfwSwapBuffers();  
     
     // keep track of time between frames
     secPerFrame_ = curTime-lastUpdate_;
@@ -162,6 +166,16 @@ double AppCore::getFramerate()
     return 1/secPerFrame_;
 }
 
+uint AppCore::getDisplayWidth()
+{
+    return dispWidth_;
+}
+
+uint AppCore::getDisplayHeight()
+{
+    return dispHeight_;
+}
+
 util::VersionInfo AppCore::initGLFW()
 {
     int maj,min,patch;
@@ -174,6 +188,7 @@ util::VersionInfo AppCore::initGLFW()
 }
 
 AppCore::AppCore() :
+    dispWidth_(0), dispHeight_(0),
     quitRequested_(true), active_(false), timerPaused_(false), 
     unpauseOnActive_(false), lastPause_(0), pausedTime_(0),
     secPerFrame_(0), lastUpdate_(0)

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.5 2005/03/01 07:51:04 cozman Exp $
+//  $Id: Application.hpp,v 1.6 2005/03/02 08:40:51 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -76,12 +76,6 @@ private:
 
 // Data Members
 private:
-    scalar secPerFrame_;
-    scalar lastUpdate_;
-    bool active_;
-    bool unpauseOnActive_;
-    bool quitRequested_;
-
     // version number for photon
     util::VersionInfo photonVer_;
 
