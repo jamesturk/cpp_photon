@@ -5,13 +5,13 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.2 2005/03/01 10:43:34 cozman Exp $
+#  $Id: SConstruct,v 1.3 2005/03/02 08:46:45 cozman Exp $
 
 import os,os.path
 import glob
 import string
 
-subDirs = ['', 'audio', 'math', 'util', 'util/filesys']
+subDirs = ['', 'audio', 'math', 'util', 'util/filesys', 'video']
 libName = 'photon'
 
 class Builder:   
@@ -85,11 +85,16 @@ class Builder:
     def build(self):
         BuildDir('build', 'src', duplicate=0)
         self.checkDepends()
-        
+
         self.namedBuild('photon', os.path.join('lib',libName), 'Library',
                         default=True,
                         source = self.srcFiles, CPPPATH = self.incDirs)
         self.buildSuperHeader(libName)
+        ndoc = self.env.Command('docs/index.html', './include',
+            """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""",
+            target_factory=Dir)
+        self.env.Alias("docs",ndoc)
+        self.env.AlwaysBuild('docs/index.html')
 
     
 b = Builder(subDirs)
