@@ -1,12 +1,12 @@
 [Project]
 FileName=photon.dev
 Name=photon
-UnitCount=13
+UnitCount=17
 Type=2
 Ver=1
 ObjFiles=
-Includes=../include
-Libs=
+Includes=../include;../external/include
+Libs=../external/lib
 PrivateResource=
 ResourceIncludes=
 MakeIncludes=
@@ -20,7 +20,7 @@ ObjectOutput=..\devcpp
 OverrideOutput=1
 OverrideOutputName=libphoton.a
 HostApplication=
-Folders=include,include/util,src,src/util
+Folders=external,external/include,external/src,include,include/util,src,src/util
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
@@ -158,9 +158,9 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit14]
-FileName=..\src\exceptions.cpp
+FileName=..\include\util\FileBuffer.h
 CompileCpp=1
-Folder=src
+Folder=include/util
 Compile=1
 Link=1
 Priority=1000
@@ -168,9 +168,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=..\include\exceptions.h
+FileName=..\src\util\FileBuffer.cpp
 CompileCpp=1
-Folder=include
+Folder=src/util
 Compile=1
 Link=1
 Priority=1000
@@ -191,6 +191,26 @@ BuildCmd=
 FileName=..\src\exceptions.cpp
 CompileCpp=1
 Folder=src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit17]
+FileName=..\include\util\filesys\filesys.h
+CompileCpp=1
+Folder=include/util
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit16]
+FileName=..\src\util\filesys\filesys.cpp
+CompileCpp=1
+Folder=src/util
 Compile=1
 Link=1
 Priority=1000
