@@ -3,7 +3,28 @@ Format: 1.32
 
 Title: Photon
 SubTitle: Simple Open Source 2D Game API
+
 Footer: Documentation for <a href="http://photon.sourceforge.net">photon</a>. Copyright (C) 2004-2005 James Turk
+
+
+# --------------------------------------------------------------------------
+# 
+# Cut and paste the lines below to change the order in which your files
+# appear on the menu.  Don't worry about adding or removing files, Natural
+# Docs will take care of that.
+# 
+# You can further organize the menu by grouping the entries.  Add a
+# "Group: [name] {" line to start a group, and add a "}" to end it.
+# 
+# You can add text and web links to the menu by adding "Text: [text]" and
+# "Link: [name] ([URL])" lines, respectively.
+# 
+# The formatting and comments are auto-generated, so don't worry about
+# neatness when editing the file.  Natural Docs will clean it up the next
+# time it is run.  When working with groups, just deal with the braces and
+# forget about the indentation and comments.
+# 
+# --------------------------------------------------------------------------
 
 
 Group: photon::  {
@@ -15,31 +36,41 @@ Group: photon::  {
    File: Exception/Error Types  (exceptions.hpp)
    File: Log  (Log.hpp)
    File: Logging Utilities  (LogSink.hpp)
-   
+   File: ResourceManaged  (ResourceManaged.hpp)
+   File: ResourceManager  (ResourceManager.hpp)
 
-Group: audio::  {
+   Group: audio::  {
 
-   File: AudioCore  (audio/AudioCore.hpp)
-   }  # Group: Audio::
+      File: AudioCore  (audio\AudioCore.hpp)
+      }  # Group: audio::
 
-Group: math::  {
+   Group: math::  {
 
-   File: Circle  (math/Circle.hpp)
-   File: Math Utilities  (math/math.hpp)
-   File: Rect  (math/Rect.hpp)
-   File: Vector2  (math/Vector2.hpp)
-   }  # Group: Math::
+      File: Circle  (math\Circle.hpp)
+      File: Math Utilities  (math\math.hpp)
+      File: Rect  (math\Rect.hpp)
+      File: Vector2  (math\Vector2.hpp)
+      }  # Group: math::
 
-Group: util::  {
+   Group: util::  {
 
-   File: ConfigFile  (util/ConfigFile.hpp)
-   File: File System  (util/filesys/filesys.hpp)
-   File: FileBuffer  (util/FileBuffer.hpp)
-   File: RandGen  (util/RandGen.hpp)
-   File: Singleton  (util/Singleton.hpp)
-   File: VersionInfo  (util/VersionInfo.hpp)
-   }  # Group: Util::
-}
+      File: ConfigFile  (util\ConfigFile.hpp)
+      File: FileBuffer  (util\FileBuffer.hpp)
+      File: filesys::  (util\filesys\filesys.hpp)
+      File: RandGen  (util\RandGen.hpp)
+      File: Singleton  (util\Singleton.hpp)
+      File: Timer  (util\Timer.hpp)
+      File: VersionInfo  (util\VersionInfo.hpp)
+      }  # Group: util::
+
+   Group: video::  {
+
+      File: Color  (video\Color.hpp)
+      File: Pen  (video\Pen.hpp)
+      File: VideoCore  (video\VideoCore.hpp)
+      }  # Group: video::
+
+   }  # Group: photon::
 
 Group: Index  {
 
