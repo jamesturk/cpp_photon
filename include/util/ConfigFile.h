@@ -5,10 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.h,v 1.2 2005/01/31 15:44:13 cozman Exp $
+//  $Id: ConfigFile.h,v 1.3 2005/02/03 20:38:56 cozman Exp $
 //
 // Revisions:
 //  $Log: ConfigFile.h,v $
+//  Revision 1.3  2005/02/03 20:38:56  cozman
+//  conversion to LF
+//
 //  Revision 1.2  2005/01/31 15:44:13  cozman
 //  ConfigFile rewrite
 //
