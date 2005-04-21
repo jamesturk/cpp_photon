@@ -5,14 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.2 2005/03/15 18:53:27 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.3 2005/04/21 19:30:19 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
 #include "exceptions.hpp"
 
-#include "gl/gl.h"
-#include "gl/glu.h"
+#include "GL/gl.h"
+#include "GL/glu.h"
 
 namespace photon
 {

@@ -5,12 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.6 2005/03/15 19:22:07 cozman Exp $
+//  $Id: Application.cpp,v 1.7 2005/04/21 19:30:19 cozman Exp $
 
 #include "Application.hpp"
 
 #include "physfs.h"
-#include "gl/gl.h"
+#include "GL/gl.h"
 
 #include <boost/lexical_cast.hpp>
 

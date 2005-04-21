@@ -5,13 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.4 2005/03/15 18:41:27 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.5 2005/04/21 19:30:19 cozman Exp $
 
 #ifndef PHOTON_AUDIO_AUDIOCORE_HPP
 #define PHOTON_AUDIO_AUDIOCORE_HPP
 
-#include "al.h"
-#include "alc.h"
+#include "AL/al.h"
+#include "AL/alc.h"
 
 #include "util/Singleton.hpp"
 #include "util/VersionInfo.hpp"

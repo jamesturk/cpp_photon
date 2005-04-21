@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.cpp,v 1.6 2005/03/03 09:25:47 cozman Exp $
+//  $Id: VersionInfo.cpp,v 1.7 2005/04/21 19:30:19 cozman Exp $
 
 #include "util/VersionInfo.hpp"
 
@@ -20,11 +20,11 @@ namespace util
 
 VersionInfo::VersionInfo(unsigned int maj, unsigned int min, unsigned int pat,
                             std::string ext) :
-    major(maj), minor(min), patch(pat), extra(ext)
+    majorRelease(maj), minorRelease(min), patch(pat), extra(ext)
 {}
 
 VersionInfo::VersionInfo() :
-    major(0), minor(0), patch(0)
+    majorRelease(0), minorRelease(0), patch(0)
 {}
 
 bool VersionInfo::operator<(const VersionInfo &rhs) const
@@ -32,17 +32,17 @@ bool VersionInfo::operator<(const VersionInfo &rhs) const
     bool less(false);
     
     //chained compares, compare numbers in order of importance
-    if(this->major < rhs.major)
+    if(this->majorRelease < rhs.majorRelease)
     {
         less = true;
     }
-    else if(this->major == rhs.major)
+    else if(this->majorRelease == rhs.majorRelease)
     {
-        if(this->minor < rhs.minor)
+        if(this->minorRelease < rhs.minorRelease)
         {
             less = true;
         }
-        else if(this->minor == rhs.minor)
+        else if(this->minorRelease == rhs.minorRelease)
         {
             if(this->patch < rhs.patch)
             {
@@ -62,7 +62,8 @@ bool VersionInfo::operator<=(const VersionInfo &rhs) const
 bool VersionInfo::operator==(const VersionInfo &rhs) const
 {
     return this->extra == rhs.extra && this->patch == rhs.patch &&
-            this->minor == rhs.minor && this->major == rhs.major;
+            this->minorRelease == rhs.minorRelease && 
+            this->majorRelease == rhs.majorRelease;
 }
 
 bool VersionInfo::operator>=(const VersionInfo &rhs) const
@@ -77,9 +78,9 @@ bool VersionInfo::operator>(const VersionInfo &rhs) const
 
 std::ostream& operator<<(std::ostream &o, const VersionInfo &rhs)
 {
-    // output major.minor.path [extra] (extra is only printed if not empty)
-    return o << rhs.major << '.' << rhs.minor << '.' << rhs.patch <<
-            (rhs.extra.empty() ? "" : " [" + rhs.extra + "]");
+    // output major.minor.patch [extra] (extra is only printed if not empty)
+    return o << rhs.majorRelease << '.' << rhs.minorRelease << '.' 
+            << rhs.patch << (rhs.extra.empty() ? "" : " [" + rhs.extra + "]");
 }
 
 void ensureVersion(const std::string& library,

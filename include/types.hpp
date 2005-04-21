@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.5 2005/03/15 19:13:56 cozman Exp $
+//  $Id: types.hpp,v 1.6 2005/04/21 19:30:19 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP
@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-#include "glfw.h"   //This file depends on glfw
+#include "GL/glfw.h"   //This file depends on glfw
 
 // Title: Basic Types
 

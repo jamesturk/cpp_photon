@@ -5,12 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.5 2005/03/15 19:22:07 cozman Exp $
+//  $Id: AppCore.cpp,v 1.6 2005/04/21 19:30:19 cozman Exp $
 
 #include "AppCore.hpp"
 
 #include <boost/lexical_cast.hpp>
-#include "glfw.h"   //This file depends on glfw
+#include "GL/glfw.h"   //This file depends on glfw
 
 #include "Kernel.hpp"
 #include "exceptions.hpp"

@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.6 2005/04/21 18:39:26 cozman Exp $
+#  $Id: SConstruct,v 1.7 2005/04/21 19:30:19 cozman Exp $
 
 import os,os.path
 import glob
@@ -102,9 +102,8 @@ class Builder:
                         LIBS=['photon','openal32','glfw','opengl32','glu32','physfs'],
                         CPPFLAGS = '-Wall -pedantic -pg', LINKFLAGS='-pg')
         self.buildSuperHeader()
-        #ndoc = self.env.Command('docs/index.html', './include',
-        #    """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""",
-        #    target_factory=Dir)
+        ndoc = self.env.Command('docs/index.html', './include',
+            """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""")
         #self.env.Alias("docs",ndoc)
         self.env.AlwaysBuild('docs/index.html')
 

@@ -5,10 +5,10 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Color.cpp,v 1.1 2005/03/02 08:45:58 cozman Exp $
+//  $Id: Color.cpp,v 1.2 2005/04/21 19:30:19 cozman Exp $
 
 #include "video/Color.hpp"
-#include "gl/gl.h"
+#include "GL/gl.h"
 
 namespace photon
 {

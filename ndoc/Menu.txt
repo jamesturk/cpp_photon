@@ -1,4 +1,4 @@
-Format: 1.32
+Format: 1.35
 
 
 Title: Photon
@@ -31,48 +31,44 @@ Group: photon::  {
 
    File: AppCore  (AppCore.hpp)
    File: Application  (Application.hpp)
+   File: AudioCore  (audio/AudioCore.hpp)
    File: Basic Types  (types.hpp)
    File: Entrypoint  (entrypoint.hpp)
    File: Exception/Error Types  (exceptions.hpp)
    File: Kernel  (Kernel.hpp)
    File: Log  (Log.hpp)
    File: Logging Utilities  (LogSink.hpp)
+
+   Group: Math  {
+
+      File: Circle  (math/Circle.hpp)
+      File: Math Utilities  (math/math.hpp)
+      File: Rect  (math/Rect.hpp)
+      File: Vector2  (math/Vector2.hpp)
+      }  # Group: Math
+
    File: ResourceManaged  (ResourceManaged.hpp)
    File: ResourceManager  (ResourceManager.hpp)
    File: Task  (Task.hpp)
 
-   Group: audio::  {
+   Group: Util  {
 
-      File: AudioCore  (audio\AudioCore.hpp)
-      }  # Group: audio::
+      File: ConfigFile  (util/ConfigFile.hpp)
+      File: FileBuffer  (util/FileBuffer.hpp)
+      File: filesys::  (util/filesys/filesys.hpp)
+      File: RandGen  (util/RandGen.hpp)
+      File: Singleton  (util/Singleton.hpp)
+      File: Timer  (util/Timer.hpp)
+      File: VersionInfo  (util/VersionInfo.hpp)
+      }  # Group: Util
 
-   Group: math::  {
+   Group: Video  {
 
-      File: Circle  (math\Circle.hpp)
-      File: Math Utilities  (math\math.hpp)
-      File: Rect  (math\Rect.hpp)
-      File: Vector2  (math\Vector2.hpp)
-      }  # Group: math::
+      File: Color  (video/Color.hpp)
+      File: Pen  (video/Pen.hpp)
+      File: VideoCore  (video/VideoCore.hpp)
+      }  # Group: Video
 
-   Group: util::  {
-
-      File: ConfigFile  (util\ConfigFile.hpp)
-      File: FileBuffer  (util\FileBuffer.hpp)
-      File: filesys::  (util\filesys\filesys.hpp)
-      File: RandGen  (util\RandGen.hpp)
-      File: Singleton  (util\Singleton.hpp)
-      File: Timer  (util\Timer.hpp)
-      File: VersionInfo  (util\VersionInfo.hpp)
-      }  # Group: util::
-
-   Group: video::  {
-
-      File: Color  (video\Color.hpp)
-      File: Pen  (video\Pen.hpp)
-      File: VideoCore  (video\VideoCore.hpp)
-      }  # Group: video::
-
-   
    }  # Group: photon::
 
 Group: Index  {

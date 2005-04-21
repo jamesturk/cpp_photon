@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.hpp,v 1.5 2005/03/03 09:25:20 cozman Exp $
+//  $Id: VersionInfo.hpp,v 1.6 2005/04/21 19:30:19 cozman Exp $
 
 #ifndef PHOTON_UTIL_VERSIONINFO_HPP
 #define PHOTON_UTIL_VERSIONINFO_HPP
@@ -20,7 +20,7 @@ namespace util
 
 // Class: VersionInfo
 //  Class which stores version information, such as release numbers.
-//  Format is Major.Minor.Release [ExtraInfo].
+//  Format is majorRelease.Minor.Release [ExtraInfo].
 //
 // Operators:
 //   - VersionInfo < VersionInfo
@@ -34,14 +34,15 @@ class VersionInfo
 public:
     // Group: Variables
 
-    // Variable: major
-    //  Major version number, should be changed when major changes take place.
-    unsigned int major;
+    // Variable: majorRelease
+    //  major release version number, should be changed when major changes take 
+    //  place.
+    unsigned int majorRelease;
 
     // Variable: minor
-    //  Minor version number, should be changed when key features are
+    //  minor release version number, should be changed when key features are
     //  added/removed/changed.
-    unsigned int minor;
+    unsigned int minorRelease;
 
     // Variable: patch
     //  Patch number, should be changed upon every release that isn't
@@ -62,7 +63,7 @@ public:
     //  Initializing constructor.
     //
     // Parameters:
-    //  maj - Major version number.
+    //  maj - majorRelease version number.
     //  min - Minor version number.
     //  pat - Patch number.
     //  ext - Extra info string. [default: ""]

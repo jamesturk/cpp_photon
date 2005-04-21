@@ -5,11 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
+//  $Id: Pen.cpp,v 1.3 2005/04/21 19:30:19 cozman Exp $
 
 #include "video/Pen.hpp"
 
-#include "gl/gl.h"
+#include "GL/gl.h"
 
 #include "math/math.hpp"
 
