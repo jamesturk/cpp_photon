@@ -5,41 +5,45 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.5 2005/03/15 19:21:51 cozman Exp $
+#  $Id: SConstruct,v 1.6 2005/04/21 18:39:26 cozman Exp $
 
 import os,os.path
 import glob
 import string
 
-subDirs = ['', 'audio', 'math', 'util', 'util/filesys', 'video']
-libName = 'photon'
+
+def combine(prefix, dirs):
+    """Add a common prefix to all directories"""
+    return [os.path.join(prefix,d) for d in dirs]
+
+def getFiles(path, pat):
+    """Get all files which match a glob in a directory"""
+    return glob.glob( os.path.join(path,pat) )
+
+def getFilesMulti(paths, pat):
+    """Get all files which match a glob in a set of directories"""
+    filelist = []
+    for d in paths:
+        filelist += getFiles(d, pat)
+    return filelist
+
+def getFilesRecursive(path, pat):
+    files = glob.glob( os.path.join(path,pat) )
+    for item in os.walk(path):
+        basePath = item[0]
+        for subdir in item[1]:
+            files += glob.glob( os.path.join(basePath,subdir,pat) )
+    return [modf.replace(path+os.sep, '').replace(os.sep,'/') for modf in files]
 
 class Builder:   
-    def __init__(self, subDirs):
-        self.subDirs = subDirs
-        self.srcDirs = self.combine('src',self.subDirs)
-        self.incDirs = self.combine('include',self.subDirs)
-        self.srcFiles = Flatten([self.getFiles(d, '*.cpp') 
-                                for d in self.srcDirs])
+    def __init__(self):
+        self.libName = 'photon'
+        self.subDirs = ['', 'audio', 'math', 'util', 'util/filesys', 'video']
+        self.srcDirs = combine('src',self.subDirs)
+        self.incDirs = combine('include',self.subDirs)
+        self.srcFiles = getFilesMulti(self.srcDirs, '*.cpp')
         self.srcFiles = [f.replace('src','build') for f in self.srcFiles]
-        self.incFiles = Flatten([self.getFiles(d, '*.hpp') 
-                                for d in self.incDirs])
-                                
-    def getFilesRecursive(self, path, pat):
-        files = glob.glob( os.path.join(path,pat) )
-        for item in os.walk(path):
-            basePath = item[0]
-            for subdir in item[1]:
-                files += glob.glob( os.path.join(basePath,subdir,pat) )
-        return [modf.replace(path+os.sep, '').replace(os.sep,'/') for modf in files]
-
-    def combine(self, prefix, dirs):
-        """Add a prefix to all directories"""
-        return [os.path.join(prefix,d) for d in dirs]
-
-    def getFiles(self, path, pat):
-        """Get all files which match a glob in a directory"""
-        return glob.glob( os.path.join(path,pat) )
+        self.incFiles = getFilesMulti(self.srcDirs, '*.hpp')
 
     def checkLibrary(self, name, lib, header):
         """Check if a library/header pair exists, report and bail if not"""
@@ -49,11 +53,13 @@ class Builder:
 
     def checkDepends(self):
         """Check all the dependencies for the current project"""
-        self.env = Environment(ENV = os.environ)
+        self.env = Environment(ENV = os.environ, 
+                                LIBPATH=['/usr/lib', '/usr/local/lib'],
+                                INCPATH=['/usr/include', '/usr/local/include'])
         self.conf = Configure(self.env)
-        self.checkLibrary('OpenAL','OpenAL32','al.h')
-        self.checkLibrary('OpenGL','opengl32','gl/gl.h')
-        self.checkLibrary('GLFW','GLFW','glfw.h')
+        self.checkLibrary('OpenAL','openal','AL/al.h')
+        self.checkLibrary('OpenGL','GL','GL/gl.h')
+        self.checkLibrary('GLFW','glfw','GL/glfw.h')
         self.env = self.conf.Finish()
         
     def namedBuild(self, name, target, buildType, default=False, **extra):
@@ -73,12 +79,12 @@ class Builder:
             self.env.Default(reg)
         return reg
         
-    def buildSuperHeader(self,libName):
-        header = file('include/'+libName+'.hpp','w')
-        incGuard = string.upper(libName)+'_HPP'
+    def buildSuperHeader(self):
+        header = file('include/'+self.libName+'.hpp','w')
+        incGuard = string.upper(self.libName)+'_HPP'
         header.write('#ifndef '+incGuard+'\n')
         header.write('#define '+incGuard+'\n\n')
-        for inc in self.getFilesRecursive('./include','*.hpp'):
+        for inc in getFilesRecursive('./include','*.hpp'):
             header.write('#include "'+inc+'"\n')
         header.write('\n#endif // '+incGuard+'\n')
         
@@ -86,7 +92,7 @@ class Builder:
         BuildDir('build', 'src', duplicate=0)
         self.checkDepends()
 
-        self.namedBuild('photon', os.path.join('lib',libName), 'Library',
+        self.namedBuild('photon', os.path.join('lib',self.libName), 'Library',
                         default=True, 
                         source = self.srcFiles, CPPPATH = 'include',
                         CPPFLAGS = '-Wall -pedantic -pg')
@@ -95,13 +101,13 @@ class Builder:
                         LIBPATH='./lib', 
                         LIBS=['photon','openal32','glfw','opengl32','glu32','physfs'],
                         CPPFLAGS = '-Wall -pedantic -pg', LINKFLAGS='-pg')
-        self.buildSuperHeader(libName)
-        ndoc = self.env.Command('docs/index.html', './include',
-            """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""",
-            target_factory=Dir)
-        self.env.Alias("docs",ndoc)
+        self.buildSuperHeader()
+        #ndoc = self.env.Command('docs/index.html', './include',
+        #    """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""",
+        #    target_factory=Dir)
+        #self.env.Alias("docs",ndoc)
         self.env.AlwaysBuild('docs/index.html')
 
     
-b = Builder(subDirs)
+b = Builder()
 b.build()
