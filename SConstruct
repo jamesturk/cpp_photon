@@ -5,108 +5,73 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.7 2005/04/21 19:30:19 cozman Exp $
+#  $Id: SConstruct,v 1.8 2005/05/14 02:16:42 cozman Exp $
 
 import os,os.path
 import glob
-import string
 
-
-def combine(prefix, dirs):
-    """Add a common prefix to all directories"""
-    return [os.path.join(prefix,d) for d in dirs]
-
-def getFiles(path, pat):
-    """Get all files which match a glob in a directory"""
-    return glob.glob( os.path.join(path,pat) )
-
+def buildSuperHeader(self):
+    header = file('include/'+LIBRARY+'.hpp','w')
+    incGuard = string.upper(LIBRARY)+'_HPP'
+    header.write('#ifndef '+incGuard+'\n')
+    header.write('#define '+incGuard+'\n\n')
+    for inc in INC_FILES:
+        header.write('#include "'+inc+'"\n')
+    header.write('\n#endif // '+incGuard+'\n')
+    
 def getFilesMulti(paths, pat):
     """Get all files which match a glob in a set of directories"""
     filelist = []
     for d in paths:
-        filelist += getFiles(d, pat)
+        filelist += glob.glob( os.path.join(d,pat) )
     return filelist
 
-def getFilesRecursive(path, pat):
-    files = glob.glob( os.path.join(path,pat) )
-    for item in os.walk(path):
-        basePath = item[0]
-        for subdir in item[1]:
-            files += glob.glob( os.path.join(basePath,subdir,pat) )
-    return [modf.replace(path+os.sep, '').replace(os.sep,'/') for modf in files]
+## config variables ##
+LIBRARY = 'photon'
+SUB_DIRS = ['', 'audio', 'math', 'util', 'util/filesys', 'video']
+SRC_DIRS = ["src/%s" % d for d in SUB_DIRS]
+INC_DIRS = ["include/%s" % d for d in SUB_DIRS]
+SRC_FILES = [f.replace('src','build') for f in getFilesMulti(SRC_DIRS, '*.cpp')]
+INC_FILES = getFilesMulti(INC_DIRS, '*.hpp')
 
-class Builder:   
-    def __init__(self):
-        self.libName = 'photon'
-        self.subDirs = ['', 'audio', 'math', 'util', 'util/filesys', 'video']
-        self.srcDirs = combine('src',self.subDirs)
-        self.incDirs = combine('include',self.subDirs)
-        self.srcFiles = getFilesMulti(self.srcDirs, '*.cpp')
-        self.srcFiles = [f.replace('src','build') for f in self.srcFiles]
-        self.incFiles = getFilesMulti(self.srcDirs, '*.hpp')
+libsMap = {
+            'nt':('opengl32','glu32','openal32'),
+            'posix':('GL','GLU','openal'),
+            'mac':('GL','GLU','openal') }
+try:
+    OGL_LIB,GLU_LIB,OAL_LIB = libsMap[os.name]
+except KeyError:
+    print """Building on this platform (' + os.name + ') is not 
+             supported.  Contact James (jpt2433@rit.edu) to check on
+             support."""
+    Exit(1)
 
-    def checkLibrary(self, name, lib, header):
-        """Check if a library/header pair exists, report and bail if not"""
-        if not self.conf.CheckLibWithHeader(lib, header, 'C++'):
-            print name,'not found, exiting.'
-            Exit(1)
+# Configure the environment (Check libraries):
+env = Environment(ENV = os.environ)
+conf = Configure(env)
+if not conf.CheckLibWithHeader(OAL_LIB, 'AL/al.h', 'C++'):
+    print 'OpenAL not found, exiting.'
+    Exit(1)
+if not conf.CheckLibWithHeader(OGL_LIB, 'GL/gl.h', 'C++'):
+    print 'OpenGL not found, exiting.'
+    Exit(1)
+if not conf.CheckLibWithHeader(GLU_LIB, 'GL/glu.h', 'C++'):
+    print 'GLU not found, exiting.'
+    Exit(1)
+if not conf.CheckLibWithHeader('glfw', 'GL/glfw.h', 'C++'):
+    print 'GLFW not found, exiting.'
+    Exit(1)
+env = conf.Finish()
 
-    def checkDepends(self):
-        """Check all the dependencies for the current project"""
-        self.env = Environment(ENV = os.environ, 
-                                LIBPATH=['/usr/lib', '/usr/local/lib'],
-                                INCPATH=['/usr/include', '/usr/local/include'])
-        self.conf = Configure(self.env)
-        self.checkLibrary('OpenAL','openal','AL/al.h')
-        self.checkLibrary('OpenGL','GL','GL/gl.h')
-        self.checkLibrary('GLFW','glfw','GL/glfw.h')
-        self.env = self.conf.Finish()
-        
-    def namedBuild(self, name, target, buildType, default=False, **extra):
-        """Add a build target which can be addressed by name on the command line
-            name      - Name to give to the target (using Alias)
-            target    - Actual build target
-            buildType - string describing what is being built (eg. Library, PDF)
-            [default  - whether or not target is built by default (False)]
-            **extra   - any options which should be given to the builder 
-                        (eg. source='foo.c', CPPPATH='/foo/bar/baz')
-            """
-        # create a string with the desired buildType
-        regStr = "self.env."+buildType+"(target = target, **extra)"
-        # alias the build to the given name
-        reg = self.env.Alias(name,  eval(regStr))
-        if default:
-            self.env.Default(reg)
-        return reg
-        
-    def buildSuperHeader(self):
-        header = file('include/'+self.libName+'.hpp','w')
-        incGuard = string.upper(self.libName)+'_HPP'
-        header.write('#ifndef '+incGuard+'\n')
-        header.write('#define '+incGuard+'\n\n')
-        for inc in getFilesRecursive('./include','*.hpp'):
-            header.write('#include "'+inc+'"\n')
-        header.write('\n#endif // '+incGuard+'\n')
-        
-    def build(self):
-        BuildDir('build', 'src', duplicate=0)
-        self.checkDepends()
+# Define Builds:
+BuildDir('build', 'src', duplicate=0)
 
-        self.namedBuild('photon', os.path.join('lib',self.libName), 'Library',
-                        default=True, 
-                        source = self.srcFiles, CPPPATH = 'include',
-                        CPPFLAGS = '-Wall -pedantic -pg')
-        self.namedBuild('test00', 'test00', 'Program', default=False, 
-                        source = 'test00.cpp', CPPPATH = self.incDirs, 
-                        LIBPATH='./lib', 
-                        LIBS=['photon','openal32','glfw','opengl32','glu32','physfs'],
-                        CPPFLAGS = '-Wall -pedantic -pg', LINKFLAGS='-pg')
-        self.buildSuperHeader()
-        ndoc = self.env.Command('docs/index.html', './include',
-            """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""")
-        #self.env.Alias("docs",ndoc)
-        self.env.AlwaysBuild('docs/index.html')
+lib = env.Library(os.path.join('lib',LIBRARY), source=SRC_FILES, 
+            CPPPATH = 'include', CPPFLAGS = '-Wall -pedantic -O3') 
+env.Alias(LIBRARY,lib)
+env.Default(LIBRARY)
 
-    
-b = Builder()
-b.build()
+ndoc = env.Command('docs/index.html', './include',
+    """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""")
+env.Alias("docs",ndoc)
+
