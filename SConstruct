@@ -5,20 +5,12 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.8 2005/05/14 02:16:42 cozman Exp $
+#  $Id: SConstruct,v 1.9 2005/05/14 02:30:10 cozman Exp $
 
 import os,os.path
 import glob
+import string
 
-def buildSuperHeader(self):
-    header = file('include/'+LIBRARY+'.hpp','w')
-    incGuard = string.upper(LIBRARY)+'_HPP'
-    header.write('#ifndef '+incGuard+'\n')
-    header.write('#define '+incGuard+'\n\n')
-    for inc in INC_FILES:
-        header.write('#include "'+inc+'"\n')
-    header.write('\n#endif // '+incGuard+'\n')
-    
 def getFilesMulti(paths, pat):
     """Get all files which match a glob in a set of directories"""
     filelist = []
@@ -62,6 +54,15 @@ if not conf.CheckLibWithHeader('glfw', 'GL/glfw.h', 'C++'):
     print 'GLFW not found, exiting.'
     Exit(1)
 env = conf.Finish()
+
+# Build the Super-Header
+header = file('include/'+LIBRARY+'.hpp','w')
+incGuard = LIBRARY.upper()+'_HPP'
+header.write('#ifndef '+incGuard+'\n')
+header.write('#define '+incGuard+'\n\n')
+for inc in INC_FILES:
+    header.write('#include "'+inc.replace('include/','')+'"\n')
+header.write('\n#endif // '+incGuard+'\n')
 
 # Define Builds:
 BuildDir('build', 'src', duplicate=0)
