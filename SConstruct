@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.9 2005/05/14 02:30:10 cozman Exp $
+#  $Id: SConstruct,v 1.10 2005/05/15 02:51:51 cozman Exp $
 
 import os,os.path
 import glob
@@ -39,7 +39,9 @@ except KeyError:
     Exit(1)
 
 # Configure the environment (Check libraries):
-env = Environment(ENV = os.environ)
+env = Environment(ENV = os.environ, 
+                                LIBPATH=['/usr/lib', '/usr/local/lib'],
+                                INCPATH=['/usr/include', '/usr/local/include'])
 conf = Configure(env)
 if not conf.CheckLibWithHeader(OAL_LIB, 'AL/al.h', 'C++'):
     print 'OpenAL not found, exiting.'
@@ -68,11 +70,23 @@ header.write('\n#endif // '+incGuard+'\n')
 BuildDir('build', 'src', duplicate=0)
 
 lib = env.Library(os.path.join('lib',LIBRARY), source=SRC_FILES, 
-            CPPPATH = 'include', CPPFLAGS = '-Wall -pedantic -O3') 
+            CPPPATH = 'include', CPPFLAGS = '-Wall -pedantic') 
 env.Alias(LIBRARY,lib)
 env.Default(LIBRARY)
 
 ndoc = env.Command('docs/index.html', './include',
     """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""")
 env.Alias("docs",ndoc)
+
+
+# Tests:
+tests = []
+test_srcs = glob.glob( os.path.join('test', '*_test.cpp') )
+
+for test_src in test_srcs:
+    test_name = test_src.replace('_test.cpp','')
+    tests.append(env.Program(test_name, source=test_src, CPPPATH = INC_DIRS,
+                    LIBPATH='./lib', CPPFLAGS = '-Wall -pedantic', 
+                    LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,'physfs']))
+env.Alias('test',tests)
 
