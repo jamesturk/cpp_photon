@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.7 2005/03/15 19:22:07 cozman Exp $
+//  $Id: Application.hpp,v 1.8 2005/05/15 02:51:10 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -63,7 +63,7 @@ public:
 
 // Group: API Initialization
 private:
-    util::VersionInfo initPhysFS(const char* arg0);
+    util::VersionInfo initPhysFS();
 
 private:
     // version number for photon

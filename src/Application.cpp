@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.7 2005/04/21 19:30:19 cozman Exp $
+//  $Id: Application.cpp,v 1.8 2005/05/15 02:50:52 cozman Exp $
 
 #include "Application.hpp"
 
@@ -13,12 +13,13 @@
 #include "GL/gl.h"
 
 #include <boost/lexical_cast.hpp>
-
+#include <iostream>
 #include "exceptions.hpp"
 #include "Log.hpp"
 #include "Kernel.hpp"
 #include "AppCore.hpp"
 #include "video/VideoCore.hpp"
+#include "audio/AudioCore.hpp"
 
 namespace photon
 {
@@ -29,10 +30,10 @@ Application::Application() :
     util::VersionInfo physfsReq(1,0,0); // requires PhysFS 1.0.0
     
     // create the singletons
-    new Log;
     new Kernel;
     new AppCore;
     new video::VideoCore;
+    new audio::AudioCore;
 
     // StrVec args;
     // 
@@ -40,8 +41,8 @@ Application::Application() :
     // {
     //     args.push_back(argv[i]);
     // }
-    
-    util::ensureVersion("PhysFS", initPhysFS(arg0_.c_str()), physfsReq);
+
+    util::ensureVersion("PhysFS", initPhysFS(), physfsReq);
 }
 
 Application::~Application()
@@ -51,8 +52,8 @@ Application::~Application()
     // destroy the singletons
     AppCore::destroy();
     video::VideoCore::destroy();
+    audio::AudioCore::destroy();
     Kernel::destroy();
-    Log::destroy();
 }
 
 void Application::setInitOptions(const char* arg0)
@@ -60,11 +61,11 @@ void Application::setInitOptions(const char* arg0)
     arg0_ = arg0;
 }
 
-util::VersionInfo Application::initPhysFS(const char* arg0)
+util::VersionInfo Application::initPhysFS()
 {
     PHYSFS_Version ver;
-    PHYSFS_init(arg0);
-    PHYSFS_addToSearchPath(arg0,0);
+    PHYSFS_init(arg0_.c_str());
+    PHYSFS_addToSearchPath(arg0_.c_str(),0);
     PHYSFS_getLinkedVersion(&ver);
     return util::VersionInfo(ver.major, ver.minor, ver.patch);
 }

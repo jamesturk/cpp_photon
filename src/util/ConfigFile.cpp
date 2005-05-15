@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.cpp,v 1.5 2005/03/03 09:25:47 cozman Exp $
+//  $Id: ConfigFile.cpp,v 1.6 2005/05/15 02:50:52 cozman Exp $
 
 #include "util/ConfigFile.hpp"
 #include "exceptions.hpp"
@@ -58,6 +58,7 @@ void ConfigFile::open(const std::string& filename)
     {
         std::getline(file,str);    //read in a line
         clean = cleanString(str);    //get a clean version
+        
 
         //if std::string is bracketed it is a section
         if(clean[0] == '[' && clean[clean.length()-1] == ']')
@@ -141,9 +142,13 @@ void ConfigFile::flush()
 void ConfigFile::close()
 {
     //flush and clear out the data members
-    flush();
+    if(!filename_.empty())
+    {
+        flush();
+    }
+    
     filename_ = std::string();
-    layout_.clear();
+        layout_.clear();
 }
 
 std::string ConfigFile::cleanString(const std::string& str)
@@ -155,11 +160,15 @@ std::string ConfigFile::cleanString(const std::string& str)
                     static_cast<int(*)(int)>(std::tolower) );
                     
     //remove all spaces
-    for(std::string::iterator i=ret.begin(); i != ret.end(); ++i)
+    for(std::string::iterator i=ret.begin(); i != ret.end(); )
     {
         if(std::isspace(*i))
         {
             i = ret.erase(i);
+        }
+        else
+        {
+            ++i;
         }
     }
 

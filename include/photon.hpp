@@ -13,6 +13,7 @@
 #include "Log.hpp"
 #include "ResourceManaged.hpp"
 #include "ResourceManager.hpp"
+#include "audio/AudioCore.hpp"
 #include "math/math.hpp"
 #include "math/Rect.hpp"
 #include "math/Vector2.hpp"
@@ -23,10 +24,9 @@
 #include "util/RandGen.hpp"
 #include "util/Timer.hpp"
 #include "util/FileBuffer.hpp"
-#include "audio/AudioCore.hpp"
+#include "util/filesys/filesys.hpp"
 #include "video/Pen.hpp"
 #include "video/Color.hpp"
 #include "video/VideoCore.hpp"
-#include "util/filesys/filesys.hpp"
 
 #endif // PHOTON_HPP

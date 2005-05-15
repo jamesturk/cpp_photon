@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.cpp,v 1.7 2005/03/01 07:52:20 cozman Exp $
+//  $Id: Log.cpp,v 1.8 2005/05/15 02:50:52 cozman Exp $
 
 #include "Log.hpp"
 
@@ -22,7 +22,7 @@ Log::Log()
 Log::~Log()
 {
     flush();
-    removeSinks();;
+    removeSinks();
 }
 
 void Log::addSink(LogSinkPtr sink)

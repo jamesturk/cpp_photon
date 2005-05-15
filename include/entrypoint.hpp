@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.4 2005/03/15 19:22:07 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.5 2005/05/15 02:51:10 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -28,30 +28,34 @@
 namespace photon
 {
 
-// function which does all the work of MAINCLASS
+// function which does all the work of ENTRYPOINT
 template<class App>
 int mainclass(int argc, const char** argv)
 {
+    Log log;
+    log.addSink(LogSinkPtr(new photon::ConsoleSink("out")));
+    
     try
     {
+        App::setInitOptions(argv[0]);
+        
         App app;
         StrVec args;
         for(int i=0; i < argc; ++i)
         {
             args.push_back(argv[i]);
         }
-        App::setInitOptions(argv[0]);
 
         return app.main(args);
     }
     catch(Exception &e)
     {
-        Log::getInstance().error() << e;
+        log.error() << e;
         return 0;
     }
     catch(Error &e)
     {
-        Log::getInstance().critical() << e;
+        log.critical() << e;
         return 1;
     }
 }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.4 2005/03/15 18:42:40 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.5 2005/05/15 02:50:52 cozman Exp $
 
 #include "audio/AudioCore.hpp"
 
@@ -19,7 +19,7 @@ namespace audio
 
 AudioCore::AudioCore()
 {
-    util::VersionInfo oalReq(1,0,0);    // requires OpenAL 1.0 (TODO: check?)
+    util::VersionInfo oalReq(0,0,7);    // requires OpenAL 1.0 (TODO: check?)
     util::ensureVersion("OpenAL", initOpenAL(), oalReq);
 }
 
@@ -42,6 +42,7 @@ std::string AudioCore::getAudioDeviceName() const
     ALCdevice* device (alcGetContextsDevice( alcGetCurrentContext() ));
     std::string name ( reinterpret_cast<const char*>(
                         alcGetString(device, ALC_DEVICE_SPECIFIER)) );
+                        
     return name;
 }
 
@@ -52,7 +53,7 @@ util::VersionInfo AudioCore::initOpenAL()
     std::stringstream ss;   // stream for parsing version
     std::string junks;      // junk string for parsing
     char junkc;             // junk character for parsing
-    uint major,minor;       // version numbers
+    uint major,minor,patch; // version numbers
 
     // obtain default device if no deviceName is set, otherwise use deviceName
     device = alcOpenDevice(deviceName_.empty() ? 0 :
@@ -75,10 +76,19 @@ util::VersionInfo AudioCore::initOpenAL()
 
     alcMakeContextCurrent(context); // context must be current to get version
 
-    // Version is in format "OpenAL 1.0"
+    
     ss << alGetString(AL_VERSION);
-    ss >> junks >> major >> junkc >> minor;
-    return util::VersionInfo(major,minor,0);
+#if defined(WINVER)
+    ss >> junks >> major >> junkc >> minor;   // format is "OpenAL 1.0"
+#elif defined(linux)
+    ss >> major >> junkc >> minor >> junkc >> patch;
+#else
+    #warning OpenAL only built on Windows/Linux, find out version on OSX
+#endif
+    
+    
+    //std::cerr << util::VersionInfo(major,minor,patch);
+    return util::VersionInfo(major,minor,patch);
 }
 
 std::string AudioCore::checkOpenALError()
