@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
+//  $Id: FileBuffer.cpp,v 1.5 2005/06/10 07:06:06 cozman Exp $
 
 #include "util/FileBuffer.hpp"
 
@@ -48,6 +48,12 @@ std::vector<ubyte> FileBuffer::getData(int amount)
     if(file_ == 0)
     {
         throw PreconditionException("No file open in FileBuffer::getData");
+    }
+    
+    // if amount is 0, read entire buffer
+    if(amount == 0)
+    {
+        amount = getSize();
     }
     
     std::vector<ubyte> buffer(amount);   //create buffer

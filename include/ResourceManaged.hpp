@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.2 2005/06/10 05:48:59 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.3 2005/06/10 07:06:06 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -70,7 +70,7 @@ public:
     // Function: cleanUp
     //  Cleans up any unused resources of the type.
     //  (Ex. Image::cleanUp() will unload all images.)
-    static virtual void cleanUp();
+    virtual void cleanUp();
     
     // Function: addResource
     //  Define a new named resource.
@@ -92,7 +92,7 @@ public:
     //  path - Path of resource data file.
     static void addResource(const std::string& path);
 
-private:
+protected:
     static ResMgrT resMgr_;
     uint resID_;
 };

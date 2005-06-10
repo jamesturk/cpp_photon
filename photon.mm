@@ -4,7 +4,7 @@
 <cloud/>
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="_" POSITION="right" TEXT="0.1 Release">
-<arrowlink DESTINATION="Freemind_Link_511487087" ENDARROW="Default" ENDINCLINATION="117;-117;" ID="Freemind_Arrow_Link_1969744902" STARTARROW="None" STARTINCLINATION="-97;-427;"/>
+<arrowlink DESTINATION="Freemind_Link_511487087" ENDARROW="Default" ENDINCLINATION="114;-120;" ID="Freemind_Arrow_Link_1969744902" STARTARROW="None" STARTINCLINATION="-94;-430;"/>
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1613164220" TEXT="better SConstruct file">
 <icon BUILTIN="button_ok"/>
@@ -40,7 +40,7 @@
 <node ID="Freemind_Link_714736465" TEXT="Drawing Program?"/>
 </node>
 </node>
-<node FOLDED="true" ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
+<node ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
 <node ID="Freemind_Link_216021234" TEXT="Sprite System">
 <font NAME="SansSerif" SIZE="12"/>
 </node>
@@ -77,6 +77,10 @@
 <font NAME="SansSerif" SIZE="12"/>
 </node>
 <node ID="Freemind_Link_1642641448" TEXT="Ensure compilation succeeds on Win/Linux simultaneously"/>
+</node>
+<node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node ID="Freemind_Link_1953928405" TEXT="Tests do not seem to compile (since ResourceManagers)"/>
 </node>
 </node>
 </map>

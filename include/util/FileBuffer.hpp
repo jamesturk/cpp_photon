@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.hpp,v 1.3 2005/03/03 09:25:20 cozman Exp $
+//  $Id: FileBuffer.hpp,v 1.4 2005/06/10 07:06:06 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILEBUFFER_HPP
 #define PHOTON_UTIL_FILEBUFFER_HPP
@@ -64,14 +64,14 @@ public:
     // Function: getData
     //  Loads an amount of data, returns a pointer to the loaded data.
     //  If the requested amount of data wasn't available, returns only
-    //  what could be loaded.
+    //  what could be loaded.  If amount is 0 (default), returns entire buffer.
     //
     // Parameters:
-    //  amount - maximum amount of data to load
+    //  amount - maximum amount of data to load [default: 0]
     //
     // Returns:
     //  Vector containing loaded data, empty if nothing loaded.
-    std::vector<ubyte> getData(int amount);
+    std::vector<ubyte> getData(int amount=0);
 
     // Function: getPosition
     //  Gets position of internal cursor inside data.

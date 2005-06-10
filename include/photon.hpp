@@ -26,7 +26,9 @@
 #include "util/FileBuffer.hpp"
 #include "util/filesys/filesys.hpp"
 #include "video/Pen.hpp"
+#include "video/Texture.hpp"
 #include "video/Color.hpp"
+#include "video/TextureResourceManager.hpp"
 #include "video/VideoCore.hpp"
 
 #endif // PHOTON_HPP

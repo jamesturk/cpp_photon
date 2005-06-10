@@ -5,9 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exception_test.cpp,v 1.1 2005/05/15 02:50:07 cozman Exp $
+//  $Id: exception_test.cpp,v 1.2 2005/06/10 07:06:07 cozman Exp $
 
 #include "photon.hpp"
+#include "exceptions.hpp"
+#include "entrypoint.hpp" 
+
 using namespace photon;
 
 

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.2 2005/06/10 05:48:59 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.3 2005/06/10 07:06:06 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -54,13 +54,13 @@ public:
     void cleanUp();
 
 private:
-    virtual void loadResource(resT &res, const std::string& name)=0;
+    virtual void loadResource(resT &res, const std::string& path)=0;
     virtual void freeResource(resT &res)=0;
 
     uint newResource(const std::string& name, const std::string& path);
     void deleteResource(uint id);
 
-private:
+protected:
     std::vector<resT> resVec_;
 };
 
@@ -101,7 +101,7 @@ template<class resT>
 void ResourceManager<resT>::delRef(uint id)
 {
     // if decremented count is <= 0, delete resource
-    if(id < resVec_.size() && --resVec_[id].refcount <= 0)
+    if(id < resVec_.size() && --resVec_[id].refCount <= 0)
     {
         deleteResource(id);
     }
@@ -130,7 +130,7 @@ uint ResourceManager<resT>::newResource(const std::string& name,
     try
     {
         // attempt to load
-        loadResource(res, name, path);
+        loadResource(res, path);
     }
     catch(ResourceException&)
     {

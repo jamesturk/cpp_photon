@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.10 2005/05/15 02:51:51 cozman Exp $
+#  $Id: SConstruct,v 1.11 2005/06/10 07:06:06 cozman Exp $
 
 import os,os.path
 import glob
@@ -29,7 +29,7 @@ INC_FILES = getFilesMulti(INC_DIRS, '*.hpp')
 libsMap = {
             'nt':('opengl32','glu32','openal32'),
             'posix':('GL','GLU','openal'),
-            'mac':('GL','GLU','openal') }
+            'mac':('GL','GLU','openal')}
 try:
     OGL_LIB,GLU_LIB,OAL_LIB = libsMap[os.name]
 except KeyError:
@@ -55,6 +55,9 @@ if not conf.CheckLibWithHeader(GLU_LIB, 'GL/glu.h', 'C++'):
 if not conf.CheckLibWithHeader('glfw', 'GL/glfw.h', 'C++'):
     print 'GLFW not found, exiting.'
     Exit(1)
+if not conf.CheckLibWithHeader('corona', 'corona.h', 'C++'):
+    print 'Corona not found, exiting.'
+    Exit(1)
 env = conf.Finish()
 
 # Build the Super-Header
@@ -65,6 +68,7 @@ header.write('#define '+incGuard+'\n\n')
 for inc in INC_FILES:
     header.write('#include "'+inc.replace('include/','')+'"\n')
 header.write('\n#endif // '+incGuard+'\n')
+header.close()
 
 # Define Builds:
 BuildDir('build', 'src', duplicate=0)
