@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.1 2005/03/02 08:37:40 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.2 2005/06/10 05:48:59 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -24,7 +24,7 @@ namespace photon
 class Resource
 {
 public:
-    static const uint Invalid=0xffffffff;
+    static const uint InvalidID=0xffffffff;
 
     Resource() : 
         refCount(0)
@@ -32,6 +32,7 @@ public:
     }
 
     uint refCount;
+    std::string name;
     std::string path;
 };
 
@@ -48,15 +49,15 @@ public:
 
     virtual ~ResourceManager();
 
-    uint getResID(const std::string& path);
+    uint getResID(const std::string& name);
     void delRef(uint id);
     void cleanUp();
 
 private:
-    virtual void loadResource(resT &res, const std::string& path)=0;
+    virtual void loadResource(resT &res, const std::string& name)=0;
     virtual void freeResource(resT &res)=0;
 
-    uint newResource(const std::string& path);
+    uint newResource(const std::string& name, const std::string& path);
     void deleteResource(uint id);
 
 private:
@@ -76,28 +77,24 @@ ResourceManager<resT>::~ResourceManager()
 }
 
 template<class resT>
-uint ResourceManager<resT>::getResID(const std::string& path)
+uint ResourceManager<resT>::getResID(const std::string& name)
 {
     uint id(0);
 
-    // loop through resources and find id
+    // loop through resources until the resource name in question is found
     for(typename std::vector<resT>::iterator i=resVec_.begin();
-        i != resVec_.end(); 
+        i != resVec_.end() && i->name != name; 
         ++i)
     {
-        ++id;   // increment id
-        if(i->path == path)
-        {
-            return id;
-        }
+        ++id;               // increment id
     }
     
-    if(id == resVec_.size())
+    if(id == resVec_.size())    // not found -> throw a ResourceException
     {
-        id = newResource(path);
+        throw ResourceException("Failed to find resource \"" + name + "\"");
     }
 
-    return id;   //not already in vector, add resource
+    return id;
 }
 
 template<class resT>
@@ -123,20 +120,22 @@ void ResourceManager<resT>::cleanUp()
 }
 
 template<class resT>
-uint ResourceManager<resT>::newResource(const std::string& path)
+uint ResourceManager<resT>::newResource(const std::string& name, 
+                                        const std::string& path)
 {
     resT res;
+    res.name = name;
     res.path = path;
 
     try
     {
         // attempt to load
-        loadResource(res,path);
+        loadResource(res, name, path);
     }
     catch(ResourceException&)
     {
         // rethrow any exceptions with specific information 
-        throw ResourceException("Could not load " + path);
+        throw ResourceException("Could not load " + path + " as " + name);
     }
 
     resVec_.push_back(res);     // add resource to resVec & return 

@@ -11,14 +11,16 @@
 </node>
 <node ID="Freemind_Link_614612335" TEXT="all stable ZEngine/Nova features">
 <font NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_107267630" TEXT="&quot;Engine&quot;"/>
-<node FOLDED="true" ID="Freemind_Link_50716011" TEXT="Texture">
+<node ID="Freemind_Link_1795651487" TEXT="&quot;ResourceManage&quot;ment">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_50716011" TEXT="Texture">
 <node ID="Freemind_Link_561271163" TEXT="Font"/>
 <node ID="Freemind_Link_385334177" TEXT="Image"/>
 </node>
 <node ID="Freemind_Link_1851655735" TEXT="Music"/>
 <node ID="Freemind_Link_1045379727" TEXT="Sound"/>
-<node ID="Freemind_Link_1795651487" TEXT="ResourceManagers"/>
+<node ID="Freemind_Link_107267630" TEXT="&quot;Engine&quot;"/>
 </node>
 <node ID="Freemind_Link_188779968" TEXT="Test Suite">
 <node ID="Freemind_Link_1570884553" TEXT="port test-suite to Saturn core">

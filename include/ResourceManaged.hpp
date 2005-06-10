@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.1 2005/03/02 08:37:40 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.2 2005/06/10 05:48:59 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -39,12 +39,11 @@ public:
     //  Initializing constructor, calls <open> with a filename/zipname.
     // 
     // Parameters: 
-    //  filename - Name of file to open.
-    //  zipname - Name of zip to open file from, empty string for no zip file.
+    //  name - name of resource
     // 
     // See Also:
     //  <open>
-    ResourceManaged(const std::string& path);
+    ResourceManaged(const std::string& name);
 
     // Function: ~ResourceManaged
     //  Destructor, calls <release>.
@@ -58,20 +57,40 @@ public:
     //  Opens new resource via the associated <ResourceManager>.
     // 
     // Parameters: 
-    //  filename - Name of file to open.
-    //  zipname - Name of zip to open file from, empty string for no zip file.            
-    virtual void open(const std::string& path);
+    //  name - name of resource
+    virtual void open(const std::string& name);
 
     // Function: release
     //  Removes a reference to the resource, releasing if needed. 
     //  Generally called by destructor, so should rarely be called.
     virtual void release();
     
-public:
-    // Function: cleanUp
-    //  Static method which cleans up any resources. 
-    static void cleanUp(); 
+// Group: Resource Manager Access
 
+    // Function: cleanUp
+    //  Cleans up any unused resources of the type.
+    //  (Ex. Image::cleanUp() will unload all images.)
+    static virtual void cleanUp();
+    
+    // Function: addResource
+    //  Define a new named resource.
+    //  (Ex. Image::addResource("monkey","images/monkey.png") would 
+    //   make it so that any attempts to load "monkey" would load the image 
+    //   images/monkey.png)
+    //
+    // Parameters:
+    //  name - Name to give to resource.
+    //  path - Path of resource data file.
+    static void addResource(const std::string& name, const std::string& path);
+    
+    // Function: addResource
+    //  Define a new unaliased resource. (name == path).
+    //  (Ex. Image::addResource("images/monkey.png") is essentially the same as
+    //   Image::addResource("images/monkey.png","images/monkey.png")
+    //
+    // Parameters:.
+    //  path - Path of resource data file.
+    static void addResource(const std::string& path);
 
 private:
     static ResMgrT resMgr_;
@@ -81,21 +100,14 @@ private:
 //and he said "the implementation shall follow, as it is written"
 
 template<class ResMgrT>
-void ResourceManaged<ResMgrT>::cleanUp()
-{
-    resMgr_.cleanUp();
-}
-
-template<class ResMgrT>
 ResourceManaged<ResMgrT>::ResourceManaged() : 
-    resID_(Resource::Invalid)
+    resID_(Resource::InvalidID)
 {
 }
 
 template<class ResMgrT>
-ResourceManaged<ResMgrT>::ResourceManaged(const std::string& path)
+ResourceManaged<ResMgrT>::ResourceManaged(const std::string& name)
 {
-    open(path);
 }
 
 template<class ResMgrT>
@@ -110,7 +122,7 @@ ResourceManaged<ResMgrT>::operator=(const ResourceManaged<ResMgrT> &rhs)
 {
     if(this != &rhs)
     {
-        if(resID_ != Resource::Invalid)
+        if(resID_ != Resource::InvalidID)
         {
             release();
         }
@@ -120,16 +132,36 @@ ResourceManaged<ResMgrT>::operator=(const ResourceManaged<ResMgrT> &rhs)
 }
 
 template<class ResMgrT>
-void ResourceManaged<ResMgrT>::open(const std::string& path)
+void ResourceManaged<ResMgrT>::open(const std::string& name)
 {
     release();
-    resID_ = resMgr_.getResID(path);
+    resID_ = resMgr_.getResID(name);
 }
 
 template<class ResMgrT>
 void ResourceManaged<ResMgrT>::release()
 {
     resMgr_.delRef(resID_);
+    resID_ = Resource::InvalidID;
+}
+
+template<class ResMgrT>
+void ResourceManaged<ResMgrT>::cleanUp()
+{
+    resMgr_.cleanUp();
+}
+
+template<class ResMgrT>
+void ResourceManaged<ResMgrT>::addResource(const std::string& name, 
+                                            const std::string& path)
+{
+    resMgr_.newResource(name,path);
+}
+
+template<class ResMgrT>
+void ResourceManaged<ResMgrT>::addResource(const std::string& path)
+{
+    resMgr_.newResource(path,path);
 }
 
 }
