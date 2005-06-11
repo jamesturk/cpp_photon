@@ -17,6 +17,10 @@
 <node ID="Freemind_Link_50716011" TEXT="Texture">
 <node ID="Freemind_Link_561271163" TEXT="Font"/>
 <node ID="Freemind_Link_385334177" TEXT="Image"/>
+<node ID="Freemind_Link_973985797" TEXT="TEST">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="messagebox_warning"/>
+</node>
 </node>
 <node ID="Freemind_Link_1851655735" TEXT="Music"/>
 <node ID="Freemind_Link_1045379727" TEXT="Sound"/>
@@ -71,7 +75,7 @@
 <icon BUILTIN="help"/>
 </node>
 </node>
-<node ID="Freemind_Link_351891371" POSITION="left" TEXT="General Mateinance">
+<node FOLDED="true" ID="Freemind_Link_351891371" POSITION="left" TEXT="General Mateinance">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1978849189" TEXT="Clean up CVS">
 <font NAME="SansSerif" SIZE="12"/>
@@ -80,7 +84,6 @@
 </node>
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1953928405" TEXT="Tests do not seem to compile (since ResourceManagers)"/>
 </node>
 </node>
 </map>

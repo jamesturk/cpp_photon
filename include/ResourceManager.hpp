@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.3 2005/06/10 07:06:06 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.4 2005/06/11 05:28:41 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -53,11 +53,12 @@ public:
     void delRef(uint id);
     void cleanUp();
 
+    uint newResource(const std::string& name, const std::string& path);
+    
 private:
     virtual void loadResource(resT &res, const std::string& path)=0;
     virtual void freeResource(resT &res)=0;
 
-    uint newResource(const std::string& name, const std::string& path);
     void deleteResource(uint id);
 
 protected:

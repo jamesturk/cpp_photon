@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.8 2005/05/15 02:50:52 cozman Exp $
+//  $Id: Application.cpp,v 1.9 2005/06/11 05:28:41 cozman Exp $
 
 #include "Application.hpp"
 
@@ -20,6 +20,8 @@
 #include "AppCore.hpp"
 #include "video/VideoCore.hpp"
 #include "audio/AudioCore.hpp"
+#include "util/filesys/filesys.hpp"
+
 
 namespace photon
 {
@@ -33,7 +35,7 @@ Application::Application() :
     new Kernel;
     new AppCore;
     new video::VideoCore;
-    new audio::AudioCore;
+    //new audio::AudioCore;
 
     // StrVec args;
     // 
@@ -52,7 +54,7 @@ Application::~Application()
     // destroy the singletons
     AppCore::destroy();
     video::VideoCore::destroy();
-    audio::AudioCore::destroy();
+    //audio::AudioCore::destroy();
     Kernel::destroy();
 }
 
@@ -65,7 +67,7 @@ util::VersionInfo Application::initPhysFS()
 {
     PHYSFS_Version ver;
     PHYSFS_init(arg0_.c_str());
-    PHYSFS_addToSearchPath(arg0_.c_str(),0);
+    PHYSFS_addToSearchPath(PHYSFS_getBaseDir(),0);
     PHYSFS_getLinkedVersion(&ver);
     return util::VersionInfo(ver.major, ver.minor, ver.patch);
 }

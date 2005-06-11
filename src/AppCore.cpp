@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.6 2005/04/21 19:30:19 cozman Exp $
+//  $Id: AppCore.cpp,v 1.7 2005/06/11 05:28:41 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -14,6 +14,7 @@
 
 #include "Kernel.hpp"
 #include "exceptions.hpp"
+#include "video/VideoCore.hpp"
 
 namespace photon
 {
@@ -50,6 +51,7 @@ void AppCore::createDisplay(uint width, uint height,
 
     dispWidth_ = width;
     dispHeight_ = height;
+    video::VideoCore::getInstance().setDisplaySize(width,height);
 
     glfwSetWindowTitle(title.c_str());  // title is set separately
 }

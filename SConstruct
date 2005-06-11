@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.11 2005/06/10 07:06:06 cozman Exp $
+#  $Id: SConstruct,v 1.12 2005/06/11 05:28:41 cozman Exp $
 
 import os,os.path
 import glob
@@ -91,6 +91,6 @@ for test_src in test_srcs:
     test_name = test_src.replace('_test.cpp','')
     tests.append(env.Program(test_name, source=test_src, CPPPATH = INC_DIRS,
                     LIBPATH='./lib', CPPFLAGS = '-Wall -pedantic', 
-                    LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,'physfs']))
+                    LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,'physfs','corona']))
 env.Alias('test',tests)
 

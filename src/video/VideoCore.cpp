@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.3 2005/04/21 19:30:19 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.4 2005/06/11 05:28:41 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
@@ -126,6 +126,7 @@ void VideoCore::initOpenGL()
 
     //setup alpha blending of 2D textures with the scene
     glEnable(GL_BLEND);
+    glDisable(GL_LIGHTING);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 }
 
