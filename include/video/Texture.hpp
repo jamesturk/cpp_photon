@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture.hpp,v 1.1 2005/06/13 05:38:06 cozman Exp $
+//  $Id: Texture.hpp,v 1.2 2005/06/13 07:05:28 cozman Exp $
 
 #ifndef PHOTON_VIDEO_TEXTURE_HPP
 #define PHOTON_VIDEO_TEXTURE_HPP
@@ -53,10 +53,10 @@ public:
     // Initializing constructor, loads Texture via call to <open>.
     // 
     // Parameters:
-    //     name - Name of the Texture <Resource> to open.
+    //  name - Name of the Texture <Resource> to open.
     // 
     // See Also: 
-    //     <open>
+    //  <open>
     Texture(const std::string& name);
 
 // Group: General

@@ -16,8 +16,8 @@
 </node>
 <node ID="Freemind_Link_50716011" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
-<node ID="Freemind_Link_561271163" TEXT="Font"/>
 <node ID="Freemind_Link_385334177" TEXT="Image"/>
+<node ID="Freemind_Link_561271163" TEXT="Font"/>
 </node>
 <node ID="Freemind_Link_1851655735" TEXT="Music"/>
 <node ID="Freemind_Link_1045379727" TEXT="Sound"/>
@@ -41,7 +41,7 @@
 <node ID="Freemind_Link_714736465" TEXT="Drawing Program?"/>
 </node>
 </node>
-<node ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
+<node FOLDED="true" ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
 <node ID="Freemind_Link_216021234" TEXT="Sprite System">
 <font NAME="SansSerif" SIZE="12"/>
 </node>
@@ -62,15 +62,7 @@
 </node>
 </node>
 <node ID="Freemind_Link_511487087" POSITION="left" TEXT="Website">
-<node ID="Freemind_Link_1605443386" TEXT="cozTheme">
-<icon BUILTIN="help"/>
-</node>
-<node ID="Freemind_Link_1050052437" TEXT="phpWebSite">
-<icon BUILTIN="help"/>
-</node>
-<node ID="Freemind_Link_1940448315" TEXT="Wiki">
-<icon BUILTIN="help"/>
-</node>
+<node ID="Freemind_Link_502036778" TEXT="cozTheme with a Wiki"/>
 </node>
 <node FOLDED="true" ID="Freemind_Link_351891371" POSITION="left" TEXT="General Mateinance">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
@@ -81,6 +73,8 @@
 </node>
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node ID="Freemind_Link_71804323" TEXT="investigate revising resource system"/>
+<node ID="Freemind_Link_1424720553" TEXT="Image is not tested at all"/>
 </node>
 </node>
 </map>

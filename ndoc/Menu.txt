@@ -66,6 +66,7 @@ Group: photon::  {
 
       File: Color  (video/Color.hpp)
       File: Pen  (video/Pen.hpp)
+      File: Texture  (video/Texture.hpp)
       File: VideoCore  (video/VideoCore.hpp)
       }  # Group: Video
 

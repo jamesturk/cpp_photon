@@ -26,6 +26,7 @@
 #include "util/FileBuffer.hpp"
 #include "util/filesys/filesys.hpp"
 #include "video/Pen.hpp"
+#include "video/Image.hpp"
 #include "video/Texture.hpp"
 #include "video/Color.hpp"
 #include "video/TextureResourceManager.hpp"
