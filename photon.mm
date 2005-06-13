@@ -15,12 +15,9 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node ID="Freemind_Link_50716011" TEXT="Texture">
+<icon BUILTIN="button_ok"/>
 <node ID="Freemind_Link_561271163" TEXT="Font"/>
 <node ID="Freemind_Link_385334177" TEXT="Image"/>
-<node ID="Freemind_Link_973985797" TEXT="TEST">
-<font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<icon BUILTIN="messagebox_warning"/>
-</node>
 </node>
 <node ID="Freemind_Link_1851655735" TEXT="Music"/>
 <node ID="Freemind_Link_1045379727" TEXT="Sound"/>

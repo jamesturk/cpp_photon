@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.9 2005/06/11 05:28:41 cozman Exp $
+//  $Id: Application.cpp,v 1.10 2005/06/13 05:38:06 cozman Exp $
 
 #include "Application.hpp"
 
@@ -34,8 +34,6 @@ Application::Application() :
     // create the singletons
     new Kernel;
     new AppCore;
-    new video::VideoCore;
-    //new audio::AudioCore;
 
     // StrVec args;
     // 

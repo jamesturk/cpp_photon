@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.4 2005/06/11 05:28:41 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.5 2005/06/13 05:38:06 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -133,10 +133,11 @@ uint ResourceManager<resT>::newResource(const std::string& name,
         // attempt to load
         loadResource(res, path);
     }
-    catch(ResourceException&)
+    catch(ResourceException& e)
     {
         // rethrow any exceptions with specific information 
-        throw ResourceException("Could not load " + path + " as " + name);
+        throw ResourceException("Could not load " + path + " as " + name + 
+            ": " + e.what());
     }
 
     resVec_.push_back(res);     // add resource to resVec & return 

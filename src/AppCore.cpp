@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.7 2005/06/11 05:28:41 cozman Exp $
+//  $Id: AppCore.cpp,v 1.8 2005/06/13 05:38:06 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -51,6 +51,7 @@ void AppCore::createDisplay(uint width, uint height,
 
     dispWidth_ = width;
     dispHeight_ = height;
+    new video::VideoCore;
     video::VideoCore::getInstance().setDisplaySize(width,height);
 
     glfwSetWindowTitle(title.c_str());  // title is set separately
