@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.3 2005/06/10 07:06:06 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.4 2005/06/14 00:28:36 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -93,22 +93,20 @@ public:
     static void addResource(const std::string& path);
 
 protected:
+    std::string resName_;
     static ResMgrT resMgr_;
-    uint resID_;
 };
 
 //and he said "the implementation shall follow, as it is written"
 
 template<class ResMgrT>
-ResourceManaged<ResMgrT>::ResourceManaged() : 
-    resID_(Resource::InvalidID)
-{
-}
+ResourceManaged<ResMgrT>::ResourceManaged()
+{ }
 
 template<class ResMgrT>
-ResourceManaged<ResMgrT>::ResourceManaged(const std::string& name)
-{
-}
+ResourceManaged<ResMgrT>::ResourceManaged(const std::string& name) :
+    resName_(name)
+{ }
 
 template<class ResMgrT>
 ResourceManaged<ResMgrT>::~ResourceManaged()
@@ -122,11 +120,8 @@ ResourceManaged<ResMgrT>::operator=(const ResourceManaged<ResMgrT> &rhs)
 {
     if(this != &rhs)
     {
-        if(resID_ != Resource::InvalidID)
-        {
-            release();
-        }
-        resID_ = rhs.resID_;
+        release();
+        resName_ = rhs.resName_;
     }
     return *this;
 }
@@ -135,14 +130,17 @@ template<class ResMgrT>
 void ResourceManaged<ResMgrT>::open(const std::string& name)
 {
     release();
-    resID_ = resMgr_.getResID(name);
+    resName_ = name;
 }
 
 template<class ResMgrT>
 void ResourceManaged<ResMgrT>::release()
 {
-    resMgr_.delRef(resID_);
-    resID_ = Resource::InvalidID;
+    if(!resName_.empty())       // release is a no-op on an invalid resource
+    {
+        resMgr_.delRef(resName_);   // decrement the refcount 
+        resName_.clear();           // empty string = invalid resource
+    }
 }
 
 template<class ResMgrT>
@@ -163,6 +161,10 @@ void ResourceManaged<ResMgrT>::addResource(const std::string& path)
 {
     resMgr_.newResource(path,path);
 }
+
+// define the resource manager static instance
+template <class T>
+T ResourceManaged<T>::resMgr_;
 
 }
 

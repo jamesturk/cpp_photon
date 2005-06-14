@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image.cpp,v 1.1 2005/06/13 07:04:29 cozman Exp $
+//  $Id: Image.cpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
 
 #include "video/Image.hpp"
 
@@ -17,20 +17,16 @@ namespace video
 {
 
 Image::Image() : 
-    Texture(),
     alpha_(255),
     texMinX_(0), texMinY_(0), texMaxX_(1), texMaxY_(1)
-{
-}
+{ }
 
 Image::Image(const Image &rhs) : 
     Texture(rhs),
     alpha_(rhs.alpha_),
     texMinX_(rhs.texMinX_), texMinY_(rhs.texMinY_), 
     texMaxX_(rhs.texMaxX_), texMaxY_(rhs.texMaxY_)
-{
-
-}
+{ }
 
 Image::Image(const std::string& name) : 
     alpha_(255),
@@ -188,7 +184,7 @@ ubyte Image::getAlpha() const
 
 std::ostream& operator<<(std::ostream &o, const Image &rhs)
 {
-    return o << "Image: { ResID: " << rhs.resID_ <<
+    return o << "Image: { Name: " << rhs.resName_ <<
         " Dimensions: " << rhs.width_ << "x" << rhs.height_ 
         << " Alpha: " << rhs.alpha_ << " }";
 }

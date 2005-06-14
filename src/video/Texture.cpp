@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture.cpp,v 1.1 2005/06/13 05:38:06 cozman Exp $
+//  $Id: Texture.cpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
 
 #include "video/Texture.hpp"
 
@@ -16,21 +16,13 @@ namespace photon
 namespace video
 {
 
-template <class T>
-T ResourceManaged<T>::resMgr_;
-
 Texture::Texture()
-{
-}
+{ }
 
-Texture::Texture(const Texture &rhs)
+Texture::Texture(const Texture &rhs) :
+    ResourceManaged<TextureResourceManager>(rhs)
 {
-    resID_ = rhs.resID_;
-    resMgr_.getTextureData(resID_,width_,height_,texID_);
-
-    //w&h after getTextureData
-    width_ = rhs.width_;
-    height_ = rhs.height_;
+    resMgr_.getTextureData(resName_, width_, height_, texID_);
 }
 
 Texture::Texture(const std::string& name)
@@ -41,12 +33,11 @@ Texture::Texture(const std::string& name)
 void Texture::open(const std::string& name)
 {
     ResourceManaged<TextureResourceManager>::open(name);
-    resMgr_.getTextureData(resID_, width_, height_, texID_);
+    resMgr_.getTextureData(resName_, width_, height_, texID_);
 }
 
 void Texture::bind() const
 {
-    
     if(glIsTexture(texID_) == GL_FALSE)
     {
         throw PreconditionException("Texture::bind call without valid image.");
@@ -59,7 +50,7 @@ Texture& Texture::operator=(const Texture &rhs)
     if(&rhs != this)
     {
         ResourceManaged<TextureResourceManager>::operator=(rhs);
-        resMgr_.getTextureData(resID_,width_,height_,texID_);
+        resMgr_.getTextureData(resName_, width_, height_, texID_);
 
         //w&h after getTextureData
         width_ = rhs.width_;
@@ -85,7 +76,7 @@ scalar Texture::getHeight() const
 
 std::ostream& operator<<(std::ostream &o, const Texture &rhs)
 {
-    return o << "Texture: { ResID: " << rhs.resID_ << " TexID: " << rhs.texID_ 
+    return o << "Texture: { Name: " << rhs.resName_ << " TexID: " << rhs.texID_
         << " Dimensions: " << rhs.width_ << "x" << rhs.height_ << " }";
 }
 

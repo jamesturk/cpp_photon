@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.hpp,v 1.1 2005/06/13 05:38:06 cozman Exp $
+//  $Id: TextureResourceManager.hpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
 
 #ifndef PHOTON_VIDEO_TEXTURERESOURCEMANAGER_HPP
 #define PHOTON_VIDEO_TEXTURERESOURCEMANAGER_HPP
@@ -34,7 +34,8 @@ public:
     void getGlobalColorKey(bool &enabled, 
                             ubyte &red, ubyte &green, ubyte &blue);
 
-    void getTextureData(uint id, scalar &width, scalar &height, uint &texID);
+    void getTextureData(const std::string& name, scalar &width, scalar &height, 
+                        uint &texID);
 
 private:
     virtual void loadResource(TextureResource &res,  const std::string& name);

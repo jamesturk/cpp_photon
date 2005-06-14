@@ -5,12 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.5 2005/06/13 05:38:06 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.6 2005/06/14 00:28:36 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
 
-#include <vector>
+#include <map>
 #include <string>
 
 #include <boost/utility.hpp>
@@ -24,13 +24,6 @@ namespace photon
 class Resource
 {
 public:
-    static const uint InvalidID=0xffffffff;
-
-    Resource() : 
-        refCount(0)
-    {
-    }
-
     uint refCount;
     std::string name;
     std::string path;
@@ -49,62 +42,47 @@ public:
 
     virtual ~ResourceManager();
 
-    uint getResID(const std::string& name);
-    void delRef(uint id);
+    void delRef(const std::string& name);
     void cleanUp();
 
-    uint newResource(const std::string& name, const std::string& path);
+    void newResource(const std::string& name, const std::string& path);
+    
+    resT& getResource(const std::string& name);
     
 private:
     virtual void loadResource(resT &res, const std::string& path)=0;
     virtual void freeResource(resT &res)=0;
 
-    void deleteResource(uint id);
+    void deleteResource(const std::string& name);
 
-protected:
-    std::vector<resT> resVec_;
+private:
+    typedef std::map<std::string,resT> MapT;
+    typedef typename MapT::iterator MapIterator;
+    MapT resourceMap_;
 };
 
 // implementation (damn you templor, cruel god of templates!)
 
 template<class resT>
 ResourceManager<resT>::ResourceManager()
-{
-}
+{ }
 
 template<class resT>
 ResourceManager<resT>::~ResourceManager()
-{
-}
+{ }
 
 template<class resT>
-uint ResourceManager<resT>::getResID(const std::string& name)
+void ResourceManager<resT>::delRef(const std::string& name)
 {
-    uint id(0);
-
-    // loop through resources until the resource name in question is found
-    for(typename std::vector<resT>::iterator i=resVec_.begin();
-        i != resVec_.end() && i->name != name; 
-        ++i)
-    {
-        ++id;               // increment id
-    }
+    MapIterator resource( resourceMap_.find(name) );
     
-    if(id == resVec_.size())    // not found -> throw a ResourceException
+    // if the resource was found
+    if(resource != resourceMap_.end())
     {
-        throw ResourceException("Failed to find resource \"" + name + "\"");
-    }
-
-    return id;
-}
-
-template<class resT>
-void ResourceManager<resT>::delRef(uint id)
-{
-    // if decremented count is <= 0, delete resource
-    if(id < resVec_.size() && --resVec_[id].refCount <= 0)
-    {
-        deleteResource(id);
+        if(--resource->second.refCount <= 0)
+        {
+            deleteResource(name);
+        }
     }
 }
 
@@ -112,26 +90,24 @@ template<class resT>
 void ResourceManager<resT>::cleanUp()
 {
     // delete resources, until none are left
-    for(typename std::vector<resT>::iterator i=resVec_.begin(); 
-        i != resVec_.end(); 
-        ++i)
+    while(!resourceMap_.empty())
     {
-        freeResource(*i);
+        freeResource(resourceMap_.begin()->second);
     }
 }
 
 template<class resT>
-uint ResourceManager<resT>::newResource(const std::string& name, 
+void ResourceManager<resT>::newResource(const std::string& name, 
                                         const std::string& path)
 {
-    resT res;
-    res.name = name;
-    res.path = path;
+    resT resource;
+    resource.name = name;
+    resource.path = path;
 
     try
     {
         // attempt to load
-        loadResource(res, path);
+        loadResource(resource, path);
     }
     catch(ResourceException& e)
     {
@@ -140,21 +116,35 @@ uint ResourceManager<resT>::newResource(const std::string& name,
             ": " + e.what());
     }
 
-    resVec_.push_back(res);     // add resource to resVec & return 
-    return static_cast<uint>(resVec_.size()-1);
+    resourceMap_[name] = resource;     // add the resource to resourceMap
 }
 
 template<class resT>
-void ResourceManager<resT>::deleteResource(uint id)
+resT& ResourceManager<resT>::getResource(const std::string& name)
 {
-    // check boundaries
-    if(id >= resVec_.size())
+    MapIterator resource( resourceMap_.find(name) );
+    
+    if(resource != resourceMap_.end())
     {
-        throw RangeException("Attempt to delete invalid resource.");
+        return resource->second;
     }
+    else
+    {
+        throw ResourceException();
+    }
+}
 
-    freeResource(resVec_[id]);  // free the resource and erase it from the vec
-    resVec_.erase(resVec_.begin()+id);
+template<class resT>
+void ResourceManager<resT>::deleteResource(const std::string& name)
+{
+    MapIterator resource( resourceMap_.find(name) );
+    
+    // if the resource was found
+    if(resource != resourceMap_.end())
+    {
+        freeResource(resource->second);     // free resource and remove it from the map
+        resourceMap_.erase(name);
+    }
 }
 
 }

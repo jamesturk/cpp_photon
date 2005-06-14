@@ -4,7 +4,7 @@
 <cloud/>
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="_" POSITION="right" TEXT="0.1 Release">
-<arrowlink DESTINATION="Freemind_Link_511487087" ENDARROW="Default" ENDINCLINATION="114;-120;" ID="Freemind_Arrow_Link_1969744902" STARTARROW="None" STARTINCLINATION="-94;-430;"/>
+<arrowlink DESTINATION="Freemind_Link_511487087" ENDARROW="Default" ENDINCLINATION="67;0;" ID="Freemind_Arrow_Link_1969744902" STARTARROW="None" STARTINCLINATION="-28;-391;"/>
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1613164220" TEXT="better SConstruct file">
 <icon BUILTIN="button_ok"/>
@@ -16,7 +16,9 @@
 </node>
 <node ID="Freemind_Link_50716011" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
-<node ID="Freemind_Link_385334177" TEXT="Image"/>
+<node ID="Freemind_Link_385334177" TEXT="Image">
+<icon BUILTIN="button_ok"/>
+</node>
 <node ID="Freemind_Link_561271163" TEXT="Font"/>
 </node>
 <node ID="Freemind_Link_1851655735" TEXT="Music"/>
@@ -73,7 +75,6 @@
 </node>
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_71804323" TEXT="investigate revising resource system"/>
 <node ID="Freemind_Link_1424720553" TEXT="Image is not tested at all"/>
 </node>
 </node>

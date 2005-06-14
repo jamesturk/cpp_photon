@@ -5,12 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.cpp,v 1.1 2005/06/13 05:38:06 cozman Exp $
+//  $Id: TextureResourceManager.cpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
 
 #include "video/TextureResourceManager.hpp"
 
 #include "util/FileBuffer.hpp"
-#include <iostream>
+
 #include "GL/gl.h"
 #include "corona.h"
 
@@ -34,16 +34,14 @@ void TextureResourceManager::getGlobalColorKey(bool &enabled, ubyte &red,
     blue = colorKey_.blue;
 }
 
-void TextureResourceManager::getTextureData(uint id, scalar &width, 
-                                            scalar &height, uint &texID)
+void TextureResourceManager::getTextureData(const std::string& name, 
+                                            scalar &width, scalar &height, 
+                                            uint &texID)
 {
-    if(id < resVec_.size())
-    {
-        ++resVec_[id].refCount;
-        width = resVec_[id].width;
-        height = resVec_[id].height;
-        texID = resVec_[id].texID;
-    }
+    TextureResource resource( getResource(name) );
+    width = resource.width;
+    height = resource.height;
+    texID = resource.texID;
 }
 
 void TextureResourceManager::loadResource(TextureResource &res, 
@@ -73,7 +71,7 @@ void TextureResourceManager::loadResource(TextureResource &res,
 
     res.width = image->getWidth();
     res.height = image->getHeight();
-    std::cerr << res.width << "x" << res.height << std::endl;
+
     //size to allocate = w*h*4 = size of bitmap * bytes per pixel
     res.pixels = new ubyte[res.width*res.height*4]; 
     std::memcpy(res.pixels,image->getPixels(),res.width*res.height*4);
