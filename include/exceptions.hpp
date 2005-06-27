@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.hpp,v 1.4 2005/03/01 07:51:04 cozman Exp $
+//  $Id: exceptions.hpp,v 1.5 2005/06/27 04:24:16 cozman Exp $
 
 #ifndef PHOTON_EXCEPTIONS_HPP
 #define PHOTON_EXCEPTIONS_HPP
@@ -56,8 +56,16 @@ public:
     //  Throwable family) define what() that returns a description of the
     //  exception.
     //
-    // Returns: std::string describing the error
+    // Returns: Formatted std::string describing the error
     std::string virtual what() const throw();
+    
+    // Function: getDesc
+    //  Get just the description portion of an exception, used for chaining
+    //  exceptions.
+    //
+    // Returns: Unformatted std::string describing the cause of the error
+    std::string virtual getDesc() const throw();
+    
     friend std::ostream& operator<<(std::ostream& os, const Throwable& rhs);
 
 private:

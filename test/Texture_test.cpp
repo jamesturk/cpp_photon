@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture_test.cpp,v 1.1 2005/06/13 05:38:06 cozman Exp $
+//  $Id: Texture_test.cpp,v 1.2 2005/06/27 04:24:16 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -31,7 +31,16 @@ public:
         video.setOrthoView(800,600);
 
         video::Texture::addResource("data/test.png");
-        img.open("data/test.png");
+        video::Texture::addResource("test2","data/test2.png");
+        
+        // Testing of errors
+        //video::Texture::addResource("nonfile");
+        //video::Texture::addResource("Texture_test.cpp");
+        //tex[0].open("test0");
+        
+        tex[0].open("data/test.png");
+        tex[1].open("test2");
+        tex[2] = tex[1];
         
     }
     
@@ -48,31 +57,45 @@ public:
 
         video.clear();
 
-        img.bind();
+        tex[0].bind();
         glBegin(GL_QUADS);
         glTexCoord2f(0,0);  glVertex2f(0,0);
         glTexCoord2f(1,0);  glVertex2f(100,0);
         glTexCoord2f(1,1);  glVertex2f(100,100);
         glTexCoord2f(0,1);  glVertex2f(0,100);
         glEnd();
+        
+        tex[1].bind();
+        glBegin(GL_QUADS);
+        glTexCoord2f(0,0);  glVertex2f(250,200);
+        glTexCoord2f(1,0);  glVertex2f(300,250);
+        glTexCoord2f(1,1);  glVertex2f(250,300);
+        glTexCoord2f(0,1);  glVertex2f(200,250);
+        glEnd();
+        
+        if(tex[2])
+        {
+            tex[2].bind();
+            glBegin(GL_QUADS);
+            glTexCoord2f(0,0);  glVertex2f(400,400);
+            glTexCoord2f(1,0);  glVertex2f(500,400);
+            glTexCoord2f(1,1);  glVertex2f(500,500);
+            glTexCoord2f(0,1);  glVertex2f(400,500);
+            glEnd();
+        }
     }
 
 private:
-    video::Texture img;
+    video::Texture tex[3];
     
     Log log;
     AppCore& app;
     video::VideoCore& video;
 };
 
-class Test00 : public Application
+class TextureTest : public Application
 {
 public:
-    Test00()
-    {
-        //Log::getInstance().addSink(LogSinkPtr(new ConsoleSink("out")));
-        //Log::getInstance().addSink(LogSinkPtr(new HTMLSink("debug")));
-    }
 
     int main(const StrVec& args)
     {
@@ -86,4 +109,4 @@ public:
     }
 };
 
-ENTRYPOINT(Test00)
+ENTRYPOINT(TextureTest)

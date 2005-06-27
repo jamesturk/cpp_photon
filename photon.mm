@@ -4,7 +4,6 @@
 <cloud/>
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="_" POSITION="right" TEXT="0.1 Release">
-<arrowlink DESTINATION="Freemind_Link_511487087" ENDARROW="Default" ENDINCLINATION="67;0;" ID="Freemind_Arrow_Link_1969744902" STARTARROW="None" STARTINCLINATION="-28;-391;"/>
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1613164220" TEXT="better SConstruct file">
 <icon BUILTIN="button_ok"/>
@@ -32,11 +31,12 @@
 <node ID="Freemind_Link_1104675603" TEXT="Tests">
 <node ID="Freemind_Link_1283736172" TEXT="Math Test(s)"/>
 <node ID="Freemind_Link_1348104879" TEXT="Kernel/AppCore"/>
+<node ID="Freemind_Link_288973656" TEXT="Texture">
+<icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_1937076235" TEXT="Examples">
 <node ID="Freemind_Link_279976301" TEXT="Pen"/>
+<node ID="Freemind_Link_609153459" TEXT="Image"/>
 <node ID="Freemind_Link_25725154" TEXT="Sound/Music"/>
-<node ID="Freemind_Link_288973656" TEXT="Texture"/>
 </node>
 </node>
 <node FOLDED="true" ID="Freemind_Link_22783417" TEXT="Example Game">
@@ -63,9 +63,6 @@
 <node ID="Freemind_Link_1083205841" TEXT="Jupiter - Initial rewrite of Photon"/>
 </node>
 </node>
-<node ID="Freemind_Link_511487087" POSITION="left" TEXT="Website">
-<node ID="Freemind_Link_502036778" TEXT="cozTheme with a Wiki"/>
-</node>
 <node FOLDED="true" ID="Freemind_Link_351891371" POSITION="left" TEXT="General Mateinance">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1978849189" TEXT="Clean up CVS">
@@ -75,7 +72,6 @@
 </node>
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1424720553" TEXT="Image is not tested at all"/>
 </node>
 </node>
 </map>

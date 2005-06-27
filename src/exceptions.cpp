@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.cpp,v 1.6 2005/02/27 05:52:00 cozman Exp $
+//  $Id: exceptions.cpp,v 1.7 2005/06/27 04:24:16 cozman Exp $
 
 
 #include "exceptions.hpp"
@@ -32,6 +32,11 @@ std::string Throwable::what() const throw()
         ss << " (" << file_ << ":" << line_ << ")";
     }
     return ss.str();
+}
+
+std::string Throwable::getDesc() const throw()
+{
+    return description_;
 }
 
 std::ostream& operator<<(std::ostream& os, const Throwable& rhs)

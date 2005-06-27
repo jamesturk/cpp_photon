@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.4 2005/06/11 05:28:41 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.5 2005/06/27 04:24:16 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
@@ -115,11 +115,13 @@ void VideoCore::initOpenGL()
     glShadeModel(GL_SMOOTH);
 
     // Setup depth checking.
-    //glDepthFunc(GL_LEQUAL);
-    //glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glEnable(GL_DEPTH_TEST);
 
     //setup hints
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
+    
+    glEnable(GL_POLYGON_SMOOTH);
 
     //enable texturing
     glEnable(GL_TEXTURE_2D);

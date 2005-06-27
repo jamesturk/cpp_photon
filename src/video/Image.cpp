@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image.cpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
+//  $Id: Image.cpp,v 1.3 2005/06/27 04:24:16 cozman Exp $
 
 #include "video/Image.hpp"
 
@@ -18,14 +18,16 @@ namespace video
 
 Image::Image() : 
     alpha_(255),
-    texMinX_(0), texMinY_(0), texMaxX_(1), texMaxY_(1)
+    texMinX_(0), texMinY_(0), texMaxX_(1), texMaxY_(1),
+    width_(0), height_(0)
 { }
 
 Image::Image(const Image &rhs) : 
     Texture(rhs),
     alpha_(rhs.alpha_),
     texMinX_(rhs.texMinX_), texMinY_(rhs.texMinY_), 
-    texMaxX_(rhs.texMaxX_), texMaxY_(rhs.texMaxY_)
+    texMaxX_(rhs.texMaxX_), texMaxY_(rhs.texMaxY_),
+    width_(rhs.width_), height_(rhs.height_)
 { }
 
 Image::Image(const std::string& name) : 
@@ -45,6 +47,8 @@ Image& Image::operator=(const Image &rhs)
         texMinY_ = rhs.texMinY_;
         texMaxX_ = rhs.texMaxX_;
         texMaxY_ = rhs.texMaxY_;
+        width_ = rhs.width_;
+        height_ = rhs.height_;
     }
     return *this;
 }
@@ -52,6 +56,8 @@ Image& Image::operator=(const Image &rhs)
 void Image::open(const std::string& name)
 {
     Texture::open(name);
+    width_ = getWidth();
+    height_ = getHeight();
 }
 
 void Image::setAlpha(ubyte alpha)
@@ -75,8 +81,8 @@ void Image::flip(bool horizontal, bool vertical)
 //stretching and resizing is very inexpensive, done via variables
 void Image::stretch(scalar xFactor, scalar yFactor)
 {
-    width_ = xFactor*width_;
-    height_ = yFactor*height_;
+    width_ = xFactor*getWidth();
+    height_ = yFactor*getHeight();
 }
 
 void Image::resize(scalar width, scalar height)
@@ -184,7 +190,7 @@ ubyte Image::getAlpha() const
 
 std::ostream& operator<<(std::ostream &o, const Image &rhs)
 {
-    return o << "Image: { Name: " << rhs.resName_ <<
+    return o << "Image: { Name: " << rhs.getName() <<
         " Dimensions: " << rhs.width_ << "x" << rhs.height_ 
         << " Alpha: " << rhs.alpha_ << " }";
 }

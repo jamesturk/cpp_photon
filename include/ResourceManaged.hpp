@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.4 2005/06/14 00:28:36 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.5 2005/06/27 04:24:09 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -65,12 +65,23 @@ public:
     //  Generally called by destructor, so should rarely be called.
     virtual void release();
     
+// Group: Accessors
+public:
+    // Function: getName
+    //  Get the name associated with the resource.  
+    //
+    // Returns:
+    //  Name of resource, or empty string if no resource is loaded.
+    std::string getName() const;
+    
 // Group: Resource Manager Access
-
+public:
+    static ResMgrT resMgr_;
+    
     // Function: cleanUp
     //  Cleans up any unused resources of the type.
     //  (Ex. Image::cleanUp() will unload all images.)
-    virtual void cleanUp();
+    static void cleanUp();
     
     // Function: addResource
     //  Define a new named resource.
@@ -92,9 +103,8 @@ public:
     //  path - Path of resource data file.
     static void addResource(const std::string& path);
 
-protected:
+private:
     std::string resName_;
-    static ResMgrT resMgr_;
 };
 
 //and he said "the implementation shall follow, as it is written"
@@ -141,6 +151,12 @@ void ResourceManaged<ResMgrT>::release()
         resMgr_.delRef(resName_);   // decrement the refcount 
         resName_.clear();           // empty string = invalid resource
     }
+}
+
+template<class ResMgrT>
+std::string ResourceManaged<ResMgrT>::getName() const
+{
+    return resName_;
 }
 
 template<class ResMgrT>

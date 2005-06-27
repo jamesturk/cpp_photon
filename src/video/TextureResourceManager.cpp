@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.cpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
+//  $Id: TextureResourceManager.cpp,v 1.3 2005/06/27 04:24:16 cozman Exp $
 
 #include "video/TextureResourceManager.hpp"
 
@@ -57,7 +57,7 @@ void TextureResourceManager::loadResource(TextureResource &res,
 
     if(!file)
     {
-        throw ResourceException("corona::CreateMemoryFile failed");
+        throw APIError("corona::CreateMemoryFile failed");
     }
     
     image = corona::OpenImage(file,corona::PF_R8G8B8A8);
@@ -66,7 +66,7 @@ void TextureResourceManager::loadResource(TextureResource &res,
 
     if(!image)
     {
-        throw ResourceException("corona::OpenImage failed");
+        throw ResourceException("Invalid image format.");
     }
 
     res.width = image->getWidth();
@@ -117,8 +117,6 @@ void TextureResourceManager::freeResource(TextureResource &res)
     }
     glDeleteTextures(1, &res.texID);
 }
-
-
 
 }
 }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.cpp,v 1.6 2005/06/11 05:28:41 cozman Exp $
+//  $Id: FileBuffer.cpp,v 1.7 2005/06/27 04:24:16 cozman Exp $
 
 #include "util/FileBuffer.hpp"
 
@@ -34,7 +34,7 @@ void FileBuffer::open(const std::string& filename)
     file_ = PHYSFS_openRead(filename.c_str());
     if(file_ == 0)
     {
-        throw ResourceException();
+        throw ResourceException("Could not open file \"" + filename + "\".");
     }
 }
 

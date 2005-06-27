@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.6 2005/06/14 00:28:36 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.7 2005/06/27 04:24:16 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -54,6 +54,9 @@ private:
     virtual void freeResource(resT &res)=0;
 
     void deleteResource(const std::string& name);
+    
+public:
+    void printReport(std::ostream& os);
 
 private:
     typedef std::map<std::string,resT> MapT;
@@ -113,7 +116,7 @@ void ResourceManager<resT>::newResource(const std::string& name,
     {
         // rethrow any exceptions with specific information 
         throw ResourceException("Could not load " + path + " as " + name + 
-            ": " + e.what());
+            ": " + e.getDesc());
     }
 
     resourceMap_[name] = resource;     // add the resource to resourceMap
@@ -126,11 +129,13 @@ resT& ResourceManager<resT>::getResource(const std::string& name)
     
     if(resource != resourceMap_.end())
     {
+        // increment the refCount and return the resource for use
+        ++resource->second.refCount;
         return resource->second;
     }
     else
     {
-        throw ResourceException();
+        throw ResourceException("No resource named \"" + name + "\" exists.");
     }
 }
 
@@ -146,6 +151,19 @@ void ResourceManager<resT>::deleteResource(const std::string& name)
         resourceMap_.erase(name);
     }
 }
+
+template<class resT>
+void ResourceManager<resT>::printReport(std::ostream& os)
+{
+    MapIterator resource( resourceMap_.begin() );
+    
+    for(MapIterator i = resourceMap_.begin(); i != resourceMap_.end(); ++i)
+    {
+        os << i->second.name << "\t" << i->second.path << "\t" 
+            << i->second.refCount << "\n";
+    }
+}
+
 
 }
 
