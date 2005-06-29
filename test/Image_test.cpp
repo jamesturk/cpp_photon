@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.1 2005/06/27 04:27:49 cozman Exp $
+//  $Id: Image_test.cpp,v 1.2 2005/06/29 00:02:51 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -33,10 +33,14 @@ public:
         video::Image::addResource("data/test.png");
         video::Texture::addResource("test2","data/test2.png");
 
-        img[0].open("data/test.png");
-        img[0].resize(100,100);
-        img[1].open("test2");
-        img[2] = img[1];
+        img[0].open("test2");
+        img[0].setAlpha(128);
+        img[0].resize(100,200);
+        
+        img[1].open("data/test.png");
+        
+        img[2] = img[0];
+        img[2].flip(true,true);
     }
     
     void update()
@@ -58,7 +62,7 @@ public:
         
         if(img[2])
         {
-            img[2].draw(100,500);
+            img[2].draw(100,400);
         }
     }
 
