@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture.hpp,v 1.2 2005/06/13 07:05:28 cozman Exp $
+//  $Id: Texture.hpp,v 1.3 2005/07/03 05:20:49 cozman Exp $
 
 #ifndef PHOTON_VIDEO_TEXTURE_HPP
 #define PHOTON_VIDEO_TEXTURE_HPP
@@ -31,7 +31,7 @@ namespace video
 //  - Texture = Texture
 //  - bool : True if texture is loaded, false if not.
 //  - ostream& << Texture
-class Texture: public ResourceManaged<TextureResourceManager>
+class Texture : public ResourceManaged<TextureResourceManager>
 {
 
 // Group: (Con/De)structors 

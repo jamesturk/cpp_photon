@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.6 2005/06/29 04:30:40 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.7 2005/07/03 05:20:49 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
@@ -13,7 +13,6 @@
 
 #include "GL/gl.h"
 #include "GL/glu.h"
-#include "FTGL/FTLibrary.h"
 
 namespace photon
 {
@@ -25,7 +24,6 @@ VideoCore::VideoCore() :
     viewportWidth_(0), viewportHeight_(0) 
 {
     initOpenGL();
-    FTLibrary::Instance().Error();  // ignoring error, fix this
 }
 
 VideoCore::~VideoCore()

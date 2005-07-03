@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.1 2005/06/29 04:30:40 cozman Exp $
+//  $Id: Font_test.cpp,v 1.2 2005/07/03 05:20:49 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -34,7 +34,7 @@ public:
         
         font.open("font");
     }
-    
+
     void update()
     {   
         static double t=0;
@@ -48,17 +48,10 @@ public:
 
         video.clear();
         
-        glColor4ub(255,0,0,255);
-        glEnable(GL_TEXTURE_2D);
-        glScaled(1.0/.75,1,1);
-        font.write("he");
-        glBegin(GL_QUADS);
-        glTexCoord2f(0,0);  glVertex2f(150,200);
-        glTexCoord2f(1,0);  glVertex2f(300,350);
-        glTexCoord2f(1,1);  glVertex2f(150,300);
-        glTexCoord2f(0,1);  glVertex2f(200,350);
-        glEnd();
-        glColor4ub(255,255,255,255);
+        font.drawText(0, 0, "Photon");
+        font.drawText(font.calcStringWidth("Photon"), font.getHeight(), 
+                    "FPS: %.0f", app.getFramerate() );
+        font.beginDraw(200, 200) << "another font" << font.endDraw();
     }
 
 private:
