@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FontResourceManager.hpp,v 1.2 2005/07/03 05:20:49 cozman Exp $
+//  $Id: FontResourceManager.hpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONTRESOURCEMANAGER_HPP
 #define PHOTON_VIDEO_FONTRESOURCEMANAGER_HPP
@@ -29,7 +29,19 @@ public:
     ubyte height;
 };
 
-class FontResourceManager : public ResourceManager<FontResource>
+class FontResourceDescriptor : public ResourceDescriptor
+{
+public:
+    FontResourceDescriptor(const std::string& str, uint sz) : 
+        ResourceDescriptor(str), size(sz)
+    { }
+
+public:
+    uint size;
+};
+
+class FontResourceManager : public ResourceManager<FontResource, 
+                                                    FontResourceDescriptor>
 {
 public:
     FontResourceManager();
@@ -40,15 +52,9 @@ public:
 
 private:
 
-    // defined but not implemented
-    virtual void loadResource(FontResource &res,  const std::string& name);
-    
-    FontResource newResource(const std::string& name, const std::string& path, 
-                                uint size);
-    
-    virtual void loadResource(FontResource &res,  const std::string& name, 
-                                uint size);
-    virtual void freeResource(FontResource &res);
+    virtual void loadResourceData(FontResource &res,  
+                                const FontResourceDescriptor& desc);
+    virtual void freeResourceData(FontResource &res);
     
 private:
     FT_Library library_;

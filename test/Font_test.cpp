@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.2 2005/07/03 05:20:49 cozman Exp $
+//  $Id: Font_test.cpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -30,7 +30,7 @@ public:
 
         video.setOrthoView(800,600);
 
-        video::Font::addResource("font","data/arial.ttf");
+        video::Font::addResource("font",video::FontResourceDescriptor("data/arial.ttf",32));
         
         font.open("font");
     }

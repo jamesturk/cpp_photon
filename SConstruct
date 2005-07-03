@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.13 2005/06/29 04:30:40 cozman Exp $
+#  $Id: SConstruct,v 1.14 2005/07/03 06:33:19 cozman Exp $
 
 import os,os.path
 import glob
@@ -91,6 +91,6 @@ for test_src in test_srcs:
     test_name = test_src.replace('_test.cpp','')
     tests.append(env.Program(test_name, source=test_src, CPPPATH = INC_DIRS+['/usr/include/freetype2/'],
                     LIBPATH='./lib', CPPFLAGS = '-Wall -pedantic', 
-                    LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,'physfs','corona','freetype','ftgl']))
+                    LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,'physfs','corona','freetype']))
 env.Alias('test',tests)
 

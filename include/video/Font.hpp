@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.2 2005/07/03 05:20:49 cozman Exp $
+//  $Id: Font.hpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
@@ -34,29 +34,6 @@ std::ostream& operator<<(std::ostream& os, const StreamFlusher& rhs);
 //  - ostream& << Font
 class Font: public ResourceManaged<FontResourceManager>
 {
-    
-// Resource Creation
-public:
-    // Function: addResource
-    //  Define a new named font resource, works just like 
-    //  <ResourceManaged::addResource> except that it takes a size for the font.
-    //
-    // Parameters:
-    //  name - Name to give to font resource.
-    //  path - Path of font file.
-    //  size - Point size for the font.
-    static void addResource(const std::string& name, const std::string& path, 
-                            uint size);
-    
-    // Function: addResource
-    //  Define a new unaliased font resource (name == path). Works just like 
-    //  <ResourceManaged::addResource> except that it takes a size for the font.
-    //
-    // Parameters:.
-    //  path - Path of font file.
-    //  size - Point size for the font.
-    static void addResource(const std::string& path, uint size);
-
 // Group: (Con/De)structors 
 public:
     // Function: Font

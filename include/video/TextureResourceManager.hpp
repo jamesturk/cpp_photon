@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.hpp,v 1.2 2005/06/14 00:28:36 cozman Exp $
+//  $Id: TextureResourceManager.hpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
 
 #ifndef PHOTON_VIDEO_TEXTURERESOURCEMANAGER_HPP
 #define PHOTON_VIDEO_TEXTURERESOURCEMANAGER_HPP
@@ -38,8 +38,9 @@ public:
                         uint &texID);
 
 private:
-    virtual void loadResource(TextureResource &res,  const std::string& name);
-    virtual void freeResource(TextureResource &res);
+    virtual void loadResourceData(TextureResource &res,  
+                                    const ResourceDescriptor& path);
+    virtual void freeResourceData(TextureResource &res);
 
     Color colorKey_;
 };

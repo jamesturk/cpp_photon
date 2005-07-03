@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FontResourceManager.cpp,v 1.2 2005/07/03 05:20:49 cozman Exp $
+//  $Id: FontResourceManager.cpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
 
 #include "video/FontResourceManager.hpp"
 
@@ -41,45 +41,15 @@ void FontResourceManager::getFontData(const std::string& name, uint& texID,
     height = resource.height;
 }
 
-void FontResourceManager::loadResource(FontResource &res, 
-                                            const std::string& path)
-{
-    throw Error("loadResource(FontResource&, const std::string& is undefined "
-                " for Font.  A size must be specified.");
-}
-
-FontResource FontResourceManager::newResource(const std::string& name, 
-                                                const std::string& path,
-                                                uint size)
-{
-    FontResource resource;
-    resource.name = name;
-    resource.path = path;
-
-    try
-    {
-        // attempt to load
-        loadResource(resource, path, size);
-    }
-    catch(ResourceException& e)
-    {
-        // rethrow any exceptions with specific information 
-        throw ResourceException("Could not load " + path + " as " + name + 
-            ": " + e.getDesc());
-    }
-
-    resourceMap_[name] = resource;     // add the resource to resourceMap
-}
-
-void FontResourceManager::loadResource(FontResource &res, 
-                                            const std::string& path, uint size)
+void FontResourceManager::loadResourceData(FontResource &res, 
+                                            const FontResourceDescriptor& desc)
 {
     const size_t MARGIN = 3;
     
     res.widths.resize(NUM_CHARS);
     
     // Step 1: Open the font using FreeType //
-    util::FileBuffer buf(path);
+    util::FileBuffer buf(desc.path);
     std::vector<ubyte> data = buf.getData();
 
     FT_Face face;
@@ -98,7 +68,7 @@ void FontResourceManager::loadResource(FontResource &res,
     }
     
     // Set the font size
-    FT_Set_Pixel_Sizes(face, size, 0);
+    FT_Set_Pixel_Sizes(face, desc.size, 0);
 
     // Step 2: Find maxAscent/Descent to calculate imageHeight //
     size_t imageHeight = 0;
@@ -216,7 +186,7 @@ void FontResourceManager::loadResource(FontResource &res,
     FT_Done_Face(face); // free the face data
 }
 
-void FontResourceManager::freeResource(FontResource &res)
+void FontResourceManager::freeResourceData(FontResource &res)
 {
     if(glIsList(res.listBase))
     {

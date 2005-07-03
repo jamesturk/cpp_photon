@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.7 2005/06/27 04:24:16 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.8 2005/07/03 06:33:19 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -25,7 +25,15 @@ class Resource
 {
 public:
     uint refCount;
-    std::string name;
+};
+
+class ResourceDescriptor
+{
+public:
+    ResourceDescriptor() { }
+    ResourceDescriptor(const std::string& p) :
+        path(p)
+    { }
     std::string path;
 };
 
@@ -34,9 +42,12 @@ public:
 // 
 //  All ResourceManager work is done behind the scenes, it and all classes 
 //  derived from it are therefore left without public documentation.
-template<class resT>
+template<class resT, class ResDescT_=ResourceDescriptor>
 class ResourceManager : public boost::noncopyable
 {
+public:
+    typedef ResDescT_ ResDescT;
+    
 public:
     ResourceManager();
 
@@ -45,13 +56,13 @@ public:
     void delRef(const std::string& name);
     void cleanUp();
 
-    void newResource(const std::string& name, const std::string& path);
+    void newResource(const std::string& name, const ResDescT& path);
     
     resT& getResource(const std::string& name);
     
 private:
-    virtual void loadResource(resT &res, const std::string& path)=0;
-    virtual void freeResource(resT &res)=0;
+    virtual void loadResourceData(resT &res, const ResDescT& path)=0;
+    virtual void freeResourceData(resT &res)=0;
 
     void deleteResource(const std::string& name);
     
@@ -66,16 +77,16 @@ private:
 
 // implementation (damn you templor, cruel god of templates!)
 
-template<class resT>
-ResourceManager<resT>::ResourceManager()
+template<class resT, class ResDescT>
+ResourceManager<resT, ResDescT>::ResourceManager()
 { }
 
-template<class resT>
-ResourceManager<resT>::~ResourceManager()
+template<class resT, class ResDescT>
+ResourceManager<resT, ResDescT>::~ResourceManager()
 { }
 
-template<class resT>
-void ResourceManager<resT>::delRef(const std::string& name)
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::delRef(const std::string& name)
 {
     MapIterator resource( resourceMap_.find(name) );
     
@@ -89,41 +100,39 @@ void ResourceManager<resT>::delRef(const std::string& name)
     }
 }
 
-template<class resT>
-void ResourceManager<resT>::cleanUp()
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::cleanUp()
 {
     // delete resources, until none are left
     while(!resourceMap_.empty())
     {
-        freeResource(resourceMap_.begin()->second);
+        freeResourceData(resourceMap_.begin()->second);
     }
 }
 
-template<class resT>
-void ResourceManager<resT>::newResource(const std::string& name, 
-                                        const std::string& path)
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::newResource(const std::string& name, 
+                                                    const ResDescT& desc)
 {
     resT resource;
-    resource.name = name;
-    resource.path = path;
 
     try
     {
         // attempt to load
-        loadResource(resource, path);
+        loadResourceData(resource, desc);
     }
     catch(ResourceException& e)
     {
         // rethrow any exceptions with specific information 
-        throw ResourceException("Could not load " + path + " as " + name + 
+        throw ResourceException("Could not load " + desc.path + " as " + name + 
             ": " + e.getDesc());
     }
 
     resourceMap_[name] = resource;     // add the resource to resourceMap
 }
 
-template<class resT>
-resT& ResourceManager<resT>::getResource(const std::string& name)
+template<class resT, class ResDescT>
+resT& ResourceManager<resT, ResDescT>::getResource(const std::string& name)
 {
     MapIterator resource( resourceMap_.find(name) );
     
@@ -139,21 +148,22 @@ resT& ResourceManager<resT>::getResource(const std::string& name)
     }
 }
 
-template<class resT>
-void ResourceManager<resT>::deleteResource(const std::string& name)
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::deleteResource(const std::string& name)
 {
     MapIterator resource( resourceMap_.find(name) );
     
     // if the resource was found
     if(resource != resourceMap_.end())
     {
-        freeResource(resource->second);     // free resource and remove it from the map
+        // free resource and remove it from the map
+        freeResourceData(resource->second);
         resourceMap_.erase(name);
     }
 }
 
-template<class resT>
-void ResourceManager<resT>::printReport(std::ostream& os)
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::printReport(std::ostream& os)
 {
     MapIterator resource( resourceMap_.begin() );
     

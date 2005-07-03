@@ -12,6 +12,11 @@
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1795651487" TEXT="&quot;ResourceManage&quot;ment">
 <icon BUILTIN="button_ok"/>
+<node ID="Freemind_Link_1726195047" TEXT="clean up!">
+<node ID="Freemind_Link_1703292276" TEXT="hide ResourceDescriptors"/>
+<node ID="Freemind_Link_1167143207" TEXT="scan documentation"/>
+<node ID="Freemind_Link_513005450" TEXT="80-line limit"/>
+</node>
 </node>
 <node ID="Freemind_Link_50716011" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
@@ -69,9 +74,13 @@
 </node>
 <node ID="Freemind_Link_1642641448" TEXT="Ensure compilation succeeds on Win/Linux simultaneously"/>
 <node ID="Freemind_Link_330674889" TEXT="Find an OSX user to test"/>
+<node ID="Freemind_Link_1190200631" TEXT="Clean up source"/>
 </node>
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.10 2005/07/03 06:33:19 cozman Exp $">
+<font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
 </map>

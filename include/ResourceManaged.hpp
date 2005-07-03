@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.5 2005/06/27 04:24:09 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.6 2005/07/03 06:33:19 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -92,7 +92,8 @@ public:
     // Parameters:
     //  name - Name to give to resource.
     //  path - Path of resource data file.
-    static void addResource(const std::string& name, const std::string& path);
+    static void addResource(const std::string& name, 
+                            const typename ResMgrT::ResDescT& desc);
     
     // Function: addResource
     //  Define a new unaliased resource. (name == path).
@@ -101,7 +102,7 @@ public:
     //
     // Parameters:.
     //  path - Path of resource data file.
-    static void addResource(const std::string& path);
+    static void addResource(const typename ResMgrT::ResDescT& desc);
 
 private:
     std::string resName_;
@@ -167,15 +168,15 @@ void ResourceManaged<ResMgrT>::cleanUp()
 
 template<class ResMgrT>
 void ResourceManaged<ResMgrT>::addResource(const std::string& name, 
-                                            const std::string& path)
+                                            const typename ResMgrT::ResDescT& desc)
 {
-    resMgr_.newResource(name,path);
+    resMgr_.newResource(name, desc);
 }
 
 template<class ResMgrT>
-void ResourceManaged<ResMgrT>::addResource(const std::string& path)
+void ResourceManaged<ResMgrT>::addResource(const typename ResMgrT::ResDescT& desc)
 {
-    resMgr_.newResource(path,path);
+    resMgr_.newResource(desc.path, desc);
 }
 
 // define the resource manager static instance

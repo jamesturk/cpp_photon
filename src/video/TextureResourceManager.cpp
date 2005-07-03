@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.cpp,v 1.3 2005/06/27 04:24:16 cozman Exp $
+//  $Id: TextureResourceManager.cpp,v 1.4 2005/07/03 06:33:19 cozman Exp $
 
 #include "video/TextureResourceManager.hpp"
 
@@ -44,11 +44,11 @@ void TextureResourceManager::getTextureData(const std::string& name,
     texID = resource.texID;
 }
 
-void TextureResourceManager::loadResource(TextureResource &res, 
-                                            const std::string& path)
+void TextureResourceManager::loadResourceData(TextureResource &res, 
+                                            const ResourceDescriptor& path)
 {
     corona::Image *image(0);
-    util::FileBuffer buf(path);
+    util::FileBuffer buf(path.path);
     corona::File *file;
     
     std::vector<ubyte> data = buf.getData();
@@ -108,7 +108,7 @@ void TextureResourceManager::loadResource(TextureResource &res,
                         GL_UNSIGNED_BYTE, res.pixels);
 }
 
-void TextureResourceManager::freeResource(TextureResource &res)
+void TextureResourceManager::freeResourceData(TextureResource &res)
 {
     if(res.pixels)
     {

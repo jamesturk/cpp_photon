@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.cpp,v 1.2 2005/07/03 05:20:49 cozman Exp $
+//  $Id: Font.cpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
 
 #include "video/Font.hpp"
 
@@ -23,17 +23,6 @@ namespace video
 std::ostream& operator<<(std::ostream& os, const StreamFlusher& rhs)
 {
     return os.flush();
-}
-
-void Font::addResource(const std::string& name, const std::string& path,
-                        uint size)
-{
-    resMgr_.newResource(name,path,size);
-}
-
-void Font::addResource(const std::string& path, uint size)
-{
-    resMgr_.newResource(path,path,size);
 }
 
 Font::Font() :
