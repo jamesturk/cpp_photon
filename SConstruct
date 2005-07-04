@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.14 2005/07/03 06:33:19 cozman Exp $
+#  $Id: SConstruct,v 1.15 2005/07/04 03:06:06 cozman Exp $
 
 import os,os.path
 import glob
@@ -39,42 +39,18 @@ except KeyError:
     Exit(1)
 
 # Configure the environment (Check libraries):
-env = Environment(ENV = os.environ, 
-                                LIBPATH=['/usr/lib', '/usr/local/lib'],
-                                INCPATH=['/usr/include', '/usr/local/include'])
-conf = Configure(env)
-if not conf.CheckLibWithHeader(OAL_LIB, 'AL/al.h', 'C++'):
-    print 'OpenAL not found, exiting.'
-    Exit(1)
-if not conf.CheckLibWithHeader(OGL_LIB, 'GL/gl.h', 'C++'):
-    print 'OpenGL not found, exiting.'
-    Exit(1)
-if not conf.CheckLibWithHeader(GLU_LIB, 'GL/glu.h', 'C++'):
-    print 'GLU not found, exiting.'
-    Exit(1)
-if not conf.CheckLibWithHeader('glfw', 'GL/glfw.h', 'C++'):
-    print 'GLFW not found, exiting.'
-    Exit(1)
-if not conf.CheckLibWithHeader('corona', 'corona.h', 'C++'):
-    print 'Corona not found, exiting.'
-    Exit(1)
-env = conf.Finish()
-
-# Build the Super-Header
-header = file('include/'+LIBRARY+'.hpp','w')
-incGuard = LIBRARY.upper()+'_HPP'
-header.write('#ifndef '+incGuard+'\n')
-header.write('#define '+incGuard+'\n\n')
-for inc in INC_FILES:
-    header.write('#include "'+inc.replace('include/','')+'"\n')
-header.write('\n#endif // '+incGuard+'\n')
-header.close()
-
+env = Environment(ENV = os.environ,
+                    LIBPATH=['/usr/lib', '/usr/local/lib'],
+                    INCPATH=['/usr/include', '/usr/local/include'],
+                    CPPFLAGS = ['`freetype-config --cflags`', '-Wall', 
+                                '-pedantic']
+                    )
+                    
 # Define Builds:
 BuildDir('build', 'src', duplicate=0)
 
 lib = env.Library(os.path.join('lib',LIBRARY), source=SRC_FILES, 
-            CPPPATH = ['include', '/usr/include/freetype2/'], CPPFLAGS = '-Wall -pedantic') 
+            CPPPATH = 'include') 
 env.Alias(LIBRARY,lib)
 env.Default(LIBRARY)
 
@@ -93,4 +69,40 @@ for test_src in test_srcs:
                     LIBPATH='./lib', CPPFLAGS = '-Wall -pedantic', 
                     LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,'physfs','corona','freetype']))
 env.Alias('test',tests)
+
+
+if LIBRARY in BUILD_TARGETS:    
+    conf = Configure(env)
+    if not conf.CheckLibWithHeader(OGL_LIB, 'GL/gl.h', 'C++'):
+        print 'OpenGL not found, exiting.'
+        Exit(1)
+    if not conf.CheckLibWithHeader(GLU_LIB, 'GL/glu.h', 'C++'):
+        print 'GLU not found, exiting.'
+        Exit(1)
+    if not conf.CheckLibWithHeader('glfw', 'GL/glfw.h', 'C++'):
+        print 'GLFW not found, exiting.'
+        Exit(1)
+    if not conf.CheckLibWithHeader('freetype', 'ft2build.h', 'C++'):
+        print 'Freetype2 not found, exiting.'
+        Exit(1)    
+    if not conf.CheckLibWithHeader('corona', 'corona.h', 'C++'):
+        print 'Corona not found, exiting.'
+        Exit(1)
+    if conf.CheckLibWithHeader(OAL_LIB, 'zAL/al.h', 'C++'):
+        conf.env.Append(CPPFLAGS='-DPHOTON_USE_OPENAL')
+    else:
+        print 'OpenAL not found, continuing without OpenAL support.'
+    env = conf.Finish()
+
+    # Build the Super-Header (only if this is a normal build)
+    header = file('include/'+LIBRARY+'.hpp','w')
+    incGuard = LIBRARY.upper()+'_HPP'
+    header.write('#ifndef '+incGuard+'\n')
+    header.write('#define '+incGuard+'\n\n')
+    for inc in INC_FILES:
+        header.write('#include "'+inc.replace('include/','')+'"\n')
+    header.write('\n#endif // '+incGuard+'\n')
+    header.close()
+    print 'Built '+LIBRARY+'.hpp'
+
 
