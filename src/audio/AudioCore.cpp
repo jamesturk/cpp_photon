@@ -5,7 +5,9 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.5 2005/05/15 02:50:52 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.6 2005/07/04 03:06:48 cozman Exp $
+
+#ifdef PHOTON_USE_OPENAL
 
 #include "audio/AudioCore.hpp"
 
@@ -135,3 +137,5 @@ std::string AudioCore::deviceName_;
 
 }
 }
+
+#endif  //PHOTON_USE_OPENAL

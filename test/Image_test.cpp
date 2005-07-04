@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
+//  $Id: Image_test.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -30,8 +30,8 @@ public:
 
         video.setOrthoView(800,600);
 
-        video::Image::addResource(ResourceDescriptor("data/test.png"));
-        video::Texture::addResource("test2",ResourceDescriptor("data/test2.png"));
+        video::Image::addResource("data/test.png");
+        video::Texture::addResource("test2","data/test2.png");
 
         img[0].open("test2");
         img[0].setAlpha(128);

@@ -5,12 +5,15 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore_test.cpp,v 1.1 2005/05/15 02:50:07 cozman Exp $
+//  $Id: AudioCore_test.cpp,v 1.2 2005/07/04 03:06:48 cozman Exp $
 
 #include "photon.hpp"
 #include <iostream>
 
 using namespace photon;
+
+#ifdef PHOTON_USE_OPENAL
+
 using namespace photon::audio;
 
 class AudioTest : public Application
@@ -19,8 +22,7 @@ public:
 
     int main(const StrVec& args)
     {
-        //throw Error("zing!");
-        
+
         AudioCore& audio(AudioCore::getInstance());
         std::cout << audio.getAudioDeviceName();
 
@@ -29,3 +31,12 @@ public:
 };
 
 ENTRYPOINT(AudioTest)
+
+#else
+
+int main()
+{
+    std::cerr << "Photon compiled without OpenAL support.\n"; 
+}
+
+#endif //PHOTON_USE_OPENAL

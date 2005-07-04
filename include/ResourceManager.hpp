@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.8 2005/07/03 06:33:19 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.9 2005/07/04 03:06:48 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -24,6 +24,11 @@ namespace photon
 class Resource
 {
 public:
+    Resource() : 
+        refCount(0)
+    { }
+    
+public:
     uint refCount;
 };
 
@@ -34,6 +39,8 @@ public:
     ResourceDescriptor(const std::string& p) :
         path(p)
     { }
+    
+public:
     std::string path;
 };
 
@@ -53,12 +60,12 @@ public:
 
     virtual ~ResourceManager();
 
-    void delRef(const std::string& name);
-    void cleanUp();
-
     void newResource(const std::string& name, const ResDescT& path);
     
     resT& getResource(const std::string& name);
+    
+    void delRef(const std::string& name);
+    void cleanUp();
     
 private:
     virtual void loadResourceData(resT &res, const ResDescT& path)=0;
@@ -86,31 +93,6 @@ ResourceManager<resT, ResDescT>::~ResourceManager()
 { }
 
 template<class resT, class ResDescT>
-void ResourceManager<resT, ResDescT>::delRef(const std::string& name)
-{
-    MapIterator resource( resourceMap_.find(name) );
-    
-    // if the resource was found
-    if(resource != resourceMap_.end())
-    {
-        if(--resource->second.refCount <= 0)
-        {
-            deleteResource(name);
-        }
-    }
-}
-
-template<class resT, class ResDescT>
-void ResourceManager<resT, ResDescT>::cleanUp()
-{
-    // delete resources, until none are left
-    while(!resourceMap_.empty())
-    {
-        freeResourceData(resourceMap_.begin()->second);
-    }
-}
-
-template<class resT, class ResDescT>
 void ResourceManager<resT, ResDescT>::newResource(const std::string& name, 
                                                     const ResDescT& desc)
 {
@@ -124,7 +106,7 @@ void ResourceManager<resT, ResDescT>::newResource(const std::string& name,
     catch(ResourceException& e)
     {
         // rethrow any exceptions with specific information 
-        throw ResourceException("Could not load " + desc.path + " as " + name + 
+        throw ResourceException("Could not load " + desc.path + " as " + name +
             ": " + e.getDesc());
     }
 
@@ -159,6 +141,31 @@ void ResourceManager<resT, ResDescT>::deleteResource(const std::string& name)
         // free resource and remove it from the map
         freeResourceData(resource->second);
         resourceMap_.erase(name);
+    }
+}
+
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::delRef(const std::string& name)
+{
+    MapIterator resource( resourceMap_.find(name) );
+    
+    // if the resource was found
+    if(resource != resourceMap_.end())
+    {
+        if(--resource->second.refCount <= 0)
+        {
+            deleteResource(name);
+        }
+    }
+}
+
+template<class resT, class ResDescT>
+void ResourceManager<resT, ResDescT>::cleanUp()
+{
+    // delete resources, until none are left
+    while(!resourceMap_.empty())
+    {
+        deleteResource(resourceMap_.begin()->first);
     }
 }
 

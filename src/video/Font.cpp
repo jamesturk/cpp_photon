@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.cpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
+//  $Id: Font.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
 
 #include "video/Font.hpp"
 
@@ -179,6 +179,17 @@ unsigned int Font::getHeight() const
         throw PreconditionException("Invalid Font::getHeight call.");
     }
     return height_;
+}
+
+void Font::addResource(const std::string& name, const std::string& path, 
+                        uint size)
+{
+    resMgr_.newResource(name, FontResourceDescriptor(path, size));
+}
+
+void Font::addResource(const std::string& path, uint size)
+{
+    resMgr_.newResource(path, FontResourceDescriptor(path, size));
 }
 
 }

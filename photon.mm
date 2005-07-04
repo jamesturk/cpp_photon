@@ -12,11 +12,6 @@
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1795651487" TEXT="&quot;ResourceManage&quot;ment">
 <icon BUILTIN="button_ok"/>
-<node ID="Freemind_Link_1726195047" TEXT="clean up!">
-<node ID="Freemind_Link_1703292276" TEXT="hide ResourceDescriptors"/>
-<node ID="Freemind_Link_1167143207" TEXT="scan documentation"/>
-<node ID="Freemind_Link_513005450" TEXT="80-line limit"/>
-</node>
 </node>
 <node ID="Freemind_Link_50716011" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
@@ -24,7 +19,7 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node ID="Freemind_Link_561271163" TEXT="Font">
-<icon BUILTIN="desktop_new"/>
+<icon BUILTIN="button_ok"/>
 </node>
 </node>
 <node ID="Freemind_Link_1851655735" TEXT="Music">
@@ -42,13 +37,16 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node ID="Freemind_Link_1104675603" TEXT="Tests">
-<node ID="Freemind_Link_1283736172" TEXT="Math Test(s)"/>
 <node ID="Freemind_Link_1348104879" TEXT="Kernel/AppCore"/>
 <node ID="Freemind_Link_288973656" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
 </node>
+<node ID="Freemind_Link_1283736172" TEXT="Math Test(s)"/>
 <node ID="Freemind_Link_279976301" TEXT="Pen"/>
 <node ID="Freemind_Link_609153459" TEXT="Image">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1961072093" TEXT="Font">
 <icon BUILTIN="button_ok"/>
 </node>
 <node ID="Freemind_Link_25725154" TEXT="Sound/Music"/>
@@ -79,7 +77,7 @@
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.10 2005/07/03 06:33:19 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.11 2005/07/04 03:06:48 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>

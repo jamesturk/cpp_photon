@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.6 2005/07/03 06:33:19 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.7 2005/07/04 03:06:48 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -164,19 +164,6 @@ template<class ResMgrT>
 void ResourceManaged<ResMgrT>::cleanUp()
 {
     resMgr_.cleanUp();
-}
-
-template<class ResMgrT>
-void ResourceManaged<ResMgrT>::addResource(const std::string& name, 
-                                            const typename ResMgrT::ResDescT& desc)
-{
-    resMgr_.newResource(name, desc);
-}
-
-template<class ResMgrT>
-void ResourceManaged<ResMgrT>::addResource(const typename ResMgrT::ResDescT& desc)
-{
-    resMgr_.newResource(desc.path, desc);
 }
 
 // define the resource manager static instance

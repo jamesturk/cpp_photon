@@ -5,7 +5,9 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.5 2005/04/21 19:30:19 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.6 2005/07/04 03:06:48 cozman Exp $
+
+#ifdef PHOTON_USE_OPENAL
 
 #ifndef PHOTON_AUDIO_AUDIOCORE_HPP
 #define PHOTON_AUDIO_AUDIOCORE_HPP
@@ -78,3 +80,5 @@ private:
 }
 
 #endif  //PHOTON_AUDIO_AUDIOCORE_HPP
+
+#endif  //PHOTON_USE_OPENAL

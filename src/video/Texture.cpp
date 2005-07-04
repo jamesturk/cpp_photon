@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture.cpp,v 1.3 2005/06/27 04:24:16 cozman Exp $
+//  $Id: Texture.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
 
 #include "video/Texture.hpp"
 
@@ -78,6 +78,16 @@ std::ostream& operator<<(std::ostream &o, const Texture &rhs)
 {
     return o << "Texture: { Name: " << rhs.getName() << " TexID: " << rhs.texID_
         << " Dimensions: " << rhs.width_ << "x" << rhs.height_ << " }";
+}
+
+void Texture::addResource(const std::string& name, const std::string& path)
+{
+    resMgr_.newResource(name, ResourceDescriptor(path));
+}
+
+void Texture::addResource(const std::string& path)
+{
+    resMgr_.newResource(path, ResourceDescriptor(path));
 }
 
 }

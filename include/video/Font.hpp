@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
+//  $Id: Font.hpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
@@ -86,6 +86,29 @@ public:
 public:
     unsigned int calcStringWidth(const std::string& str) const;
     unsigned int getHeight() const;
+    
+// Group: Resource Creation
+public:
+    // Function: addResource
+    //  Define a new named resource.
+    //  (Ex. Image::addResource("monkey","images/monkey.png") would 
+    //   make it so that any attempts to load "monkey" would load the image 
+    //   images/monkey.png)
+    //
+    // Parameters:
+    //  name - Name to give to resource.
+    //  path - Path of resource data file.
+    static void addResource(const std::string& name, const std::string& path, 
+                            uint size);
+    
+    // Function: addResource
+    //  Define a new unaliased resource. (name == path).
+    //  (Ex. Image::addResource("images/monkey.png") is essentially the same as
+    //   Image::addResource("images/monkey.png","images/monkey.png")
+    //
+    // Parameters:.
+    //  path - Path of resource data file.
+    static void addResource(const std::string& path, uint size);
     
 private:
     // font data
