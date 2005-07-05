@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.10 2005/06/13 05:38:06 cozman Exp $
+//  $Id: Application.cpp,v 1.11 2005/07/05 06:44:56 cozman Exp $
 
 #include "Application.hpp"
 
@@ -13,7 +13,6 @@
 #include "GL/gl.h"
 
 #include <boost/lexical_cast.hpp>
-#include <iostream>
 #include "exceptions.hpp"
 #include "Log.hpp"
 #include "Kernel.hpp"

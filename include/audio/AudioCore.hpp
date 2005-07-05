@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.6 2005/07/04 03:06:48 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.7 2005/07/05 06:44:56 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -64,15 +64,23 @@ public:
     // Parameters:
     //  name - Name of audio device to use.
     static void setDesiredDevice(const std::string& name);
+    
+// Group: Error Checking
+public:
+    static std::string checkOpenALError();
+    static void throwOpenALError(const std::string& func);
 
 // OpenAL specifics
 private:
     util::VersionInfo initOpenAL();
-    static std::string checkOpenALError();
+    
 
 // data members
 private:
     static std::string deviceName_;
+    ALfloat listenerPos_[3];
+    ALfloat listenerVel_[3];
+    ALfloat listenerOri_[6];
 };
 
 

@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.16 2005/07/04 06:33:06 cozman Exp $
+#  $Id: SConstruct,v 1.17 2005/07/05 06:44:55 cozman Exp $
 
 import os,os.path
 import glob
@@ -73,7 +73,7 @@ if not env.GetOption('clean'):
     if not conf.CheckLibWithHeader('corona', 'corona.h', 'C++'):
         print 'Corona not found, exiting.'
         Exit(1)
-    if conf.CheckLibWithHeader(OAL_LIB, 'zAL/al.h', 'C++'):
+    if conf.CheckLibWithHeader(OAL_LIB, 'AL/al.h', 'C++'):
         conf.env.Append(CPPFLAGS='-DPHOTON_USE_OPENAL')
     else:
         print 'OpenAL not found, continuing without OpenAL support.'

@@ -5,16 +5,57 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore_test.cpp,v 1.2 2005/07/04 03:06:48 cozman Exp $
+//  $Id: AudioCore_test.cpp,v 1.3 2005/07/05 06:44:56 cozman Exp $
 
 #include "photon.hpp"
-#include <iostream>
-
 using namespace photon;
+#include <boost/lexical_cast.hpp>
 
 #ifdef PHOTON_USE_OPENAL
 
 using namespace photon::audio;
+
+class MainTask : public Task
+{
+
+public:
+    MainTask() :
+        Task("MainTask"),
+        app(AppCore::getInstance()),
+        video(video::VideoCore::getInstance())
+    {
+        LogSinkPtr csp( new ConsoleSink("console") );
+        log.addSink(csp);
+
+        video.setOrthoView(800,600);
+
+        Sample::addResource("wavdata/ocean.wav");
+        sample.open("wavdata/ocean.wav");
+        sample.play();
+    }
+
+    void update()
+    {   
+        static double t=0;
+        
+        if(app.getTime() - t > 1.0)
+        {            
+            app.setTitle("FPS: " + 
+                    boost::lexical_cast<std::string>(app.getFramerate()) );
+            t = app.getTime();
+        }
+
+        video.clear();
+        
+    }
+
+private:
+    audio::Sample sample;
+    
+    Log log;
+    AppCore& app;
+    video::VideoCore& video;
+};
 
 class AudioTest : public Application
 {
@@ -22,9 +63,14 @@ public:
 
     int main(const StrVec& args)
     {
+        AppCore::getInstance().createDisplay(800,600,32,0,0,false);
+        
+        AudioCore::setDesiredDevice("OSS");
+        new AudioCore;
 
-        AudioCore& audio(AudioCore::getInstance());
-        std::cout << audio.getAudioDeviceName();
+        Kernel::getInstance().addTask(TaskPtr(new MainTask()));
+
+        Kernel::getInstance().run();
 
         return 0;
     }

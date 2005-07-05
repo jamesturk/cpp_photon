@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.hpp,v 1.3 2005/03/03 09:25:19 cozman Exp $
+//  $Id: ConfigFile.hpp,v 1.4 2005/07/05 06:44:56 cozman Exp $
 
 #ifndef PHOTON_UTIL_CONFIGFILE_HPP
 #define PHOTON_UTIL_CONFIGFILE_HPP
@@ -14,7 +14,6 @@
 #include <list>
 #include <sstream>
 #include <functional>
-#include <iostream>
 
 namespace photon
 { 
