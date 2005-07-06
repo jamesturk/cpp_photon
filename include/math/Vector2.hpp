@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.hpp,v 1.3 2005/03/03 09:25:19 cozman Exp $
+//  $Id: Vector2.hpp,v 1.4 2005/07/06 04:27:23 cozman Exp $
 
 #ifndef PHOTON_MATH_VECTOR2_HPP
 #define PHOTON_MATH_VECTOR2_HPP
@@ -146,13 +146,13 @@ public:
     //  Angle of vector in degrees, angle is calculated with respect to positive
     //  X axis.
     // 
-    // |               |90°
+    // |               |90ï¿½
     // |               |
     // |               |
-    // |180°-----------------------0° or 360°
+    // |180ï¿½-----------------------0ï¿½ or 360ï¿½
     // |               |
     // |               |
-    // |               |270°
+    // |               |270ï¿½
     // 
     // Returns: 
     //  Angle of vector (in degrees).
@@ -218,6 +218,17 @@ Vector2 operator*(scalar lhs, const Vector2 &rhs);
 // Returns: 
 //  Length of the vector.
 scalar magnitude(const Vector2 &v);
+
+// Function: distance
+//  Determine distance between two points.
+// 
+// Parameters:
+//  v1 - First point.
+//  v2 - Second point.
+// 
+// Returns:
+//  Scalar distance between the two points.
+scalar distance(const Vector2& v1, const Vector2& v2);
 
 // Group: Aliases
 

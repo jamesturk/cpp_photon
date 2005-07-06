@@ -46,7 +46,16 @@
 <node ID="Freemind_Link_288973656" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_1283736172" TEXT="Math Test(s)"/>
+<node ID="Freemind_Link_1283736172" TEXT="Math Test">
+<node COLOR="#000000" ID="Freemind_Link_876352622" TEXT="General Math">
+<icon BUILTIN="button_ok"/>
+</node>
+<node COLOR="#000000" ID="Freemind_Link_171161365" TEXT="Circle">
+<icon BUILTIN="button_ok"/>
+</node>
+<node COLOR="#000000" ID="Freemind_Link_1333080570" TEXT="Rect"/>
+<node COLOR="#000000" ID="Freemind_Link_63576276" TEXT="Vector2"/>
+</node>
 <node ID="Freemind_Link_279976301" TEXT="Pen"/>
 <node ID="Freemind_Link_609153459" TEXT="Image">
 <icon BUILTIN="button_ok"/>
@@ -54,12 +63,16 @@
 <node ID="Freemind_Link_1961072093" TEXT="Font">
 <icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_25725154" TEXT="Sound/Music"/>
+<node ID="Freemind_Link_25725154" TEXT="Audio">
+<node COLOR="#000000" ID="Freemind_Link_1981834308" TEXT="integrate playing of &gt;1 sample"/>
+<node COLOR="#000000" ID="Freemind_Link_212747291" TEXT="allow control via mouse or keyboard"/>
+</node>
+<node COLOR="#000000" ID="Freemind_Link_964892891" TEXT="Input"/>
 </node>
 </node>
 <node ID="Freemind_Link_22783417" TEXT="Example Game">
-<node ID="Freemind_Link_714736465" TEXT="Drawing Program?"/>
-<node ID="Freemind_Link_74598855" TEXT="Public Project?"/>
+<node ID="Freemind_Link_714736465" TEXT="Let&apos;s Draw"/>
+<node COLOR="#000000" ID="Freemind_Link_597173063" TEXT="Asteroids"/>
 </node>
 </node>
 <node ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
@@ -86,7 +99,7 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1080393911" TEXT="audio:: could using some cleaning"/>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.13 2005/07/06 02:10:06 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.14 2005/07/06 04:27:23 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>

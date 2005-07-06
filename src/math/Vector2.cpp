@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.cpp,v 1.1 2005/02/27 09:00:13 cozman Exp $
+//  $Id: Vector2.cpp,v 1.2 2005/07/06 04:27:23 cozman Exp $
 
 #include "math/Vector2.hpp"
 
@@ -147,6 +147,11 @@ scalar Vector2::calcInnerAngleDeg(const Vector2 &rhs) const
 
 //non-members
 
+std::ostream& operator<<(std::ostream &o, const Vector2 &v)
+{
+    return o << "(" << v.x << "," << v.y << ")";
+}
+
 Vector2 operator*(scalar lhs, const Vector2 &rhs)
 {
     return Vector2(rhs.x*lhs,rhs.y*lhs);
@@ -157,9 +162,9 @@ scalar magnitude(const Vector2 &v)
     return v.getMagnitude();
 }
 
-std::ostream& operator<<(std::ostream &o, const Vector2 &v)
+scalar distance(const Vector2& v1, const Vector2& v2)
 {
-    return o << "(" << v.x << "," << v.y << ")";
+    return magnitude(v1-v2);
 }
 
 }

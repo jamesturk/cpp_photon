@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Circle.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
+//  $Id: Circle.cpp,v 1.3 2005/07/06 04:27:23 cozman Exp $
 
 #include "math/Circle.hpp"
 
@@ -129,12 +129,10 @@ scalar Circle::getCenterX() const
     return center_.x;
 }
 
-
 scalar Circle::getCenterY() const
 {
     return center_.y;
 }
-
 
 scalar Circle::getRadius() const
 {

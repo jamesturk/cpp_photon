@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
+//  $Id: math.cpp,v 1.3 2005/07/06 04:27:23 cozman Exp $
 
 #include "math/math.hpp"
 
@@ -19,11 +19,6 @@ namespace math
 bool scalarCompare(scalar val1, scalar val2, scalar epsilon)
 {
     return std::fabs(val1-val2) < epsilon;
-}
-
-scalar distance(const Vector2& v1, const Vector2& v2)
-{
-    return magnitude(v1-v2);
 }
 
 scalar degToRad(scalar degrees)

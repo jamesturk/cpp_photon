@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.hpp,v 1.4 2005/03/03 09:25:19 cozman Exp $
+//  $Id: math.hpp,v 1.5 2005/07/06 04:27:23 cozman Exp $
 
 #ifndef PHOTON_MATH_MATH_HPP
 #define PHOTON_MATH_MATH_HPP
@@ -55,17 +55,6 @@ T clamp(T val, C low, C high);
 // Returns:
 //  true if |val1-val2| < epsilon
 bool scalarCompare(scalar val1, scalar val2, scalar epsilon=0.000001);
-
-// Function: distance
-//  Determine distance between two points.
-// 
-// Parameters:
-//  v1 - First point.
-//  v2 - Second point.
-// 
-// Returns:
-//  Scalar distance between the two points.
-scalar distance(const Vector2& v1, const Vector2& v2);
 
 // Group: Degrees/Radians
 
