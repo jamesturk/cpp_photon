@@ -5,9 +5,10 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys_test.cpp,v 1.1 2005/05/15 02:50:07 cozman Exp $
+//  $Id: filesys_test.cpp,v 1.2 2005/07/06 02:10:07 cozman Exp $
 
 #include "photon.hpp"
+#include <iostream>
 
 using namespace std;
 using namespace photon;

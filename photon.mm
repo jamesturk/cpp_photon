@@ -30,6 +30,10 @@
 <node ID="Freemind_Link_1045379727" TEXT="Sample">
 <icon BUILTIN="button_ok"/>
 </node>
+<node ID="Freemind_Link_1851655735" TEXT="Music">
+<icon BUILTIN="help"/>
+<node COLOR="#fa6801" ID="Freemind_Link_1326895357" TEXT="Music likely bumped to 0.2 release"/>
+</node>
 </node>
 <node ID="Freemind_Link_188779968" TEXT="Test Suite">
 <node ID="Freemind_Link_1570884553" TEXT="port test-suite to Saturn core">
@@ -68,7 +72,7 @@
 <node ID="Freemind_Link_654490435" TEXT="Second Example Game">
 <node ID="Freemind_Link_1191623789" TEXT="Public Project?"/>
 </node>
-<node ID="Freemind_Link_1851655735" TEXT="Music">
+<node COLOR="#000000" ID="Freemind_Link_420721466" TEXT="XML/XSLT sink">
 <icon BUILTIN="help"/>
 </node>
 </node>
@@ -81,9 +85,8 @@
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1080393911" TEXT="audio:: could using some cleaning"/>
-<node ID="Freemind_Link_1979809987" TEXT="Sample doesn&apos;t load via FileBuffer yet"/>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.12 2005/07/05 06:44:55 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.13 2005/07/06 02:10:06 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>

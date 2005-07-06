@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: SampleResourceManager.cpp,v 1.1 2005/07/05 06:44:56 cozman Exp $
+//  $Id: SampleResourceManager.cpp,v 1.2 2005/07/06 02:10:07 cozman Exp $
 
 #include "audio/SampleResourceManager.hpp"
 #include "audio/AudioCore.hpp"
@@ -29,7 +29,7 @@ void SampleResourceManager::getAudioData(const std::string& name,
 void SampleResourceManager::loadResourceData(SampleResource &res, 
                                             const ResourceDescriptor& desc)
 {
-    //util::FileBuffer buf(path.path);
+    util::FileBuffer buf(desc.path);
     // OpenAL variables to load into.
     ALenum format;
     ALsizei size;
@@ -37,13 +37,14 @@ void SampleResourceManager::loadResourceData(SampleResource &res,
     ALsizei freq;
     ALboolean loop;
     
-    ///std::vector<ubyte> data = buf.getData();
+    std::vector<ubyte> filedata = buf.getData();
+    size = filedata.size();
 
     alGenBuffers(1, &res.bufferID);    // create OpenAL buffer
     
     AudioCore::throwOpenALError("alGenBuffers");
 
-    alutLoadWAVFile((ALbyte*)desc.path.c_str(), &format, &data, &size, &freq, &loop);
+    alutLoadWAVMemory((ALbyte*)&filedata[0], &format, &data, &size, &freq, &loop);
     
     AudioCore::throwOpenALError("alutLoadWAVFile");
     
