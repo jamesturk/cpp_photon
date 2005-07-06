@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Rect.cpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
+//  $Id: Rect.cpp,v 1.3 2005/07/06 13:28:35 cozman Exp $
 
 #include "math/Rect.hpp"
 
@@ -84,16 +84,16 @@ bool Rect::intersects(const Circle &circle) const
 
 bool Rect::contains(const Point2 &point) const
 {
-    return point.x > topLeft_.x && point.x < bottomRight_.x && 
-            point.y > topLeft_.y && point.y < bottomRight_.y;
+    return point.x >= topLeft_.x && point.x <= bottomRight_.x && 
+            point.y >= topLeft_.y && point.y <= bottomRight_.y;
 }
 
 bool Rect::contains(const Rect &rect) const
 {
-    return rect.topLeft_.x > topLeft_.x && 
-            rect.bottomRight_.x < bottomRight_.x && 
-            rect.topLeft_.y > topLeft_.y && 
-            bottomRight_.y < bottomRight_.y;
+    return rect.topLeft_.x >= topLeft_.x && 
+            rect.bottomRight_.x <= bottomRight_.x && 
+            rect.topLeft_.y >= topLeft_.y && 
+            rect.bottomRight_.y <= bottomRight_.y;
 }
 
 Rect Rect::calcIntersection(const Rect &rect) const

@@ -35,14 +35,7 @@
 <node COLOR="#fa6801" ID="Freemind_Link_1326895357" TEXT="Music likely bumped to 0.2 release"/>
 </node>
 </node>
-<node ID="Freemind_Link_188779968" TEXT="Test Suite">
-<node ID="Freemind_Link_1570884553" TEXT="port test-suite to Saturn core">
-<icon BUILTIN="button_ok"/>
-</node>
 <node ID="Freemind_Link_1104675603" TEXT="Tests">
-<node ID="Freemind_Link_1348104879" TEXT="Kernel/AppCore">
-<node ID="Freemind_Link_1664207862" TEXT="how to test?"/>
-</node>
 <node ID="Freemind_Link_288973656" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
 </node>
@@ -53,7 +46,9 @@
 <node COLOR="#000000" ID="Freemind_Link_171161365" TEXT="Circle">
 <icon BUILTIN="button_ok"/>
 </node>
-<node COLOR="#000000" ID="Freemind_Link_1333080570" TEXT="Rect"/>
+<node COLOR="#000000" ID="Freemind_Link_1333080570" TEXT="Rect">
+<icon BUILTIN="button_ok"/>
+</node>
 <node COLOR="#000000" ID="Freemind_Link_63576276" TEXT="Vector2"/>
 </node>
 <node ID="Freemind_Link_279976301" TEXT="Pen"/>
@@ -68,14 +63,21 @@
 <node COLOR="#000000" ID="Freemind_Link_212747291" TEXT="allow control via mouse or keyboard"/>
 </node>
 <node COLOR="#000000" ID="Freemind_Link_964892891" TEXT="Input"/>
+<node ID="Freemind_Link_1348104879" TEXT="Kernel/AppCore">
+<node ID="Freemind_Link_1664207862" TEXT="how to test?"/>
 </node>
 </node>
 <node ID="Freemind_Link_22783417" TEXT="Example Game">
 <node ID="Freemind_Link_714736465" TEXT="Let&apos;s Draw"/>
 <node COLOR="#000000" ID="Freemind_Link_597173063" TEXT="Asteroids"/>
 </node>
+<node ID="Freemind_Link_743325646" TEXT="distribution documentation">
+<node ID="Freemind_Link_730720170" TEXT="credits"/>
+<node ID="Freemind_Link_564233418" TEXT="FAQ"/>
+<node ID="Freemind_Link_363257674" TEXT="contact info"/>
 </node>
-<node ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
+</node>
+<node FOLDED="true" ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
 <node ID="Freemind_Link_216021234" TEXT="Sprite System">
 <font NAME="SansSerif" SIZE="12"/>
 </node>
@@ -88,6 +90,7 @@
 <node COLOR="#000000" ID="Freemind_Link_420721466" TEXT="XML/XSLT sink">
 <icon BUILTIN="help"/>
 </node>
+<node ID="Freemind_Link_1298931281" TEXT="XML resource files"/>
 </node>
 <node ID="Freemind_Link_351891371" POSITION="left" TEXT="General Mateinance">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
@@ -98,8 +101,9 @@
 <node ID="Freemind_Link_682620075" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1080393911" TEXT="audio:: could using some cleaning"/>
+<node ID="Freemind_Link_632977685" TEXT="make compilation succeed without OpenAL"/>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.14 2005/07/06 04:27:23 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.15 2005/07/06 13:28:34 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
