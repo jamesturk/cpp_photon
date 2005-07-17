@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Source.hpp,v 1.1 2005/07/05 06:44:56 cozman Exp $
+//  $Id: Source.hpp,v 1.2 2005/07/17 07:14:09 cozman Exp $
 
 #ifndef PHOTON_AUDIO_SOURCE_HPP
 #define PHOTON_AUDIO_SOURCE_HPP
@@ -251,7 +251,7 @@ void Source<ResMgrT>::rewind()
 template<class ResMgrT>
 void Source<ResMgrT>::setLooping(bool loop)
 {
-    alSourcefv(sourceID_, AL_LOOPING, loop);
+    alSourcei(sourceID_, AL_LOOPING, loop);
 }
 
 template<class ResMgrT>

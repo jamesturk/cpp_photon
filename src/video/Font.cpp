@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Font.cpp,v 1.5 2005/07/17 07:14:09 cozman Exp $
 
 #include "video/Font.hpp"
 
@@ -71,6 +71,16 @@ Font::operator bool() const
     return isValid();
 }
 
+void Font::setColor(const Color& color)
+{
+    color_ = color;
+}
+
+Color Font::getColor() const
+{
+    return color_;
+}
+
 void Font::drawText(float x, float y, const char *str, ...) const
 {
     if(!isValid())
@@ -85,6 +95,10 @@ void Font::drawText(float x, float y, const char *str, ...) const
     std::vsnprintf(buf, 1024, str, args);   // avoid buffer overflow
     va_end(args);
 
+    // push attrib before setting color
+    glPushAttrib(GL_CURRENT_BIT);
+    glColor4ub(color_.red, color_.green, color_.blue, color_.alpha);
+    
     glBindTexture(GL_TEXTURE_2D, texID_);
     glPushMatrix();
     glTranslated(x,y,0);
@@ -106,6 +120,7 @@ void Font::drawText(float x, float y, const char *str, ...) const
     //glCallLists(static_cast<int>(std::strlen(buf)), GL_UNSIGNED_BYTE, buf);
 
     glPopMatrix();
+    glPopAttrib();
 }
 
 void Font::drawText(float x, float y, const std::string& str) const
@@ -115,6 +130,10 @@ void Font::drawText(float x, float y, const std::string& str) const
         throw PreconditionException("Invalid Font::drawText call.");
     }
 
+    // push attrib before setting color 
+    glPushAttrib(GL_CURRENT_BIT);
+    glColor4ub(color_.red, color_.green, color_.blue, color_.alpha);
+    
     glBindTexture(GL_TEXTURE_2D, texID_);
     glPushMatrix();
     glTranslated(x,y,0);
@@ -136,6 +155,7 @@ void Font::drawText(float x, float y, const std::string& str) const
     //glCallLists(static_cast<int>(std::strlen(buf)), GL_UNSIGNED_BYTE, buf);
 
     glPopMatrix();
+    glPopAttrib();
 }
 
 std::ostream& Font::beginDraw(float x, float y)

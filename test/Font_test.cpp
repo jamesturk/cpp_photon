@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Font_test.cpp,v 1.5 2005/07/17 07:14:09 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -30,11 +30,12 @@ public:
 
         video.setOrthoView(800,600);
 
-        video::Font::addResource("font1","data/arial.ttf",32);
-        video::Font::addResource("font2","data/FreeMono.ttf",18);
+        video::Font::addResource("font1","data/FreeMono.ttf",32);
+        video::Font::addResource("font2","data/FreeSerif.ttf",18);
 
         font.open("font1");
         font2.open("font2");
+        
     }
 
     void update()
@@ -50,10 +51,12 @@ public:
 
         video.clear();
         
+        font.setColor(video::Color(0,128,128));
         font.drawText(0, 0, "Photon");
+        font.setColor(video::Color(255,0,0));
         font.drawText(font.calcStringWidth("Photon"), font.getHeight(), 
                     "FPS: %.0f", app.getFramerate() );
-        font2.beginDraw(200, 200) << "another font" << font2.endDraw();
+        font2.beginDraw(200, 200) << "another plain font" << font2.endDraw();
     }
 
 private:

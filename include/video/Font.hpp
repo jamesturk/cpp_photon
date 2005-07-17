@@ -5,13 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Font.hpp,v 1.5 2005/07/17 07:14:09 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
 
 #include "video/FontResourceManager.hpp"
 #include "ResourceManaged.hpp"
+#include "video/Color.hpp"
 
 namespace photon
 {
@@ -74,6 +75,22 @@ public:
     Font& operator=(const Font &rhs);
     operator bool() const;
     
+// Group: Coloring
+public:
+    // Function: setColor
+    //  Set draw color of the font.
+    //
+    // Parameters:
+    //  color - <Color> to shade font glyphs when drawn.
+    void setColor(const Color& color);
+    
+    // Function: getColor
+    //  Get draw color of the font.
+    //
+    // Returns:
+    //  Currently set <Color> to shade font glyphs when drawn.
+    Color getColor() const;
+    
 // Group: Drawing
 public:
     void drawText(float x, float y, const char *str, ...) const;
@@ -120,6 +137,8 @@ private:
     std::ostringstream ss_;
     float drawX_;
     float drawY_;
+    // color
+    Color color_;
 };
 
 }
