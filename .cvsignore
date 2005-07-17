@@ -20,3 +20,4 @@ docs/index
 docs/files
 docs/.sconsign
 .sconf_temp
+.sconsign
