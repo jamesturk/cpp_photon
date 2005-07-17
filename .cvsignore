@@ -1,7 +1,7 @@
 makecpp.*
 config.log
 build
-test/.sconsign
+./test/.sconsign
 ndoc/Topics.txt
 ndoc/Languages.txt
 ndoc/Data
