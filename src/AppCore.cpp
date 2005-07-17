@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.8 2005/06/13 05:38:06 cozman Exp $
+//  $Id: AppCore.cpp,v 1.9 2005/07/17 06:19:18 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -173,6 +173,8 @@ void AppCore::UpdateTask::update()
 
     // update the display here instead of VideoCore (since it belongs to glfw)
     glfwSwapBuffers();
+    
+    glfwGetMousePos(&mouseX_, &mouseY_);
 
     // keep track of time between frames
     secPerFrame_ = curTime-lastUpdate_;

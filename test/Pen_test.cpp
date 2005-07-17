@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen_test.cpp,v 1.1 2005/07/17 05:38:44 cozman Exp $
+//  $Id: Pen_test.cpp,v 1.2 2005/07/17 06:19:18 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -90,7 +90,7 @@ private:
     video::VideoCore& video;
 };
 
-class FontTest : public Application
+class PenTest : public Application
 {
 public:
 
@@ -106,4 +106,4 @@ public:
     }
 };
 
-ENTRYPOINT(FontTest)
+ENTRYPOINT(PenTest)

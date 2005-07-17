@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.5 2005/03/15 19:22:07 cozman Exp $
+//  $Id: AppCore.hpp,v 1.6 2005/07/17 06:19:18 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
@@ -187,8 +187,8 @@ public:
         void update();
 
     private:
-        uint mouseX_;
-        uint mouseY_;
+        int mouseX_;
+        int mouseY_;
         bool active_;
         bool timerPaused_;
         bool unpauseOnActive_;

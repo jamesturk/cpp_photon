@@ -7,34 +7,12 @@
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1613164220" TEXT="better SConstruct file">
 <icon BUILTIN="button_ok"/>
-<icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_614612335" TEXT="all stable ZEngine/Nova features">
+<node ID="Freemind_Link_614612335" TEXT="all stable ZEngine/Nova features (except music)">
 <font NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1795651487" TEXT="&quot;ResourceManage&quot;ment">
-<icon BUILTIN="button_ok"/>
 <icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_50716011" TEXT="Texture">
-<icon BUILTIN="button_ok"/>
-<node ID="Freemind_Link_385334177" TEXT="Image">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="Freemind_Link_561271163" TEXT="Font">
-<icon BUILTIN="button_ok"/>
-</node>
-</node>
-<node ID="Freemind_Link_107267630" TEXT="&quot;Engine&quot;">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="Freemind_Link_1045379727" TEXT="Sample">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="Freemind_Link_1851655735" TEXT="Music">
-<icon BUILTIN="help"/>
-<node COLOR="#fa6801" ID="Freemind_Link_1326895357" TEXT="Music likely bumped to 0.2 release"/>
-</node>
-</node>
+<node ID="Freemind_Link_985678305" TEXT="callbacks for better input handling"/>
 <node ID="Freemind_Link_1104675603" TEXT="Tests">
 <node ID="Freemind_Link_288973656" TEXT="Texture">
 <icon BUILTIN="button_ok"/>
@@ -51,7 +29,9 @@
 <node ID="Freemind_Link_1961072093" TEXT="Font">
 <icon BUILTIN="button_ok"/>
 </node>
-<node COLOR="#000000" ID="Freemind_Link_964892891" TEXT="Input"/>
+<node COLOR="#000000" ID="Freemind_Link_964892891" TEXT="Input">
+<icon BUILTIN="button_ok"/>
+</node>
 <node ID="Freemind_Link_25725154" TEXT="Audio">
 <node COLOR="#000000" ID="Freemind_Link_1981834308" TEXT="integrate playing of &gt;1 sample"/>
 <node COLOR="#000000" ID="Freemind_Link_212747291" TEXT="allow control via keyboard"/>
@@ -96,7 +76,7 @@
 <node ID="Freemind_Link_1080393911" TEXT="audio:: could using some cleaning"/>
 <node ID="Freemind_Link_632977685" TEXT="make compilation succeed without OpenAL"/>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.16 2005/07/17 05:38:44 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.17 2005/07/17 06:19:08 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
