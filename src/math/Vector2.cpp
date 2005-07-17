@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.cpp,v 1.2 2005/07/06 04:27:23 cozman Exp $
+//  $Id: Vector2.cpp,v 1.3 2005/07/17 05:38:44 cozman Exp $
 
 #include "math/Vector2.hpp"
 
@@ -36,7 +36,7 @@ void Vector2::set(scalar nx, scalar ny)
 
 void Vector2::resolveDeg(scalar magnitude, scalar angle)
 {
-    angle = degToRad(clamp(angle,0,360));
+    angle = degToRad(angle);
     x = magnitude*std::cos(angle);
     y = magnitude*-std::sin(angle);
 }

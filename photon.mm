@@ -40,29 +40,22 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node ID="Freemind_Link_1283736172" TEXT="Math Test">
-<node COLOR="#000000" ID="Freemind_Link_876352622" TEXT="General Math">
 <icon BUILTIN="button_ok"/>
 </node>
-<node COLOR="#000000" ID="Freemind_Link_171161365" TEXT="Circle">
+<node ID="Freemind_Link_279976301" TEXT="Pen">
 <icon BUILTIN="button_ok"/>
 </node>
-<node COLOR="#000000" ID="Freemind_Link_1333080570" TEXT="Rect">
-<icon BUILTIN="button_ok"/>
-</node>
-<node COLOR="#000000" ID="Freemind_Link_63576276" TEXT="Vector2"/>
-</node>
-<node ID="Freemind_Link_279976301" TEXT="Pen"/>
 <node ID="Freemind_Link_609153459" TEXT="Image">
 <icon BUILTIN="button_ok"/>
 </node>
 <node ID="Freemind_Link_1961072093" TEXT="Font">
 <icon BUILTIN="button_ok"/>
 </node>
+<node COLOR="#000000" ID="Freemind_Link_964892891" TEXT="Input"/>
 <node ID="Freemind_Link_25725154" TEXT="Audio">
 <node COLOR="#000000" ID="Freemind_Link_1981834308" TEXT="integrate playing of &gt;1 sample"/>
-<node COLOR="#000000" ID="Freemind_Link_212747291" TEXT="allow control via mouse or keyboard"/>
+<node COLOR="#000000" ID="Freemind_Link_212747291" TEXT="allow control via keyboard"/>
 </node>
-<node COLOR="#000000" ID="Freemind_Link_964892891" TEXT="Input"/>
 <node ID="Freemind_Link_1348104879" TEXT="Kernel/AppCore">
 <node ID="Freemind_Link_1664207862" TEXT="how to test?"/>
 </node>
@@ -77,7 +70,8 @@
 <node ID="Freemind_Link_363257674" TEXT="contact info"/>
 </node>
 </node>
-<node FOLDED="true" ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
+<node ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
+<node ID="Freemind_Link_1298931281" TEXT="XML resource files"/>
 <node ID="Freemind_Link_216021234" TEXT="Sprite System">
 <font NAME="SansSerif" SIZE="12"/>
 </node>
@@ -90,7 +84,6 @@
 <node COLOR="#000000" ID="Freemind_Link_420721466" TEXT="XML/XSLT sink">
 <icon BUILTIN="help"/>
 </node>
-<node ID="Freemind_Link_1298931281" TEXT="XML resource files"/>
 </node>
 <node ID="Freemind_Link_351891371" POSITION="left" TEXT="General Mateinance">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
@@ -103,7 +96,7 @@
 <node ID="Freemind_Link_1080393911" TEXT="audio:: could using some cleaning"/>
 <node ID="Freemind_Link_632977685" TEXT="make compilation succeed without OpenAL"/>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.15 2005/07/06 13:28:34 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.16 2005/07/17 05:38:44 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
