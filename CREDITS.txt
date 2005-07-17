@@ -1,0 +1,17 @@
+The following people have contributed code to photon:
+    James Turk <cozman@users.sf.net>
+    ..yeah this list is too short right now, so help out ;)
+    
+In addition, I'd like to thank:
+    * Sean and Gamer Tazar from the old CoZ team, where ZEngine was born
+    * Everyone who contributed to, used, or downloaded ZEngine
+    * Sam Lantinga and the rest of the SDL crew (without SDL, no ZEngine, 
+        without ZEngine, no photon)
+    * The GameDev.net community for answering my (often complex) questions
+    * Richard 'Superpig' Fine for his Enginuity articles, which influenced my
+        Kernel/Task design.
+    * Jesse Maurais and DevMaster.net for the OpenAL tutorials
+    * Everyone responsible for FreeMind (http://freemind.sf.net)
+    * The Ubuntu Team (http://ubuntulinux.com)
+    
+$Id: CREDITS.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $

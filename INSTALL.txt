@@ -1,0 +1,12 @@
+Building Photon requires the SCons (http://www.scons.org) build tool.
+
+    1) Enter the photon directory.
+    2) Type 'scons' - building should begin assuming all dependencies are found.
+        this will result in the photon library being built in the lib/ folder.
+    3) Optional: Type 'scons test' to build test programs, test programs will be
+        built in the test/ folder.
+    4) Optional: Type 'scons docs' to build documentation in the docs/ folder.
+        [requires NaturalDocs (http://naturaldocs.org)]
+
+
+$Id: INSTALL.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $

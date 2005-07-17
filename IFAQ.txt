@@ -1,0 +1,130 @@
+IfAQ (Infrequently Asked Questions)
+$Id: IFAQ.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
+
+--basic questions--
+
+Q. What is Photon?
+A. Photon is an API which is designed primarily to ease creation of hardware 
+    accelerated 2D games with OpenGL and other open source & cross platform 
+    libraries. Photon aims to simplify portable game development, enabling 
+    developers to focus on the gameplay. Photon uses OpenGL for hardware 
+    accelerated rotation, alpha blending, resizing, and drawing. Photon is built
+    entirely on free software, using libraries like GLFW, PhysFS, OpenAL, and 
+    boost. Using Photon does not require knowledge of any of these libraries as
+    their needed functionality is wrapped entirely within Photon’s rich class 
+    library so that anyone with a decent grasp of C++ can use Photon.
+   Photon is a cross platform API, designed to run on as many operating systems 
+    as possible, and OS support is only limited by libraries which Photon 
+    depends on, at the moment Photon should run on Windows, Linux, OSX, and 
+    other Operating Systems which have OpenGL support. 
+
+Q. Where do I get Photon?
+A. http://photon.sourceforge.net is the home page.
+   http://sourceforge.net/projects/photon/ is the project page.
+
+Q. How do I build Photon?
+A. At the moment building photon relies upon SCons.  See INSTALL.txt for more
+    information.  Visual C++ project files are a priority as well.
+
+--usage questions--
+
+Q. How do I compile a Photon application?
+A. That depends upon your compiler, this isn't a sufficient answer is it?
+   To Be Completed
+
+Q. Are there any tutorials?
+A. No.  Well not yet, I do have intent to write basic tutorials on using
+    Photon, as well as porting some existing tutorials on various subjects to
+    Photon.
+
+Q. I am using Photon, can I tell the world?
+A. Sure, if you're using it and you feel comfortable admitting that, I admire
+    your honesty.  In all seriousness, this is greatly appreciated, and greatly
+    beneficial to the Photon community, the more people using it the more people
+    to help find bugs, suggest features, and maybe some of them will think of
+    something cool to add for the rest of us.
+
+--licensing questions--
+
+Q. How is Photon licensed?
+A. Photon is licensed under a zlib-style license, see LICENSE.txt.  
+
+Q. Why is Photon licensed like that, why not use LGPL or something?
+A. First of all, I prefer zlib licensed libraries, as you can see, Photon      
+    depends primarily on zlib licensed libraries.  I also don't feel that I 
+    should try to restrict what people do with Photon, as the people who will 
+    try to steal work aren't going to care what license it was under in the    
+    first place.
+
+Q. I don't get it. What can I do with Photon?
+A. You are allowed to do almost anything you want with Photon including use it 
+    in commercial applications.
+
+Q. So what can't I do with Photon?
+A. You cannot claim you wrote it, distribute altered versions that are not
+    clearly marked as such, or remove or alter the license of the Photon
+    source.  You also cannot sue me for damages if Photon hurts you, your 
+    pet, or your feelings.
+
+Q. Does Photon use proprietary libraries like DirectX?
+A. Photon only uses free open source libraries, so that by using Photon you are
+    not subjected to any proprietary licensing terms.
+
+Q. What if I have something to add?
+A. Feel free to contribute to Photon, bugfixes are greatly appreciated.  Not
+    all submitted features can be accepted, but I'll usually at least add a
+    link to your submission if it cannot be included in the standard 
+    distribution for some reason. (Extensions to Photon which uses non-free
+    or non-portable libraries fall into this category, I appreciate them
+    but usually won't make them part of the standard distribution.)
+
+--history questions--
+
+Q. Photon seems familiar.. where have I seen a similar API before?
+                or
+    You ripped off that ZEngine guy! 
+A. Photon used to be ZEngine, but when I decided to do a major rewrite the name
+    changed.  I am the author of both ZEngine and Photon, but thank you for your
+    concern.
+
+Q. Why shouldn't I use ZEngine?
+A. Photon does practically everything ZEngine did, but is being actively 
+    developed. Photon also uses a fairly different design than ZEngine, which I 
+    hope most will enjoy.
+
+Q. Why should I use ZEngine?
+A. In case you want to port to a platform with no OpenGL, or maybe you like
+    the letter 'Z' before every class name.  If you hate the new style, and 
+    would prefer to kick it old school, ZEngine is a fine choice.
+
+Q. Wasn't there some GUI lib for ZEngine?
+A. Yes, Gewi was the GUI for ZEngine, and was separate from the core of
+    ZEngine.  In Photon Gewi will become photon::gui, but is not yet completed.
+    Because of the modular core method and resource management, the inside has 
+    been rewritten, and a number of bugs have been fixed.  photon::gui will be
+    a major improvement over Gewi.
+
+--other questions--
+
+Q. You are a king, can I give you money?
+A. Sure.. I guess, I'd prefer you donate it to a better project than Photon
+    but if you have to donate money to me because you're using Photon in some
+    amazing application and you feel guilty making millions off of my "hard"
+    work.. email me, I'll try to talk you out of it, or suggest a better use
+    of funds.
+
+Q. How can I be as great as you?
+A. Help me out on Photon.. write some documentation, anything, if you're not 
+    sure how to help, email me, I'll let you know what needs to be done.
+
+Q. What else do you work on, besides Photon?
+A. That's a secret right now.
+
+Q. Want to work on something with me?
+A. Depending on how much time I have, and how interested I am in the project, 
+    maybe.  If you want me to work on something I'd love to hear from you,
+    even if I don't have time at the moment.  If the project in question
+    uses Photon you get bonus points, but is not a requirement for me to work
+    with you.
+
+    -James Turk <cozman@users.sf.net>
