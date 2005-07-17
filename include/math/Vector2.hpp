@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.hpp,v 1.4 2005/07/06 04:27:23 cozman Exp $
+//  $Id: Vector2.hpp,v 1.5 2005/07/17 02:40:58 cozman Exp $
 
 #ifndef PHOTON_MATH_VECTOR2_HPP
 #define PHOTON_MATH_VECTOR2_HPP
@@ -21,7 +21,8 @@ namespace math
 
 // Class: Vector2
 //  Represents a two-dimensional vector.  A quantity specified by a magnitude 
-//  and a direction.
+//  and a direction.  Vector is oriented in classical 2D graphics format with 
+//  origin at top corner of screen.
 // 
 // Operators:
 //  - Vector2 == Vector2

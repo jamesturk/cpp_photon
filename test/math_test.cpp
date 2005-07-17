@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math_test.cpp,v 1.2 2005/07/06 13:28:35 cozman Exp $
+//  $Id: math_test.cpp,v 1.3 2005/07/17 02:40:39 cozman Exp $
 
 // Tests almost everything within photon::math
 // Doesn't test:
@@ -30,6 +30,7 @@ void testGeneral()
     // Show sample usage of all functions in math.hpp
     cout << "--General Math-------------------------------------------------\n";
     cout << "PI = " << setprecision(10) << math::PI << "\n";
+    cout << setprecision(3);
     cout << "clamp(2.5, 0, 5)  = " << math::clamp(2.5, 0, 5) << "\n";
     cout << "clamp(-1, 0, 5)  = " << math::clamp(-1, 0, 5) << "\n";
     cout << "clamp(1000, 0, 5)  = " << math::clamp(1000, 0, 5) << "\n";
@@ -120,6 +121,44 @@ void testVector2()
 {
     // Demo Vector2 class
     cout << "--Vector2------------------------------------------------------\n";
+    math::Vector2 a;
+    math::Vector2 b(1, 2);
+    cout << "a: " << a << "\nb: " << b << "\n";
+    cout << "Setting a to [5,5]: ";
+    a.set(5, 5);
+    cout << "a: " << a << "\n";
+    cout << "Setting a to 5 units long at 45 degrees: ";
+    a.resolveDeg(5, 45);
+    cout << "a: " << a << "\n";
+    cout << "Setting a to 5 units long at pi radians: ";
+    a.resolveRad(5, math::PI);
+    cout << "a: " << a << "\n";
+    cout << "Normalizing a: ";
+    a.normalize();
+    cout << "a: " << a << "\n";
+    cout << (a == a ? "a ==" : "a !=") << " a\n";
+    cout << (a == b ? "a ==" : "a !=") << " b\n";
+    cout << "-a = " << -a << "\n";
+    cout << "a.b = " << a.dot(b) << "\n";
+    cout << "a+b = " << a+b << "\n";
+    cout << "a-b = " << a-b << "\n";
+    cout << "2*a = " << 2*a << "\n";
+    cout << "a/2 = " << a/2 << "\n";
+    a+=b;
+    cout << "a += b: " << a << "\n";
+    a-=b;
+    cout << "a -= b: " << a << "\n";
+    cout << "|a| = " << a.getMagnitude() << "\n";
+    cout << "|b| = " << b.getMagnitude() << "\n";
+    cout << "angle of a (deg) = " << a.getAngleDeg() << "\n";
+    cout << "angle of b (deg) = " << b.getAngleDeg() << "\n";
+    cout << "angle of a (rad) = " << a.getAngleRad() << "\n";
+    cout << "angle of b (rad) = " << b.getAngleRad() << "\n";
+    cout << "normal of a: " << a.calcNormal() << "\n";
+    cout << "normal of b: " << b.calcNormal() << "\n";
+    cout << "angle between a and b (deg): " << a.calcInnerAngleDeg(b) << "\n";
+    cout << "angle between a and b (rad): " << b.calcInnerAngleRad(a) << "\n";
+    cout << "distance between a and b: " << math::distance(a,b) << "\n";
     cout << endl;
 }
 
