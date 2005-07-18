@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Rect.cpp,v 1.3 2005/07/06 13:28:35 cozman Exp $
+//  $Id: Rect.cpp,v 1.4 2005/07/18 05:58:03 cozman Exp $
 
 #include "math/Rect.hpp"
 
@@ -46,7 +46,6 @@ void Rect::moveTo(const Point2 &topleft)
 {
     bottomRight_ += (topleft-topLeft_);
     topLeft_ = topleft;
-
 }
 
 void Rect::moveRel(scalar xMove, scalar yMove)

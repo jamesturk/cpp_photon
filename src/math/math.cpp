@@ -5,19 +5,18 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.cpp,v 1.3 2005/07/06 04:27:23 cozman Exp $
+//  $Id: math.cpp,v 1.4 2005/07/18 05:58:03 cozman Exp $
 
 #include "math/math.hpp"
-
-#include "math/Vector2.hpp"
 
 namespace photon
 {
 namespace math
 {
-    
+
 bool scalarCompare(scalar val1, scalar val2, scalar epsilon)
 {
+    // |diff| < epsilon means values are equal 
     return std::fabs(val1-val2) < epsilon;
 }
 

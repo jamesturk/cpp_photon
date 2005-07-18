@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.hpp,v 1.5 2005/07/06 04:27:23 cozman Exp $
+//  $Id: math.hpp,v 1.6 2005/07/18 05:58:03 cozman Exp $
 
 #ifndef PHOTON_MATH_MATH_HPP
 #define PHOTON_MATH_MATH_HPP
@@ -18,8 +18,6 @@ namespace photon
 {
 namespace math
 {
-
-class Vector2;
 
 // Title: Math Utilities
 
@@ -53,7 +51,7 @@ T clamp(T val, C low, C high);
 //  epsilon - Epsilon value, defaults to 0.0001.
 // 
 // Returns:
-//  true if |val1-val2| < epsilon
+//  true if |val1-val2| < epsilon, meaning values are approximately equal
 bool scalarCompare(scalar val1, scalar val2, scalar epsilon=0.000001);
 
 // Group: Degrees/Radians
@@ -90,11 +88,17 @@ template<typename T, typename C>
 T clamp(T val, C low, C high)
 {
     if(val < low)
+    {
         return low;
+    }
     else if(val > high)
+    {
         return high;
-    else 
+    }
+    else
+    {
         return val;
+    }
 }
 
 }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Circle.hpp,v 1.2 2005/03/03 09:25:19 cozman Exp $
+//  $Id: Circle.hpp,v 1.3 2005/07/18 05:58:03 cozman Exp $
 
 #ifndef PHOTON_MATH_CIRCLE_HPP
 #define PHOTON_MATH_CIRCLE_HPP
@@ -121,20 +121,6 @@ public:
     // Returns: 
     //  Center point.
     Point2 getCenter() const;
-    
-    // Function: getCenterX
-    //  Get center x coordinate.
-    // 
-    // Returns: 
-    //  Center x coordinate.
-    scalar getCenterX() const;
-    
-    // Function: getCenterY
-    //  Get center y coordinate.
-    // 
-    // Returns: 
-    //  Center y coordinate.
-    scalar getCenterY() const;
     
     // Function: getRadius
     //  Get radius of Circle.

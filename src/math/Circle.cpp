@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Circle.cpp,v 1.3 2005/07/06 04:27:23 cozman Exp $
+//  $Id: Circle.cpp,v 1.4 2005/07/18 05:58:03 cozman Exp $
 
 #include "math/Circle.hpp"
 
@@ -122,16 +122,6 @@ bool Circle::contains(const Point2 &point) const
 Point2 Circle::getCenter() const
 {
     return center_;
-}
-
-scalar Circle::getCenterX() const
-{
-    return center_.x;
-}
-
-scalar Circle::getCenterY() const
-{
-    return center_.y;
 }
 
 scalar Circle::getRadius() const
