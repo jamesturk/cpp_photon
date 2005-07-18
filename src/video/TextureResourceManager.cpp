@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.cpp,v 1.4 2005/07/03 06:33:19 cozman Exp $
+//  $Id: TextureResourceManager.cpp,v 1.5 2005/07/18 07:19:48 cozman Exp $
 
 #include "video/TextureResourceManager.hpp"
 
@@ -22,12 +22,14 @@ namespace video
 void TextureResourceManager::setGlobalColorKey(bool enabled, ubyte red, 
                                                 ubyte green, ubyte blue)
 {
+    // if enabled, sets alpha to 0, which is indicator that colorkeying is on
     colorKey_.setColor(red,green,blue,enabled?0:255);
 }
 
 void TextureResourceManager::getGlobalColorKey(bool &enabled, ubyte &red, 
                                                 ubyte &green, ubyte &blue)
 {
+    // if alpha is 0, colorkeying is enabled
     enabled = (colorKey_.alpha == 0);
     red = colorKey_.red;
     green = colorKey_.green;
@@ -51,6 +53,7 @@ void TextureResourceManager::loadResourceData(TextureResource &res,
     util::FileBuffer buf(path.path);
     corona::File *file;
     
+    // load via FileBuffer to allow loading of archived content
     std::vector<ubyte> data = buf.getData();
 
     file = corona::CreateMemoryFile((ubyte*)&data[0],data.size());
@@ -77,26 +80,30 @@ void TextureResourceManager::loadResourceData(TextureResource &res,
     std::memcpy(res.pixels,image->getPixels(),res.width*res.height*4);
     delete image;   //no longer need image
 
+    // implementation of the color key 
     if(colorKey_.alpha == 0)    //ck alpha == 0, means colorkey on
     {
         ubyte r,g,b;
         ubyte *pxl=res.pixels;
+        // go through all pixels (width*height = numPixels)
         for(uint i=0; i < res.width*res.height; ++i) 
         {
-            r = *pxl++;
-            g = *pxl++;
-            b = *pxl++;
-            //set current pixel alpha = 0
+            r = *pxl++; // get red component
+            g = *pxl++; // get green component
+            b = *pxl++; // get blue component
+            
+            //set current pixel alpha = 0 if each component matches the colorKey
             if(r == colorKey_.red && 
                 g == colorKey_.green && 
                 b == colorKey_.blue)
             {
-                *pxl = 0;
+                *pxl = 0;   // make transparent
             }
-            *pxl++;
+            *pxl++; // go to next pixel
         }
     }
 
+    // actually bind the OpenGL texture
     glGenTextures(1,&res.texID);
     glBindTexture(GL_TEXTURE_2D,res.texID);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -110,11 +117,13 @@ void TextureResourceManager::loadResourceData(TextureResource &res,
 
 void TextureResourceManager::freeResourceData(TextureResource &res)
 {
+    // pixels can be deleted
     if(res.pixels)
     {
         delete []res.pixels;
         res.pixels = 0;
     }
+    // free OpenGL texture identifier
     glDeleteTextures(1, &res.texID);
 }
 

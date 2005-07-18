@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.6 2005/07/18 05:14:18 cozman Exp $
+//  $Id: Font.hpp,v 1.7 2005/07/18 07:19:48 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
@@ -33,7 +33,7 @@ std::ostream& operator<<(std::ostream& os, const StreamFlusher& rhs);
 //  - Font = Font
 //  - bool : True if font is loaded, false if not.
 //  - ostream& << Font
-class Font: public ResourceManaged<FontResourceManager>
+class Font : public ResourceManaged<FontResourceManager>
 {
 // Group: (Con/De)structors 
 public:
@@ -98,16 +98,16 @@ public:
     
 // Group: Drawing
 public:
-    void drawText(float x, float y, const char *str, ...) const;
-    void drawText(float x, float y, const std::string& str) const;
+    void drawText(scalar x, scalar y, const char *str, ...) const;
+    void drawText(scalar x, scalar y, const std::string& str) const;
 
-    std::ostream& beginDraw(float x, float y);
+    std::ostream& beginDraw(scalar x, scalar y);
     StreamFlusher endDraw();
 
 // Group: Font Metrics
 public:
-    unsigned int calcStringWidth(const std::string& str) const;
-    unsigned int getHeight() const;
+    uint calcStringWidth(const std::string& str) const;
+    uint getHeight() const;
     
 // Group: Resource Creation
 public:
@@ -140,8 +140,8 @@ private:
     ubyte height_;
     // stream drawing stuff
     std::ostringstream ss_;
-    float drawX_;
-    float drawY_;
+    scalar drawX_;
+    scalar drawY_;
     // color
     Color color_;
 };

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TextureResourceManager.hpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
+//  $Id: TextureResourceManager.hpp,v 1.4 2005/07/18 07:19:48 cozman Exp $
 
 #ifndef PHOTON_VIDEO_TEXTURERESOURCEMANAGER_HPP
 #define PHOTON_VIDEO_TEXTURERESOURCEMANAGER_HPP
@@ -24,7 +24,7 @@ public:
     uint texID;
     uint width;
     uint height;
-    ubyte *pixels;
+    ubyte *pixels;  // keep pixels around for future use (post-load colorkeying)
 };
 
 class TextureResourceManager : public ResourceManager<TextureResource>

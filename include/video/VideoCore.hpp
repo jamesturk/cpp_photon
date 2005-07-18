@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.hpp,v 1.2 2005/03/15 18:53:12 cozman Exp $
+//  $Id: VideoCore.hpp,v 1.3 2005/07/18 07:19:48 cozman Exp $
 
 #ifndef PHOTON_VIDEO_VIDEOCORE_HPP
 #define PHOTON_VIDEO_VIDEOCORE_HPP
@@ -159,7 +159,7 @@ public:
 
 // behind the scenes
 private: 
-    void initOpenGL();
+    void initOpenGL();  // set desired OpenGL options
     
 // data members
 private:

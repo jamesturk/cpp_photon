@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FontResourceManager.cpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
+//  $Id: FontResourceManager.cpp,v 1.4 2005/07/18 07:19:48 cozman Exp $
 
 #include "video/FontResourceManager.hpp"
 
@@ -18,6 +18,7 @@ namespace video
 
 FontResourceManager::FontResourceManager()
 {
+    // initialize library upon creation
     if(FT_Init_FreeType(&library_) != 0)
     {
         throw APIError("Could not initialize FreeType2 library.");
@@ -26,6 +27,7 @@ FontResourceManager::FontResourceManager()
 
 FontResourceManager::~FontResourceManager()
 {
+    // deinitialize library on destruction
     FT_Done_FreeType(library_);
 }
     
@@ -188,6 +190,7 @@ void FontResourceManager::loadResourceData(FontResource &res,
 
 void FontResourceManager::freeResourceData(FontResource &res)
 {
+    // free both the lists and the texture
     if(glIsList(res.listBase))
     {
         glDeleteLists(res.listBase, NUM_CHARS);

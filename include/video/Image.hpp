@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image.hpp,v 1.1 2005/06/13 07:05:28 cozman Exp $
+//  $Id: Image.hpp,v 1.2 2005/07/18 07:19:48 cozman Exp $
 
 #ifndef PHOTON_VIDEO_IMAGE_HPP
 #define PHOTON_VIDEO_IMAGE_HPP
@@ -18,7 +18,7 @@ namespace video
 {
 
 // Class: Image
-//  Image is a class which is used to store a single image, for use in 2D games.  
+//  Image is a class which is used to store a single image, for use in 2D games.
 // 
 //  Image is derived from <Texture>, which is a resource managed class.  
 //  <Texture> is a simple OO wrapper around the concept of a texture in OpenGL. 

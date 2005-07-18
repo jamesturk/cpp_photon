@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Texture.cpp,v 1.5 2005/07/18 07:19:48 cozman Exp $
 
 #include "video/Texture.hpp"
 
@@ -22,6 +22,7 @@ Texture::Texture()
 Texture::Texture(const Texture &rhs) :
     ResourceManaged<TextureResourceManager>(rhs)
 {
+    // the resource is width, height, and GL texture name/ID  
     resMgr_.getTextureData(getName(), width_, height_, texID_);
 }
 
@@ -32,6 +33,7 @@ Texture::Texture(const std::string& name)
 
 void Texture::open(const std::string& name)
 {
+    // open the texture and grab the resource contents
     ResourceManaged<TextureResourceManager>::open(name);
     resMgr_.getTextureData(getName(), width_, height_, texID_);
 }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FontResourceManager.hpp,v 1.3 2005/07/03 06:33:19 cozman Exp $
+//  $Id: FontResourceManager.hpp,v 1.4 2005/07/18 07:19:48 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONTRESOURCEMANAGER_HPP
 #define PHOTON_VIDEO_FONTRESOURCEMANAGER_HPP
@@ -57,10 +57,10 @@ private:
     virtual void freeResourceData(FontResource &res);
     
 private:
-    FT_Library library_;
+    FT_Library library_;    // only need one FT_Library, so manager owns it
 public:
-    static const unsigned int SPACE = 32;
-    static const unsigned int NUM_CHARS = 96;
+    static const uint SPACE = 32;
+    static const uint NUM_CHARS = 96;
 };
 
 }

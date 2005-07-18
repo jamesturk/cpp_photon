@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image.cpp,v 1.3 2005/06/27 04:24:16 cozman Exp $
+//  $Id: Image.cpp,v 1.4 2005/07/18 07:19:48 cozman Exp $
 
 #include "video/Image.hpp"
 
@@ -41,6 +41,7 @@ Image& Image::operator=(const Image &rhs)
 {
     if(&rhs != this)
     {
+        // copy texture and all Image members
         Texture::operator=(rhs);
         alpha_ = rhs.alpha_;
         texMinX_ = rhs.texMinX_;
@@ -93,6 +94,8 @@ void Image::resize(scalar width, scalar height)
 
 void Image::draw(scalar x, scalar y) const
 {
+    // avoid wonky coloring, but use alpha
+    glPushAttrib(GL_CURRENT_BIT);
     glColor4ub(255,255,255,alpha_);
     bind();
     glBegin(GL_QUADS);
@@ -101,11 +104,13 @@ void Image::draw(scalar x, scalar y) const
         glTexCoord2i(texMaxX_,texMaxY_);    glVertex2d(x+width_,y+height_);
         glTexCoord2i(texMinX_,texMaxY_);    glVertex2d(x,y+height_);
     glEnd();
-    glColor4ub(255,255,255,255);
+    glPopAttrib();
 }
 
 void Image::draw(scalar x, scalar y, ubyte vc[]) const
 {
+    // store current state, so vc doesn't destroy
+    glPushAttrib(GL_CURRENT_BIT);
     bind();
     glBegin(GL_QUADS);
         glTexCoord2i(texMinX_,texMinY_); 
@@ -124,7 +129,7 @@ void Image::draw(scalar x, scalar y, ubyte vc[]) const
         glColor4ub(vc[12],vc[13],vc[14],vc[15]); 
         glVertex2d(x,y+height_);
     glEnd();
-    glColor4ub(255,255,255,255);
+    glPopAttrib();
 }
 
 void Image::drawRotated(scalar x, scalar y, scalar angle) const
@@ -132,11 +137,14 @@ void Image::drawRotated(scalar x, scalar y, scalar angle) const
     //center point
     scalar cX = width_/2., cY = height_/2.;
 
+    // avoid wonky coloring, but use alpha
+    glPushAttrib(GL_CURRENT_BIT);
+    
     glPushMatrix();
     glLoadIdentity();
     glTranslated(x+cX,y+cY,0);  //translate to center
     glRotated(angle,0,0,1.0f);  //rotate on z axis, to keep x&y in 2D plane
-    glColor4ub(255,255,255,255);
+    glColor4ub(255,255,255,alpha_);
     bind();
     //draw is modified to be based around center
     glBegin(GL_QUADS);
@@ -146,7 +154,7 @@ void Image::drawRotated(scalar x, scalar y, scalar angle) const
         glTexCoord2i(texMinX_,texMaxY_);    glVertex2d(-cX,-cY+height_);
     glEnd();
     glPopMatrix();
-    glColor4ub(255,255,255,255);
+    glPopAttrib();
 }
 
 void Image::drawRotated(scalar x, scalar y, scalar angle, ubyte vc[]) const
@@ -156,6 +164,8 @@ void Image::drawRotated(scalar x, scalar y, scalar angle, ubyte vc[]) const
     cX = width_/2.0f;
     cY = height_/2.0f;
 
+    // store current state, so vc doesn't destroy
+    glPushAttrib(GL_CURRENT_BIT);
     glPushMatrix();
     glLoadIdentity();
     glTranslated(x+cX,y+cY,0);  //translate to center
@@ -180,7 +190,7 @@ void Image::drawRotated(scalar x, scalar y, scalar angle, ubyte vc[]) const
         glVertex2d(-cX,-cY+height_);
     glEnd();
     glPopMatrix();
-    glColor4ub(255,255,255,255);
+    glPopAttrib();
 }
 
 ubyte Image::getAlpha() const

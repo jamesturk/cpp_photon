@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.cpp,v 1.5 2005/07/17 07:14:09 cozman Exp $
+//  $Id: Font.cpp,v 1.6 2005/07/18 07:19:48 cozman Exp $
 
 #include "video/Font.hpp"
 
@@ -36,6 +36,7 @@ Font::Font(const Font &rhs) :
     ResourceManaged<FontResourceManager>(rhs),
     drawX_(0), drawY_(0)
 {
+    // a font is a texture, 96 lists, 96 widths, and a height
     resMgr_.getFontData(getName(), texID_, listBase_, widths_, height_);
 }
 
@@ -53,6 +54,7 @@ void Font::open(const std::string& name)
 
 bool Font::isValid() const
 {
+    // valid if texture is created
     return glIsTexture(texID_) == GL_TRUE;
 }
 
@@ -81,7 +83,7 @@ Color Font::getColor() const
     return color_;
 }
 
-void Font::drawText(float x, float y, const char *str, ...) const
+void Font::drawText(scalar x, scalar y, const char *str, ...) const
 {
     if(!isValid())
     {
@@ -97,15 +99,15 @@ void Font::drawText(float x, float y, const char *str, ...) const
 
     // push attrib before setting color
     glPushAttrib(GL_CURRENT_BIT);
-    glColor4ub(color_.red, color_.green, color_.blue, color_.alpha);
+    color_.makeGLColor();
     
     glBindTexture(GL_TEXTURE_2D, texID_);
     glPushMatrix();
     glTranslated(x,y,0);
-    for(unsigned int i=0; i < std::strlen(buf); ++i)
+    for(uint i=0; i < std::strlen(buf); ++i)
     {
         // ch-SPACE = DisplayList offset
-        unsigned char ch( buf[i] - FontResourceManager::SPACE );     
+        ubyte ch( buf[i] - FontResourceManager::SPACE );     
         // replace characters outside the valid range with undrawable
         if(ch > FontResourceManager::NUM_CHARS)
         {
@@ -123,7 +125,7 @@ void Font::drawText(float x, float y, const char *str, ...) const
     glPopAttrib();
 }
 
-void Font::drawText(float x, float y, const std::string& str) const
+void Font::drawText(scalar x, scalar y, const std::string& str) const
 {
     if(!isValid())
     {
@@ -132,7 +134,7 @@ void Font::drawText(float x, float y, const std::string& str) const
 
     // push attrib before setting color 
     glPushAttrib(GL_CURRENT_BIT);
-    glColor4ub(color_.red, color_.green, color_.blue, color_.alpha);
+    color_.makeGLColor();
     
     glBindTexture(GL_TEXTURE_2D, texID_);
     glPushMatrix();
@@ -140,7 +142,7 @@ void Font::drawText(float x, float y, const std::string& str) const
     for(std::string::const_iterator i = str.begin(); i != str.end(); ++i)
     {
         // ch-SPACE = DisplayList offset
-        unsigned char ch( *i - FontResourceManager::SPACE ); 
+        ubyte ch( *i - FontResourceManager::SPACE ); 
         // replace characters outside the valid range with undrawable
         if(ch > FontResourceManager::NUM_CHARS)
         {
@@ -158,7 +160,7 @@ void Font::drawText(float x, float y, const std::string& str) const
     glPopAttrib();
 }
 
-std::ostream& Font::beginDraw(float x, float y)
+std::ostream& Font::beginDraw(scalar x, scalar y)
 {
     // clear the string and store the draw-position
     ss_.str("");
@@ -171,28 +173,28 @@ StreamFlusher Font::endDraw()
 {
     drawText(drawX_, drawY_, ss_.str());    // draw the string
     ss_.str("");                            // clear the buffer
-    return StreamFlusher();
+    return StreamFlusher(); // special null class that simply outputs nothing
 }
 
-unsigned int Font::calcStringWidth(const std::string& str) const
+uint Font::calcStringWidth(const std::string& str) const
 {
     if(!isValid())
     {
         throw PreconditionException("Invalid Font::calcStringWidth call.");
     }
-    unsigned int width=0;
+    uint width(0);  // accumulator for widths
 
     // iterate through widths of each char and accumulate width of string
     for(std::string::const_iterator i = str.begin(); i < str.end(); ++i)
     {
-        width += widths_[static_cast<unsigned int>(*i) - 
+        width += widths_[static_cast<uint>(*i) - 
                             FontResourceManager::SPACE];
     }
 
     return width;
 }
 
-unsigned int Font::getHeight() const
+uint Font::getHeight() const
 {
     if(!isValid())
     {
