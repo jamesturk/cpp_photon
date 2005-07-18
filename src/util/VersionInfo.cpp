@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.cpp,v 1.7 2005/04/21 19:30:19 cozman Exp $
+//  $Id: VersionInfo.cpp,v 1.8 2005/07/18 06:18:50 cozman Exp $
 
 #include "util/VersionInfo.hpp"
 
@@ -19,7 +19,7 @@ namespace util
 { 
 
 VersionInfo::VersionInfo(unsigned int maj, unsigned int min, unsigned int pat,
-                            std::string ext) :
+                            const std::string& ext) :
     majorRelease(maj), minorRelease(min), patch(pat), extra(ext)
 {}
 

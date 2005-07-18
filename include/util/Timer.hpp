@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.hpp,v 1.1 2005/03/02 08:39:03 cozman Exp $
+//  $Id: Timer.hpp,v 1.2 2005/07/18 06:18:51 cozman Exp $
 
 #ifndef PHOTON_UTIL_TIMER_HPP
 #define PHOTON_UTIL_TIMER_HPP
@@ -70,6 +70,9 @@ public:
     // Returns:
     //  True if timer is paused, false if timer is running.
     bool isPaused() const;
+    
+private:
+    double getTimeInternal() const;   // get time from source timer
     
 // data members
 private:

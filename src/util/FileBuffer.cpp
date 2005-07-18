@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.cpp,v 1.7 2005/06/27 04:24:16 cozman Exp $
+//  $Id: FileBuffer.cpp,v 1.8 2005/07/18 06:18:50 cozman Exp $
 
 #include "util/FileBuffer.hpp"
 
@@ -27,7 +27,12 @@ FileBuffer::FileBuffer(const std::string& filename)
 }
 
 FileBuffer::~FileBuffer()
-{}
+{
+    if(file_ != 0)
+    {
+        close();
+    }
+}
 
 void FileBuffer::open(const std::string& filename)
 {
@@ -46,6 +51,7 @@ void FileBuffer::close()
     }
     
     PHYSFS_close(file_);
+    file_ = 0;
 }
 
 std::vector<ubyte> FileBuffer::getData(int amount)

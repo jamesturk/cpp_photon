@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VersionInfo.hpp,v 1.6 2005/04/21 19:30:19 cozman Exp $
+//  $Id: VersionInfo.hpp,v 1.7 2005/07/18 06:18:51 cozman Exp $
 
 #ifndef PHOTON_UTIL_VERSIONINFO_HPP
 #define PHOTON_UTIL_VERSIONINFO_HPP
@@ -68,7 +68,7 @@ public:
     //  pat - Patch number.
     //  ext - Extra info string. [default: ""]
     VersionInfo(unsigned int maj, unsigned int min, unsigned int pat,
-                std::string ext="");
+                const std::string& ext="");
 
     //operators
     bool operator<(const VersionInfo &rhs) const;

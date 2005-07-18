@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.cpp,v 1.4 2005/02/16 06:58:26 cozman Exp $
+//  $Id: filesys.cpp,v 1.5 2005/07/18 06:18:50 cozman Exp $
 
 
 #include "util/filesys/filesys.hpp"
@@ -17,6 +17,9 @@ namespace util
 namespace filesys
 {
 
+// most functions are simple wrappers around PhysFS functions of virtually
+// the same name, some convert 'char**'s into 'vector<string>'s.  
+    
 std::vector<std::string> getCDDirs()
 {
     std::vector<std::string> dirs;

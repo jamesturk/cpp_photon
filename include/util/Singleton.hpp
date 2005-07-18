@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.7 2005/03/15 18:51:00 cozman Exp $
+//  $Id: Singleton.hpp,v 1.8 2005/07/18 06:18:51 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
@@ -20,12 +20,12 @@ namespace util
 {
 
 // Class: Singleton
-//  Template class for singleton pattern.  Is non-copyable to enforce
-//  correct behavior.
+//  Template class for singleton pattern.  Is non-copyable to enforce correct
+//  behavior.
 //
 // Defining a Singleton:
 //  (code)
-//  YourClass : public Singleton<Class>
+//  class YourClass : public Singleton<Class>
 //  { 
 //      // class definition
 //  };

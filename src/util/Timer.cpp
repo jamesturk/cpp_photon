@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.cpp,v 1.2 2005/03/15 18:52:07 cozman Exp $
+//  $Id: Timer.cpp,v 1.3 2005/07/18 06:18:50 cozman Exp $
 
 #include "util/Timer.hpp"
 
@@ -27,7 +27,7 @@ Timer::~Timer()
 
 void Timer::reset()
 {
-    lastPause_ = pausedTime_ = appCore_.getTime();
+    lastPause_ = pausedTime_ = getTimeInternal();
     paused_ = false;
 }
 
@@ -35,7 +35,7 @@ void Timer::pause()
 {
     if(!paused_)
     {
-        lastPause_ = appCore_.getTime();
+        lastPause_ = getTimeInternal();
         paused_ = true;
     }
 }
@@ -45,7 +45,7 @@ void Timer::unpause()
     if(paused_)
     {
         //when unpausing update the total paused time by that pause
-        pausedTime_ += (appCore_.getTime()-lastPause_);
+        pausedTime_ += (getTimeInternal()-lastPause_);
         paused_ = false;
     }
 }
@@ -60,13 +60,25 @@ double Timer::getTime() const
     else
     {
         //paused time is the total time the program has been paused
-        return appCore_.getTime() - pausedTime_;   
+        return getTimeInternal() - pausedTime_;   
     }
 }
 
 bool Timer::isPaused() const
 {
     return paused_;
+}
+
+double Timer::getTimeInternal() const
+{
+    if(appTimeLinked_)
+    {
+        return appCore_.getTime();  // get from AppCore timer if linked
+    }
+    else
+    {
+        return glfwGetTime();       // raw timer if not linked
+    }
 }
 
 }

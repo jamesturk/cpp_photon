@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.hpp,v 1.4 2005/03/15 18:47:46 cozman Exp $
+//  $Id: RandGen.hpp,v 1.5 2005/07/18 06:18:51 cozman Exp $
 
 #ifndef PHOTON_UTIL_RANDGEN_HPP
 #define PHOTON_UTIL_RANDGEN_HPP
@@ -98,11 +98,11 @@ private:    // utilities
     unsigned long genrand_int32();  //base of all generation
 
 private:    // constants
-    static const unsigned long N=624;
-    static const unsigned long M=397;
-    static const unsigned long MATRIX_A=0x9908b0dfUL;
-    static const unsigned long UPPER_MASK=0x80000000UL;
-    static const unsigned long LOWER_MASK=0x7fffffffUL;
+    static const unsigned long N          = 624;
+    static const unsigned long M          = 397;
+    static const unsigned long MATRIX_A   = 0x9908b0dfUL;
+    static const unsigned long UPPER_MASK = 0x80000000UL;
+    static const unsigned long LOWER_MASK = 0x7fffffffUL;
 
 private:    //state data
     unsigned long stateVector_[N];

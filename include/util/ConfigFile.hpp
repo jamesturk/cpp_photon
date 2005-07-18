@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.hpp,v 1.4 2005/07/05 06:44:56 cozman Exp $
+//  $Id: ConfigFile.hpp,v 1.5 2005/07/18 06:18:51 cozman Exp $
 
 #ifndef PHOTON_UTIL_CONFIGFILE_HPP
 #define PHOTON_UTIL_CONFIGFILE_HPP
@@ -44,7 +44,7 @@ public: // types used in ConfigFile
 
     typedef std::pair<std::string,std::string> Variable;
     typedef std::list< Variable > Section;
-    typedef std::pair< std::string, std::list< Variable > > NamedSection;
+    typedef std::pair< std::string, Section > NamedSection;
     typedef std::list< NamedSection > Layout;
     
 // Group: (Con/De)structors
