@@ -6,10 +6,11 @@
 <node ID="Freemind_Link_682620075" POSITION="right" TEXT="0.1 Release">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1479941799" TEXT="Clean up source">
+<node ID="Freemind_Link_1271859141" TEXT="math::"/>
+<node ID="Freemind_Link_510494143" TEXT="util::"/>
+<node ID="Freemind_Link_1243282886" TEXT="video::"/>
+<node ID="Freemind_Link_327905180" TEXT="photon:: (general)"/>
 <node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs"/>
-<node ID="Freemind_Link_1080393911" TEXT="audio:: could using some cleaning">
-<node ID="Freemind_Link_632977685" TEXT="make compilation succeed without OpenAL"/>
-</node>
 </node>
 <node ID="Freemind_Link_1153941464" TEXT="test compilation on fresh systems">
 <node ID="Freemind_Link_1403005191" TEXT="test compilation on clean linux system"/>
@@ -42,7 +43,7 @@
 <icon BUILTIN="help"/>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.19 2005/07/17 22:41:03 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.20 2005/07/18 05:14:18 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>

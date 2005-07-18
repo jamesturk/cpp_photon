@@ -5,7 +5,9 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: SampleResourceManager.hpp,v 1.1 2005/07/05 06:44:56 cozman Exp $
+//  $Id: SampleResourceManager.hpp,v 1.2 2005/07/18 05:14:18 cozman Exp $
+
+#ifdef PHOTON_USE_OPENAL
 
 #ifndef PHOTON_AUDIO_SAMPLERESOURCEMANAGER_HPP
 #define PHOTON_AUDIO_SAMPLERESOURCEMANAGER_HPP
@@ -18,6 +20,7 @@ namespace photon
 namespace audio
 {
 
+// All that a Sample is is a bufferID, extremely simple resource management
 class SampleResource : public Resource
 {
 public:
@@ -35,9 +38,12 @@ private:
     virtual void freeResourceData(SampleResource &res);
 };
 
+// Allow users to simply call a Sample a Sample
 typedef Source<SampleResourceManager> Sample;
 
 }
 }
 
 #endif  //PHOTON_AUDIO_SAMPLERESOURCEMANAGER_HPP
+
+#endif  //PHOTON_USE_OPENAL

@@ -5,14 +5,16 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: SampleResourceManager.cpp,v 1.2 2005/07/06 02:10:07 cozman Exp $
+//  $Id: SampleResourceManager.cpp,v 1.3 2005/07/18 05:14:18 cozman Exp $
+
+#ifdef PHOTON_USE_OPENAL
 
 #include "audio/SampleResourceManager.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/FileBuffer.hpp"
 
 #include "AL/al.h"
-#include "AL/alut.h"
+#include "AL/alut.h"    // used for loading WAVs, to be phased out
 
 namespace photon
 {
@@ -22,6 +24,7 @@ namespace audio
 void SampleResourceManager::getAudioData(const std::string& name,  
                                             uint& bufferID)
 {
+    // not much to do here, get the resource, set the ID
     SampleResource resource( getResource(name) );
     bufferID = resource.bufferID;
 }
@@ -37,6 +40,7 @@ void SampleResourceManager::loadResourceData(SampleResource &res,
     ALsizei freq;
     ALboolean loop;
     
+    // load from FileBuffer (allows loading from zip via PhysFS)
     std::vector<ubyte> filedata = buf.getData();
     size = filedata.size();
 
@@ -44,8 +48,9 @@ void SampleResourceManager::loadResourceData(SampleResource &res,
     
     AudioCore::throwOpenALError("alGenBuffers");
 
-    alutLoadWAVMemory((ALbyte*)&filedata[0], &format, &data, &size, &freq, &loop);
-    
+    // load WAV via alut
+    alutLoadWAVMemory(reinterpret_cast<ALbyte*>(&filedata[0]), 
+                        &format, &data, &size, &freq, &loop);
     AudioCore::throwOpenALError("alutLoadWAVFile");
     
     alBufferData(res.bufferID, format, data, size, freq);
@@ -58,9 +63,12 @@ void SampleResourceManager::freeResourceData(SampleResource& res)
 {
     if(alIsBuffer(res.bufferID))
     {
+        // delete buffers, just like textures in GL
         alDeleteBuffers(1, &res.bufferID);
     }
 }
 
 }
 }
+
+#endif  //PHOTON_USE_OPENAL

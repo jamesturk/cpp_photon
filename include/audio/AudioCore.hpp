@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.7 2005/07/05 06:44:56 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.8 2005/07/18 05:14:18 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -67,13 +67,31 @@ public:
     
 // Group: Error Checking
 public:
+    // Function: checkOpenALError
+    //  Checks for OpenAL internal errors, returning a descriptive string if
+    //  the OpenAL error state is currently set.  Will return an empty string
+    //  if there is no error set.
+    //
+    // Returns:
+    //  String describing OpenAL error, empty string if no error exists.
     static std::string checkOpenALError();
+    
+    // Function: throwOpenALError
+    //  Checks for OpenAL internal errors, throwing an <APIError> if the OpenAL
+    //  error state is set and doing nothing if not.  Optionally makes the
+    //  thrown exception more descriptive by adding in a function string
+    //  that describes then the OpenAL error was flagged.
+    //
+    // Parameters:
+    //  func - Function in/after which the check for an OpenAL error takes place
+    //
+    // Throws:
+    //  <APIError> if an OpenAL error state has been set.
     static void throwOpenALError(const std::string& func);
 
 // OpenAL specifics
 private:
     util::VersionInfo initOpenAL();
-    
 
 // data members
 private:

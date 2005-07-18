@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.17 2005/07/05 06:44:55 cozman Exp $
+#  $Id: SConstruct,v 1.18 2005/07/18 05:14:18 cozman Exp $
 
 import os,os.path
 import glob
@@ -77,6 +77,7 @@ if not env.GetOption('clean'):
         conf.env.Append(CPPFLAGS='-DPHOTON_USE_OPENAL')
     else:
         print 'OpenAL not found, continuing without OpenAL support.'
+        OAL_LIB = ''    # no OpenAL library name
     env = conf.Finish()
 env.Append(CPPFLAGS='-pedantic')    # tests fail pedantic, so add after tests
 
@@ -102,7 +103,7 @@ test_srcs = glob.glob( os.path.join('test', '*_test.cpp') )
 for test_src in test_srcs:
     test_name = test_src.replace('_test.cpp','')
     tests.append(env.Program(test_name, source=test_src, LIBPATH='./lib', 
-                    LIBS=['photon',OAL_LIB,'glfw',OGL_LIB,GLU_LIB,
+                    LIBS=['photon','glfw',OAL_LIB,OGL_LIB,GLU_LIB,
                             'physfs','corona','freetype']))
 env.Alias('test',tests)
 

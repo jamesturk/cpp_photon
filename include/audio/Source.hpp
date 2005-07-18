@@ -5,14 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Source.hpp,v 1.2 2005/07/17 07:14:09 cozman Exp $
+//  $Id: Source.hpp,v 1.3 2005/07/18 05:14:18 cozman Exp $
+
+#ifdef PHOTON_USE_OPENAL
 
 #ifndef PHOTON_AUDIO_SOURCE_HPP
 #define PHOTON_AUDIO_SOURCE_HPP
 
 #include "AL/al.h"
-#include "AL/alc.h"
-#include "AL/alut.h"
 
 #include "ResourceManaged.hpp"
 #include "audio/AudioCore.hpp"
@@ -23,9 +23,12 @@ namespace audio
 {
 
 // Class: Source
-//  Simple OO wrapper around an OpenAL source. 
-// 
-//  Children:
+//  Simple OO wrapper around an OpenAL source, defines the interface used for
+//  Sample and Music.
+//
+//  Source is a template class and can not be used directly, use either Sample
+//  or Music.  Sample is for playing small files such as sound effects.  Music
+//  is for streaming files such as background music.
 // 
 // Operators:
 //  - Source = Source
@@ -74,7 +77,7 @@ public:
 
     Source& operator=(const Source& rhs);
     operator bool() const;
-    
+
 // Group: Source Control
 public:
     
@@ -104,6 +107,27 @@ public:
 // Group: Accessors
 public:
 
+    // Function: isValid
+    //  Determine status of Source.
+    //
+    // Returns:
+    //  True if source is loaded, false if source is not loaded/initialized.
+    bool isValid() const;
+
+    // Function: isPlaying
+    //  Determine if source is playing.
+    //
+    // Returns:
+    //  True if source is playing, false if source is stopped.
+    bool isPlaying() const;
+    
+    // Function: isLooping
+    //  Determine if source is looping.
+    //
+    // Returns:
+    //  True if source is looping, false if source is not looping.
+    bool isLooping() const;
+
     //friend std::ostream& operator<<(std::ostream& o, const Source& rhs);
     
 // Group: Resource Creation
@@ -130,9 +154,9 @@ public:
     static void addResource(const std::string& path);
     
 private:
-    uint sourceID_;
+    uint sourceID_; // sources store their own sourceID (can't resource manage)
     
-    static const float ORIGIN[];
+    static const float ORIGIN[];    // use origin
 };
 
 template<class ResMgrT>
@@ -215,47 +239,101 @@ Source<ResMgrT>& Source<ResMgrT>::operator=(const Source<ResMgrT>& rhs)
 template<class ResMgrT>
 Source<ResMgrT>::operator bool() const
 {
-    return alIsSource(sourceID_) == AL_TRUE;
+    return isValid();
 }
-
-/*std::ostream& operator<<(std::ostream& o, const Source& rhs)
-{
-    return o << "Source: { Name: " << rhs.getName() << " BufferID: " 
-            << rhs.bufferID_;
-}*/
 
 template<class ResMgrT>
 void Source<ResMgrT>::play()
 {
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::play call.");
+    }
+    
     alSourcePlay(sourceID_);
 }
 
 template<class ResMgrT>
 void Source<ResMgrT>::stop()
 {
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::stop call.");
+    }
+    
     alSourceStop(sourceID_);
 }
 
 template<class ResMgrT>
 void Source<ResMgrT>::pause()
 {
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::pause call.");
+    }
+    
     alSourcePause(sourceID_);
 }
 
 template<class ResMgrT>
 void Source<ResMgrT>::rewind()
 {
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::rewind call.");
+    }
+    
     alSourceRewind(sourceID_);
 }
 
 template<class ResMgrT>
 void Source<ResMgrT>::setLooping(bool loop)
 {
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::setLooping call.");
+    }
+    
     alSourcei(sourceID_, AL_LOOPING, loop);
 }
 
 template<class ResMgrT>
-void Source<ResMgrT>::addResource(const std::string& name, const std::string& path)
+bool Source<ResMgrT>::isValid() const
+{
+    return alIsSource(sourceID_) == AL_TRUE;
+}
+
+template<class ResMgrT>
+bool Source<ResMgrT>::isPlaying() const
+{
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::isPlaying call.");
+    }
+    
+    // check state 
+    int state;
+    alGetSourcei(sourceID_, AL_SOURCE_STATE, &state);
+    return state == AL_PLAYING;
+}
+
+template<class ResMgrT>
+bool Source<ResMgrT>::isLooping() const
+{
+    if(!isValid())
+    {
+        throw PreconditionException("Invalid Source::isLooping call.");
+    }
+    
+    // check looping status
+    int loop;
+    alGetSourcei(sourceID_, AL_LOOPING, &loop);
+    return loop == AL_TRUE;
+}
+
+template<class ResMgrT>
+void Source<ResMgrT>::addResource(const std::string& name, 
+                                    const std::string& path)
 {
     resMgr_.newResource(name, ResourceDescriptor(path));
 }
@@ -270,3 +348,5 @@ void Source<ResMgrT>::addResource(const std::string& path)
 }
 
 #endif  //PHOTON_AUDIO_SOURCE_HPP
+
+#endif  //PHOTON_USE_OPENAL

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.7 2005/07/05 06:44:56 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.8 2005/07/18 05:14:18 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -21,8 +21,10 @@ namespace audio
 
 AudioCore::AudioCore() 
 {
-    util::VersionInfo oalReq(0,0,7);    // requires OpenAL 1.0 (TODO: check?)
-    util::ensureVersion("OpenAL", initOpenAL(), oalReq);
+    //util::VersionInfo oalReq(0,0,7);    // requires OpenAL 1.0 (TODO: check?)
+    //util::ensureVersion("OpenAL", initOpenAL(), oalReq);
+    
+    initOpenAL();   // don't check version for now 
 }
 
 AudioCore::~AudioCore()
@@ -50,9 +52,10 @@ std::string AudioCore::getAudioDeviceName() const
 
 std::string AudioCore::checkOpenALError()
 {
-    ALenum errCode = alGetError();
+    ALenum errCode = alGetError();  // fetch error code
     std::string err;
 
+    // interpret error code
     switch(errCode)
     {
     case AL_NO_ERROR:
@@ -73,7 +76,7 @@ std::string AudioCore::checkOpenALError()
     case AL_OUT_OF_MEMORY:
         err = "OpenAL out of memory";
         break;
-    default:
+    default:    // not sure how conforming implementations are with error codes
         err = "Unknown OpenAL error";
         break;
     }
@@ -84,7 +87,7 @@ std::string AudioCore::checkOpenALError()
 void AudioCore::throwOpenALError(const std::string& func)
 {
     std::string err( checkOpenALError() );
-    if(err.length())
+    if(err.length())    // throw exception if non-empty string
     {
         throw APIError(err + " within " + func);
     }
@@ -127,6 +130,7 @@ util::VersionInfo AudioCore::initOpenAL()
 	alListenerfv(AL_VELOCITY, posvel);
 	alListenerfv(AL_ORIENTATION, ori);
 
+    // OpenAL needs a standard version string format badly
     ss << alGetString(AL_VERSION);
 #if defined(WINVER)
     ss >> junks >> major >> junkc >> minor;   // format is "OpenAL 1.0"
@@ -146,6 +150,7 @@ void AudioCore::setDesiredDevice(const std::string& name)
     deviceName_ = name;
 }
 
+// static instance
 std::string AudioCore::deviceName_;
 
 }

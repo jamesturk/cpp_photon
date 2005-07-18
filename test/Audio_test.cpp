@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.2 2005/07/17 07:14:09 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.3 2005/07/18 05:14:19 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -51,7 +51,10 @@ public:
         rain.setLooping(true);
         stream.setLooping(true);
         thunder.setLooping(true);
+        
+        assert(!waterdrop.isLooping());
         waterdrop.setLooping(true);
+        assert(waterdrop.isLooping());
         
         for(int i=0; i < 6; ++i)
             status[i] = "NOT ";
@@ -68,7 +71,7 @@ public:
             
             if(app.keyPressed(KEY_C))
             {
-                if(status[0] == NOT_PLAYING)
+                if(!chimes.isPlaying())
                 {
                     chimes.play();
                     status[0] = "";
@@ -81,7 +84,7 @@ public:
             }
             if(app.keyPressed(KEY_O))
             {
-                if(status[1] == NOT_PLAYING)
+                if(!ocean.isPlaying())
                 {
                     ocean.play();
                     status[1] = "";
@@ -94,7 +97,7 @@ public:
             }
             if(app.keyPressed(KEY_R))
             {
-                if(status[2] == NOT_PLAYING)
+                if(!rain.isPlaying())
                 {
                     rain.play();
                     status[2] = "";
@@ -107,7 +110,7 @@ public:
             }
             if(app.keyPressed(KEY_S))
             {
-                if(status[3] == NOT_PLAYING)
+                if(!stream.isPlaying())
                 {
                     stream.play();
                     status[3] = "";
@@ -120,7 +123,7 @@ public:
             }
             if(app.keyPressed(KEY_T))
             {
-                if(status[4] == NOT_PLAYING)
+                if(!thunder.isPlaying())
                 {
                     thunder.play();
                     status[4] = "";
@@ -133,7 +136,7 @@ public:
             }
             if(app.keyPressed(KEY_W))
             {
-                if(status[5] == NOT_PLAYING)
+                if(!waterdrop.isPlaying())
                 {
                     waterdrop.play();
                     status[5] = "";
@@ -210,6 +213,7 @@ public:
 ENTRYPOINT(AudioTest)
 
 #else
+#include <iostream>
 
 int main()
 {

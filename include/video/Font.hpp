@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.5 2005/07/17 07:14:09 cozman Exp $
+//  $Id: Font.hpp,v 1.6 2005/07/18 05:14:18 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
@@ -70,6 +70,11 @@ public:
     //  name - Name of the Font <Resource> to open.
     void open(const std::string& name);
     
+    // Function: isValid
+    //  Determine status of Font.
+    //
+    // Returns:
+    //  True if font is loaded, false if font is not loaded/initialized.
     bool isValid() const;
 
     Font& operator=(const Font &rhs);
