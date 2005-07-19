@@ -5,15 +5,28 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.2 2005/07/19 05:57:43 cozman Exp $
+//  $Id: Input_test.cpp,v 1.3 2005/07/19 20:32:00 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include <boost/lexical_cast.hpp>
 
-class LastEventListener : public InputListener
+class MainTask : public Task, public InputListener
 {
+
 public:
+    MainTask() :
+        Task("MainTask"),
+        app(AppCore::getInstance()),
+        video(video::VideoCore::getInstance())
+    {
+        video.setOrthoView(800,600);
+
+        video::Font::addResource("font","data/FreeMono.ttf",20);
+        font.open("font");
+    }
+    
+    // listen for events and set the last event string
     void onKeyPress(int key) 
     {
         lastEvent = "key " + boost::lexical_cast<std::string>(key) + 
@@ -42,32 +55,11 @@ public:
     {
         lastEvent = "mouse moved to " +  boost::lexical_cast<std::string>(pos); 
     }
-    
-    std::string lastEvent;
-};
-
-class MainTask : public Task
-{
-
-public:
-    MainTask() :
-        Task("MainTask"),
-        app(AppCore::getInstance()),
-        video(video::VideoCore::getInstance())
-    {
-        LogSinkPtr csp( new ConsoleSink("console") );
-        log.addSink(csp);
-
-        video.setOrthoView(800,600);
-
-        video::Font::addResource("font","data/FreeMono.ttf",20);
-        font.open("font");
-    }
 
     void update()
     {
+        // used to measure FPS and display it in the title bar
         static double t=0;
-        
         if(app.getTime() - t > 1.0)
         {            
             app.setTitle("FPS: " + 
@@ -75,12 +67,15 @@ public:
             t = app.getTime();
         }
         
+        // used for spacing text vertically
         static const photon::uint fontHeight(font.getHeight());
         photon::uint curHeight(0);
         
-        video.clear();
+        video.clear();  // clear display
         
-        font.beginDraw(0,curHeight) << "Last event: " << lel.lastEvent <<
+        // draw input event/status notifications, increment curHeight on each 
+        //  draw so that text is properly spaced vertically
+        font.beginDraw(0,curHeight) << "Last event: " << lastEvent <<
             font.endDraw();
         curHeight += fontHeight;
         
@@ -123,13 +118,13 @@ public:
 
 private:
     video::Font font;
-    LastEventListener lel;
-    
-    Log log;
+    std::string lastEvent;
+
     AppCore& app;
     video::VideoCore& video;
 };
 
+// standard application, creates window, registers task and runs
 class InputTest : public Application
 {
 public:
