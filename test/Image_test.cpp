@@ -5,16 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Image_test.cpp,v 1.5 2005/07/19 20:31:41 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include <boost/lexical_cast.hpp>
-
-// This is a simple framework for writing extremely simple Photon applications
-//  it simply displays a blank window and the framerate in the titlebar of
-//  the created window.  This is meant to show basic interaction between the
-//  user and the more common features of the AppCore and the Kernel.
 
 class MainTask : public Task
 {
@@ -25,28 +20,29 @@ public:
         app(AppCore::getInstance()),
         video(video::VideoCore::getInstance())
     {
-        LogSinkPtr csp( new ConsoleSink("console") );
-        log.addSink(csp);
-
         video.setOrthoView(800,600);
 
+        // load the images
         video::Image::addResource("data/test.png");
         video::Texture::addResource("test2","data/test2.png");
 
+        // load img[0], set to half translucency and resize
         img[0].open("test2");
         img[0].setAlpha(128);
         img[0].resize(100,200);
         
+        // load img[1]
         img[1].open("data/test.png");
         
+        // copy img[0] into img[2] and flip it
         img[2] = img[0];
         img[2].flip(true,true);
     }
     
     void update()
     {   
+        // used to measure FPS and display it in the title bar
         static double t=0;
-        
         if(app.getTime() - t > 1.0)
         {            
             app.setTitle("FPS: " + 
@@ -54,12 +50,16 @@ public:
             t = app.getTime();
         }
 
+        // clear screen
         video.clear();
 
+        // draw in top left corner
         img[0].draw(0,0);
         
+        // rotate according to timer
         img[1].drawRotated(200,200,app.getTime()*5);
         
+        // example usage of Images boolean operator
         if(img[2])
         {
             img[2].draw(100,400);
@@ -68,12 +68,12 @@ public:
 
 private:
     video::Image img[3];
-    
-    Log log;
+
     AppCore& app;
     video::VideoCore& video;
 };
 
+// standard application, creates window, registers task and runs
 class ImageTest : public Application
 {
 public:
