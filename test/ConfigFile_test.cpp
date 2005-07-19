@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile_test.cpp,v 1.1 2005/05/15 02:50:07 cozman Exp $
+//  $Id: ConfigFile_test.cpp,v 1.2 2005/07/19 18:41:36 cozman Exp $
 
 #include "photon.hpp"
 
@@ -13,26 +13,30 @@
 #include <cassert>
 
 using namespace photon;
-using namespace photon::util;
 
-
+// Simple test of ConfigFile functionality
+// Tests reading/writing to a ConfigFile
+// Successful test will simply output a message indicating success.
 class ConfigTest : public Application
 {
 public:
 
     int main(const StrVec& args)
     {
-        ConfigFile c1("config1.ini"),c2;
+        util::ConfigFile c1("config1.ini"),c2;
         c2.open("config2.ini");
         
+        // set three variables
         c1.setVariable("sec","int",3);
         c1.setVariable("sec","float",3.0f);
         c1.setVariable("sec","string","three");
         
+        // ensure all 3 variables were written correctly
         assert(c1.getVariable("sec","int",0) == 3);
         assert(c1.getVariable("sec","float",0.0f) == 3.0f);
         assert(c1.getVariable("sec","string",std::string()) == "three");
         
+        // check reading/default value functionality
         assert(c2.getVariable("sec","var",-1) != -1);
         assert(c2.getVariable("sec2","var",-1) != -1);
         assert(c2.getVariable("sec2","hex",0) == 0);
@@ -40,8 +44,11 @@ public:
         c1.close();
         c2.close();
         
+        // got here, meaning success
+        std::cerr << "ConfigFile test completed successfully!\n";
+        
         return 0;
     }
 };
 
-ENTRYPOINT(ConfigTest)
+ENTRYPOINT(ConfigTest)  // make ConfigTest the entrypoint class
