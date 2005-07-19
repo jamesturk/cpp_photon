@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen_test.cpp,v 1.2 2005/07/17 06:19:18 cozman Exp $
+//  $Id: Pen_test.cpp,v 1.3 2005/07/19 20:55:40 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -20,11 +20,9 @@ public:
         app(AppCore::getInstance()),
         video(video::VideoCore::getInstance())
     {
-        LogSinkPtr csp( new ConsoleSink("console") );
-        log.addSink(csp);
-
         video.setOrthoView(800,600);
         
+        // initialize three pens, red, blue and green
         r.setColor(255, 0, 0);
         g.setColor(0, 255, 0);
         b.setColor(0, 0, 255);
@@ -32,48 +30,49 @@ public:
 
     void update()
     {   
+        // used to measure FPS and display it in the title bar
         static double t=0;
-        static const math::Point2 center(400, 300);
-
         if(app.getTime() - t > 1.0)
         {            
             app.setTitle("FPS: " + 
                     boost::lexical_cast<std::string>(app.getFramerate()) );
             t = app.getTime();
         }
+        
+        static const math::Point2 center(400, 300); // used for clock
 
         video.clear();
         
         unsigned int i,j;   //used throughout demo
         
-        // points
-        for(i=0; i < 400; ++i)
+        // draw points in a traveling sine curve
+        g.fillRectangle(math::Rect(math::Point2(0,0), 800, 100));
+        for(i=0; i < 800; i += 5)
         {
-            r.drawPoint(math::Point2(i, 2*i));
-            g.drawPoint(math::Point2(i, 3*i));
-            b.drawPoint(math::Point2(i, 4*i));
+            scalar ang = math::degToRad(i+100*app.getTime());
+            r.drawPoint(math::Point2(i, 50+50*std::sin(ang) ));
         }
         
-        // lines
-        for(i=100; i <= 200; i += 10)
+        // draw lines in a fancy pattern
+        for(i=100; i <= 200; i += 20)
         {
-            for(j=100; j <= 200; j += 10)
+            for(j=100; j <= 200; j += 20)
             {
                 g.drawLine(math::Point2(100,i), math::Point2(j, 200)); 
             }
         }
         
-        // circles
+        // draw circles to create a clock
         b.fillCircle(math::Circle(center, 60));
         g.drawCircle(math::Circle(center, 60));
         g.drawCircle(math::Circle(center, 50));
         
-        // vectors
+        // draw vector as clock hand
         math::Vector2 clockHand;
         clockHand.resolveDeg(50, 20*app.getTime());
         r.drawVector(center, clockHand);
         
-        // rectangles
+        // draw rectangles to show Rect::calcIntersection in action
         math::Rect rect1(math::Point2(500, 300), 200, 100);
         math::Rect rect2(math::Point2(550, 375), 100, 200);
         r.drawRectangle(rect1);
@@ -83,13 +82,12 @@ public:
 
 private:
     video::Pen r,g,b;
-    
 
-    Log log;
     AppCore& app;
     video::VideoCore& video;
 };
 
+// standard application, creates window, registers task and runs
 class PenTest : public Application
 {
 public:
