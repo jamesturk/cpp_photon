@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.7 2005/07/19 01:31:37 cozman Exp $
+//  $Id: AppCore.hpp,v 1.8 2005/07/19 05:45:22 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
@@ -14,6 +14,9 @@
 #include "util/VersionInfo.hpp"
 #include "util/Singleton.hpp"
 #include "Task.hpp"
+#include "InputListener.hpp"
+
+#include <vector>
 
 namespace photon
 {
@@ -83,6 +86,13 @@ public:
     // Returns:
     //  true: key is pressed, false: key isn't pressed
     bool keyPressed(KeyCode key);
+    
+    // Function: getPressedKeys
+    //  Obtain a list of all keys which are currently pressed.
+    //
+    // Returns:
+    //  std::vector of <KeyCodes> of any pressed keys.
+    std::vector<KeyCode> getPressedKeys();
 
     // Function: mouseButtonPressed
     //  Check if a given mouse button is currently pressed.
@@ -115,6 +125,30 @@ public:
     // Returns:
     //  Mouse wheel position, zero assumed to be starting position.
     int getMouseWheelPos();
+    
+// Group: Input Listeners
+public:
+
+    // Function: addInputListener
+    //  Registers an <InputListener> to listen for any input events so that it
+    //  is notified when they occur.
+    //
+    // Parameters:
+    //  listener - Pointer to <InputListener> to add.
+    static void addInputListener(InputListener *listener);
+    
+    // Function: removeInputListener
+    //  Removes an <InputListener> from the list of active listeners.
+    //
+    // Parameters:
+    //  listener - Pointer to <InputListener> to remove.
+    static void removeInputListener(InputListener *listener);
+    
+    static void GLFWCALL keyCallback(int key, int action);
+    //static void GLFWCALL charCallback(int character, int action);
+    static void GLFWCALL mouseButtonCallback(int button, int action);
+    static void GLFWCALL mouseMoveCallback(int x, int y);
+    //static void GLFWCALL mouseWheelCallback(int pos);
 
 // Group: Timing
 public:
@@ -175,7 +209,11 @@ public:
     // Returns:
     //  Height of display in pixels.
     uint getDisplayHeight();
+    
 
+    // UpdateTask, does the updating work of AppCore, registered as a Task
+    //  so that user need not call something akin to AppCore::update() every 
+    //  frame
     class UpdateTask : public Task
     {
 
@@ -203,6 +241,10 @@ private:
     uint dispWidth_;
     uint dispHeight_;
     shared_ptr<UpdateTask> task_;
+    
+    // input monitoring variables
+    static std::vector<InputListener*> listeners_;
+    static std::vector<KeyCode> pressedKeys_;
 
 // API initialization
 private:

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.10 2005/07/19 01:31:37 cozman Exp $
+//  $Id: AppCore.cpp,v 1.11 2005/07/19 05:45:23 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -19,14 +19,16 @@
 namespace photon
 {
 
+// static initializer
+std::vector<InputListener*> AppCore::listeners_;
+std::vector<KeyCode> AppCore::pressedKeys_;
+
 AppCore::AppCore() :
     dispWidth_(0), dispHeight_(0),
     task_(new UpdateTask())
 {
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     util::ensureVersion("GLFW", initGLFW(), glfwReq);
-    
-    new video::VideoCore;   // create the VideoCore
 
     Kernel::getInstance().addTask(task_);
 }
@@ -51,9 +53,17 @@ void AppCore::createDisplay(uint width, uint height,
     {
         throw APIError("Failed to create display.");
     }
+    
+    // register the callbacks (after a window is open)
+    glfwSetKeyCallback(AppCore::keyCallback);
+    //glfwSetCharCallback(AppCore::charCallback);
+    glfwSetMouseButtonCallback(AppCore::mouseButtonCallback);
+    glfwSetMousePosCallback(AppCore::mouseMoveCallback);
+    //glfwSetMouseWheelCallback(AppCore::mouseWheelCallback);
 
     dispWidth_ = width;
     dispHeight_ = height;
+    new video::VideoCore;   // _MUST_ create the VideoCore after the window!
     video::VideoCore::getInstance().setDisplaySize(width,height);
 
     glfwSetWindowTitle(title.c_str());  // title is set separately
@@ -94,6 +104,11 @@ bool AppCore::keyPressed(KeyCode key)
     return glfwGetKey(key) == GLFW_PRESS;
 }
 
+std::vector<KeyCode> AppCore::getPressedKeys()
+{
+    return pressedKeys_;
+}
+
 bool AppCore::mouseButtonPressed(MouseButton button)
 {
     return glfwGetMouseButton(button) == GLFW_PRESS;
@@ -112,6 +127,113 @@ int AppCore::getMouseY()
 int AppCore::getMouseWheelPos()
 {
     return glfwGetMouseWheel();
+}
+
+void AppCore::addInputListener(InputListener *listener)
+{
+    // should never happen since listeners add themselves with a this pointer
+    if(!listener)
+    {
+        throw ArgumentException("Null pointer in AppCore::addInputListener");
+    }
+    
+    // add the listener
+    listeners_.push_back(listener);
+}
+
+void AppCore::removeInputListener(InputListener *listener)
+{
+    // should never happen since listeners remove themselves with a this pointer
+    if(!listener)
+    {
+        throw ArgumentException("Null pointer in AppCore::removeInputListener");
+    }
+
+    // find and erase the listener
+    std::vector<InputListener*>::iterator it;
+    it = std::find(listeners_.begin(), listeners_.end(), listener);
+
+    if(it != listeners_.end())
+    {
+        listeners_.erase(it);
+    }
+}
+
+void GLFWCALL AppCore::keyCallback(int key, int action)
+{
+    // notify all listeners
+    for(std::vector<InputListener*>::iterator listener = listeners_.begin();
+        listener != listeners_.end(); 
+        ++listener)
+    {
+        // only active listeners get messages
+        if((*listener)->isActive())
+        {
+            if(action == GLFW_PRESS)
+            {
+                (*listener)->onKeyPress(key);
+            }
+            else
+            {
+                (*listener)->onKeyRelease(key);
+            }
+        }
+    }
+    
+    // maintain a list of pressed keys
+    if(action == GLFW_PRESS)
+    {
+        pressedKeys_.push_back(static_cast<KeyCode>(key));
+    }
+    else
+    {
+        // delete a key from the vector
+        std::vector<KeyCode>::iterator it;
+        it = std::find(pressedKeys_.begin(), pressedKeys_.end(), key);
+    
+        if(it != pressedKeys_.end())
+        {
+            pressedKeys_.erase(it);
+        }
+    }
+}
+
+void GLFWCALL AppCore::mouseButtonCallback(int button, int action)
+{
+    // notify all listeners
+    for(std::vector<InputListener*>::iterator listener = listeners_.begin();
+        listener != listeners_.end(); 
+        ++listener)
+    {
+        // only active listeners get messages
+        if((*listener)->isActive())
+        {
+            if(action == GLFW_PRESS)
+            {
+                (*listener)->onMouseButtonPress(button);
+            }
+            else
+            {
+                (*listener)->onMouseButtonRelease(button);
+            }
+        }
+    }
+}
+
+void GLFWCALL AppCore::mouseMoveCallback(int x, int y)
+{
+    // notify all listeners
+    for(std::vector<InputListener*>::iterator listener = listeners_.begin();
+        listener != listeners_.end(); 
+        ++listener)
+    {
+        // only active listeners get messages
+        if((*listener)->isActive())
+        {
+            (*listener)->onMouseMove(math::Vector2(static_cast<scalar>(x),
+                                                    static_cast<scalar>(y)));
+        }
+    }
 }
 
 scalar AppCore::getTime()
