@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.cpp,v 1.1 2005/03/15 19:22:07 cozman Exp $
+//  $Id: Task.cpp,v 1.2 2005/07/19 01:31:38 cozman Exp $
 
 #include "Task.hpp"
 
@@ -17,10 +17,10 @@ Task::Task(const std::string& name, PriorityLevel priority) :
 { 
 }
 
-// do nothing (how I wish destructors were virtual by default)
+// do nothing.. again (oh how I wish destructors were virtual by default)
 Task::~Task() { }
 
-// do nothings (non-pure since some tasks may not need special behavior)
+// do nothings (not pure-virtual since some tasks may not need special behavior)
 void Task::onStart() { }
 void Task::onKill() { }
 

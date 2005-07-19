@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManager.hpp,v 1.9 2005/07/04 03:06:48 cozman Exp $
+//  $Id: ResourceManager.hpp,v 1.10 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGER_HPP
 #define PHOTON_RESOURCEMANAGER_HPP
@@ -116,7 +116,7 @@ void ResourceManager<resT, ResDescT>::newResource(const std::string& name,
 template<class resT, class ResDescT>
 resT& ResourceManager<resT, ResDescT>::getResource(const std::string& name)
 {
-    MapIterator resource( resourceMap_.find(name) );
+    MapIterator resource( resourceMap_.find(name) );    // fetch resource
     
     if(resource != resourceMap_.end())
     {
@@ -133,7 +133,7 @@ resT& ResourceManager<resT, ResDescT>::getResource(const std::string& name)
 template<class resT, class ResDescT>
 void ResourceManager<resT, ResDescT>::deleteResource(const std::string& name)
 {
-    MapIterator resource( resourceMap_.find(name) );
+    MapIterator resource( resourceMap_.find(name) );    // fetch resource
     
     // if the resource was found
     if(resource != resourceMap_.end())
@@ -147,7 +147,7 @@ void ResourceManager<resT, ResDescT>::deleteResource(const std::string& name)
 template<class resT, class ResDescT>
 void ResourceManager<resT, ResDescT>::delRef(const std::string& name)
 {
-    MapIterator resource( resourceMap_.find(name) );
+    MapIterator resource( resourceMap_.find(name) );    // fetch resource
     
     // if the resource was found
     if(resource != resourceMap_.end())
@@ -172,8 +172,7 @@ void ResourceManager<resT, ResDescT>::cleanUp()
 template<class resT, class ResDescT>
 void ResourceManager<resT, ResDescT>::printReport(std::ostream& os)
 {
-    MapIterator resource( resourceMap_.begin() );
-    
+    // go through all resources and output debug info (name/path/refCount)
     for(MapIterator i = resourceMap_.begin(); i != resourceMap_.end(); ++i)
     {
         os << i->second.name << "\t" << i->second.path << "\t" 

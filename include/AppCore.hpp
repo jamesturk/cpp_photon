@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.6 2005/07/17 06:19:18 cozman Exp $
+//  $Id: AppCore.hpp,v 1.7 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
@@ -154,7 +154,7 @@ public:
     double getElapsedTime();
 
     // Function: getFramerate
-    //  Gets number of frames per second the application is currently being run at.
+    //  Gets number of frames per second the application is currently processing
     //
     // Returns:
     //  Current frames per second.

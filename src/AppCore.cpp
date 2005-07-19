@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.9 2005/07/17 06:19:18 cozman Exp $
+//  $Id: AppCore.cpp,v 1.10 2005/07/19 01:31:37 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -25,12 +25,15 @@ AppCore::AppCore() :
 {
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     util::ensureVersion("GLFW", initGLFW(), glfwReq);
+    
+    new video::VideoCore;   // create the VideoCore
 
     Kernel::getInstance().addTask(task_);
 }
 
 AppCore::~AppCore()
 {
+    video::VideoCore::destroy();    // destroy videocore
     glfwCloseWindow();  //close GLFW window
     glfwTerminate();    //shutdown GLFW
 }
@@ -51,7 +54,6 @@ void AppCore::createDisplay(uint width, uint height,
 
     dispWidth_ = width;
     dispHeight_ = height;
-    new video::VideoCore;
     video::VideoCore::getInstance().setDisplaySize(width,height);
 
     glfwSetWindowTitle(title.c_str());  // title is set separately

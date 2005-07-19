@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.cpp,v 1.1 2005/03/15 19:22:07 cozman Exp $
+//  $Id: Kernel.cpp,v 1.2 2005/07/19 01:31:38 cozman Exp $
 
 #include "Kernel.hpp"
 
@@ -39,7 +39,6 @@ void Kernel::run()
             // only update alive, non-paused tasks
             if(task->isAlive() && !task->isPaused())
             {
-                // Log::getInstance().note() << "updating task : " << task->getName();
                 task->update();
             }
         }
@@ -52,7 +51,7 @@ void Kernel::run()
             // remove dead tasks
             if(!task->isAlive())
             {
-                task->onKill();
+                task->onKill();     // symmetry with onStart, clean up act
                 it = tasks_.erase(it);
             }
             else
@@ -66,6 +65,7 @@ void Kernel::run()
 void Kernel::addTask(TaskPtr task)
 {
     std::list<TaskPtr>::iterator it = tasks_.begin();
+    // attempt to find task
     std::list<TaskPtr>::iterator found = std::find_if(tasks_.begin(), 
                                 tasks_.end(),
                                 std::bind2nd(TaskNameEq(), task->getName()) );
@@ -77,7 +77,7 @@ void Kernel::addTask(TaskPtr task)
                                     task->getName() + "\".");
     }
     
-    task->onStart();
+    task->onStart();    // called whenever a task is being started
     
     // find the first task in the list with a lower priority
     while(it != tasks_.end() && task->getPriority() <= (*it)->getPriority())
@@ -89,10 +89,12 @@ void Kernel::addTask(TaskPtr task)
 
 void Kernel::killTask(const std::string& taskName)
 {
+    // attempt to find the task
     std::list<TaskPtr>::iterator task = std::find_if(tasks_.begin(), 
                                 tasks_.end(),
                                 std::bind2nd(TaskNameEq(), taskName) );
-    if(task != tasks_.end())
+    
+    if(task != tasks_.end())    // kill task if found
     {
         (*task)->kill();
     }
@@ -105,10 +107,12 @@ void Kernel::killTask(const std::string& taskName)
 
 void Kernel::pauseTask(const std::string& taskName)
 {
+    // attempt to find the task
     std::list<TaskPtr>::iterator task = std::find_if(tasks_.begin(), 
                                 tasks_.end(),
                                 std::bind2nd(TaskNameEq(), taskName) );
-    if(task != tasks_.end())
+
+    if(task != tasks_.end())    // pause task if found
     {
         (*task)->onPause();
     }
@@ -121,16 +125,18 @@ void Kernel::pauseTask(const std::string& taskName)
 
 void Kernel::unpauseTask(const std::string& taskName)
 {
+    // attempt to find the task
     std::list<TaskPtr>::iterator task = std::find_if(tasks_.begin(), 
                                 tasks_.end(),
                                 std::bind2nd(TaskNameEq(), taskName) );
-    if(task != tasks_.end())
+    
+    if(task != tasks_.end())    // unpause task if found
     {
         (*task)->onUnpause();
     }
     else
     {
-        throw PreconditionException("Attempted to unpause nonexistant task \"" +  
+        throw PreconditionException("Attempted to unpause nonexistant task \"" +
                                     taskName + "\".");
     }
 }

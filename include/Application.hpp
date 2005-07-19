@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.8 2005/05/15 02:51:10 cozman Exp $
+//  $Id: Application.hpp,v 1.9 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -23,8 +23,7 @@ namespace photon
 {
 
 // Class: Application
-//  Abstract main class, all photon applications should derive from API-specific
-//  implementations of Application.
+//  Abstract main class, all photon applications should derive from Application.
 //
 //  Derived classes are made entrypoint via <ENTRYPOINT>.
 class Application
@@ -45,7 +44,7 @@ public:
     // Function: main
     //  Pure virtual, must be defined by derived class, using some preprocessor
     //  magic (<MAINCLASS>) on the derived class
-    //  this becomes the entry point for a Amph application.
+    //  this becomes the entry point for a Photon application.
     //
     // Parameters:
     //  args - <ArgList> containing arguments passed to program.

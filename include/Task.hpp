@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.hpp,v 1.1 2005/03/15 19:22:07 cozman Exp $
+//  $Id: Task.hpp,v 1.2 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_TASK_HPP
 #define PHOTON_TASK_HPP
@@ -141,10 +141,10 @@ public:
 
 // data members
 private:
-    std::string name_;
-    PriorityLevel priority_;
-    bool alive_;
-    bool paused_;
+    std::string name_;          // all tasks need a unique name
+    PriorityLevel priority_;    // priority determines ordering of tasks
+    bool alive_;                // if false, task will be pruned
+    bool paused_;               // if false task won't be executed
 };
 
 }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.hpp,v 1.5 2005/07/18 06:18:51 cozman Exp $
+//  $Id: ConfigFile.hpp,v 1.6 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_UTIL_CONFIGFILE_HPP
 #define PHOTON_UTIL_CONFIGFILE_HPP
@@ -187,8 +187,9 @@ ConfigFile::setVariable(const std::string& sec,
     }
 }
 
-//template specialization for setVariable<std::string>
-/*template<>
+//template specialization for setVariable<std::string> (DISABLED)
+#if 0
+template<>
 void
 ConfigFile::setVariable(std::string sec, std::string var, std::string value)
 {
@@ -196,7 +197,8 @@ ConfigFile::setVariable(std::string sec, std::string var, std::string value)
     value = "\"" + value + "\"";    //add ""s to value
 
     layout_[sec][var] = value;   //actually set it
-}*/
+}
+#endif
 
 template<class varType>
 varType

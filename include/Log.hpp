@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.6 2005/05/15 02:51:10 cozman Exp $
+//  $Id: Log.hpp,v 1.7 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP
@@ -51,7 +51,7 @@ public:
     //  Remove a sink from the log by name.
     //
     //  Parameters:
-    //      sinkName - Name of sink to remove.
+    //   sinkName - Name of sink to remove.
     void removeSink(const std::string& sinkName);
 
     // Function: removeSink
@@ -112,11 +112,11 @@ public:
     //  Flushes the log, is generally not required.  Output is handed to the
     //  sinks when flush is called.
     void flush();
-    
+
 private:
-    std::stringstream buffer_;
-    LogLevel lastLevel_;
-    std::list<LogSinkPtr> sinks_;
+    std::stringstream buffer_;      // buffer used for accumulating messages
+    LogLevel lastLevel_;            // last log level, used when outputting
+    std::list<LogSinkPtr> sinks_;   // list of attached sinks
 };
 
 }

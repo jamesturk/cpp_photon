@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.cpp,v 1.8 2005/05/15 02:50:52 cozman Exp $
+//  $Id: Log.cpp,v 1.9 2005/07/19 01:31:38 cozman Exp $
 
 #include "Log.hpp"
 
@@ -21,14 +21,14 @@ Log::Log()
 
 Log::~Log()
 {
-    flush();
-    removeSinks();
+    removeSinks();  // drop all sinks (also flushes output)
 }
 
 void Log::addSink(LogSinkPtr sink)
 {
     flush();
 
+    // search through list of sinks to avoid adding same sink twice
     for(std::list<LogSinkPtr>::iterator it = sinks_.begin();
         it != sinks_.end();
         ++it)
@@ -40,13 +40,14 @@ void Log::addSink(LogSinkPtr sink)
         }
     }
 
-    sinks_.push_back(sink);
+    sinks_.push_back(sink); // add sink if unique
 }
 
 void Log::removeSink(const std::string& sinkName)
 {
     flush();
     
+    // find sink and erase it
     for(std::list<LogSinkPtr>::iterator it = sinks_.begin();
         it != sinks_.end();
         ++it)
@@ -62,9 +63,11 @@ void Log::removeSink(LogSinkPtr sink)
 {
     flush();
     
+    // search for sink 
     std::list<LogSinkPtr>::iterator it =
         std::find(sinks_.begin(),sinks_.end(),sink);
 
+    // remove sink if it exists
     if(it != sinks_.end())
     {
         sinks_.erase(it);
@@ -73,15 +76,15 @@ void Log::removeSink(LogSinkPtr sink)
 
 void Log::removeSinks()
 {
-    flush();
+    flush();    // make sure last message gets flushed to sinks
 
-    sinks_.clear();
+    sinks_.clear();     // empty entire sink list
 }
 
 void Log::flush()
 {
-    std::string str = buffer_.str();
-    if(str.length())
+    std::string str = buffer_.str();    // get string from buffer
+    if(str.length())    // if a message exists, write it to all sinks
     {
         for(std::list<LogSinkPtr>::iterator it = sinks_.begin();
             it != sinks_.end();
@@ -89,10 +92,12 @@ void Log::flush()
         {
             (*it)->writeMessage(lastLevel_,str);
         }
-        buffer_.str("");
+        buffer_.str("");    // clear message
     }
 }
 
+// note, verbose, warning, error, critical all flush the existing buffer
+// set the level and return the stringstream for writing
 std::ostream& Log::note()
 {
     flush();

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.hpp,v 1.5 2005/06/27 04:24:16 cozman Exp $
+//  $Id: exceptions.hpp,v 1.6 2005/07/19 01:31:37 cozman Exp $
 
 #ifndef PHOTON_EXCEPTIONS_HPP
 #define PHOTON_EXCEPTIONS_HPP
@@ -14,8 +14,6 @@
 #include <string>
 #include <sstream>
 #include <ostream>
-
-#define __FLOC__ __FILE__,__LINE__
 
 namespace photon 
 { 

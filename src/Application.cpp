@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.11 2005/07/05 06:44:56 cozman Exp $
+//  $Id: Application.cpp,v 1.12 2005/07/19 01:31:38 cozman Exp $
 
 #include "Application.hpp"
 
@@ -34,13 +34,6 @@ Application::Application() :
     new Kernel;
     new AppCore;
 
-    // StrVec args;
-    // 
-    // for(int i=0; i < argc; ++i)
-    // {
-    //     args.push_back(argv[i]);
-    // }
-
     util::ensureVersion("PhysFS", initPhysFS(), physfsReq);
 }
 
@@ -50,7 +43,6 @@ Application::~Application()
 
     // destroy the singletons
     AppCore::destroy();
-    video::VideoCore::destroy();
     //audio::AudioCore::destroy();
     Kernel::destroy();
 }
