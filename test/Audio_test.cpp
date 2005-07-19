@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.3 2005/07/18 05:14:19 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.4 2005/07/19 05:57:58 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -198,9 +198,8 @@ public:
     int main(const StrVec& args)
     {
         AppCore::getInstance().createDisplay(800,600,32,0,0,false);
-        
-        AudioCore::setDesiredDevice("OSS");
-        new AudioCore;
+
+        AudioCore::initAudioDevice("OSS");
 
         Kernel::getInstance().addTask(TaskPtr(new MainTask()));
 

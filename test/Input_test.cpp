@@ -5,11 +5,46 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.1 2005/07/17 06:19:18 cozman Exp $
+//  $Id: Input_test.cpp,v 1.2 2005/07/19 05:57:43 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include <boost/lexical_cast.hpp>
+
+class LastEventListener : public InputListener
+{
+public:
+    void onKeyPress(int key) 
+    {
+        lastEvent = "key " + boost::lexical_cast<std::string>(key) + 
+            " pressed";
+    }
+    
+    void onKeyRelease(int key)
+    {
+        lastEvent = "key " + boost::lexical_cast<std::string>(key) + 
+            " released";
+    }
+    
+    void onMouseButtonPress(int button)  
+    {
+        lastEvent = "mouse button " + boost::lexical_cast<std::string>(button) +
+            " pressed";
+    }
+    
+    void onMouseButtonRelease(int button)
+    {
+        lastEvent = "mouse button " + boost::lexical_cast<std::string>(button) +
+            " released";
+    }
+    
+    void onMouseMove(const math::Vector2& pos)
+    {
+        lastEvent = "mouse moved to " +  boost::lexical_cast<std::string>(pos); 
+    }
+    
+    std::string lastEvent;
+};
 
 class MainTask : public Task
 {
@@ -45,9 +80,17 @@ public:
         
         video.clear();
         
+        font.beginDraw(0,curHeight) << "Last event: " << lel.lastEvent <<
+            font.endDraw();
+        curHeight += fontHeight;
+        
         font.beginDraw(0,curHeight) << "Mouse at " << app.getMouseX() << "," <<
             app.getMouseY() << " wheel = " << app.getMouseWheelPos() <<
             font.endDraw();
+        curHeight += fontHeight;
+        
+        font.beginDraw(0,curHeight) << "#Pressed Keys = " << 
+            app.getPressedKeys().size() << font.endDraw();
         curHeight += fontHeight;
         
         if(app.keyPressed(KEY_SPACE))
@@ -80,6 +123,7 @@ public:
 
 private:
     video::Font font;
+    LastEventListener lel;
     
     Log log;
     AppCore& app;
