@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.8 2005/07/18 05:14:18 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.9 2005/07/19 05:56:08 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -36,7 +36,7 @@ class AudioCore : public util::Singleton<AudioCore>
 public:
     // Function: AudioCore
     //  Initialize underlying APIs and setup <Task> internals.
-    AudioCore();
+    AudioCore(const std::string& deviceName);
 
     // Function: ~AudioCore
     //  Shutdown underlying APIs.
@@ -53,17 +53,17 @@ public:
 
 // Group: Initialization
 public:
-    // Function: setDesiredDevice
-    //  Set the name of the desired audio device to use.  Static function of
-    //  AudioCore, must be called before AudioCore::initialize() or not at all.
+    // Function: initAudioDevice
+    //  Initialize audio device.  _MUST_ be called prior to any use of audio
+    //  functionality.
     //
-    //  If called, the initialization of the audio library will attempt to
-    //  use the specified audio device, otherwise the default device will be
-    //  used.
+    //  Takes an optional parameter, if existant the initialization of the audio
+    //  library will attempt to use the specified audio device, otherwise the 
+    //  default device will be used.
     //
     // Parameters:
-    //  name - Name of audio device to use.
-    static void setDesiredDevice(const std::string& name);
+    //  deviceName - Name of audio device to use. (optional, default=default) 
+    static void initAudioDevice(const std::string& deviceName="");
     
 // Group: Error Checking
 public:
@@ -91,11 +91,10 @@ public:
 
 // OpenAL specifics
 private:
-    util::VersionInfo initOpenAL();
+    util::VersionInfo initOpenAL(const std::string& deviceName);
 
 // data members
 private:
-    static std::string deviceName_;
     ALfloat listenerPos_[3];
     ALfloat listenerVel_[3];
     ALfloat listenerOri_[6];

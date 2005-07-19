@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.8 2005/07/18 05:14:18 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.9 2005/07/19 05:56:08 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -19,12 +19,12 @@ namespace photon
 namespace audio
 {
 
-AudioCore::AudioCore() 
+AudioCore::AudioCore(const std::string& deviceName) 
 {
     //util::VersionInfo oalReq(0,0,7);    // requires OpenAL 1.0 (TODO: check?)
     //util::ensureVersion("OpenAL", initOpenAL(), oalReq);
     
-    initOpenAL();   // don't check version for now 
+    initOpenAL(deviceName);   // don't check version for now 
 }
 
 AudioCore::~AudioCore()
@@ -93,7 +93,7 @@ void AudioCore::throwOpenALError(const std::string& func)
     }
 }
 
-util::VersionInfo AudioCore::initOpenAL()
+util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
 {
     ALCdevice* device(0);
     ALCcontext* context(0);
@@ -103,12 +103,12 @@ util::VersionInfo AudioCore::initOpenAL()
     uint major,minor,patch; // version numbers
 
     // obtain default device if no deviceName is set, otherwise use deviceName
-    device = alcOpenDevice(deviceName_.empty() ? 0 :
-                reinterpret_cast<const ALubyte*>(deviceName_.c_str()) );
+    device = alcOpenDevice(deviceName.empty() ? 0 :
+                reinterpret_cast<const ALubyte*>(deviceName.c_str()) );
 
     if(device == 0)
     {
-        throw APIError("Failed to obtain OpenAL device " + deviceName_ + ": " +
+        throw APIError("Failed to obtain OpenAL device " + deviceName + ": " +
                         checkOpenALError());
     }
 
@@ -143,15 +143,11 @@ util::VersionInfo AudioCore::initOpenAL()
     return util::VersionInfo(major,minor,patch);
 }
 
-void AudioCore::setDesiredDevice(const std::string& name)
+void AudioCore::initAudioDevice(const std::string& deviceName)
 {
-    // deviceName_ is used inside initOpenAL, must be set prior to construction
-    // or not set at all (in which case default device will be used)
-    deviceName_ = name;
+    new AudioCore(deviceName);
 }
 
-// static instance
-std::string AudioCore::deviceName_;
 
 }
 }
