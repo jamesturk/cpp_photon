@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.9 2005/07/19 05:56:08 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.10 2005/07/19 18:35:20 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -33,12 +33,12 @@ AudioCore::~AudioCore()
     ALCcontext* context( alcGetCurrentContext() );
     ALCdevice*  device( alcGetContextsDevice(context) );
 
-    // set current context to null
-    alcMakeContextCurrent(0);
-
     // destroy context & device
     alcDestroyContext(context);
     alcCloseDevice(device);
+    
+    // set current context to null
+    alcMakeContextCurrent(0);
 }
 
 std::string AudioCore::getAudioDeviceName() const
@@ -139,6 +139,8 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
 #else
     #warning OpenAL only built on Windows/Linux, find out version on OSX
 #endif
+
+    throwOpenALError("AudioCore::initOpenAL");
     
     return util::VersionInfo(major,minor,patch);
 }

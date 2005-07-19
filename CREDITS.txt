@@ -3,6 +3,7 @@ The following people have contributed code to photon:
     ..yeah this list is too short right now, so help out ;)
     
 In addition, I'd like to thank:
+    * Sourceforge.net - Providing hosting for the project and CVS.
     * Sean and Gamer Tazar from the old CoZ team, where ZEngine was born
     * Everyone who contributed to, used, or downloaded ZEngine
     * Sam Lantinga and the rest of the SDL crew (without SDL, no ZEngine, 
@@ -13,5 +14,8 @@ In addition, I'd like to thank:
     * Jesse Maurais and DevMaster.net for the OpenAL tutorials
     * Everyone responsible for FreeMind (http://freemind.sf.net)
     * The Ubuntu Team (http://ubuntulinux.com)
+    * Makoto Matsumoto and Takuji Nishimura for authoring the Mersenne Twister 
+        algorithm, and making it freely available.
+        http://www.math.keio.ac.jp/~matumoto/emt.html
     
-$Id: CREDITS.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
+$Id: CREDITS.txt,v 1.2 2005/07/19 18:35:20 cozman Exp $

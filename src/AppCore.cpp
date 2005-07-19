@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.11 2005/07/19 05:45:23 cozman Exp $
+//  $Id: AppCore.cpp,v 1.12 2005/07/19 18:35:20 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -35,8 +35,13 @@ AppCore::AppCore() :
 
 AppCore::~AppCore()
 {
-    video::VideoCore::destroy();    // destroy videocore
-    glfwCloseWindow();  //close GLFW window
+
+    if(dispWidth_ && dispHeight_)
+    {
+        video::VideoCore::destroy();    // destroy videocore
+        glfwCloseWindow();              //close GLFW window
+    }
+    
     glfwTerminate();    //shutdown GLFW
 }
 
@@ -136,7 +141,7 @@ void AppCore::addInputListener(InputListener *listener)
     {
         throw ArgumentException("Null pointer in AppCore::addInputListener");
     }
-    
+
     // add the listener
     listeners_.push_back(listener);
 }

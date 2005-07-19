@@ -1,5 +1,5 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
+$Id: CHANGELOG.txt,v 1.2 2005/07/19 18:35:20 cozman Exp $
 
 
 0.1.0 (Massachusetts) - Initial Release
@@ -11,6 +11,8 @@ $Id: CHANGELOG.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
     * A wide variety of helper utilities for tasks such as filesystem 
         navigation, FileBuffer capable of reading from archives, random number 
         generation, versioning, and timing
+    * Powerful input system allowing for direct access to keyboard/mouse status
+        or passive listeners which are notified of events when they occur.
     * Resource Management system including the ability to load resources from 
         specified directories or archives.
     * Variety of math classes including Circle, Rectangle, and Vector classes 
@@ -31,5 +33,5 @@ $Id: CHANGELOG.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
     * Entire library is built in a highly-modular fashion with extensibility in 
         mind. Use of modern programming techniques like templates and exceptions
         contributes to ease of use and ease of development.
-    * 13 demo programs showing features and ease of use
+    * 13 demo programs showing features and ease of use of various components.
     

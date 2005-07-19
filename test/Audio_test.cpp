@@ -5,17 +5,19 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.4 2005/07/19 05:57:58 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.5 2005/07/19 18:35:20 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include <boost/lexical_cast.hpp>
 
+// actual test is only compiled if OpenAL is in use
 #ifdef PHOTON_USE_OPENAL
 
 using namespace photon::audio;
 
-class MainTask : public Task
+// sole task of AudioTest
+class MainTask : public Task , public InputListener
 {
 
 public:
@@ -24,14 +26,13 @@ public:
         app(AppCore::getInstance()),
         video(video::VideoCore::getInstance())
     {
-        LogSinkPtr csp( new ConsoleSink("console") );
-        log.addSink(csp);
-
-        video.setOrthoView(800,600);
+        video.setOrthoView(800,600);    // setup view
         
+        // load a font
         video::Font::addResource("font","data/FreeMono.ttf",20);
         font.open("font");
 
+        // load the 6 sound effects
         Sample::addResource("chimes","data/chimes.wav");
         Sample::addResource("ocean","data/ocean.wav");
         Sample::addResource("rain","data/rain.wav");
@@ -39,6 +40,7 @@ public:
         Sample::addResource("thunder","data/thunder.wav");
         Sample::addResource("waterdrop","data/waterdrop.wav");
         
+        // open the sounds
         chimes.open("chimes");
         ocean.open("ocean");
         rain.open("rain");
@@ -46,115 +48,120 @@ public:
         thunder.open("thunder");
         waterdrop.open("waterdrop");
         
+        // make all sounds looping
         chimes.setLooping(true);
         ocean.setLooping(true);
         rain.setLooping(true);
         stream.setLooping(true);
         thunder.setLooping(true);
         
+        // test Sample::isLooping via assertions
         assert(!waterdrop.isLooping());
         waterdrop.setLooping(true);
         assert(waterdrop.isLooping());
         
+        // status holds strings describing playing status for nice output
         for(int i=0; i < 6; ++i)
             status[i] = "NOT ";
     }
     
-    void checkKeys()
+    // executes the checking of the keys, when a key is pressed 
+    //  the state is toggled
+    void onKeyPress(int key)
     {
         static const std::string NOT_PLAYING = "NOT ";
-        static scalar lastCheck = 0;
         
-        if(app.getTime() - lastCheck > 0.1)
+        switch(key)
         {
-            lastCheck = app.getTime();
+   
+        case KEY_C:
+            if(!chimes.isPlaying())
+            {
+                chimes.play();
+                status[0] = "";
+            }
+            else
+            {
+                chimes.stop();
+                status[0] = NOT_PLAYING;
+            }
+            break;
             
-            if(app.keyPressed(KEY_C))
+        case KEY_O:
+            if(!ocean.isPlaying())
             {
-                if(!chimes.isPlaying())
-                {
-                    chimes.play();
-                    status[0] = "";
-                }
-                else
-                {
-                    chimes.stop();
-                    status[0] = NOT_PLAYING;
-                }
+                ocean.play();
+                status[1] = "";
             }
-            if(app.keyPressed(KEY_O))
+            else
             {
-                if(!ocean.isPlaying())
-                {
-                    ocean.play();
-                    status[1] = "";
-                }
-                else
-                {
-                    ocean.stop();
-                    status[1] = NOT_PLAYING;
-                }
+                ocean.stop();
+                status[1] = NOT_PLAYING;
             }
-            if(app.keyPressed(KEY_R))
+            break;
+            
+        case KEY_R:
+            if(!rain.isPlaying())
             {
-                if(!rain.isPlaying())
-                {
-                    rain.play();
-                    status[2] = "";
-                }
-                else
-                {
-                    rain.stop();
-                    status[2] = NOT_PLAYING;
-                }
+                rain.play();
+                status[2] = "";
             }
-            if(app.keyPressed(KEY_S))
+            else
             {
-                if(!stream.isPlaying())
-                {
-                    stream.play();
-                    status[3] = "";
-                }
-                else
-                {
-                    stream.stop();
-                    status[3] = NOT_PLAYING;
-                }
+                rain.stop();
+                status[2] = NOT_PLAYING;
             }
-            if(app.keyPressed(KEY_T))
+            break;
+            
+        case KEY_S:
+            if(!stream.isPlaying())
             {
-                if(!thunder.isPlaying())
-                {
-                    thunder.play();
-                    status[4] = "";
-                }
-                else
-                {
-                    thunder.stop();
-                    status[4] = NOT_PLAYING;
-                }
+                stream.play();
+                status[3] = "";
             }
-            if(app.keyPressed(KEY_W))
+            else
             {
-                if(!waterdrop.isPlaying())
-                {
-                    waterdrop.play();
-                    status[5] = "";
-                }
-                else
-                {
-                    waterdrop.stop();
-                    status[5] = NOT_PLAYING;
-                }
+                stream.stop();
+                status[3] = NOT_PLAYING;
             }
+            break;
+            
+        case KEY_T:
+            if(!thunder.isPlaying())
+            {
+                thunder.play();
+                status[4] = "";
+            }
+            else
+            {
+                thunder.stop();
+                status[4] = NOT_PLAYING;
+            }
+            break;
+            
+        case KEY_W:
+            if(!waterdrop.isPlaying())
+            {
+                waterdrop.play();
+                status[5] = "";
+            }
+            else
+            {
+                waterdrop.stop();
+                status[5] = NOT_PLAYING;
+            }
+            break;
+
+        default:
+            break;
         }
     }
 
+    // called once per frame
     void update()
     {
-        static const photon::uint fontHeight(font.getHeight());
+        // used to measure FPS and display it in the title bar
         static double t=0;
-
         if(app.getTime() - t > 1.0)
         {            
             app.setTitle("FPS: " + 
@@ -162,10 +169,12 @@ public:
             t = app.getTime();
         }
         
-        checkKeys();
+        // used for calculating draw position
+        static const photon::uint fontHeight(font.getHeight());
         
-        video.clear();
+        video.clear();  // clear display before drawing
         
+        // draw the status of all 6 sounds
         font.beginDraw(0, 0*fontHeight) << "(C)himes is " << status[0] << 
             "playing" << font.endDraw();
         font.beginDraw(0, 1*fontHeight) << "(O)cean is " << status[1] << 
@@ -185,8 +194,8 @@ private:
     video::Font font;
     audio::Sample chimes, ocean, rain, stream, thunder, waterdrop;
     std::string status[6];
-    
-    Log log;
+
+    // references to singleton cores
     AppCore& app;
     video::VideoCore& video;
 };
@@ -197,23 +206,29 @@ public:
 
     int main(const StrVec& args)
     {
+        // create window
         AppCore::getInstance().createDisplay(800,600,32,0,0,false);
-
-        AudioCore::initAudioDevice("OSS");
-
+        // create sound device
+         AudioCore::initAudioDevice("OSS");
+        
+        // add the task to the Kernel
         Kernel::getInstance().addTask(TaskPtr(new MainTask()));
-
-        Kernel::getInstance().run();
+        // run Kernel until task finishes
+        Kernel::getInstance().run();    
+        
+        // destroy AudioCore, shuts down audio system
+        AudioCore::destroy();
 
         return 0;
     }
 };
 
-ENTRYPOINT(AudioTest)
+ENTRYPOINT(AudioTest)   // make AudioTest the entrypoint class
 
 #else
-#include <iostream>
 
+// alternate application if OpenAL was not available
+#include <iostream>
 int main()
 {
     std::cerr << "Photon compiled without OpenAL support.\n"; 

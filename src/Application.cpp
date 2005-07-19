@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.12 2005/07/19 01:31:38 cozman Exp $
+//  $Id: Application.cpp,v 1.13 2005/07/19 18:35:20 cozman Exp $
 
 #include "Application.hpp"
 
@@ -43,7 +43,6 @@ Application::~Application()
 
     // destroy the singletons
     AppCore::destroy();
-    //audio::AudioCore::destroy();
     Kernel::destroy();
 }
 
