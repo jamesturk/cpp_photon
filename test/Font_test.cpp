@@ -5,12 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.6 2005/07/19 18:47:28 cozman Exp $
+//  $Id: Font_test.cpp,v 1.7 2005/07/20 06:12:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
-#include <boost/lexical_cast.hpp>
-
+#include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
 class MainTask : public Task
 {
@@ -33,18 +32,6 @@ public:
 
     void update()
     {   
-        // used to measure FPS and display it in the title bar
-        static double t=0;
-        if(app.getTime() - t > 1.0)
-        {            
-            app.setTitle("FPS: " + 
-                    boost::lexical_cast<std::string>(app.getFramerate()) );
-            t = app.getTime();
-        }
-
-        // clear screen 
-        video.clear();
-        
         // draw the three strings to the screen
         font.setColor(video::Color(0,128,128));
         font.drawText(0, 0, "Photon");
@@ -71,6 +58,8 @@ public:
     {
         AppCore::getInstance().createDisplay(800,600,32,0,0,false);
 
+        // be sure to add FPSDisplayTask
+        Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
         Kernel::getInstance().addTask(TaskPtr(new MainTask()));
 
         Kernel::getInstance().run();

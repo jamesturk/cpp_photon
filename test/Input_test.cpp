@@ -5,11 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.3 2005/07/19 20:32:00 cozman Exp $
+//  $Id: Input_test.cpp,v 1.4 2005/07/20 06:12:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
-#include <boost/lexical_cast.hpp>
+#include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
 class MainTask : public Task, public InputListener
 {
@@ -58,20 +58,9 @@ public:
 
     void update()
     {
-        // used to measure FPS and display it in the title bar
-        static double t=0;
-        if(app.getTime() - t > 1.0)
-        {            
-            app.setTitle("FPS: " + 
-                    boost::lexical_cast<std::string>(app.getFramerate()) );
-            t = app.getTime();
-        }
-        
         // used for spacing text vertically
         static const photon::uint fontHeight(font.getHeight());
         photon::uint curHeight(0);
-        
-        video.clear();  // clear display
         
         // draw input event/status notifications, increment curHeight on each 
         //  draw so that text is properly spaced vertically
@@ -133,6 +122,8 @@ public:
     {
         AppCore::getInstance().createDisplay(800,600,32,0,0,false);
 
+        // be sure to add FPSDisplayTask
+        Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
         Kernel::getInstance().addTask(TaskPtr(new MainTask()));
 
         Kernel::getInstance().run();

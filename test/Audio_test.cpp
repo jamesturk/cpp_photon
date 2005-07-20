@@ -5,11 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.5 2005/07/19 18:35:20 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.6 2005/07/20 06:12:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
-#include <boost/lexical_cast.hpp>
+#include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
 // actual test is only compiled if OpenAL is in use
 #ifdef PHOTON_USE_OPENAL
@@ -23,7 +23,6 @@ class MainTask : public Task , public InputListener
 public:
     MainTask() :
         Task("MainTask"),
-        app(AppCore::getInstance()),
         video(video::VideoCore::getInstance())
     {
         video.setOrthoView(800,600);    // setup view
@@ -160,19 +159,8 @@ public:
     // called once per frame
     void update()
     {
-        // used to measure FPS and display it in the title bar
-        static double t=0;
-        if(app.getTime() - t > 1.0)
-        {            
-            app.setTitle("FPS: " + 
-                    boost::lexical_cast<std::string>(app.getFramerate()) );
-            t = app.getTime();
-        }
-        
         // used for calculating draw position
         static const photon::uint fontHeight(font.getHeight());
-        
-        video.clear();  // clear display before drawing
         
         // draw the status of all 6 sounds
         font.beginDraw(0, 0*fontHeight) << "(C)himes is " << status[0] << 
@@ -195,8 +183,6 @@ private:
     audio::Sample chimes, ocean, rain, stream, thunder, waterdrop;
     std::string status[6];
 
-    // references to singleton cores
-    AppCore& app;
     video::VideoCore& video;
 };
 
@@ -209,9 +195,11 @@ public:
         // create window
         AppCore::getInstance().createDisplay(800,600,32,0,0,false);
         // create sound device
-         AudioCore::initAudioDevice("OSS");
+        AudioCore::initAudioDevice("OSS");
         
-        // add the task to the Kernel
+        // be sure to add FPSDisplayTask
+        Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
+        // add the main task to the Kernel
         Kernel::getInstance().addTask(TaskPtr(new MainTask()));
         // run Kernel until task finishes
         Kernel::getInstance().run();    
