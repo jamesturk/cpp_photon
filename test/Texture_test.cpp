@@ -5,16 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture_test.cpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Texture_test.cpp,v 1.5 2005/07/20 01:35:11 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include <boost/lexical_cast.hpp>
-
-// This is a simple framework for writing extremely simple Photon applications
-//  it simply displays a blank window and the framerate in the titlebar of
-//  the created window.  This is meant to show basic interaction between the
-//  user and the more common features of the AppCore and the Kernel.
 
 class MainTask : public Task
 {
@@ -25,29 +20,26 @@ public:
         app(AppCore::getInstance()),
         video(video::VideoCore::getInstance())
     {
-        LogSinkPtr csp( new ConsoleSink("console") );
-        log.addSink(csp);
-
         video.setOrthoView(800,600);
 
-        video::Texture::addResource("data/test.png");
-        video::Texture::addResource("test2","data/test2.png");
+        video::Texture::addResource("data/icon.png");
+        video::Texture::addResource("robo","data/robo.png");
         
-        // Testing of errors
-        //video::Texture::addResource("nonfile");
-        //video::Texture::addResource("Texture_test.cpp");
-        //tex[0].open("test0");
+        // Testing of errors, uncomment to get various errors
+        //video::Texture::addResource("nonfile");       // non-existant file
+        //video::Texture::addResource("Texture_test.cpp");  // non-image file
+        //tex[0].open("badresource");       // opening of non-existant resource
         
-        tex[0].open("data/test.png");
-        tex[1].open("test2");
+        tex[0].open("data/icon.png");
+        tex[1].open("robo");
         tex[2] = tex[1];
         
     }
     
     void update()
     {   
+        // used to measure FPS and display it in the title bar
         static double t=0;
-        
         if(app.getTime() - t > 1.0)
         {            
             app.setTitle("FPS: " + 
@@ -57,14 +49,16 @@ public:
 
         video.clear();
 
+        // draw first texture at actual size
         tex[0].bind();
         glBegin(GL_QUADS);
         glTexCoord2f(0,0);  glVertex2f(0,0);
-        glTexCoord2f(1,0);  glVertex2f(100,0);
-        glTexCoord2f(1,1);  glVertex2f(100,100);
+        glTexCoord2f(1,0);  glVertex2f(tex[0].getWidth(),0);
+        glTexCoord2f(1,1);  glVertex2f(tex[0].getWidth(),tex[0].getHeight());
         glTexCoord2f(0,1);  glVertex2f(0,100);
         glEnd();
         
+        // draw second texture on a diamond shaped polygon
         tex[1].bind();
         glBegin(GL_QUADS);
         glTexCoord2f(0,0);  glVertex2f(250,200);
@@ -73,6 +67,7 @@ public:
         glTexCoord2f(0,1);  glVertex2f(200,250);
         glEnd();
         
+        // draw texture and test Texture's boolean operator
         if(tex[2])
         {
             tex[2].bind();
@@ -87,12 +82,12 @@ public:
 
 private:
     video::Texture tex[3];
-    
-    Log log;
+
     AppCore& app;
     video::VideoCore& video;
 };
 
+// standard application, creates window, registers task and runs
 class TextureTest : public Application
 {
 public:

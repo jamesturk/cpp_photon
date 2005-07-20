@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.5 2005/07/19 20:31:41 cozman Exp $
+//  $Id: Image_test.cpp,v 1.6 2005/07/20 01:35:11 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -23,16 +23,16 @@ public:
         video.setOrthoView(800,600);
 
         // load the images
-        video::Image::addResource("data/test.png");
-        video::Texture::addResource("test2","data/test2.png");
+        video::Image::addResource("data/icon.png");
+        video::Texture::addResource("robo","data/robo.png");
 
         // load img[0], set to half translucency and resize
-        img[0].open("test2");
+        img[0].open("robo");
         img[0].setAlpha(128);
         img[0].resize(100,200);
         
         // load img[1]
-        img[1].open("data/test.png");
+        img[1].open("data/icon.png");
         
         // copy img[0] into img[2] and flip it
         img[2] = img[0];
@@ -62,7 +62,7 @@ public:
         // example usage of Images boolean operator
         if(img[2])
         {
-            img[2].draw(100,400);
+            img[2].draw(0,200);
         }
     }
 
