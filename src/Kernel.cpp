@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.cpp,v 1.2 2005/07/19 01:31:38 cozman Exp $
+//  $Id: Kernel.cpp,v 1.3 2005/07/20 06:12:54 cozman Exp $
 
 #include "Kernel.hpp"
 
@@ -80,7 +80,7 @@ void Kernel::addTask(TaskPtr task)
     task->onStart();    // called whenever a task is being started
     
     // find the first task in the list with a lower priority
-    while(it != tasks_.end() && task->getPriority() <= (*it)->getPriority())
+    while(it != tasks_.end() && (*it)->getPriority() <= task->getPriority())
     {
         ++it;
     }

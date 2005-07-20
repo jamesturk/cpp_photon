@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.12 2005/07/19 18:35:20 cozman Exp $
+//  $Id: AppCore.cpp,v 1.13 2005/07/20 06:12:54 cozman Exp $
 
 #include "AppCore.hpp"
 
@@ -30,7 +30,7 @@ AppCore::AppCore() :
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     util::ensureVersion("GLFW", initGLFW(), glfwReq);
 
-    Kernel::getInstance().addTask(task_);
+    Kernel::getInstance().addTask(task_);   // add updater task
 }
 
 AppCore::~AppCore()
@@ -288,7 +288,7 @@ util::VersionInfo AppCore::initGLFW()
 }
 
 AppCore::UpdateTask::UpdateTask() :
-    Task("AppCore::UpdateTask", PRI_CORE),
+    Task("AppCore::UpdateTask", 10),
     mouseX_(0), mouseY_(0),
     active_(false), timerPaused_(false),
     unpauseOnActive_(false), lastPause_(0), pausedTime_(0),

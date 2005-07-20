@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.hpp,v 1.2 2005/07/19 01:31:37 cozman Exp $
+//  $Id: Task.hpp,v 1.3 2005/07/20 06:12:54 cozman Exp $
 
 #ifndef PHOTON_TASK_HPP
 #define PHOTON_TASK_HPP
@@ -29,26 +29,6 @@ class Kernel;
 //  via a pointer.
 typedef shared_ptr<Task> TaskPtr;
 
-// Enum: PriorityLevel
-//  Enumeration defining priority of a Task.
-//
-// Values:
-//  PRI_LOWEST  - Lowest priority available.
-//  PRI_LOW     - Lower-than-usual priority.
-//  PRI_NORMAL  - Normal priority, suitable for most tasks.
-//  PRI_HIGH    - Lower-than-usual priority.
-//  PRI_CORE    - Priority used by the various cores, between high and highest.
-//  PRI_HIGHEST - Highest priority available.
-enum PriorityLevel 
-{
-    PRI_LOWEST,
-    PRI_LOW,
-    PRI_NORMAL,
-    PRI_HIGH,
-    PRI_CORE,
-    PRI_HIGHEST
-};
-    
 // Class: Task
 //  Abstract class for tasks, which are runnable classes for use with <Kernel>.
 //
@@ -62,10 +42,12 @@ public:
     //
     // Parameters:
     //  name - Name for task, must be unique!
-    //  priority - Optional argument for desired <PriorityLevel> for the Task, 
+    //  priority - Optional argument for desired priority for the Task, 
     //              controls order in which tasks are run by the <Kernel>.
-    //              [default = PRI_NORMAL]
-    Task(const std::string& name, PriorityLevel priority=PRI_NORMAL);
+    //              Tasks are executed starting with the lowest number for 
+    //              priority, meaning a task with priority=0 will execute first.
+    //              Default priority is 5000.
+    Task(const std::string& name, uint priority=5000);
     
     // Function: ~Task
     //  Virtual destructor, exists simply to make inheritance safe.
@@ -122,8 +104,8 @@ public:
     //  Get the priority of the task.
     //
     // Return:
-    //  <PriorityLevel> of task.
-    PriorityLevel getPriority() const;
+    //  priority of task.
+    uint getPriority() const;
 
     // Function: isAlive
     //  Check if task is alive or not. 
@@ -142,7 +124,7 @@ public:
 // data members
 private:
     std::string name_;          // all tasks need a unique name
-    PriorityLevel priority_;    // priority determines ordering of tasks
+    uint priority_;             // priority determines ordering of tasks
     bool alive_;                // if false, task will be pruned
     bool paused_;               // if false task won't be executed
 };

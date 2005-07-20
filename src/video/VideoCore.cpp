@@ -5,15 +5,16 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.7 2005/07/03 05:20:49 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.8 2005/07/20 06:12:54 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
+#include "Kernel.hpp"
 #include "exceptions.hpp"
 
 #include "GL/gl.h"
 #include "GL/glu.h"
-
+#include <iostream>
 namespace photon
 {
 namespace video
@@ -24,17 +25,14 @@ VideoCore::VideoCore() :
     viewportWidth_(0), viewportHeight_(0) 
 {
     initOpenGL();
+    
+    //add updater task
+    Kernel::getInstance().addTask(shared_ptr<Task>(new UpdateTask()));
 }
 
 VideoCore::~VideoCore()
-{
-}
+{ }
 
-void VideoCore::clear()
-{
-    // TODO: clear depth/stencil if requested
-    glClear(GL_COLOR_BUFFER_BIT);
-}
 
 void VideoCore::setOrthoView(int x, int y, int viewWidth, int viewHeight, 
                                 scalar orthoWidth, scalar orthoHeight)
@@ -146,6 +144,17 @@ uint VideoCore::getDisplayWidth()
 uint VideoCore::getDisplayHeight()
 {
     return displayHeight_;
+}
+
+VideoCore::UpdateTask::UpdateTask() :
+    Task("VideoCore::UpdateTask", 20)
+{
+}
+
+void VideoCore::UpdateTask::update()
+{
+    // TODO: clear depth/stencil if requested
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 }

@@ -5,13 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.hpp,v 1.3 2005/07/18 07:19:48 cozman Exp $
+//  $Id: VideoCore.hpp,v 1.4 2005/07/20 06:12:54 cozman Exp $
 
 #ifndef PHOTON_VIDEO_VIDEOCORE_HPP
 #define PHOTON_VIDEO_VIDEOCORE_HPP
 
 #include "types.hpp"
 #include "util/Singleton.hpp"
+#include "Task.hpp"
 
 namespace photon
 {
@@ -41,13 +42,6 @@ public:
     // Function: ~VideoCore
     //  Shutdown underlying APIs.
     ~VideoCore();
-    
-// Group: Display Management
-public: 
-
-    // Function: clearDisplay
-    //  Clears the display. 
-    void clear();
 
 // Group: Viewport 
 //  Functions to set the working viewport and perspective. Orthographic and
@@ -160,6 +154,20 @@ public:
 // behind the scenes
 private: 
     void initOpenGL();  // set desired OpenGL options
+    
+    // UpdateTask, does the updating work of VideoCore, registered as a Task
+    //  so that user need not call something akin to VideoCore::update() every 
+    //  frame
+    class UpdateTask : public Task
+    {
+
+    friend class VideoCore;
+
+    public:
+        UpdateTask();
+
+        void update();
+    };
     
 // data members
 private:
