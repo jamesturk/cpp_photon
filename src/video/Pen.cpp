@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.cpp,v 1.4 2005/07/18 07:19:48 cozman Exp $
+//  $Id: Pen.cpp,v 1.5 2005/07/20 03:58:54 cozman Exp $
 
 #include "video/Pen.hpp"
 
@@ -94,7 +94,7 @@ void Pen::drawVector(const math::Point2& point,
     glPopAttrib();
 }
 
-void Pen::drawRectangle(const math::Rect &rect) const
+void Pen::drawRect(const math::Rect &rect) const
 {
     glBindTexture(GL_TEXTURE_2D,0);
     glPushAttrib(GL_CURRENT_BIT);
@@ -109,7 +109,7 @@ void Pen::drawRectangle(const math::Rect &rect) const
     glPopAttrib();
 }
 
-void Pen::fillRectangle(const math::Rect &rect) const
+void Pen::fillRect(const math::Rect &rect) const
 {
     glBindTexture(GL_TEXTURE_2D,0);
     glPushAttrib(GL_CURRENT_BIT);

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.hpp,v 1.2 2005/03/03 09:25:47 cozman Exp $
+//  $Id: Pen.hpp,v 1.3 2005/07/20 03:58:54 cozman Exp $
 
 #ifndef PHOTON_VIDEO_PEN_HPP
 #define PHOTON_VIDEO_PEN_HPP
@@ -103,19 +103,19 @@ public:
     void drawVector(const math::Point2& point, 
                     const math::Vector2& vector) const;
     
-    // Function: drawRectangle
+    // Function: drawRect
     //  Draw an empty rectangle.
     // 
     // Parameters:
     //  rect - <Rect> to draw.
-    void drawRectangle(const math::Rect &rect) const;
+    void drawRect(const math::Rect &rect) const;
     
-    // Function: fillRectangle
+    // Function: fillRect
     //  Draw a filled rectangle.
     // 
     // Parameters:
     //  rect - <Rect> to draw.
-    void fillRectangle(const math::Rect &rect) const;
+    void fillRect(const math::Rect &rect) const;
     
     // Function: drawCircle
     //  Draw an empty circle.

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen_test.cpp,v 1.3 2005/07/19 20:55:40 cozman Exp $
+//  $Id: Pen_test.cpp,v 1.4 2005/07/20 03:58:54 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -46,7 +46,7 @@ public:
         unsigned int i,j;   //used throughout demo
         
         // draw points in a traveling sine curve
-        g.fillRectangle(math::Rect(math::Point2(0,0), 800, 100));
+        g.fillRect(math::Rect(math::Point2(0,0), 800, 100));
         for(i=0; i < 800; i += 5)
         {
             scalar ang = math::degToRad(i+100*app.getTime());
@@ -75,9 +75,9 @@ public:
         // draw rectangles to show Rect::calcIntersection in action
         math::Rect rect1(math::Point2(500, 300), 200, 100);
         math::Rect rect2(math::Point2(550, 375), 100, 200);
-        r.drawRectangle(rect1);
-        b.drawRectangle(rect2);
-        g.fillRectangle(rect1.calcIntersection(rect2));
+        r.drawRect(rect1);
+        b.drawRect(rect2);
+        g.fillRect(rect1.calcIntersection(rect2));
     }
 
 private:
