@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.7 2005/07/20 06:12:13 cozman Exp $
+//  $Id: Font_test.cpp,v 1.8 2005/07/20 07:30:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -22,9 +22,12 @@ public:
     {
         video.setOrthoView(800,600);
 
+        // add archive to search path
+        util::filesys::addToSearchPath("data/fonts.zip");
+        
         // show two different fonts
-        video::Font::addResource("font1","data/FreeMono.ttf",32);
-        video::Font::addResource("font2","data/FreeSerif.ttf",18);
+        video::Font::addResource("font1","FreeMono.ttf",32);
+        video::Font::addResource("font2","FreeSerif.ttf",18);
 
         font.open("font1");
         font2.open("font2");

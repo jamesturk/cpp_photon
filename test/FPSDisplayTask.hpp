@@ -4,7 +4,9 @@
 #include "photon.hpp"
 #include <boost/lexical_cast.hpp>
 
-// used to measure FPS and display it in the title bar
+// Used to measure FPS and display it in the title bar.  Pretty good example
+//  of when to use a Task, logic is entirely separate from rest of application
+//  and should be executed regularly.
 class FPSDisplayTask : public photon::Task
 {
 public:

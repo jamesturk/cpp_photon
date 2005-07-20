@@ -6,7 +6,7 @@
 <node ID="Freemind_Link_682620075" POSITION="right" TEXT="0.1 Release">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1746871436" TEXT="remaining features">
-<node ID="Freemind_Link_40954797" TEXT="improved input handling ">
+<node FOLDED="true" ID="Freemind_Link_40954797" TEXT="improved input handling ">
 <icon BUILTIN="button_ok"/>
 <node ID="_" TEXT="amph listener system">
 <icon BUILTIN="button_ok"/>
@@ -16,39 +16,26 @@
 </node>
 </node>
 <node ID="Freemind_Link_1825420810" TEXT="Music">
-<node ID="Freemind_Link_105493282" TEXT="maybe at least WAV queueing"/>
-<node ID="Freemind_Link_211899568" TEXT="delay development into 0.1.x">
-<font NAME="SansSerif" SIZE="12"/>
-<icon BUILTIN="help"/>
-</node>
-</node>
-<node ID="Freemind_Link_547285954" TEXT="Kernel Test">
-<node ID="Freemind_Link_1976399424" TEXT="make call to keep/remove Kernel system">
-<icon BUILTIN="messagebox_warning"/>
+<icon BUILTIN="stop"/>
+<node COLOR="#ff0300" ID="Freemind_Link_1961333678" TEXT="delay until 0.1.x">
+<font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
 <node ID="Freemind_Link_261923672" TEXT="change way Audio is enabled">
 <icon BUILTIN="button_ok"/>
 <node ID="Freemind_Link_1100203457" TEXT="fixed ~AudioCore"/>
 </node>
+<node ID="Freemind_Link_1694084951" TEXT="work on making Task more user friendly">
+<font NAME="SansSerif" SIZE="12"/>
+<node ID="Freemind_Link_1066242768" TEXT="&quot;State&quot; system">
+<font NAME="SansSerif" SIZE="12"/>
 </node>
-<node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs"/>
-<node ID="Freemind_Link_1010220321" TEXT="clean/test all tests">
-<node ID="Freemind_Link_129725390" TEXT="Audio">
-<icon BUILTIN="button_ok"/>
+<node ID="Freemind_Link_854288636" TEXT="hide Kernel">
+<font NAME="SansSerif" SIZE="12"/>
 </node>
-<node ID="Freemind_Link_543532536" TEXT="ConfigFile"/>
-<node ID="Freemind_Link_1037234161" TEXT="Font"/>
-<node ID="Freemind_Link_1574983928" TEXT="Image"/>
-<node ID="Freemind_Link_83171017" TEXT="Input"/>
-<node ID="Freemind_Link_714170273" TEXT="Log"/>
-<node ID="Freemind_Link_1336661607" TEXT="Pen"/>
-<node ID="Freemind_Link_26290657" TEXT="RandGen"/>
-<node ID="Freemind_Link_1563035547" TEXT="Texture"/>
-<node ID="Freemind_Link_226187774" TEXT="exception"/>
-<node ID="Freemind_Link_120826083" TEXT="filesys"/>
-<node ID="Freemind_Link_1985120655" TEXT="math"/>
 </node>
+</node>
+<node ID="Freemind_Link_700471537" TEXT="dependencies / licensing clarification"/>
 <node ID="Freemind_Link_1153941464" TEXT="test compilation on fresh systems">
 <node ID="Freemind_Link_1403005191" TEXT="test compilation on clean linux system"/>
 <node ID="Freemind_Link_617919930" TEXT="test compilation on windows system">
@@ -64,12 +51,60 @@
 <icon BUILTIN="button_cancel"/>
 </node>
 </node>
+<node COLOR="#ff0300" ID="Freemind_Link_1465392887" TEXT="delay until 0.1.x">
+<font ITALIC="true" NAME="SansSerif" SIZE="12"/>
+<icon BUILTIN="help"/>
 </node>
 </node>
+</node>
+<node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs"/>
 <node ID="Freemind_Link_1870184326" TEXT="example game">
 <node COLOR="#000000" ID="Freemind_Link_597173063" TEXT="Asteroids"/>
 <node ID="Freemind_Link_719722821" TEXT="Lunar Lander"/>
 <node ID="Freemind_Link_173048174" TEXT="Missile Command"/>
+<node COLOR="#010101" ID="Freemind_Link_1447936394" TEXT="Frogger"/>
+<node COLOR="#010101" ID="Freemind_Link_1789291917" TEXT="LaserGame">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node FOLDED="true" ID="Freemind_Link_1010220321" TEXT="clean/test all tests">
+<icon BUILTIN="button_ok"/>
+<node ID="Freemind_Link_129725390" TEXT="Audio">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_543532536" TEXT="ConfigFile">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1037234161" TEXT="Font">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1574983928" TEXT="Image">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_83171017" TEXT="Input">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_714170273" TEXT="Log">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1336661607" TEXT="Pen">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_26290657" TEXT="RandGen">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1563035547" TEXT="Texture">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_120826083" TEXT="filesys">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1985120655" TEXT="math">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node COLOR="#010101" ID="Freemind_Link_1806925741" TEXT="resource finalization">
+<icon BUILTIN="button_ok"/>
 </node>
 </node>
 <node FOLDED="true" ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
@@ -124,7 +159,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.21 2005/07/19 18:35:20 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.22 2005/07/20 07:30:13 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>

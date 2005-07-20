@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.hpp,v 1.3 2005/03/02 08:39:03 cozman Exp $
+//  $Id: filesys.hpp,v 1.4 2005/07/20 07:30:13 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILESYS_FILESYS_HPP
 #define PHOTON_UTIL_FILESYS_FILESYS_HPP
@@ -57,13 +57,13 @@ std::string getUserDir();
 //
 // Parameters:
 //  dir - Directory to add to the search path
-//  append - if true, directory will be added to end of path
+//  append - optional: if true, directory will be added to end of path (default)
 //           if false, directory will be added to front of path
 //
 // See Also:
 //  <removeFromSearchPath>
 //  <getSearchPath>
-void addToSearchPath(const std::string& dir, bool append);
+void addToSearchPath(const std::string& dir, bool append=true);
 
 // Function: removeFromSearchPath
 //  Removes a directory from the search path, if it exists on the path.

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.6 2005/07/20 06:12:13 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.7 2005/07/20 07:30:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -27,17 +27,21 @@ public:
     {
         video.setOrthoView(800,600);    // setup view
         
+        // add archives to search path
+        util::filesys::addToSearchPath("data/fonts.zip");
+        util::filesys::addToSearchPath("data/wavdata.zip");
+        
         // load a font
-        video::Font::addResource("font","data/FreeMono.ttf",20);
+        video::Font::addResource("font","FreeMono.ttf",20);
         font.open("font");
-
+        
         // load the 6 sound effects
-        Sample::addResource("chimes","data/chimes.wav");
-        Sample::addResource("ocean","data/ocean.wav");
-        Sample::addResource("rain","data/rain.wav");
-        Sample::addResource("stream","data/stream.wav");
-        Sample::addResource("thunder","data/thunder.wav");
-        Sample::addResource("waterdrop","data/waterdrop.wav");
+        Sample::addResource("chimes","chimes.wav");
+        Sample::addResource("ocean","ocean.wav");
+        Sample::addResource("rain","rain.wav");
+        Sample::addResource("stream","stream.wav");
+        Sample::addResource("thunder","thunder.wav");
+        Sample::addResource("waterdrop","waterdrop.wav");
         
         // open the sounds
         chimes.open("chimes");

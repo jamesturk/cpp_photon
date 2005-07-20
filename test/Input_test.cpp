@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.4 2005/07/20 06:12:13 cozman Exp $
+//  $Id: Input_test.cpp,v 1.5 2005/07/20 07:30:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -21,8 +21,11 @@ public:
         video(video::VideoCore::getInstance())
     {
         video.setOrthoView(800,600);
+        
+        // add archives to search path
+        util::filesys::addToSearchPath("data/fonts.zip");
 
-        video::Font::addResource("font","data/FreeMono.ttf",20);
+        video::Font::addResource("font","FreeMono.ttf",20);
         font.open("font");
     }
     
