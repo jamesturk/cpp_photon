@@ -1,7 +1,7 @@
 Format: 1.35
 
 
-Title: Photon
+Title: Photon 0.0.0
 SubTitle: Simple Open Source 2D Game API
 
 Footer: Documentation for <a href="http://photon.sourceforge.net">photon</a>. Copyright (C) 2004-2005 James Turk
@@ -31,27 +31,32 @@ Group: photon::  {
 
    File: AppCore  (AppCore.hpp)
    File: Application  (Application.hpp)
-   File: AudioCore  (audio/AudioCore.hpp)
    File: Basic Types  (types.hpp)
    File: Entrypoint  (entrypoint.hpp)
    File: Exception/Error Types  (exceptions.hpp)
+   File: InputListener  (InputListener.hpp)
    File: Kernel  (Kernel.hpp)
    File: Log  (Log.hpp)
    File: Logging Utilities  (LogSink.hpp)
+   File: ResourceManaged  (ResourceManaged.hpp)
+   File: ResourceManager  (ResourceManager.hpp)
+   File: Task  (Task.hpp)
 
-   Group: Math  {
+   Group: Audio::  {
+
+      File: AudioCore  (audio/AudioCore.hpp)
+      File: Source  (audio/Source.hpp)
+      }  # Group: Audio::
+
+   Group: Math::  {
 
       File: Circle  (math/Circle.hpp)
       File: Math Utilities  (math/math.hpp)
       File: Rect  (math/Rect.hpp)
       File: Vector2  (math/Vector2.hpp)
-      }  # Group: Math
+      }  # Group: Math::
 
-   File: ResourceManaged  (ResourceManaged.hpp)
-   File: ResourceManager  (ResourceManager.hpp)
-   File: Task  (Task.hpp)
-
-   Group: Util  {
+   Group: Util::  {
 
       File: ConfigFile  (util/ConfigFile.hpp)
       File: FileBuffer  (util/FileBuffer.hpp)
@@ -60,9 +65,9 @@ Group: photon::  {
       File: Singleton  (util/Singleton.hpp)
       File: Timer  (util/Timer.hpp)
       File: VersionInfo  (util/VersionInfo.hpp)
-      }  # Group: Util
+      }  # Group: Util::
 
-   Group: Video  {
+   Group: Video::  {
 
       File: Color  (video/Color.hpp)
       File: Font  (video/Font.hpp)
@@ -70,7 +75,7 @@ Group: photon::  {
       File: Pen  (video/Pen.hpp)
       File: Texture  (video/Texture.hpp)
       File: VideoCore  (video/VideoCore.hpp)
-      }  # Group: Video
+      }  # Group: Video::
 
    }  # Group: photon::
 
