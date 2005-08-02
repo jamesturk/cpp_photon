@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.7 2005/07/20 07:30:13 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.8 2005/08/02 23:07:53 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -23,7 +23,7 @@ class MainTask : public Task , public InputListener
 public:
     MainTask() :
         Task("MainTask"),
-        video(video::VideoCore::getInstance())
+        video(Application::getVideoCore())
     {
         video.setOrthoView(800,600);    // setup view
         
@@ -197,20 +197,17 @@ public:
     int main(const StrVec& args)
     {
         // create window
-        AppCore::getInstance().createDisplay(800,600,32,0,0,false);
+        Application::getAppCore().createDisplay(800,600,32,0,0,false);
         // create sound device
-        AudioCore::initAudioDevice("OSS");
+        Application::initAudioCore("OSS");
         
         // be sure to add FPSDisplayTask
-        Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
+        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
         // add the main task to the Kernel
-        Kernel::getInstance().addTask(TaskPtr(new MainTask()));
+        Application::getKernel().addTask(TaskPtr(new MainTask()));
         // run Kernel until task finishes
-        Kernel::getInstance().run();    
+        Application::getKernel().run();    
         
-        // destroy AudioCore, shuts down audio system
-        AudioCore::destroy();
-
         return 0;
     }
 };

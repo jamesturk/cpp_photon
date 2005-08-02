@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.hpp,v 1.1 2005/03/15 19:22:07 cozman Exp $
+//  $Id: Kernel.hpp,v 1.2 2005/08/02 23:07:52 cozman Exp $
 
 #ifndef PHOTON_KERNEL_HPP
 #define PHOTON_KERNEL_HPP
@@ -13,21 +13,20 @@
 #include <list>
 #include <algorithm>
 
-#include "util/Singleton.hpp"
 #include "Task.hpp"
 
 namespace photon
 {
 
 // Class: Kernel
-//  Singleton Kernel class, maintains a list of <Tasks> and manages their 
-//  status, including adding, deleting, pausing, and unpausing tasks.
+//  Kernel class, maintains a list of <Tasks> and manages their status,
+//  handles adding, deleting, pausing, and unpausing tasks.
 //
 //  To use Kernel:
 //      - (1) Add any tasks (should be derived from <Task>)
 //      - (2) call <Kernel::run>
 //      - (3) in order to avoid running forever, all tasks should eventually die
-class Kernel : public util::Singleton<Kernel>
+class Kernel
 {
 
 // Group: (Con/De)structors

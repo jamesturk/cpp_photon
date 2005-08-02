@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.8 2005/07/20 07:30:13 cozman Exp $
+//  $Id: Font_test.cpp,v 1.9 2005/08/02 23:07:53 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -17,8 +17,8 @@ class MainTask : public Task
 public:
     MainTask() :
         Task("MainTask"),
-        app(AppCore::getInstance()),
-        video(video::VideoCore::getInstance())
+        app(Application::getAppCore()),
+        video(Application::getVideoCore())
     {
         video.setOrthoView(800,600);
 
@@ -59,13 +59,13 @@ public:
 
     int main(const StrVec& args)
     {
-        AppCore::getInstance().createDisplay(800,600,32,0,0,false);
+        Application::getAppCore().createDisplay(800,600,32,0,0,false);
 
         // be sure to add FPSDisplayTask
-        Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
-        Kernel::getInstance().addTask(TaskPtr(new MainTask()));
+        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
+        Application::getKernel().addTask(TaskPtr(new MainTask()));
 
-        Kernel::getInstance().run();
+        Application::getKernel().run();
 
         return 0;
     }

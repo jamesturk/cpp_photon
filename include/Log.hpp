@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.7 2005/07/19 01:31:37 cozman Exp $
+//  $Id: Log.hpp,v 1.8 2005/08/02 23:07:52 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP
@@ -14,7 +14,6 @@
 #include <list>
 #include <sstream>
 
-#include "util/Singleton.hpp"
 #include "LogSink.hpp"
 
 namespace photon

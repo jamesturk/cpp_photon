@@ -5,9 +5,10 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.cpp,v 1.3 2005/07/18 06:18:50 cozman Exp $
+//  $Id: Timer.cpp,v 1.4 2005/08/02 23:07:52 cozman Exp $
 
 #include "util/Timer.hpp"
+#include "Application.hpp"
 
 namespace photon
 {
@@ -15,7 +16,7 @@ namespace util
 {
 
 Timer::Timer(bool appTimeLinked) :
-    appCore_(AppCore::getInstance()),
+    appCore_(Application::getAppCore()),
     appTimeLinked_(appTimeLinked)
 {
     reset();	//initializes other members

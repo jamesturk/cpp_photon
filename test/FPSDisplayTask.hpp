@@ -12,7 +12,7 @@ class FPSDisplayTask : public photon::Task
 public:
     FPSDisplayTask() :
         Task("FPSDisplayTask", 1000000),    // extremely low priority
-        app(photon::AppCore::getInstance()),
+        app(photon::Application::getAppCore()),
         lastUpdate(0)
     { }
 

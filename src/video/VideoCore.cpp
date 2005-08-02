@@ -5,34 +5,35 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.8 2005/07/20 06:12:54 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.9 2005/08/02 23:07:53 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
+#include "Application.hpp"
 #include "Kernel.hpp"
 #include "exceptions.hpp"
 
 #include "GL/gl.h"
 #include "GL/glu.h"
-#include <iostream>
+
 namespace photon
 {
 namespace video
 {
     
-VideoCore::VideoCore() : 
-    displayWidth_(0), displayHeight_(0), 
+VideoCore::VideoCore(uint width, uint height) : 
+    displayWidth_(width), displayHeight_(height), 
     viewportWidth_(0), viewportHeight_(0) 
 {
     initOpenGL();
+    setOrthoView();
     
     //add updater task
-    Kernel::getInstance().addTask(shared_ptr<Task>(new UpdateTask()));
+    Application::getKernel().addTask(shared_ptr<Task>(new UpdateTask()));
 }
 
 VideoCore::~VideoCore()
 { }
-
 
 void VideoCore::setOrthoView(int x, int y, int viewWidth, int viewHeight, 
                                 scalar orthoWidth, scalar orthoHeight)

@@ -5,13 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.hpp,v 1.4 2005/07/20 06:12:54 cozman Exp $
+//  $Id: VideoCore.hpp,v 1.5 2005/08/02 23:07:52 cozman Exp $
 
 #ifndef PHOTON_VIDEO_VIDEOCORE_HPP
 #define PHOTON_VIDEO_VIDEOCORE_HPP
 
 #include "types.hpp"
-#include "util/Singleton.hpp"
 #include "Task.hpp"
 
 namespace photon
@@ -20,24 +19,25 @@ namespace video
 {
 
 // Class: VideoCore
-//  Photon's <Singleton> core for graphics behavior.  Defines the interface 
-//  through which all graphics related functions are performed.
+//  Photon's core for graphics behavior.  Defines the interface through which 
+//  all graphics related functions are performed.
 //
 //  VideoCore is the Core that interfaces with the actual drawing/updating of
 //  the display.
 //
 // See Also:
 //  <AppCore>
-//
-// Parent:
-//  <Singleton>
-class VideoCore : public util::Singleton<VideoCore>
+class VideoCore
 {
 // Group: (Con/De)structors
 public:
     // Function: VideoCore
     //  Initialize underlying APIs and setup <Task> internals.
-    VideoCore();
+    //
+    // Parameters:
+    //  width - Width of display.
+    //  height - height of display
+    VideoCore(uint width, uint height);
     
     // Function: ~VideoCore
     //  Shutdown underlying APIs.

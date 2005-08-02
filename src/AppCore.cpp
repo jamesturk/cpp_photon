@@ -5,13 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.cpp,v 1.13 2005/07/20 06:12:54 cozman Exp $
+//  $Id: AppCore.cpp,v 1.14 2005/08/02 23:07:52 cozman Exp $
 
 #include "AppCore.hpp"
 
 #include <boost/lexical_cast.hpp>
 #include "GL/glfw.h"   //This file depends on glfw
 
+#include "Application.hpp"
 #include "Kernel.hpp"
 #include "exceptions.hpp"
 #include "video/VideoCore.hpp"
@@ -26,19 +27,24 @@ std::vector<KeyCode> AppCore::pressedKeys_;
 AppCore::AppCore() :
     dispWidth_(0), dispHeight_(0),
     task_(new UpdateTask())
+{ }
+
+AppCore::~AppCore()
+{
+}
+
+void AppCore::init()
 {
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     util::ensureVersion("GLFW", initGLFW(), glfwReq);
 
-    Kernel::getInstance().addTask(task_);   // add updater task
+    Application::getKernel().addTask(task_);   // add updater task
 }
 
-AppCore::~AppCore()
+void AppCore::shutdown()
 {
-
     if(dispWidth_ && dispHeight_)
     {
-        video::VideoCore::destroy();    // destroy videocore
         glfwCloseWindow();              //close GLFW window
     }
     
@@ -66,10 +72,9 @@ void AppCore::createDisplay(uint width, uint height,
     glfwSetMousePosCallback(AppCore::mouseMoveCallback);
     //glfwSetMouseWheelCallback(AppCore::mouseWheelCallback);
 
+    Application::initVideoCore(width, height);
     dispWidth_ = width;
     dispHeight_ = height;
-    new video::VideoCore;   // _MUST_ create the VideoCore after the window!
-    video::VideoCore::getInstance().setDisplaySize(width,height);
 
     glfwSetWindowTitle(title.c_str());  // title is set separately
 }
@@ -314,7 +319,7 @@ void AppCore::UpdateTask::update()
         ( (glfwGetKey(GLFW_KEY_LALT) || glfwGetKey(GLFW_KEY_RALT)) &&
           (glfwGetKey(GLFW_KEY_F4) || glfwGetKey('X')) ) )
     {
-        Kernel::getInstance().killAllTasks();
+        Application::getKernel().killAllTasks();
     }
 
     // hold active-state

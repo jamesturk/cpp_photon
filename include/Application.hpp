@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.9 2005/07/19 01:31:37 cozman Exp $
+//  $Id: Application.hpp,v 1.10 2005/08/02 23:07:51 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -18,6 +18,10 @@
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
 #include "Task.hpp"
+#include "Kernel.hpp"
+#include "AppCore.hpp"
+#include "video/VideoCore.hpp"
+#include "audio/AudioCore.hpp"
 
 namespace photon
 {
@@ -55,6 +59,15 @@ public:
     // See Also:
     //  <ENTRYPOINT>
     virtual int main(const StrVec& args)=0;
+    
+// Group: Core Access
+public:
+    static Kernel& getKernel();
+    static AppCore& getAppCore();
+    static video::VideoCore& getVideoCore();
+    static audio::AudioCore& getAudioCore();
+    static void initVideoCore(uint width, uint height);
+    static void initAudioCore(const std::string& deviceName);
 
 // behind the scenes
 public:
@@ -67,6 +80,12 @@ private:
 private:
     // version number for photon
     util::VersionInfo photonVer_;
+    
+    // Cores and Kernel
+    static Kernel kernel_;
+    static AppCore appCore_;
+    static std::auto_ptr<video::VideoCore> videoCore_;
+    static std::auto_ptr<audio::AudioCore> audioCore_;
 
     static std::string arg0_;
 };

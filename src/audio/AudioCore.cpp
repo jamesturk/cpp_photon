@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.10 2005/07/19 18:35:20 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.11 2005/08/02 23:07:52 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -19,12 +19,13 @@ namespace photon
 namespace audio
 {
 
-AudioCore::AudioCore(const std::string& deviceName) 
-{
+//AudioCore::AudioCore()
+AudioCore::AudioCore(const std::string& deviceName)
+{ 
     //util::VersionInfo oalReq(0,0,7);    // requires OpenAL 1.0 (TODO: check?)
     //util::ensureVersion("OpenAL", initOpenAL(), oalReq);
     
-    initOpenAL(deviceName);   // don't check version for now 
+    initOpenAL(deviceName);   // don't check version for now
 }
 
 AudioCore::~AudioCore()
@@ -36,7 +37,7 @@ AudioCore::~AudioCore()
     // destroy context & device
     alcDestroyContext(context);
     alcCloseDevice(device);
-    
+
     // set current context to null
     alcMakeContextCurrent(0);
 }
@@ -147,7 +148,7 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
 
 void AudioCore::initAudioDevice(const std::string& deviceName)
 {
-    new AudioCore(deviceName);
+    // new AudioCore(deviceName);
 }
 
 

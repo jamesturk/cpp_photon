@@ -5,14 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AppCore.hpp,v 1.8 2005/07/19 05:45:22 cozman Exp $
+//  $Id: AppCore.hpp,v 1.9 2005/08/02 23:07:51 cozman Exp $
 
 #ifndef PHOTON_APPCORE_HPP
 #define PHOTON_APPCORE_HPP
 
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
-#include "util/Singleton.hpp"
 #include "Task.hpp"
 #include "InputListener.hpp"
 
@@ -22,20 +21,21 @@ namespace photon
 {
 
 // Class: AppCore
-//  Photon's <Singleton> core for application behavior.  Defines the interface
-//  through which all "application" related functions are performed.
+//  Photon's core for application behavior.  Defines the interface through which
+//  all "application" related functions are performed.  This means input, 
+//  display creation, etc.
 //
 //  AppCore is the Core that essentially represents the window management,
 //  input, and timing systems.
-//
-// Parent:
-//  <Singleton>
-class AppCore : public util::Singleton<AppCore>
+class AppCore
 {
 
 public:
     AppCore();
     ~AppCore();
+    
+    void init();
+    void shutdown();
 
 // Group: Video
 public:

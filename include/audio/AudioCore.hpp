@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.9 2005/07/19 05:56:08 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.10 2005/08/02 23:07:52 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -24,20 +24,18 @@ namespace audio
 {
 
 // Class: AudioCore
-//  Photon's <Singleton> core for audio manipulation/control.  Defines the
-//  interface through which all audio related functions are performed.
-//
-// Parent:
-//  <Singleton>
-class AudioCore : public util::Singleton<AudioCore>
+//  Photon's core for audio manipulation/control.  Defines the interface through
+//  which all audio related functions are performed.
+class AudioCore
 {
 
 // Group: (Con/De)structors
 public:
     // Function: AudioCore
     //  Initialize underlying APIs and setup <Task> internals.
+    //AudioCore();
     AudioCore(const std::string& deviceName);
-
+    
     // Function: ~AudioCore
     //  Shutdown underlying APIs.
     ~AudioCore();

@@ -35,7 +35,9 @@
 </node>
 </node>
 </node>
-<node ID="Freemind_Link_700471537" TEXT="dependencies / licensing clarification"/>
+<node ID="Freemind_Link_700471537" TEXT="dependencies / licensing clarification">
+<icon BUILTIN="button_ok"/>
+</node>
 <node ID="Freemind_Link_1153941464" TEXT="test compilation on fresh systems">
 <node ID="Freemind_Link_1403005191" TEXT="test compilation on clean linux system"/>
 <node ID="Freemind_Link_617919930" TEXT="test compilation on windows system">
@@ -159,7 +161,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.22 2005/07/20 07:30:13 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.23 2005/08/02 23:07:51 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
