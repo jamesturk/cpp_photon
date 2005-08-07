@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.hpp,v 1.2 2005/07/18 06:18:51 cozman Exp $
+//  $Id: Timer.hpp,v 1.3 2005/08/07 07:12:47 cozman Exp $
 
 #ifndef PHOTON_UTIL_TIMER_HPP
 #define PHOTON_UTIL_TIMER_HPP
@@ -76,7 +76,6 @@ private:
     
 // data members
 private:
-    AppCore& appCore_;
     bool appTimeLinked_;
     bool paused_;
     double pausedTime_;

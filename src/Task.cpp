@@ -5,14 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.cpp,v 1.3 2005/07/20 06:12:54 cozman Exp $
+//  $Id: Task.cpp,v 1.4 2005/08/07 07:12:47 cozman Exp $
 
 #include "Task.hpp"
 
 namespace photon
 {
 
-Task::Task(const std::string& name, uint priority) :
+Task::Task(const std::string& name, PriorityLevel priority) :
     name_(name), priority_(priority), alive_(true), paused_(false)
 { 
 }

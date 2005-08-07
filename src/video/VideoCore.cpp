@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: VideoCore.cpp,v 1.9 2005/08/02 23:07:53 cozman Exp $
+//  $Id: VideoCore.cpp,v 1.10 2005/08/07 07:12:48 cozman Exp $
 
 #include "video/VideoCore.hpp"
 
@@ -27,9 +27,9 @@ VideoCore::VideoCore(uint width, uint height) :
 {
     initOpenGL();
     setOrthoView();
-    
+
     //add updater task
-    Application::getKernel().addTask(shared_ptr<Task>(new UpdateTask()));
+    Kernel::getInstance().addTask(shared_ptr<Task>(new UpdateTask()));
 }
 
 VideoCore::~VideoCore()
@@ -114,8 +114,8 @@ void VideoCore::initOpenGL()
     glShadeModel(GL_SMOOTH);
 
     // Setup depth checking.
-    glDepthFunc(GL_LEQUAL);
-    glEnable(GL_DEPTH_TEST);
+    //glDepthFunc(GL_LEQUAL);
+    //glEnable(GL_DEPTH_TEST);
 
     //setup hints
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
@@ -148,7 +148,7 @@ uint VideoCore::getDisplayHeight()
 }
 
 VideoCore::UpdateTask::UpdateTask() :
-    Task("VideoCore::UpdateTask", 20)
+    Task("VideoCore::UpdateTask", PRI_VIDEO_UPDATE)
 {
 }
 

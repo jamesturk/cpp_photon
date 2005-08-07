@@ -1,5 +1,5 @@
 IfAQ (Infrequently Asked Questions)
-$Id: IFAQ.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
+$Id: IFAQ.txt,v 1.2 2005/08/07 07:12:46 cozman Exp $
 
 --basic questions--
 
@@ -69,6 +69,12 @@ A. You cannot claim you wrote it, distribute altered versions that are not
 Q. Does Photon use proprietary libraries like DirectX?
 A. Photon only uses free open source libraries, so that by using Photon you are
     not subjected to any proprietary licensing terms.
+
+Q. When will features X, Y, and Z be completed?
+A. When I get to them, I can only work on Photon in my spare time, if you have a
+    specific request let me know and I can give you an estimate of when I plan 
+    on getting to it.  There's always the option that you help out and then the 
+    feature will be added sooner rather than later.
 
 Q. What if I have something to add?
 A. Feel free to contribute to Photon, bugfixes are greatly appreciated.  Not

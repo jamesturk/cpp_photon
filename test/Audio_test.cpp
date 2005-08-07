@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.8 2005/08/02 23:07:53 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.9 2005/08/07 07:12:48 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -200,14 +200,14 @@ public:
         Application::getAppCore().createDisplay(800,600,32,0,0,false);
         // create sound device
         Application::initAudioCore("OSS");
-        
+
         // be sure to add FPSDisplayTask
         Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
         // add the main task to the Kernel
         Application::getKernel().addTask(TaskPtr(new MainTask()));
         // run Kernel until task finishes
-        Application::getKernel().run();    
-        
+        Application::getKernel().run();
+
         return 0;
     }
 };

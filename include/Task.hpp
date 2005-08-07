@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.hpp,v 1.3 2005/07/20 06:12:54 cozman Exp $
+//  $Id: Task.hpp,v 1.4 2005/08/07 07:12:46 cozman Exp $
 
 #ifndef PHOTON_TASK_HPP
 #define PHOTON_TASK_HPP
@@ -17,17 +17,29 @@
 namespace photon
 {
 
-// Title: Task
+// Type: TaskPriority
+enum PriorityLevel
+{
+    PRI_APP_UPDATE,     // special priority for Application updating (first)
     
-// Group: Helper Types
-
-class Task;
-class Kernel;
-
-// Type: TaskPtr
-//  Pointer to a task, used since Task is abstract and will always be accessed 
-//  via a pointer.
-typedef shared_ptr<Task> TaskPtr;
+    // user-level priorities all lie in logic area
+    PRI_HIGHEST,        
+    PRI_HIGH, 
+    PRI_NORMAL, 
+    PRI_LOW,
+    PRI_LOWEST,
+    
+    PRI_VIDEO_UPDATE,   // special priority for clearing screen/video buffers
+    PRI_RENDER          // special priority for rendering (right after clear)
+    
+    // It is also important that no priorities fall between render/app update
+    // so that flow of applications is:
+    //  1) Update & SwapBuffers
+    //  2) Logic & User Level tasks
+    //  3) Clear screen/buffers
+    //  4) Render
+    //  5) SwapBuffers again (see step 1)
+};
 
 // Class: Task
 //  Abstract class for tasks, which are runnable classes for use with <Kernel>.
@@ -44,10 +56,8 @@ public:
     //  name - Name for task, must be unique!
     //  priority - Optional argument for desired priority for the Task, 
     //              controls order in which tasks are run by the <Kernel>.
-    //              Tasks are executed starting with the lowest number for 
-    //              priority, meaning a task with priority=0 will execute first.
-    //              Default priority is 5000.
-    Task(const std::string& name, uint priority=5000);
+    //              Default Priority is PRI_NORMAL
+    Task(const std::string& name, PriorityLevel priority=PRI_NORMAL);
     
     // Function: ~Task
     //  Virtual destructor, exists simply to make inheritance safe.
@@ -124,10 +134,15 @@ public:
 // data members
 private:
     std::string name_;          // all tasks need a unique name
-    uint priority_;             // priority determines ordering of tasks
+    PriorityLevel priority_;    // priority determines ordering of tasks
     bool alive_;                // if false, task will be pruned
     bool paused_;               // if false task won't be executed
 };
+
+// Type: TaskPtr
+//  Pointer to a task, used since Task is abstract and will always be accessed 
+//  via a pointer.
+typedef shared_ptr<Task> TaskPtr;
 
 }
 

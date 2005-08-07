@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.cpp,v 1.3 2005/07/20 06:12:54 cozman Exp $
+//  $Id: Kernel.cpp,v 1.4 2005/08/07 07:12:47 cozman Exp $
 
 #include "Kernel.hpp"
 
@@ -22,6 +22,41 @@ Kernel::Kernel()
 
 Kernel::~Kernel()
 {
+    killAllTasks();
+}
+
+void Kernel::step()
+{
+    std::list<TaskPtr>::iterator it;
+    
+    // loop through active tasks, updating each one
+    for(it = tasks_.begin(); it != tasks_.end(); ++it)
+    {
+        TaskPtr& task(*it);
+        
+        // only update alive, non-paused tasks
+        if(task->isAlive() && !task->isPaused())
+        {
+            task->update();
+        }
+    }
+
+    // loop through tasks, removing any dead tasks
+    for(it = tasks_.begin(); it != tasks_.end(); )
+    {
+        TaskPtr& task(*it);
+
+        // remove dead tasks
+        if(!task->isAlive())
+        {
+            task->onKill();     // symmetry with onStart, clean up act
+            it = tasks_.erase(it);
+        }
+        else
+        {
+            ++it;   //advance iterator, if not deleting
+        }
+    }
 }
     
 void Kernel::run()
@@ -29,36 +64,7 @@ void Kernel::run()
     // loop on activeTasks
     while(!tasks_.empty())
     {
-        std::list<TaskPtr>::iterator it;
-        
-        // loop through active tasks, updating each one
-        for(it = tasks_.begin(); it != tasks_.end(); ++it)
-        {
-            TaskPtr& task(*it);
-            
-            // only update alive, non-paused tasks
-            if(task->isAlive() && !task->isPaused())
-            {
-                task->update();
-            }
-        }
-
-        // loop through tasks, removing any dead tasks
-        for(it = tasks_.begin(); it != tasks_.end(); )
-        {
-            TaskPtr& task(*it);
-
-            // remove dead tasks
-            if(!task->isAlive())
-            {
-                task->onKill();     // symmetry with onStart, clean up act
-                it = tasks_.erase(it);
-            }
-            else
-            {
-                ++it;   //advance iterator, if not deleting
-            }
-        }
+        step();
     }
 }
 

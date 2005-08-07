@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.cpp,v 1.4 2005/08/02 23:07:52 cozman Exp $
+//  $Id: Timer.cpp,v 1.5 2005/08/07 07:12:48 cozman Exp $
 
 #include "util/Timer.hpp"
 #include "Application.hpp"
@@ -16,7 +16,6 @@ namespace util
 {
 
 Timer::Timer(bool appTimeLinked) :
-    appCore_(Application::getAppCore()),
     appTimeLinked_(appTimeLinked)
 {
     reset();	//initializes other members
@@ -74,7 +73,8 @@ double Timer::getTimeInternal() const
 {
     if(appTimeLinked_)
     {
-        return appCore_.getTime();  // get from AppCore timer if linked
+        // get from Application timer if linked
+        return Application::getInstance().getTime();  
     }
     else
     {

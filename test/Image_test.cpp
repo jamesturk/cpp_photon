@@ -5,23 +5,24 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.8 2005/08/02 23:07:53 cozman Exp $
+//  $Id: Image_test.cpp,v 1.9 2005/08/07 07:12:48 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
-class MainTask : public Task
+
+
+class MainState : public State
 {
 
 public:
-    MainTask() :
-        Task("MainTask"),
-        app(Application::getAppCore()),
-        video(Application::getVideoCore())
+    MainState() :
+        app(Application::getInstance())
+    { }
+    
+    void enterState()
     {
-        video.setOrthoView(800,600);
-
         // load the images
         video::Image::addResource("data/icon.png");
         video::Texture::addResource("robo","data/robo.png");
@@ -30,20 +31,24 @@ public:
         img[0].open("robo");
         img[0].setAlpha(128);
         img[0].resize(100,200);
-        
+
         // load img[1]
         img[1].open("data/icon.png");
-        
+
         // copy img[0] into img[2] and flip it
         img[2] = img[0];
         img[2].flip(true,true);
     }
     
     void update()
+    {
+    }
+    
+    void render()
     {   
         // draw in top left corner
         img[0].draw(0,0);
-        
+
         // rotate according to timer
         img[1].drawRotated(200,200,app.getTime()*5);
         
@@ -56,28 +61,22 @@ public:
 
 private:
     video::Image img[3];
-
-    AppCore& app;
-    video::VideoCore& video;
+    
+    Application& app;
 };
 
-// standard application, creates window, registers task and runs
-class ImageTest : public Application
+int PhotonMain(const StrVec& args)
 {
-public:
+    Application::getInstance().createDisplay(800,600,32,0,0,true);
 
-    int main(const StrVec& args)
-    {
-        Application::getAppCore().createDisplay(800,600,32,0,0,false);
+    // be sure to add FPSDisplayTask
+    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-        // be sure to add FPSDisplayTask
-        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
-        Application::getKernel().addTask(TaskPtr(new MainTask()));
-                                
-        Application::getKernel().run();
+    Application::getInstance().registerState<MainState>("main");
+    Application::getInstance().setCurrentState("main");
 
-        return 0;
-    }
-};
+    Kernel::getInstance().run();
+    
+    return 0;
+}
 
-ENTRYPOINT(ImageTest)

@@ -1,37 +1,38 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.2 2005/07/19 18:35:20 cozman Exp $
+$Id: CHANGELOG.txt,v 1.3 2005/08/07 07:12:46 cozman Exp $
 
 
-0.1.0 (Massachusetts) - Initial Release
-    * Kernel/Task design that allows easy creation of graphical 
-        games/applications without sacrificing control
-    * Extensive Log system that allows full control over logging including 
+0.0.1
+    + State-based design that allows easy creation of applications by simply
+        deriving from a basic 'State' class.
+    + Kernel/Task system allowing full control over game loop.
+    + Extensive Log system that allows full control over logging including 
         various log levels and three built in forms of output, with the ability 
         to add custom output formats.
-    * A wide variety of helper utilities for tasks such as filesystem 
+    + A wide variety of helper utilities for tasks such as filesystem 
         navigation, FileBuffer capable of reading from archives, random number 
         generation, versioning, and timing
-    * Powerful input system allowing for direct access to keyboard/mouse status
+    + Powerful input system allowing for direct access to keyboard/mouse status
         or passive listeners which are notified of events when they occur.
-    * Resource Management system including the ability to load resources from 
+    + Resource Management system including the ability to load resources from 
         specified directories or archives.
-    * Variety of math classes including Circle, Rectangle, and Vector classes 
+    + Variety of math classes including Circle, Rectangle, and Vector classes 
         convinient for game use
-    * ConfigFile class for reading/writing INI-style files for game settings
-    * OpenGL management including ability to set video mode, and easy management
+    + ConfigFile class for reading/writing INI-style files for game settings
+    + OpenGL management including ability to set video mode, and easy management
         of multiple viewports
-    * Resource-managed Texture class allowing for loading of textures for use in
+    + Resource-managed Texture class allowing for loading of textures for use in
         OpenGL
-    * Image class that extends Texture class, allowing for hardware accellerated
+    + Image class that extends Texture class, allowing for hardware accellerated
         drawing, rotation, scaling, and blending of images for use in 2D 
         environments
-    * Resource-managed Font class allowing for the rendering of text using 
+    + Resource-managed Font class allowing for the rendering of text using 
         TrueType fonts
-    * Primitive-drawing ‘Pen’ class allowing for drawing of various geometric 
+    + Primitive-drawing ‘Pen’ class allowing for drawing of various geometric 
         shapes, lines, and vectors.
-    * OpenAL based sound system*
-    * Entire library is built in a highly-modular fashion with extensibility in 
+    + OpenAL based sound system*
+    + Entire library is built in a highly-modular fashion with extensibility in 
         mind. Use of modern programming techniques like templates and exceptions
         contributes to ease of use and ease of development.
-    * 13 demo programs showing features and ease of use of various components.
+    + 12 demo programs showing features and ease of use of various components.
     

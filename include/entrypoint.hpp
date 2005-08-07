@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.6 2005/07/19 01:31:37 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.7 2005/08/07 07:12:46 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -15,54 +15,41 @@
 
 // Title: Entrypoint 
 
-//  Macro: ENTRYPOINT
-//  A macro which is used to specify the class containing the entrypoint.
-//  For example, if the class PongGame is the class derived from <Application>
-//  which implements main, in the file defining PongGame it is important to
-//  include ENTRYPOINT(PongGame) so that the entry point becomes PongGame::main.
+int PhotonMain(const photon::StrVec& args);
 
-#define ENTRYPOINT(className)    int main(int argc, const char** argv)  \
-                            { return photon::mainclass<className>(argc,argv); }
-
-namespace photon
-{
-
-// function which does all the work of ENTRYPOINT
-template<class App>
-int mainclass(int argc, const char** argv)
+int main(int argc, const char** argv)
 {
     // logging of uncaught exceptions to console
-    Log log;
-    log.addSink(LogSinkPtr(new photon::ConsoleSink("out")));
-    
+    photon::Log log;
+    log.addSink(photon::LogSinkPtr(new photon::ConsoleSink("out")));
+
     try
     {
-        App::setInitOptions(argv[0]);
-        
-        App app;
-        
+        new photon::Application(argv[0]);
+
         // push arguments into StrVec
-        StrVec args;
+        photon::StrVec args;
         for(int i=0; i < argc; ++i)
         {
             args.push_back(argv[i]);
         }
+        
+        int retVal = PhotonMain(args);
+        
+        photon::Application::destroy();
 
-        // hand arguments to Application::main and return what main returns
-        return app.main(args);  
+        return retVal;
     }
-    catch(Exception &e)     // log exceptions as errors (wow that's confusing)
+    catch(photon::Exception &e)     // log exceptions as errors (confusing?)
     {
         log.error() << e;
-        return 1;   
+        return 1;
     }
-    catch(Error &e)         // log errors as critical errors 
+    catch(photon::Error &e)         // log errors as critical errors 
     {
         log.critical() << e;
         return 1;
     }
-}
-
 }
 
 #endif  //PHOTON_ENTRYPOINT_HPP

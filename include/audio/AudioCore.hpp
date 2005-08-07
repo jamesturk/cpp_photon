@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.10 2005/08/02 23:07:52 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.11 2005/08/07 07:12:47 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -15,7 +15,6 @@
 #include "AL/al.h"
 #include "AL/alc.h"
 
-#include "util/Singleton.hpp"
 #include "util/VersionInfo.hpp"
 
 namespace photon

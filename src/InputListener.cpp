@@ -5,11 +5,11 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: InputListener.cpp,v 1.1 2005/07/19 05:45:24 cozman Exp $
+//  $Id: InputListener.cpp,v 1.2 2005/08/07 07:12:47 cozman Exp $
 
 #include "InputListener.hpp"
 
-#include "AppCore.hpp" 
+#include "Application.hpp" 
 
 namespace photon
 {
@@ -17,12 +17,12 @@ namespace photon
 InputListener::InputListener() :
     active_(true)
 {
-    AppCore::addInputListener(this);
+    Application::addInputListener(this);
 }
 
 InputListener::~InputListener()
 {
-    AppCore::removeInputListener(this);
+    Application::removeInputListener(this);
 }
 
 void InputListener::setActive(bool active)
