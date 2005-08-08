@@ -7,26 +7,20 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1125660603" TEXT="0.0.1">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_929078300" TEXT="write and execute RELEASE.HOWTO">
-<node ID="_" TEXT="version number bumps">
 <icon BUILTIN="button_ok"/>
-</node>
-<node ID="Freemind_Link_1596357294" TEXT="linux tests">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="Freemind_Link_1441433929" TEXT="windows tests"/>
-</node>
 </node>
 <node ID="Freemind_Link_115594103" TEXT="0.1">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1166438127" TEXT="test release candidate"/>
 <node ID="Freemind_Link_1870184326" TEXT="example game">
 <node COLOR="#000000" ID="Freemind_Link_597173063" TEXT="Asteroids"/>
 <node ID="Freemind_Link_719722821" TEXT="Lunar Lander"/>
 <node ID="Freemind_Link_173048174" TEXT="Missile Command"/>
 <node COLOR="#010101" ID="Freemind_Link_1447936394" TEXT="Frogger"/>
 </node>
-<node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs"/>
+<node ID="Freemind_Link_1166438127" TEXT="test release candidate"/>
+<node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs">
+<icon BUILTIN="button_ok"/>
+</node>
 </node>
 <node FOLDED="true" ID="Freemind_Link_1151493849" TEXT="0.1.x">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
@@ -105,7 +99,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.25 2005/08/08 19:35:13 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.26 2005/08/08 22:14:55 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node ID="Freemind_Link_853483912" POSITION="left" TEXT="Current Problems">
