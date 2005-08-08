@@ -1,0 +1,15 @@
+Sanity Check   
+    Check Compilation from CVS
+    Ensure Tests Run from CVS
+    Sanity Check NaturalDocs
+Bump Version Number
+    ndoc/Menu.txt : Title
+    src/Application.cpp : photonVer_
+    CHANGELOG.txt
+    photon.mm
+    Tag CVS with version number
+Sourceforge.net
+    Package from clean CVS
+    Upload to Sourceforge and release via Sourceforge release system
+    Upload docs to Sourceforge webspace
+    Write release announcement, post on DevBlog/Mailing list
