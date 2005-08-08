@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.7 2005/07/04 03:06:48 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.8 2005/08/08 19:19:24 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -25,7 +25,7 @@ namespace photon
 // Children:
 //  <Texture>, <Image>
 // 
-//  <Audio>, <Music>, <Sound>
+//  <Sample>
 template<class ResMgrT>
 class ResourceManaged
 {

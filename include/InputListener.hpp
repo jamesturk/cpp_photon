@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: InputListener.hpp,v 1.1 2005/07/19 05:45:23 cozman Exp $
+//  $Id: InputListener.hpp,v 1.2 2005/08/08 19:19:24 cozman Exp $
 
 #ifndef PHOTON_INPUTLISTENER_HPP
 #define PHOTON_INPUTLISTENER_HPP
@@ -24,11 +24,11 @@ class InputListener
 public:
 
     // Function: InputListener
-    //  Registers the InputListener to listen for input with <AppCore>.
+    //  Registers the InputListener to listen for input with <Application>.
     InputListener();
 
     // Function: ~InputListener
-    //  Deregisters the listener with <AppCore>. so that it is no longer
+    //  Deregisters the listener with <Application>. so that it is no longer
     //  notified of events.
     virtual ~InputListener();
 
@@ -54,15 +54,15 @@ public:
     //  Called when a key is pressed.
     // 
     // Parameters:
-    //  key - Key that has been pressed. 
-    virtual void onKeyPress(int key);
+    //  key - <KeyCode> of key that has been pressed. 
+    virtual void onKeyPress(KeyCode key);
     
     // Function: onKeyRelease
     //  Called when a key is released.
     // 
     // Parameters:
-    //  key - Key that has been released.
-    virtual void onKeyRelease(int key);
+    //  key - <KeyCode> of key that has been released.
+    virtual void onKeyRelease(KeyCode key);
 
 // Group: Mouse Actions
 public:
@@ -70,15 +70,15 @@ public:
     //  Called when a mouse button is pressed.
     //
     // Parameters:
-    //  button - Mouse button that was pressed.
-    virtual void onMouseButtonPress(int button);
+    //  button - <MouseButton> that was pressed.
+    virtual void onMouseButtonPress(MouseButton button);
     
     // Function: onMouseButtonRelease
     //  Called when a mouse button is released.
     //
     // Parameters:
-    //  button - Mouse button that was released.
-    virtual void onMouseButtonRelease(int button);
+    //  button - <MouseButton> that was released.
+    virtual void onMouseButtonRelease(MouseButton button);
 
     // Function: onMouseMove
     //  Called when the mouse is moved.

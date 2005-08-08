@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.18 2005/08/08 07:27:50 cozman Exp $
+//  $Id: Application.cpp,v 1.19 2005/08/08 19:19:21 cozman Exp $
 
 #include "Application.hpp"
 
@@ -305,11 +305,11 @@ void GLFWCALL Application::keyCallback(int key, int action)
         {
             if(action == GLFW_PRESS)
             {
-                (*listener)->onKeyPress(key);
+                (*listener)->onKeyPress(KeyCode(key));
             }
             else
             {
-                (*listener)->onKeyRelease(key);
+                (*listener)->onKeyRelease(KeyCode(key));
             }
         }
     }
@@ -344,11 +344,11 @@ void GLFWCALL Application::mouseButtonCallback(int button, int action)
         {
             if(action == GLFW_PRESS)
             {
-                (*listener)->onMouseButtonPress(button);
+                (*listener)->onMouseButtonPress(MouseButton(button));
             }
             else
             {
-                (*listener)->onMouseButtonRelease(button);
+                (*listener)->onMouseButtonRelease(MouseButton(button));
             }
         }
     }

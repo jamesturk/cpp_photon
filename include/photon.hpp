@@ -3,6 +3,7 @@
 
 #include "Kernel.hpp"
 #include "types.hpp"
+#include "State.hpp"
 #include "Application.hpp"
 #include "Task.hpp"
 #include "exceptions.hpp"
@@ -33,7 +34,6 @@
 #include "video/Texture.hpp"
 #include "video/Color.hpp"
 #include "video/TextureResourceManager.hpp"
-#include "video/VideoCore.hpp"
 #include "video/Font.hpp"
 
 #endif // PHOTON_HPP

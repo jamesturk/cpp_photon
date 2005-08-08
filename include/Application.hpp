@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.14 2005/08/08 07:27:50 cozman Exp $
+//  $Id: Application.hpp,v 1.15 2005/08/08 19:19:24 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -18,10 +18,10 @@
 
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
+#include "State.hpp"
 #include "Task.hpp"
 #include "Kernel.hpp"
 #include "InputListener.hpp"
-#include "video/VideoCore.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/Singleton.hpp"
 
@@ -29,24 +29,14 @@
 
 namespace photon
 {
-    
-class State
-{
-public:
-    State() { };
-    virtual ~State() { };
-
-public:
-    virtual void update() { };
-    virtual void render()=0;
-};
-
-typedef shared_ptr<State> StatePtr;
 
 // Class: Application
-//  Abstract main class, all photon applications should derive from Application.
+//  Photon main class, contains functions that control creation of the display,
+//  setting the OpenGL view, input handling, timing, and <State> management.
 //
-//  Derived classes are made entrypoint via <ENTRYPOINT>.
+//  Class is a <Singleton> and therefore should be accessed through 
+//  Application::getInstance().  (Application Singleton is created/destroyed 
+//  automatically)
 class Application : public util::Singleton<Application>
 {
 
@@ -151,7 +141,7 @@ public:
     void setOrthoView(scalar width, scalar height);
 
     // Function: setOrthoView
-    //  Sets entire screen as current viewport with a given ortho perspective.
+    //  Sets entire screen as current viewport with a 1:1 perspective.
     void setOrthoView();
 
 // Group: Perspective
@@ -173,8 +163,6 @@ public:
     
     // Function: setPerspectiveView
     //  Sets entire screen as current viewport with a given 3D perspective.
-    //
-    //  Same as call to setPerspective
     // 
     // Parameters:
     //  fovy - The y axis field of view angle, in degrees.
@@ -317,12 +305,25 @@ public:
     template<class StateT>
     void setCurrentState();
 
-// Group: Core Access
+// Group: AudioCore
 public:
+    // Function: getAudioCore
+    //  Get the Application's <AudioCore>, should only be called after 
+    //  <initAudioCore>.
+    //
+    // Return:
+    //  Reference to the <AudioCore>.
    audio::AudioCore& getAudioCore();
+   
+   // Function: initAudioCore
+   //  Initialize the <AudioCore>, should be done before attempting to access
+   //  it via <getAudioCore>.
+   //
+   // Arguments:
+   //  deviceName - Name for desired Audio device.
    void initAudioCore(const std::string& deviceName);
 
-// Group: API Initialization
+// API Initialization
 private:
     util::VersionInfo initPhysFS(const std::string& arg0);
     util::VersionInfo initGLFW();
@@ -330,8 +331,8 @@ private:
     
 // Task Classes
 private:
-    // UpdateTask, does the updating work of AppCore, registered as a Task
-    //  so that user need not call something akin to AppCore::update() every 
+    // UpdateTask, does the updating work of Application, registered as a Task
+    //  so that user need not call something akin to Application::update() every 
     //  frame
     class UpdateTask : public Task
     {

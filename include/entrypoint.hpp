@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.7 2005/08/07 07:12:46 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.8 2005/08/08 19:19:25 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -13,43 +13,49 @@
 
 #include "Log.hpp"
 
-// Title: Entrypoint 
+// Title: PhotonMain
+//  PhotonMain is the entrypoint for all Photon applications, attempting to use
+//  main will result in an error message since main is defined within the 
+//  library.  Using PhotonMain as an entrypoint allows you to bypass any manual
+//  initialization of the core Photon library.
+//
+// Example PhotonMain Usage:
+// (code)
+//
+// class MainMenu : public State
+// {
+//     ...
+// };
+//
+// int PhotonMain(const StrVec& args)
+// {
+//     // create window
+//     Application::getInstance().createDisplay(800,600,32,0,0,false);
+// 
+//     // set current state
+//     Application::getInstance().setCurrentState<MainMenu>();
+//
+//     // can also add any tasks here 
+// 
+//     // run until finished
+//     Kernel::getInstance().run();
+//     
+//     return 0;
+// }
+// (end)
 
+
+// Function: PhotonMain
+//  Entrypoint for Photon applications.
+//
+// Arguments:
+//  args - <StrVec> containing command line arguments.
+//
+// Returns:
+//  zero on success, non-zero on failure, just like standard main. 
 int PhotonMain(const photon::StrVec& args);
 
-int main(int argc, const char** argv)
-{
-    // logging of uncaught exceptions to console
-    photon::Log log;
-    log.addSink(photon::LogSinkPtr(new photon::ConsoleSink("out")));
 
-    try
-    {
-        new photon::Application(argv[0]);
-
-        // push arguments into StrVec
-        photon::StrVec args;
-        for(int i=0; i < argc; ++i)
-        {
-            args.push_back(argv[i]);
-        }
-        
-        int retVal = PhotonMain(args);
-        
-        photon::Application::destroy();
-
-        return retVal;
-    }
-    catch(photon::Exception &e)     // log exceptions as errors (confusing?)
-    {
-        log.error() << e;
-        return 1;
-    }
-    catch(photon::Error &e)         // log errors as critical errors 
-    {
-        log.critical() << e;
-        return 1;
-    }
-}
+int main(int argc, const char** argv);
 
 #endif  //PHOTON_ENTRYPOINT_HPP

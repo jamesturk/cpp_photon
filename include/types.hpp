@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.6 2005/04/21 19:30:19 cozman Exp $
+//  $Id: types.hpp,v 1.7 2005/08/08 19:19:25 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP
@@ -33,7 +33,7 @@ typedef unsigned char ubyte;
 typedef unsigned int uint;
 
 // Type: scalar
-//  Scalar value, used throughout photon. (double or float)
+//  Scalar value, used throughout photon in place of double or float
 typedef double scalar;
 
 // Group: STL/Boost Types
@@ -49,7 +49,7 @@ using boost::shared_ptr;
 // Group: Enums
 
 // Enum: KeyCode
-// Enumeration defining keys, used in <AppCore::keyPressed>.
+// Enumeration defining keys, used in <Application::keyPressed>.
 //
 // Enums:
 //  KEY_ESC  - Escape key
@@ -305,7 +305,7 @@ enum KeyCode
 };
 
 // Enum: MouseButton
-// Enumeration defining buttons, used in <AppCore::mouseButtonPressed>.
+// Enumeration defining buttons, used in <Application::mouseButtonPressed>.
 //
 //  MB_LEFT     - Left mouse button.
 //  MB_MIDDLE   - Middle mouse button.

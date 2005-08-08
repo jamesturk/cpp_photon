@@ -5,14 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.12 2005/08/08 07:27:50 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.13 2005/08/08 19:19:25 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
 #ifndef PHOTON_AUDIO_AUDIOCORE_HPP
 #define PHOTON_AUDIO_AUDIOCORE_HPP
 
-#include "AL/al.h"
+#include "AL/al.h"      // This file depends on OpenAL
 #include "AL/alc.h"
 
 #include "util/VersionInfo.hpp"

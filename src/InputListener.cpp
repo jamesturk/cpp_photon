@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: InputListener.cpp,v 1.2 2005/08/07 07:12:47 cozman Exp $
+//  $Id: InputListener.cpp,v 1.3 2005/08/08 19:19:22 cozman Exp $
 
 #include "InputListener.hpp"
 
@@ -36,10 +36,10 @@ bool InputListener::isActive() const
 }
 
 // do nothing, overloaded as needed
-void InputListener::onKeyPress(int key) { }
-void InputListener::onKeyRelease(int key) { }
-void InputListener::onMouseButtonPress(int button)  { }
-void InputListener::onMouseButtonRelease(int button) { }
+void InputListener::onKeyPress(KeyCode key) { }
+void InputListener::onKeyRelease(KeyCode key) { }
+void InputListener::onMouseButtonPress(MouseButton button)  { }
+void InputListener::onMouseButtonRelease(MouseButton button) { }
 void InputListener::onMouseMove(const math::Vector2& pos) { }
 
 
