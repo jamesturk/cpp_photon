@@ -1,8 +1,12 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.3 2005/08/07 07:12:46 cozman Exp $
+$Id: CHANGELOG.txt,v 1.4 2005/08/08 19:35:10 cozman Exp $
 
++ : New Features
+- : Feature Removal
+* : Minor Changes/Bugfixes
+! : Major Changes
 
-0.0.1
+0.0.1 - Released 2005-08-08
     + State-based design that allows easy creation of applications by simply
         deriving from a basic 'State' class.
     + Kernel/Task system allowing full control over game loop.
@@ -35,4 +39,5 @@ $Id: CHANGELOG.txt,v 1.3 2005/08/07 07:12:46 cozman Exp $
         mind. Use of modern programming techniques like templates and exceptions
         contributes to ease of use and ease of development.
     + 12 demo programs showing features and ease of use of various components.
+
     

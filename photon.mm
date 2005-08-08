@@ -7,55 +7,20 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_1125660603" TEXT="0.0.1">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_700471537" TEXT="dependencies / licensing clarification">
+<node ID="Freemind_Link_929078300" TEXT="write and execute RELEASE.HOWTO">
+<node ID="_" TEXT="version number bumps">
 <icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_1010220321" TEXT="0.0.1 final tests">
-<node ID="Freemind_Link_674240959" TEXT="convert">
-<icon BUILTIN="pencil"/>
+<node ID="Freemind_Link_1596357294" TEXT="linux tests">
+<icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_885668051" TEXT="test"/>
-</node>
-<node ID="Freemind_Link_1939341405" TEXT="evaluate status of Cores"/>
-<node FOLDED="true" ID="Freemind_Link_1153941464" TEXT="test compilation on fresh systems">
-<node ID="Freemind_Link_1403005191" TEXT="test compilation on clean linux system"/>
-<node ID="Freemind_Link_617919930" TEXT="test compilation on windows system">
-<node ID="Freemind_Link_962964571" TEXT="MingW"/>
-<node ID="Freemind_Link_601778960" TEXT="visual c++"/>
-</node>
-<node ID="Freemind_Link_510637" TEXT="OSX tester?">
-<node ID="Freemind_Link_1837644449" TEXT="gamedev"/>
-<node ID="Freemind_Link_867673431" TEXT="OSX dev community"/>
-<node COLOR="#ff0300" ID="Freemind_Link_1465392887" TEXT="delay until 0.1.x">
-<font ITALIC="true" NAME="SansSerif" SIZE="12"/>
-<icon BUILTIN="help"/>
-</node>
-</node>
+<node ID="Freemind_Link_1441433929" TEXT="windows tests"/>
 </node>
 </node>
 <node ID="Freemind_Link_115594103" TEXT="0.1">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node FOLDED="true" ID="Freemind_Link_1746871436" TEXT="features">
-<icon BUILTIN="button_ok"/>
-<node FOLDED="true" ID="Freemind_Link_40954797" TEXT="improved input handling ">
-<icon BUILTIN="button_ok"/>
-<node ID="_" TEXT="amph listener system">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="Freemind_Link_1092577706" TEXT="keysPressed list">
-<icon BUILTIN="button_ok"/>
-</node>
-</node>
-<node ID="Freemind_Link_261923672" TEXT="change way Audio is enabled">
-<icon BUILTIN="button_ok"/>
-<node ID="Freemind_Link_1100203457" TEXT="fixed ~AudioCore"/>
-</node>
-</node>
-<node COLOR="#010101" ID="Freemind_Link_1806925741" TEXT="resource finalization">
-<icon BUILTIN="button_ok"/>
-</node>
 <node ID="Freemind_Link_1166438127" TEXT="test release candidate"/>
-<node FOLDED="true" ID="Freemind_Link_1870184326" TEXT="example game">
+<node ID="Freemind_Link_1870184326" TEXT="example game">
 <node COLOR="#000000" ID="Freemind_Link_597173063" TEXT="Asteroids"/>
 <node ID="Freemind_Link_719722821" TEXT="Lunar Lander"/>
 <node ID="Freemind_Link_173048174" TEXT="Missile Command"/>
@@ -140,7 +105,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.24 2005/08/07 07:12:46 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.25 2005/08/08 19:35:13 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node ID="Freemind_Link_853483912" POSITION="left" TEXT="Current Problems">

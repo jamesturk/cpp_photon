@@ -13,3 +13,6 @@ Sourceforge.net
     Upload to Sourceforge and release via Sourceforge release system
     Upload docs to Sourceforge webspace
     Write release announcement, post on DevBlog/Mailing list
+
+
+$Id: RELEASE-HOWTO.txt,v 1.2 2005/08/08 19:35:11 cozman Exp $
