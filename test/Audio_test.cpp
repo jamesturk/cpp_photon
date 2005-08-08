@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.9 2005/08/07 07:12:48 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.10 2005/08/08 06:37:10 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -17,16 +17,12 @@ using namespace photon;
 using namespace photon::audio;
 
 // sole task of AudioTest
-class MainTask : public Task , public InputListener
+class MainState : public State , public InputListener
 {
 
 public:
-    MainTask() :
-        Task("MainTask"),
-        video(Application::getVideoCore())
+    MainState()
     {
-        video.setOrthoView(800,600);    // setup view
-        
         // add archives to search path
         util::filesys::addToSearchPath("data/fonts.zip");
         util::filesys::addToSearchPath("data/wavdata.zip");
@@ -159,9 +155,8 @@ public:
             break;
         }
     }
-
-    // called once per frame
-    void update()
+    
+    void render()
     {
         // used for calculating draw position
         static const photon::uint fontHeight(font.getHeight());
@@ -179,46 +174,38 @@ public:
             "playing" << font.endDraw();
         font.beginDraw(0, 5*fontHeight) << "(W)aterdrop is " << status[5] << 
             "playing" << font.endDraw();
-        
     }
 
 private:
     video::Font font;
     audio::Sample chimes, ocean, rain, stream, thunder, waterdrop;
     std::string status[6];
-
-    video::VideoCore& video;
 };
 
-class AudioTest : public Application
+int PhotonMain(const StrVec& args)
 {
-public:
+    // create window
+    Application::getInstance().createDisplay(800,600,32,0,0,false);
+    // initialize audio core
+    Application::getInstance().initAudioCore("OSS");
 
-    int main(const StrVec& args)
-    {
-        // create window
-        Application::getAppCore().createDisplay(800,600,32,0,0,false);
-        // create sound device
-        Application::initAudioCore("OSS");
+    // be sure to add FPSDisplayTask
+    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-        // be sure to add FPSDisplayTask
-        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
-        // add the main task to the Kernel
-        Application::getKernel().addTask(TaskPtr(new MainTask()));
-        // run Kernel until task finishes
-        Application::getKernel().run();
+    // register state and make active
+    Application::getInstance().setCurrentState<MainState>();
 
-        return 0;
-    }
-};
-
-ENTRYPOINT(AudioTest)   // make AudioTest the entrypoint class
+    // run until finished
+    Kernel::getInstance().run();
+    
+    return 0;
+}
 
 #else
 
 // alternate application if OpenAL was not available
 #include <iostream>
-int main()
+int PhotonMain(const StrVec& args)
 {
     std::cerr << "Photon compiled without OpenAL support.\n"; 
 }

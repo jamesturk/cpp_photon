@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.9 2005/08/07 07:12:48 cozman Exp $
+//  $Id: Image_test.cpp,v 1.10 2005/08/08 06:37:10 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -19,9 +19,6 @@ class MainState : public State
 public:
     MainState() :
         app(Application::getInstance())
-    { }
-    
-    void enterState()
     {
         // load the images
         video::Image::addResource("data/icon.png");
@@ -38,10 +35,6 @@ public:
         // copy img[0] into img[2] and flip it
         img[2] = img[0];
         img[2].flip(true,true);
-    }
-    
-    void update()
-    {
     }
     
     void render()
@@ -67,14 +60,16 @@ private:
 
 int PhotonMain(const StrVec& args)
 {
-    Application::getInstance().createDisplay(800,600,32,0,0,true);
+    // create window
+    Application::getInstance().createDisplay(800,600,32,0,0,false);
 
     // be sure to add FPSDisplayTask
     Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-    Application::getInstance().registerState<MainState>("main");
-    Application::getInstance().setCurrentState("main");
+    // set current state
+    Application::getInstance().setCurrentState<MainState>();
 
+    // run until finished
     Kernel::getInstance().run();
     
     return 0;

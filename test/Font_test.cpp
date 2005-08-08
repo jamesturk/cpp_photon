@@ -5,23 +5,19 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.9 2005/08/02 23:07:53 cozman Exp $
+//  $Id: Font_test.cpp,v 1.10 2005/08/08 06:37:10 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
-class MainTask : public Task
+class MainState : public State
 {
 
 public:
-    MainTask() :
-        Task("MainTask"),
-        app(Application::getAppCore()),
-        video(Application::getVideoCore())
+    MainState() :
+        app(Application::getInstance())
     {
-        video.setOrthoView(800,600);
-
         // add archive to search path
         util::filesys::addToSearchPath("data/fonts.zip");
         
@@ -33,8 +29,8 @@ public:
         font2.open("font2");
     }
 
-    void update()
-    {   
+    void render()
+    {
         // draw the three strings to the screen
         font.setColor(video::Color(0,128,128));
         font.drawText(0, 0, "Photon");
@@ -48,27 +44,22 @@ private:
     video::Font font;
     video::Font font2;
     
-    AppCore& app;
-    video::VideoCore& video;
+    Application& app;
 };
 
-// standard application, creates window, registers task and runs
-class FontTest : public Application
+int PhotonMain(const StrVec& args)
 {
-public:
+    // create window
+    Application::getInstance().createDisplay(800,600,32,0,0,false);
 
-    int main(const StrVec& args)
-    {
-        Application::getAppCore().createDisplay(800,600,32,0,0,false);
+    // be sure to add FPSDisplayTask
+    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-        // be sure to add FPSDisplayTask
-        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
-        Application::getKernel().addTask(TaskPtr(new MainTask()));
+    // set current state
+    Application::getInstance().setCurrentState<MainState>();
 
-        Application::getKernel().run();
-
-        return 0;
-    }
-};
-
-ENTRYPOINT(FontTest)
+    // run until finished
+    Kernel::getInstance().run();
+    
+    return 0;
+}

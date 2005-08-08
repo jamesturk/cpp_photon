@@ -5,23 +5,19 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.6 2005/08/02 23:07:53 cozman Exp $
+//  $Id: Input_test.cpp,v 1.7 2005/08/08 06:37:10 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
-class MainTask : public Task, public InputListener
+class MainState : public State, public InputListener
 {
 
 public:
-    MainTask() :
-        Task("MainTask"),
-        app(Application::getAppCore()),
-        video(Application::getVideoCore())
+    MainState() :
+        app(Application::getInstance())
     {
-        video.setOrthoView(800,600);
-        
         // add archives to search path
         util::filesys::addToSearchPath("data/fonts.zip");
 
@@ -59,7 +55,7 @@ public:
         lastEvent = "mouse moved to " +  boost::lexical_cast<std::string>(pos); 
     }
 
-    void update()
+    void render()
     {
         // used for spacing text vertically
         static const photon::uint fontHeight(font.getHeight());
@@ -112,27 +108,22 @@ private:
     video::Font font;
     std::string lastEvent;
 
-    AppCore& app;
-    video::VideoCore& video;
+    Application& app;
 };
 
-// standard application, creates window, registers task and runs
-class InputTest : public Application
+int PhotonMain(const StrVec& args)
 {
-public:
+    // create window
+    Application::getInstance().createDisplay(800,600,32,0,0,false);
 
-    int main(const StrVec& args)
-    {
-        Application::getAppCore().createDisplay(800,600,32,0,0,false);
+    // be sure to add FPSDisplayTask
+    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-        // be sure to add FPSDisplayTask
-        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
-        Application::getKernel().addTask(TaskPtr(new MainTask()));
+    // set current state
+    Application::getInstance().setCurrentState<MainState>();
 
-        Application::getKernel().run();
-
-        return 0;
-    }
-};
-
-ENTRYPOINT(InputTest)
+    // run until finished
+    Kernel::getInstance().run();
+    
+    return 0;
+}

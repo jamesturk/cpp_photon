@@ -5,23 +5,19 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture_test.cpp,v 1.7 2005/08/02 23:07:53 cozman Exp $
+//  $Id: Texture_test.cpp,v 1.8 2005/08/08 06:37:10 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
-class MainTask : public Task
+class MainState : public State
 {
 
 public:
-    MainTask() :
-        Task("MainTask"),
-        app(Application::getAppCore()),
-        video(Application::getVideoCore())
+    MainState() :
+        app(Application::getInstance())
     {
-        video.setOrthoView(800,600);
-
         video::Texture::addResource("data/icon.png");
         video::Texture::addResource("robo","data/robo.png");
         
@@ -36,7 +32,7 @@ public:
         
     }
     
-    void update()
+    void render()
     {   
         // draw first texture at actual size
         tex[0].bind();
@@ -72,27 +68,22 @@ public:
 private:
     video::Texture tex[3];
 
-    AppCore& app;
-    video::VideoCore& video;
+    Application& app;
 };
 
-// standard application, creates window, registers task and runs
-class TextureTest : public Application
+int PhotonMain(const StrVec& args)
 {
-public:
+    // create window
+    Application::getInstance().createDisplay(800,600,32,0,0,false);
 
-    int main(const StrVec& args)
-    {
-        Application::getAppCore().createDisplay(800,600,32,0,0,false);
+    // be sure to add FPSDisplayTask
+    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-        // be sure to add FPSDisplayTask
-        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
-        Application::getKernel().addTask(TaskPtr(new MainTask()));
+    // set current state
+    Application::getInstance().setCurrentState<MainState>();
 
-        Application::getKernel().run();
-
-        return 0;
-    }
-};
-
-ENTRYPOINT(TextureTest)
+    // run until finished
+    Kernel::getInstance().run();
+    
+    return 0;
+}

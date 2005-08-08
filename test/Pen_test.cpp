@@ -5,30 +5,26 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen_test.cpp,v 1.6 2005/08/02 23:07:53 cozman Exp $
+//  $Id: Pen_test.cpp,v 1.7 2005/08/08 06:37:10 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
-class MainTask : public Task
+class MainState : public State
 {
 
 public:
-    MainTask() :
-        Task("MainTask"),
-        app(Application::getAppCore()),
-        video(Application::getVideoCore())
+    MainState() :
+        app(Application::getInstance())
     {
-        video.setOrthoView(800,600);
-        
         // initialize three pens, red, blue and green
         r.setColor(255, 0, 0);
         g.setColor(0, 255, 0);
         b.setColor(0, 0, 255);
     }
 
-    void update()
+    void render()
     {   
         static const math::Point2 center(400, 300); // used for clock
         
@@ -72,27 +68,22 @@ public:
 private:
     video::Pen r,g,b;
 
-    AppCore& app;
-    video::VideoCore& video;
+    Application& app;
 };
 
-// standard application, creates window, registers task and runs
-class PenTest : public Application
+int PhotonMain(const StrVec& args)
 {
-public:
+    // create window
+    Application::getInstance().createDisplay(800,600,32,0,0,false);
 
-    int main(const StrVec& args)
-    {
-        Application::getAppCore().createDisplay(800,600,32,0,0,false);
+    // be sure to add FPSDisplayTask
+    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-        // be sure to add FPSDisplayTask
-        Application::getKernel().addTask(TaskPtr(new FPSDisplayTask()));
-        Application::getKernel().addTask(TaskPtr(new MainTask()));
+    // set current state
+    Application::getInstance().setCurrentState<MainState>();
 
-        Application::getKernel().run();
-
-        return 0;
-    }
-};
-
-ENTRYPOINT(PenTest)
+    // run until finished
+    Kernel::getInstance().run();
+    
+    return 0;
+}
