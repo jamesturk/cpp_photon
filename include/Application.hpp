@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.11 2005/08/07 07:12:46 cozman Exp $
+//  $Id: Application.hpp,v 1.12 2005/08/08 06:50:18 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -35,17 +35,13 @@ class State
 public:
     State() { };
     virtual ~State() { };
-    
+
 public:
-    virtual void enterState() { };
-    virtual void exitState() { };
-    
-public:
-    virtual void update()=0;
+    virtual void update() { };
     virtual void render()=0;
 };
 
-
+typedef shared_ptr<State> StatePtr;
 
 // Class: Application
 //  Abstract main class, all photon applications should derive from Application.
@@ -231,32 +227,13 @@ public:
     
 // Group: State Management 
 public:
-    // Function: registerState
-    //  Register a new <State> type.
-    //
-    // Arguments:
-    //  stateName - Name of new <State>.
+    // Function: setCurrentState
+    //  Set the current Application <State>.
     //
     // Template Parameters:
     //  StateT - Class derived from <State> to register.
     template<class StateT>
-    void registerState(const std::string& stateName);
-    
-    // TODO: why would someone want to unregister a state? 
-    
-    // Function: unregisterState
-    //  Unregister a registered <State> type.
-    //
-    // Arguments:
-    //  stateName - Name of <State> to unregister.
-    void unregisterState(const std::string& stateName);
-    
-    // Function: setCurrentState
-    //  Set the current Application <State>.
-    //
-    // Arguments:
-    //  stateName - Name of <State> to make active
-    void setCurrentState(const std::string& stateName);
+    void setCurrentState();
 
 // Group: Core Access
 public:
@@ -280,14 +257,15 @@ public:
     // Returns:
     //  Height of display in pixels.
     uint getDisplayHeight();
-    
-    
+
 
 // Group: API Initialization
 private:
     util::VersionInfo initPhysFS(const std::string& arg0);
     util::VersionInfo initGLFW();
     
+// Group: Task Classes
+private:
     // UpdateTask, does the updating work of AppCore, registered as a Task
     //  so that user need not call something akin to AppCore::update() every 
     //  frame
@@ -313,10 +291,6 @@ private:
         scalar lastUpdate_;
         bool quitRequested_;
     };
-    
-    // State system
-    typedef shared_ptr<State> StatePtr;
-    typedef std::map<std::string, StatePtr> StateMap; 
     
     // StateUpdate
     class StateUpdate : public Task
@@ -350,36 +324,28 @@ private:
     // version number for photon
     util::VersionInfo photonVer_;
 
+    // Application info
     uint dispWidth_;
     uint dispHeight_;
+
+    // tasks
     shared_ptr<UpdateTask> updateTask_;
     shared_ptr<StateUpdate> stateUpdate_;
     shared_ptr<StateRender> stateRender_;
-    
-    // State system
-    StateMap stateMap_;
-    
+
     // input monitoring variables
     static std::vector<InputListener*> listeners_;
     static std::vector<KeyCode> pressedKeys_;
-    
-    // Cores and Kernel
+
+    // Cores
     std::auto_ptr<video::VideoCore> videoCore_;
     std::auto_ptr<audio::AudioCore> audioCore_;
 };
 
 template<class StateT>
-void Application::registerState(const std::string& stateName)
+void Application::setCurrentState()
 {
-    StateMap::iterator it( stateMap_.find(stateName) );
-    
-    if(it != stateMap_.end())
-    {
-        throw PreconditionException("Application::registerState called twice "
-                "with same name: \"" + stateName + "\""); 
-    }
-    
-    stateMap_[stateName] = StatePtr(new StateT);
+    stateRender_->state_ = stateUpdate_->state_ = StatePtr(new StateT);
 }
 
 }

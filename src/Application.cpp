@@ -5,13 +5,12 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.15 2005/08/07 07:12:47 cozman Exp $
+//  $Id: Application.cpp,v 1.16 2005/08/08 06:50:18 cozman Exp $
 
 #include "Application.hpp"
 
-#include "physfs.h"
-#include "GL/gl.h"
-#include "GL/glfw.h"   //This file depends on glfw
+#include "physfs.h"     //This file depends on physfs
+#include "GL/glfw.h"    //This file depends on glfw
 
 #include <boost/lexical_cast.hpp>
 #include "exceptions.hpp"
@@ -42,11 +41,11 @@ Application::Application(const std::string& arg0) :
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     util::ensureVersion("GLFW", initGLFW(), glfwReq);
 
-    new Kernel; // create Kernel before it is used
+    new Kernel;     // create Kernel before it is used
     
-    Kernel::getInstance().addTask(updateTask_);   // add updater task
-    Kernel::getInstance().addTask(stateUpdate_);   // add state updater task
-    Kernel::getInstance().addTask(stateRender_);   // add state renderer task
+    Kernel::getInstance().addTask(updateTask_);     // add updater task
+    Kernel::getInstance().addTask(stateUpdate_);    // add state updater task
+    Kernel::getInstance().addTask(stateRender_);    // add state renderer task
 }
 
 Application::~Application()
@@ -56,11 +55,11 @@ Application::~Application()
         glfwCloseWindow();  //close GLFW window
     }
     
-    glfwTerminate();    //shutdown GLFW
+    glfwTerminate();        // shutdown GLFW
     
-    PHYSFS_deinit();    // shutdown PhysFS
+    PHYSFS_deinit();        // shutdown PhysFS
     
-    Kernel::destroy();
+    Kernel::destroy();      // destroy Kernel on way out
 }
 
 void Application::createDisplay(uint width, uint height,
@@ -336,38 +335,6 @@ double Application::getElapsedTime()
 double Application::getFramerate()
 {
     return 1/updateTask_->secPerFrame_;
-}
-
-void Application::unregisterState(const std::string& stateName)
-{
-    StateMap::iterator it( stateMap_.find(stateName) );
-    
-    if(it == stateMap_.end())
-    {
-        throw PreconditionException("Application::unregisterState called with "
-                "non-existant state name: \"" + stateName + "\""); 
-    }
-    
-    stateMap_.erase(stateName);
-}
-
-void Application::setCurrentState(const std::string& stateName)
-{
-    StateMap::iterator it( stateMap_.find(stateName) );
-    
-    if(it == stateMap_.end())
-    {
-        throw PreconditionException("Application::setCurrentState called with "
-                "non-existant state name: \"" + stateName + "\""); 
-    }
-    
-    if(stateUpdate_->state_.get() != 0)
-    {
-        stateUpdate_->state_->exitState();
-    }
-    
-    stateRender_->state_ = stateUpdate_->state_ = stateMap_[stateName];
-    stateUpdate_->state_->enterState();
 }
 
 uint Application::getDisplayWidth()
