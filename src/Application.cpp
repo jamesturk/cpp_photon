@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.16 2005/08/08 06:50:18 cozman Exp $
+//  $Id: Application.cpp,v 1.17 2005/08/08 07:00:46 cozman Exp $
 
 #include "Application.hpp"
 
@@ -322,11 +322,6 @@ bool Application::isActive()
     return updateTask_->active_;
 }
 
-bool Application::isRunning()
-{
-    return !updateTask_->quitRequested_;
-}
-
 double Application::getElapsedTime()
 {
     return updateTask_->secPerFrame_;
@@ -346,6 +341,8 @@ uint Application::getDisplayHeight()
 {
     return dispHeight_;
 }
+
+// API initialization
 
 util::VersionInfo Application::initPhysFS(const std::string& arg0)
 {
@@ -367,13 +364,14 @@ util::VersionInfo Application::initGLFW()
     return util::VersionInfo(maj,min,patch);
 }
 
+// Application's Tasks
+
 Application::UpdateTask::UpdateTask() :
     Task("Application::UpdateTask", PRI_APP_UPDATE),
     mouseX_(0), mouseY_(0),
     active_(false), timerPaused_(false),
     unpauseOnActive_(false), lastPause_(0), pausedTime_(0),
-    secPerFrame_(0), lastUpdate_(0),
-    quitRequested_(false)
+    secPerFrame_(0), lastUpdate_(0)
 {
 }
 

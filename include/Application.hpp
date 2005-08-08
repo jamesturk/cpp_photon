@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.12 2005/08/08 06:50:18 cozman Exp $
+//  $Id: Application.hpp,v 1.13 2005/08/08 07:00:46 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -60,9 +60,8 @@ public:
     //  Default destructor, shuts down dependencies.
     virtual ~Application();
 
-// Group: Video
+// Group: Window
 public:
-
     // Function: createDisplay
     //  This function attempts to create a display with the given parameters.
     //
@@ -96,10 +95,38 @@ public:
     void createDisplay(uint width, uint height, uint bpp,
                         uint depthBits, uint stencilBits, bool fullscreen,
                         const std::string& title="Photon App");
+                        
+    // Function: setTitle
+    //  Sets title of application that shows up in title bar.
+    //
+    // Parameters:
+    //  title - New title of application.
+    void setTitle(const std::string& title);
+                        
+    // Function: getDisplayWidth
+    //  Get the width of the display.
+    //
+    // Returns:
+    //  Width of display in pixels.
+    uint getDisplayWidth();
+
+    // Function: getDisplayHeight
+    //  Get the height of the display.
+    //
+    // Returns:
+    //  Height of display in pixels.
+    uint getDisplayHeight();
+
+    // Function: isActive
+    //  Checks if application is active, which on most systems simply means it
+    //  has focus.
+    //
+    // Returns:
+    //  True if application is active, false otherwise.
+    bool isActive();
 
 // Group: Input
 public:
-
     // Function: keyPressed
     //  Check if a given key is currently pressed.
     //
@@ -151,7 +178,6 @@ public:
     
 // Group: Input Listeners
 public:
-
     // Function: addInputListener
     //  Registers an <InputListener> to listen for any input events so that it
     //  is notified when they occur.
@@ -183,33 +209,7 @@ public:
     //  Time, represented as a floating-point number in seconds, application has
     //  been running.
     scalar getTime();
-
-// Group: General
-public:
-
-    // Function: setTitle
-    //  Sets title of application that shows up in title bar.
-    //
-    // Parameters:
-    //  title - New title of application.
-    void setTitle(const std::string& title);
-
-    // Function: isActive
-    //  Checks if application is active, which on most systems simply means it
-    //  has focus.
-    //
-    // Returns:
-    //  True if application is active, false otherwise.
-    bool isActive();
     
-    // Function: isRunning
-    //  Checks if application is running, which means that no quit has been
-    //  requested.
-    //
-    // Returns:
-    //  True if application is running, false otherwise.
-    bool isRunning();
-
     // Function: getElapsedTime
     //  Finds the amount of time passed between frames, useful for time-based
     //  movement.
@@ -224,7 +224,7 @@ public:
     // Returns:
     //  Current frames per second.
     double getFramerate();
-    
+
 // Group: State Management 
 public:
     // Function: setCurrentState
@@ -241,23 +241,6 @@ public:
    audio::AudioCore& getAudioCore();
    void initVideoCore(uint width, uint height);
    void initAudioCore(const std::string& deviceName);
-    
-// Group: Accessors
-public:
-    // Function: getDisplayWidth
-    //  Get the width of the display.
-    //
-    // Returns:
-    //  Width of display in pixels.
-    uint getDisplayWidth();
-
-    // Function: getDisplayHeight
-    //  Get the height of the display.
-    //
-    // Returns:
-    //  Height of display in pixels.
-    uint getDisplayHeight();
-
 
 // Group: API Initialization
 private:
@@ -289,7 +272,6 @@ private:
         scalar pausedTime_;
         scalar secPerFrame_;
         scalar lastUpdate_;
-        bool quitRequested_;
     };
     
     // StateUpdate
@@ -333,7 +315,7 @@ private:
     shared_ptr<StateUpdate> stateUpdate_;
     shared_ptr<StateRender> stateRender_;
 
-    // input monitoring variables
+    // input system variables
     static std::vector<InputListener*> listeners_;
     static std::vector<KeyCode> pressedKeys_;
 

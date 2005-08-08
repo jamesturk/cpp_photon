@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.11 2005/08/02 23:07:52 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.12 2005/08/08 07:00:46 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -145,12 +145,6 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
     
     return util::VersionInfo(major,minor,patch);
 }
-
-void AudioCore::initAudioDevice(const std::string& deviceName)
-{
-    // new AudioCore(deviceName);
-}
-
 
 }
 }
