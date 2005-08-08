@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Source.hpp,v 1.3 2005/07/18 05:14:18 cozman Exp $
+//  $Id: Source.hpp,v 1.4 2005/08/08 21:39:41 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -202,7 +202,8 @@ void Source<ResMgrT>::open(const std::string& name)
     uint bufferID;
     
     ResourceManaged<ResMgrT>::open(name);
-    resMgr_.getAudioData(getName(), bufferID);
+    ResourceManaged<ResMgrT>::resMgr_.getAudioData(
+        ResourceManaged<ResMgrT>::getName(), bufferID);
     
     // attach buffer to source
     alSourcei(sourceID_, AL_BUFFER, bufferID);
@@ -222,7 +223,8 @@ Source<ResMgrT>& Source<ResMgrT>::operator=(const Source<ResMgrT>& rhs)
         uint bufferID;
         
         ResourceManaged<ResMgrT>::operator=(rhs);
-        resMgr_.getAudioData(getName(), bufferID);
+        ResourceManaged<ResMgrT>::resMgr_.getAudioData(
+            ResourceManaged<ResMgrT>::getName(), bufferID);
 
         // attach buffer to source
         alSourcei(sourceID_, AL_BUFFER, bufferID);
@@ -335,13 +337,15 @@ template<class ResMgrT>
 void Source<ResMgrT>::addResource(const std::string& name, 
                                     const std::string& path)
 {
-    resMgr_.newResource(name, ResourceDescriptor(path));
+    ResourceManaged<ResMgrT>::resMgr_.newResource(name, 
+                                                    ResourceDescriptor(path));
 }
 
 template<class ResMgrT>
 void Source<ResMgrT>::addResource(const std::string& path)
 {
-    resMgr_.newResource(path, ResourceDescriptor(path));
+    ResourceManaged<ResMgrT>::resMgr_.newResource(path, 
+                                                    ResourceDescriptor(path));
 }
 
 }

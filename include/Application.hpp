@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.15 2005/08/08 19:19:24 cozman Exp $
+//  $Id: Application.hpp,v 1.16 2005/08/08 21:39:41 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -305,6 +305,7 @@ public:
     template<class StateT>
     void setCurrentState();
 
+#ifdef PHOTON_USE_OPENAL
 // Group: AudioCore
 public:
     // Function: getAudioCore
@@ -320,8 +321,10 @@ public:
    //  it via <getAudioCore>.
    //
    // Arguments:
-   //  deviceName - Name for desired Audio device.
-   void initAudioCore(const std::string& deviceName);
+   //  deviceName - Optional name for desired Audio device, will use default 
+   //               device if none specified.
+   void initAudioCore(const std::string& deviceName="");
+#endif //PHOTON_USE_OPENAL
 
 // API Initialization
 private:
@@ -414,7 +417,9 @@ private:
     static std::vector<KeyCode> pressedKeys_;
 
     // Cores
+    #ifdef PHOTON_USE_OPENAL
     std::auto_ptr<audio::AudioCore> audioCore_;
+    #endif //PHOTON_USE_OPENAL
 };
 
 template<class StateT>

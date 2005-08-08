@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.12 2005/08/08 07:00:46 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.13 2005/08/08 21:39:41 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -133,12 +133,10 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
 
     // OpenAL needs a standard version string format badly
     ss << alGetString(AL_VERSION);
-#if defined(WINVER)
-    ss >> junks >> major >> junkc >> minor;   // format is "OpenAL 1.0"
-#elif defined(linux)
+#if defined(linux)
     ss >> major >> junkc >> minor >> junkc >> patch;
 #else
-    #warning OpenAL only built on Windows/Linux, find out version on OSX
+    ss >> junks >> major >> junkc >> minor;   // format is "OpenAL 1.0"
 #endif
 
     throwOpenALError("AudioCore::initOpenAL");

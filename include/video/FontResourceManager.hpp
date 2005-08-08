@@ -5,14 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FontResourceManager.hpp,v 1.4 2005/07/18 07:19:48 cozman Exp $
+//  $Id: FontResourceManager.hpp,v 1.5 2005/08/08 21:39:41 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONTRESOURCEMANAGER_HPP
 #define PHOTON_VIDEO_FONTRESOURCEMANAGER_HPP
 
 #include "ResourceManager.hpp"
 
-#include <ft2build.h>
+#include "ft2build.h"
 #include FT_FREETYPE_H
 
 namespace photon

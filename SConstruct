@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.18 2005/07/18 05:14:18 cozman Exp $
+#  $Id: SConstruct,v 1.19 2005/08/08 21:39:40 cozman Exp $
 
 import os,os.path
 import glob
@@ -16,6 +16,7 @@ def getFilesMulti(paths, pat):
     filelist = []
     for d in paths:
         filelist += glob.glob( os.path.join(d,pat) )
+    filelist = [ f.replace(os.path.sep,'/') for f in filelist]
     return filelist
     
 ## config variables ##
@@ -26,7 +27,7 @@ INC_DIRS = ["include/%s" % d for d in SUB_DIRS]
 SRC_FILES = [f.replace('src','build') for f in getFilesMulti(SRC_DIRS, '*.cpp')]
 INC_FILES = getFilesMulti(INC_DIRS, '*.hpp')
 
-libsMap = { 'nt':('opengl32','glu32','openal32'),
+libsMap = { 'nt':('opengl32','glu32',['openal32','alut']),
             'posix':('GL','GLU','openal'),
             'mac':('GL','GLU','openal')}
 try:
@@ -52,7 +53,7 @@ def BuildSuperHeader(target = None, source = None, env = None):
 SuperHeaderAction = Action(BuildSuperHeader)
 
 # Configure the environment (Check libraries):
-env = Environment()
+env = Environment(ENV = os.environ)
 env.Append(CPPPATH='include', CPPFLAGS='-Wall')
 env.ParseConfig('freetype-config --cflags')
 # Configure

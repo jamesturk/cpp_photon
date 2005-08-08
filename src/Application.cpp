@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.19 2005/08/08 19:19:21 cozman Exp $
+//  $Id: Application.cpp,v 1.20 2005/08/08 21:39:41 cozman Exp $
 
 #include "Application.hpp"
 
@@ -386,6 +386,8 @@ double Application::getFramerate()
 {
     return 1/updateTask_->secPerFrame_;
 }
+// AudioCore ///////////////////////////////////////////////////////////////////
+#ifdef PHOTON_USE_OPENAL
 
 audio::AudioCore& Application::getAudioCore()
 {
@@ -410,6 +412,8 @@ void Application::initAudioCore(const std::string& deviceName)
         throw PreconditionException("Attempt to double initialize AudioCore");
     }
 }
+
+#endif //PHOTON_USE_OPENAL
 
 // API initialization //////////////////////////////////////////////////////////
 
