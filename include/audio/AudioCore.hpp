@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.hpp,v 1.11 2005/08/07 07:12:47 cozman Exp $
+//  $Id: AudioCore.hpp,v 1.12 2005/08/08 07:27:50 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -47,20 +47,6 @@ public:
     // Returns:
     //  Name of audio device currently in use.
     std::string getAudioDeviceName() const;
-
-// Group: Initialization
-public:
-    // Function: initAudioDevice
-    //  Initialize audio device.  _MUST_ be called prior to any use of audio
-    //  functionality.
-    //
-    //  Takes an optional parameter, if existant the initialization of the audio
-    //  library will attempt to use the specified audio device, otherwise the 
-    //  default device will be used.
-    //
-    // Parameters:
-    //  deviceName - Name of audio device to use. (optional, default=default) 
-    static void initAudioDevice(const std::string& deviceName="");
     
 // Group: Error Checking
 public:

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.13 2005/08/08 07:00:46 cozman Exp $
+//  $Id: Application.hpp,v 1.14 2005/08/08 07:27:50 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -124,6 +124,88 @@ public:
     // Returns:
     //  True if application is active, false otherwise.
     bool isActive();
+    
+// Group: Ortho 
+public:
+    // Function: setOrthoView
+    //  Sets new ortho viewport within a rectangular portion of the screen.
+    //  All drawing is relative to the rectangle, x,y becomes 0,0 and anything  
+    //  drawn outside rect is clipped.
+    // 
+    // Parameters:
+    //  x - X coord for top left corner of new viewport.
+    //  y - Y coord for top left corner of new viewport.
+    //  viewWidth - Width of new viewport.
+    //  viewHeight - Height of new viewport.
+    //  orthoWidth - Width of ortho perspective.
+    //  orthoHeight - Height of ortho perspective.
+    void setOrthoView(int x, int y, int viewWidth, int viewHeight, 
+                            scalar orthoWidth, scalar orthoHeight);
+
+    // Function: setOrthoView
+    //  Sets entire screen as current viewport with a given ortho perspective.
+    // 
+    // Parameters:
+    //  width - Width of view.
+    //  height - Height of view.
+    void setOrthoView(scalar width, scalar height);
+
+    // Function: setOrthoView
+    //  Sets entire screen as current viewport with a given ortho perspective.
+    void setOrthoView();
+
+// Group: Perspective
+public:
+    // Function: setPerspectiveView
+    //  Creates a viewport with a given 3D perspective inside of a rectangular
+    //  portion of the screen.
+    // 
+    // Parameters:
+    //  x - X coord for top left corner of new viewport.
+    //  y - Y coord for top left corner of new viewport.
+    //  width - Width of new viewport.
+    //  height - Height of new viewport.
+    //  fovy - The y axis field of view angle, in degrees.
+    //  zNear - Distance from viewer to near clipping plane.
+    //  zFar - Distance from viewer to far clipping plane.
+    void setPerspectiveView(int x, int y, int width, int height, 
+                                scalar fovy, scalar zNear, scalar zFar);
+    
+    // Function: setPerspectiveView
+    //  Sets entire screen as current viewport with a given 3D perspective.
+    //
+    //  Same as call to setPerspective
+    // 
+    // Parameters:
+    //  fovy - The y axis field of view angle, in degrees.
+    //  zNear - Distance from viewer to near clipping plane.
+    //  zFar - Distance from viewer to far clipping plane.
+    void setPerspectiveView(scalar fovy, scalar zNear, scalar zFar);
+    
+// Group: Viewport/Projection 
+//  These functions are called by the above Ortho/Perspective functions, very 
+//  rarely do they need to be called directly.
+public:
+    // Function: setViewport
+    //  Set the current viewport rectangle within the screen.
+    void setViewport(int x, int y, int width, int height);
+    
+    // Function: setOrthoProjection
+    //  Sets an orthographic projection matrix.
+    // 
+    // Parameters:
+    //  width - Width of view.
+    //  height - Height of view.
+    void setOrthoProjection(scalar width, scalar height);
+    
+    // Function: setPerspectiveProjection
+    //  Sets a perspective projection matrix.
+    // 
+    // Parameters:
+    //  fovy - The y axis field of view angle, in degrees.
+    //  zNear - Distance from viewer to near clipping plane.
+    //  zFar - Distance from viewer to far clipping plane.
+    void setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFar);
 
 // Group: Input
 public:
@@ -237,17 +319,16 @@ public:
 
 // Group: Core Access
 public:
-   video::VideoCore& getVideoCore();
    audio::AudioCore& getAudioCore();
-   void initVideoCore(uint width, uint height);
    void initAudioCore(const std::string& deviceName);
 
 // Group: API Initialization
 private:
     util::VersionInfo initPhysFS(const std::string& arg0);
     util::VersionInfo initGLFW();
+    void initOpenGL();
     
-// Group: Task Classes
+// Task Classes
 private:
     // UpdateTask, does the updating work of AppCore, registered as a Task
     //  so that user need not call something akin to AppCore::update() every 
@@ -274,7 +355,16 @@ private:
         scalar lastUpdate_;
     };
     
-    // StateUpdate
+    // VideoTask, does the updating work of OpenGL
+    class VideoTask : public Task
+    {
+    public:
+        VideoTask();
+
+        void update();
+    };
+    
+    // StateUpdate, calls State::update
     class StateUpdate : public Task
     {
 
@@ -288,7 +378,7 @@ private:
         StatePtr state_;
     };
     
-    // StateRender
+    // StateRender, calls  State::render
     class StateRender : public Task
     {
 
@@ -302,13 +392,16 @@ private:
         StatePtr state_;
     };
 
+// Data members
 private:
     // version number for photon
     util::VersionInfo photonVer_;
 
     // Application info
-    uint dispWidth_;
-    uint dispHeight_;
+    uint displayWidth_;
+    uint displayHeight_;
+    uint viewportWidth_;
+    uint viewportHeight_;
 
     // tasks
     shared_ptr<UpdateTask> updateTask_;
@@ -320,7 +413,6 @@ private:
     static std::vector<KeyCode> pressedKeys_;
 
     // Cores
-    std::auto_ptr<video::VideoCore> videoCore_;
     std::auto_ptr<audio::AudioCore> audioCore_;
 };
 

@@ -5,19 +5,20 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.17 2005/08/08 07:00:46 cozman Exp $
+//  $Id: Application.cpp,v 1.18 2005/08/08 07:27:50 cozman Exp $
 
 #include "Application.hpp"
 
-#include "physfs.h"     //This file depends on physfs
-#include "GL/glfw.h"    //This file depends on glfw
+#include "physfs.h"     // This file depends on physfs
+#include "GL/glfw.h"    // This file depends on glfw
+#include "GL/gl.h"      // This file depends on OpenGL
+#include "GL/glu.h"
 
 #include <boost/lexical_cast.hpp>
 #include "exceptions.hpp"
 #include "Log.hpp"
 #include "Kernel.hpp"
 #include "Application.hpp"
-#include "video/VideoCore.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/filesys/filesys.hpp"
 
@@ -25,12 +26,16 @@
 namespace photon
 {
 
+// static class members
 std::vector<InputListener*> Application::listeners_;
 std::vector<KeyCode> Application::pressedKeys_;
 
+// (Con/De)structors ///////////////////////////////////////////////////////////
+
 Application::Application(const std::string& arg0) :
     photonVer_(0,0,1),  // this is the current version
-    dispWidth_(0), dispHeight_(0),
+    displayWidth_(0), displayHeight_(0),
+    viewportWidth_(0), viewportHeight_(0),
     updateTask_(new UpdateTask()),
     stateUpdate_(new StateUpdate()),
     stateRender_(new StateRender())
@@ -50,7 +55,7 @@ Application::Application(const std::string& arg0) :
 
 Application::~Application()
 {
-    if(dispWidth_ && dispHeight_)
+    if(displayWidth_ && displayHeight_)
     {
         glfwCloseWindow();  //close GLFW window
     }
@@ -61,6 +66,8 @@ Application::~Application()
     
     Kernel::destroy();      // destroy Kernel on way out
 }
+
+// Window //////////////////////////////////////////////////////////////////////
 
 void Application::createDisplay(uint width, uint height,
                             uint redBits, uint greenBits, uint blueBits,
@@ -75,19 +82,21 @@ void Application::createDisplay(uint width, uint height,
     {
         throw APIError("Failed to create display.");
     }
+    displayWidth_ = width;
+    displayHeight_ = height;
     
+    glfwSetWindowTitle(title.c_str());  // title is set separately
+    
+    initOpenGL();
+    setOrthoView();
+    Kernel::getInstance().addTask(TaskPtr(new VideoTask()));
+
     // register the callbacks (after a window is open)
     glfwSetKeyCallback(Application::keyCallback);
     //glfwSetCharCallback(Application::charCallback);
     glfwSetMouseButtonCallback(Application::mouseButtonCallback);
     glfwSetMousePosCallback(Application::mouseMoveCallback);
     //glfwSetMouseWheelCallback(Application::mouseWheelCallback);
-
-    Application::initVideoCore(width, height);
-    dispWidth_ = width;
-    dispHeight_ = height;
-
-    glfwSetWindowTitle(title.c_str());  // title is set separately
 }
 
 void Application::createDisplay(uint width, uint height, uint bpp,
@@ -120,6 +129,106 @@ void Application::createDisplay(uint width, uint height, uint bpp,
     }
 }
 
+void Application::setTitle(const std::string& title)
+{
+    glfwSetWindowTitle(title.c_str());
+}
+
+uint Application::getDisplayWidth()
+{
+    return displayWidth_;
+}
+
+uint Application::getDisplayHeight()
+{
+    return displayHeight_;
+}
+
+bool Application::isActive()
+{
+    return updateTask_->active_;
+}
+
+// Ortho ///////////////////////////////////////////////////////////////////////
+
+void Application::setOrthoView(int x, int y, int viewWidth, int viewHeight, 
+                                scalar orthoWidth, scalar orthoHeight)
+{
+    // set viewport & ortho projection
+    setViewport(x,y,viewWidth,viewHeight);
+    setOrthoProjection(orthoWidth,orthoHeight);
+}
+
+void Application::setOrthoView(scalar width, scalar height)
+{
+    // set viewport to fullscreen, then set ortho (alternative ratio)
+    setViewport(0, 0, displayWidth_, displayHeight_);
+    setOrthoProjection(width,height);
+}
+
+void Application::setOrthoView()
+{
+    // set viewport to fullscreen, then set ortho (1:1 ratio)
+    setViewport(0, 0, displayWidth_, displayHeight_);
+    setOrthoProjection(displayWidth_, displayHeight_);
+}
+
+// Perspective /////////////////////////////////////////////////////////////////
+
+void Application::setPerspectiveView(int x, int y, int width, int height, 
+                                scalar fovy, scalar zNear, scalar zFar)
+{
+    // set viewport & perspective projection
+    setViewport(x, y, width, height);
+    setPerspectiveProjection(fovy, zNear, zFar);
+}
+
+void Application::setPerspectiveView(scalar fovy, scalar zNear, scalar zFar)
+{
+    // set viewport fullscreen, then set perspective
+    setViewport(0, 0, displayWidth_, displayHeight_);
+    setPerspectiveProjection(fovy, zNear, zFar);
+}
+
+// Viewport/Projection /////////////////////////////////////////////////////////
+
+void Application::setViewport(int x, int y, int width, int height)
+{
+    // viewport described from bottom corner, so flip y
+    glViewport(x, displayHeight_-(y+height), width, height);
+    viewportWidth_ = width;
+    viewportHeight_ = height;
+}
+
+void Application::setOrthoProjection(scalar width, scalar height)
+{
+    // setup default Ortho
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, static_cast<GLdouble>(width), static_cast<GLdouble>(height),
+            0, -1.0, 1.0);
+
+    //back to modelview
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+void Application::setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFar)
+{
+    GLdouble ratio = static_cast<GLdouble>(viewportWidth_) / 
+                        static_cast<GLdouble>(viewportHeight_);
+
+    //set new projection
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(fovy, ratio, zNear, zFar);
+    
+    //back to modelview
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+// Input ///////////////////////////////////////////////////////////////////////
 bool Application::keyPressed(KeyCode key)
 {
     return glfwGetKey(key) == GLFW_PRESS;
@@ -149,6 +258,8 @@ int Application::getMouseWheelPos()
 {
     return glfwGetMouseWheel();
 }
+
+// Input Listeners /////////////////////////////////////////////////////////////
 
 void Application::addInputListener(InputListener *listener)
 {
@@ -259,25 +370,21 @@ void GLFWCALL Application::mouseMoveCallback(int x, int y)
     }
 }
 
+// Timing //////////////////////////////////////////////////////////////////////
+
 scalar Application::getTime()
 {
     return glfwGetTime() - updateTask_->pausedTime_;
 }
 
-void Application::setTitle(const std::string& title)
+double Application::getElapsedTime()
 {
-    glfwSetWindowTitle(title.c_str());
+    return updateTask_->secPerFrame_;
 }
 
-video::VideoCore& Application::getVideoCore()
+double Application::getFramerate()
 {
-    // return VideoCore if it has been created
-    if(videoCore_.get() == 0)
-    {
-        throw PreconditionException("call to Application::getVideoCore() before"
-                                    " Application::initAudioDevice");
-    }
-    return *videoCore_;
+    return 1/updateTask_->secPerFrame_;
 }
 
 audio::AudioCore& Application::getAudioCore()
@@ -289,19 +396,6 @@ audio::AudioCore& Application::getAudioCore()
                                     " Application::initAudioDevice");
     }
     return *audioCore_;
-}
-
-void Application::initVideoCore(uint width, uint height)
-{
-    // create VideoCore, avoid double initializaiton
-    if(videoCore_.get() == 0)
-    {
-        videoCore_.reset(new video::VideoCore(width, height));
-    }
-    else
-    {
-        throw PreconditionException("Attempt to double initialize VideoCore");
-    }
 }
 
 void Application::initAudioCore(const std::string& deviceName)
@@ -317,32 +411,7 @@ void Application::initAudioCore(const std::string& deviceName)
     }
 }
 
-bool Application::isActive()
-{
-    return updateTask_->active_;
-}
-
-double Application::getElapsedTime()
-{
-    return updateTask_->secPerFrame_;
-}
-
-double Application::getFramerate()
-{
-    return 1/updateTask_->secPerFrame_;
-}
-
-uint Application::getDisplayWidth()
-{
-    return dispWidth_;
-}
-
-uint Application::getDisplayHeight()
-{
-    return dispHeight_;
-}
-
-// API initialization
+// API initialization //////////////////////////////////////////////////////////
 
 util::VersionInfo Application::initPhysFS(const std::string& arg0)
 {
@@ -364,7 +433,30 @@ util::VersionInfo Application::initGLFW()
     return util::VersionInfo(maj,min,patch);
 }
 
-// Application's Tasks
+void Application::initOpenGL()
+{
+    // Set smooth shading.
+    glShadeModel(GL_SMOOTH);
+
+    // Setup depth checking.
+    //glDepthFunc(GL_LEQUAL);
+    //glEnable(GL_DEPTH_TEST);
+
+    //setup hints
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
+    
+    glEnable(GL_POLYGON_SMOOTH);
+
+    //enable texturing
+    glEnable(GL_TEXTURE_2D);
+
+    //setup alpha blending of 2D textures with the scene
+    glEnable(GL_BLEND);
+    glDisable(GL_LIGHTING);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+}
+
+// Tasks ///////////////////////////////////////////////////////////////////////
 
 Application::UpdateTask::UpdateTask() :
     Task("Application::UpdateTask", PRI_APP_UPDATE),
@@ -379,7 +471,7 @@ void Application::UpdateTask::update()
 {
     scalar curTime = glfwGetTime() - pausedTime_;
 
-    // update the display here instead of VideoCore (since it belongs to glfw)
+    // update the display here instead of Application (since it belongs to glfw)
     glfwSwapBuffers();
     
     glfwGetMousePos(&mouseX_, &mouseY_);
@@ -414,8 +506,19 @@ void Application::UpdateTask::update()
     }
 }
 
+Application::VideoTask::VideoTask() :
+    Task("Application::VideoTask", PRI_VIDEO_UPDATE)
+{
+}
+
+void Application::VideoTask::update()
+{
+    // TODO: clear depth/stencil if requested
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 Application::StateUpdate::StateUpdate() :
-    Task("StateUpdate", PRI_NORMAL)
+    Task("Application::StateUpdate", PRI_NORMAL)
 {
 }
 
@@ -425,7 +528,7 @@ void Application::StateUpdate::update()
 }
 
 Application::StateRender::StateRender() :
-    Task("StateRender", PRI_RENDER)
+    Task("Application::StateRender", PRI_RENDER)
 {
 }
 

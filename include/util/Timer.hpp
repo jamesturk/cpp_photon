@@ -5,12 +5,10 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.hpp,v 1.3 2005/08/07 07:12:47 cozman Exp $
+//  $Id: Timer.hpp,v 1.4 2005/08/08 07:27:50 cozman Exp $
 
 #ifndef PHOTON_UTIL_TIMER_HPP
 #define PHOTON_UTIL_TIMER_HPP
-
-#include "AppCore.hpp"
 
 namespace photon
 {

@@ -2,7 +2,6 @@
 #define PHOTON_HPP
 
 #include "Kernel.hpp"
-#include "AppCore.hpp"
 #include "types.hpp"
 #include "Application.hpp"
 #include "Task.hpp"
