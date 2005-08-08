@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.7 2005/08/08 06:37:10 cozman Exp $
+//  $Id: Input_test.cpp,v 1.8 2005/08/08 19:24:31 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -26,25 +26,25 @@ public:
     }
     
     // listen for events and set the last event string
-    void onKeyPress(int key) 
+    void onKeyPress(KeyCode key) 
     {
         lastEvent = "key " + boost::lexical_cast<std::string>(key) + 
             " pressed";
     }
     
-    void onKeyRelease(int key)
+    void onKeyRelease(KeyCode key)
     {
         lastEvent = "key " + boost::lexical_cast<std::string>(key) + 
             " released";
     }
     
-    void onMouseButtonPress(int button)  
+    void onMouseButtonPress(MouseButton button)  
     {
         lastEvent = "mouse button " + boost::lexical_cast<std::string>(button) +
             " pressed";
     }
     
-    void onMouseButtonRelease(int button)
+    void onMouseButtonRelease(MouseButton button)
     {
         lastEvent = "mouse button " + boost::lexical_cast<std::string>(button) +
             " released";

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.10 2005/08/08 06:37:10 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.11 2005/08/08 19:24:30 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -66,7 +66,7 @@ public:
     
     // executes the checking of the keys, when a key is pressed 
     //  the state is toggled
-    void onKeyPress(int key)
+    void onKeyPress(KeyCode key)
     {
         static const std::string NOT_PLAYING = "NOT ";
         
