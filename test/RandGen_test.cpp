@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen_test.cpp,v 1.2 2005/07/19 21:02:04 cozman Exp $
+//  $Id: RandGen_test.cpp,v 1.3 2005/08/08 04:55:48 cozman Exp $
 
 #include <iostream>
 #include <iomanip>
@@ -14,7 +14,7 @@ using namespace photon::util;
 using namespace std;
 
 // simple demo of RandGen
-int main() 
+int PhotonMain(const photon::StrVec& args)
 {
     RandGen g1;
     RandGen g2(0);  // seed randgen 2 and 3 with same number so they are in sync
@@ -72,4 +72,6 @@ int main()
     // the values will fall within a small deviation from the "expected" and 
     // they are there for reference when ensuring that the bounds are set
     // properly on the generators.
+    
+    return 0;
 }

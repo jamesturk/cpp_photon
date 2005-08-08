@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math_test.cpp,v 1.4 2005/07/20 01:47:15 cozman Exp $
+//  $Id: math_test.cpp,v 1.5 2005/08/08 04:55:48 cozman Exp $
 
 // Tests almost everything within photon::math (example run at bottom of file)
 // Doesn't test:
@@ -161,12 +161,13 @@ void testVector2()
     cout << endl;
 }
 
-int main() 
+int PhotonMain(const StrVec& args)
 {
     testGeneral();
     testCircle();
     testRect();
     testVector2();
+    return 0;
 }
 
 // Example run (values may vary slightly):
