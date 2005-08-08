@@ -9,10 +9,14 @@ Bump Version Number
     photon.mm
     Tag CVS with version number
 Sourceforge.net
-    Package from clean CVS
+    Get with `cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r release-VERSION  photon`
+    rename directory to photon-MAJOR.MINOR
+    Build docs with `scons docs`
+    prune any files that shouldn't be included (.cvsignores)
+    package source with tar cjf photon-MAJOR.MINOR.RELEASE.tar.bz2 photon-MAJOR.MINOR/ 
     Upload to Sourceforge and release via Sourceforge release system
     Upload docs to Sourceforge webspace
     Write release announcement, post on DevBlog/Mailing list
 
 
-$Id: RELEASE-HOWTO.txt,v 1.2 2005/08/08 19:35:11 cozman Exp $
+$Id: RELEASE-HOWTO.txt,v 1.3 2005/08/08 22:54:15 cozman Exp $
