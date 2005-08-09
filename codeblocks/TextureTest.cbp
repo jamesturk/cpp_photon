@@ -16,6 +16,7 @@
 				<Option external_deps=""/>
 				<Option type="1"/>
 				<Option compiler="0"/>
+				<Option use_console_runner="0"/>
 				<Option projectResourceIncludeDirsRelation="1"/>
 			</Target>
 		</Build>
@@ -32,6 +33,7 @@
 			<Add library="physfs"/>
 			<Add library="freetype"/>
 			<Add library="alut"/>
+			<Add library="corona"/>
 			<Add directory="..\lib"/>
 		</Linker>
 		<Unit filename="..\test\Texture_test.cpp">

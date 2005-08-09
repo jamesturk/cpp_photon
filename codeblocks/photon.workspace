@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE Code::Blocks_workspace_file>
+<Code::Blocks_workspace_file>
+	<Workspace title="Default workspace">
+		<Project filename="photon.cbp"/>
+		<Project filename="AudioTest.cbp"/>
+		<Project filename="ImageTest.cbp"/>
+		<Project filename="ConfigFileTest.cbp"/>
+		<Project filename="filesysTest.cbp"/>
+		<Project filename="FontTest.cbp"/>
+		<Project filename="InputTest.cbp"/>
+		<Project filename="LogTest.cbp"/>
+		<Project filename="mathTest.cbp"/>
+		<Project filename="PenTest.cbp"/>
+		<Project filename="RandGenTest.cbp"/>
+		<Project filename="TextureTest.cbp" active="1"/>
+	</Workspace>
+</Code::Blocks_workspace_file>
