@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE Code::Blocks_workspace_file>
 <Code::Blocks_workspace_file>
-	<Workspace title="Default workspace">
+	<Workspace title="Photon Workspace">
 		<Project filename="photon.cbp"/>
 		<Project filename="AudioTest.cbp"/>
 		<Project filename="ImageTest.cbp"/>
