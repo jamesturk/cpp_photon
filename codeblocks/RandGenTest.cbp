@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE Code::Blocks_project_file>
+<Code::Blocks_project_file>
+	<FileVersion major="1" minor="1"/>
+	<Project>
+		<Option title="RandGenTest"/>
+		<Option makefile="Makefile"/>
+		<Option makefile_is_custom="0"/>
+		<Option compiler="0"/>
+		<Build>
+			<Target title="default">
+				<Option output="..\test\RandGenTest.exe"/>
+				<Option working_dir="..\test"/>
+				<Option object_output=".objs"/>
+				<Option deps_output=".deps"/>
+				<Option external_deps=""/>
+				<Option type="1"/>
+				<Option compiler="0"/>
+				<Option projectResourceIncludeDirsRelation="1"/>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall --pedantic"/>
+			<Add directory="..\include"/>
+		</Compiler>
+		<Linker>
+			<Add library="photon"/>
+			<Add library="glfw"/>
+			<Add library="opengl32"/>
+			<Add library="glu32"/>
+			<Add library="openal32"/>
+			<Add library="physfs"/>
+			<Add library="freetype"/>
+			<Add library="alut"/>
+			<Add directory="..\lib"/>
+		</Linker>
+		<Unit filename="..\test\RandGen_test.cpp">
+			<Option compilerVar="CPP"/>
+			<Option target="default"/>
+		</Unit>
+	</Project>
+</Code::Blocks_project_file>
