@@ -1,13 +1,18 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.5 2005/08/09 07:30:14 cozman Exp $
+$Id: CHANGELOG.txt,v 1.6 2005/08/10 21:22:33 cozman Exp $
 
 + : New Features
 - : Feature Removal
-* : Minor Changes/Bugfixes
 ! : Major Changes
+* : Minor Changes/Bugfixes
+
 
 0.0.2 
     + Code::Blocks and Dev-C++ support
+    + Addition of a State stack allowing for applications to fall back to the 
+        previous state when done with a particular state.
+    * Fixed X11 fullscreen mode 
+    * Removed ALUT dependencies by adding custom WAV loading code
 
 0.0.1 - Released 2005-08-08
     + State-based design that allows easy creation of applications by simply

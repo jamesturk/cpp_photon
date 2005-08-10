@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State.hpp,v 1.1 2005/08/08 19:19:25 cozman Exp $
+//  $Id: State.hpp,v 1.2 2005/08/10 21:22:33 cozman Exp $
 
 #ifndef PHOTON_STATE_HPP
 #define PHOTON_STATE_HPP
@@ -21,7 +21,7 @@
 
 //  Implement as many or as few of the members of State as needed (the only 
 //  necessary member being <render>) and make the state as current via 
-//  <Application::setCurrentState>.  Once a state is made current it's 
+//  <Application::setState>.  Once a state is made current it's 
 //  update and render methods will be called every frame until either a new
 //  state is made current or the application ends.
 class State
@@ -30,7 +30,7 @@ class State
 public:
     // Function: State
     //  A State's constructor is called whenever the state is made active via
-    //  <Application::setCurrentState>.
+    //  <Application::setState>.
     State() { };
     
     // Function: ~State
@@ -51,6 +51,21 @@ public:
     //  screen while the State is active should be drawn in render.  Game logic
     //  inside of render should be kept to a minimum for optimum performance.
     virtual void render()=0;
+    
+    // Function: onPause
+    //  If a state is executing and a new state is pushed onto the stack via
+    //  <Application::pushState> the state will be paused until a time that it
+    //  is either unpaused or popped from the stack itself.  When it is paused
+    //  the state management system will call onPause which may perform any 
+    //  necessary work before the state goes idle.
+    virtual void onPause() { };
+    
+    // Function: onResume
+    //  If a state has been paused and is then made current again by the 
+    //  state(s) pushed on top of it being popped, the state management system
+    //  will call onResume allowing the state to undo any work that had been 
+    //  done in <onPause>.  
+    virtual void onResume() { };
 };
 
 typedef photon::shared_ptr<State> StatePtr;

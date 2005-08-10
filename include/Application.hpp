@@ -5,13 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.16 2005/08/08 21:39:41 cozman Exp $
+//  $Id: Application.hpp,v 1.17 2005/08/10 21:22:33 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
 
 #include <vector>
-#include <map>
+#include <stack>
 #include <string>
 
 #include <boost/utility.hpp>
@@ -297,13 +297,25 @@ public:
 
 // Group: State Management 
 public:
-    // Function: setCurrentState
-    //  Set the current Application <State>.
+    // Function: setState
+    //  Set the current Application <State>, removing all other <States>.
     //
     // Template Parameters:
-    //  StateT - Class derived from <State> to register.
+    //  StateT - Class derived from <State> to set as current.
     template<class StateT>
-    void setCurrentState();
+    void setState();
+    
+    // Function: pushState
+    //  Push a new <State>, does not remove old <State>.
+    //
+    // Template Parameters:
+    //  StateT - Class derived from <State> to push.
+    template<class StateT>
+    void pushState();
+    
+    // Function: popState
+    //  Pop the current <State>, returning to the prior <State> on the stack.
+    void popState();
 
 #ifdef PHOTON_USE_OPENAL
 // Group: AudioCore
@@ -415,6 +427,9 @@ private:
     // input system variables
     static std::vector<InputListener*> listeners_;
     static std::vector<KeyCode> pressedKeys_;
+    
+    // state system
+    std::stack<StatePtr> stateStack_;
 
     // Cores
     #ifdef PHOTON_USE_OPENAL
@@ -423,10 +438,41 @@ private:
 };
 
 template<class StateT>
-void Application::setCurrentState()
+void Application::setState()
 {
-    stateRender_->state_ = stateUpdate_->state_ = StatePtr(new StateT);
+    StatePtr newState(new StateT);
+
+    // clear stack
+    while(!stateStack_.empty())
+    {
+        // pop then resume
+        stateStack_.pop();
+        if(!stateStack_.empty())
+        {
+            stateStack_.top()->onResume();
+        }
+    }
+    stateStack_.push(newState); // make newState the only state on stack
+
+    stateRender_->state_ = stateUpdate_->state_ = newState;
 }
+
+template<class StateT>
+void Application::pushState()
+{
+    StatePtr newState(new StateT);
+
+    // if a state is currently running, pause it 
+    if(!stateStack_.empty())
+    {
+        stateStack_.top()->onPause();
+    }
+    
+    stateStack_.push(newState); // push newState on top of stack
+
+    stateRender_->state_ = stateUpdate_->state_ = newState;
+}
+
 
 }
 

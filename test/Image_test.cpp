@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.10 2005/08/08 06:37:10 cozman Exp $
+//  $Id: Image_test.cpp,v 1.11 2005/08/10 21:22:33 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -67,7 +67,7 @@ int PhotonMain(const StrVec& args)
     Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
     // set current state
-    Application::getInstance().setCurrentState<MainState>();
+    Application::getInstance().setState<MainState>();
 
     // run until finished
     Kernel::getInstance().run();

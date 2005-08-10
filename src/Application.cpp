@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.21 2005/08/10 05:36:58 cozman Exp $
+//  $Id: Application.cpp,v 1.22 2005/08/10 21:22:33 cozman Exp $
 
 #include "Application.hpp"
 
@@ -389,6 +389,21 @@ double Application::getFramerate()
 {
     return 1/updateTask_->secPerFrame_;
 }
+
+// States //////////////////////////////////////////////////////////////////////
+
+void Application::popState()
+{
+    stateStack_.pop();  // pop current state from stack
+    
+    // if there is another state, resume it it 
+    if(!stateStack_.empty())
+    {
+        stateStack_.top()->onResume();
+        stateRender_->state_ = stateUpdate_->state_ = stateStack_.top();
+    }
+}
+
 // AudioCore ///////////////////////////////////////////////////////////////////
 #ifdef PHOTON_USE_OPENAL
 

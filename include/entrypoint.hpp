@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.8 2005/08/08 19:19:25 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.9 2005/08/10 21:22:33 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -33,7 +33,7 @@
 //     Application::getInstance().createDisplay(800,600,32,0,0,false);
 // 
 //     // set current state
-//     Application::getInstance().setCurrentState<MainMenu>();
+//     Application::getInstance().setState<MainMenu>();
 //
 //     // can also add any tasks here 
 // 
