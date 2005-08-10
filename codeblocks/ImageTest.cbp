@@ -32,7 +32,6 @@
 			<Add library="openal32"/>
 			<Add library="physfs"/>
 			<Add library="freetype"/>
-			<Add library="alut"/>
 			<Add library="corona"/>
 			<Add directory="..\lib"/>
 		</Linker>

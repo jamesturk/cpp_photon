@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: SampleResourceManager.cpp,v 1.3 2005/07/18 05:14:18 cozman Exp $
+//  $Id: SampleResourceManager.cpp,v 1.4 2005/08/10 05:36:30 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -14,7 +14,8 @@
 #include "util/FileBuffer.hpp"
 
 #include "AL/al.h"
-#include "AL/alut.h"    // used for loading WAVs, to be phased out
+
+#include <iostream>
 
 namespace photon
 {
@@ -35,10 +36,9 @@ void SampleResourceManager::loadResourceData(SampleResource &res,
     util::FileBuffer buf(desc.path);
     // OpenAL variables to load into.
     ALenum format;
-    ALsizei size;
-    ALvoid* data;
-    ALsizei freq;
-    ALboolean loop;
+    uint size;
+    ubyte* data;
+    uint freq;
     
     // load from FileBuffer (allows loading from zip via PhysFS)
     std::vector<ubyte> filedata = buf.getData();
@@ -48,15 +48,12 @@ void SampleResourceManager::loadResourceData(SampleResource &res,
     
     AudioCore::throwOpenALError("alGenBuffers");
 
-    // load WAV via alut
-    alutLoadWAVMemory(reinterpret_cast<ALbyte*>(&filedata[0]), 
-                        &format, &data, &size, &freq, &loop);
-    AudioCore::throwOpenALError("alutLoadWAVFile");
+    // load WAV and pass it into OpenAL buffer
+    loadWAVMemory(&filedata[0], format, data, size, freq);
+    alBufferData(res.bufferID, format, (ALvoid*)data, size, freq);
+    freeWAVMemory(data);
     
-    alBufferData(res.bufferID, format, data, size, freq);
-    alutUnloadWAV(format, data, size, freq);
-    
-    AudioCore::throwOpenALError("SampleResourceManager::loadResourceData");
+    AudioCore::throwOpenALError("alBufferData");
 }
 
 void SampleResourceManager::freeResourceData(SampleResource& res)
@@ -66,6 +63,77 @@ void SampleResourceManager::freeResourceData(SampleResource& res)
         // delete buffers, just like textures in GL
         alDeleteBuffers(1, &res.bufferID);
     }
+}
+
+void SampleResourceManager::loadWAVMemory(const ubyte* memory, ALenum& format, ubyte*& data, 
+                    uint& size, uint& freq)
+{
+    WaveHeader wavHeader;
+
+    std::memcpy(&wavHeader, memory, sizeof(WaveHeader));
+
+    // check vital fields of WAV file for validation
+    if(wavHeader.fmt.format != 1)
+    {
+        throw ResourceException("Error loading WAV: Non-PCM format WAV");
+    }
+    if(wavHeader.riff.chunkID != WaveHeader::RIFF)
+    {
+        throw ResourceException("Error loading WAV: Invalid RIFF chunk."); 
+    }
+    if(wavHeader.riff.format != WaveHeader::WAVE)
+    {
+        throw ResourceException("Error loading WAV: Invalid WAVE header.");
+    }
+    if(wavHeader.fmt.chunkID != WaveHeader::FMT)
+    {
+        throw ResourceException("Error loading WAV: Invalid FMT chunk.");
+    }
+    if(wavHeader.chunkID != WaveHeader::DATA)
+    {
+        throw ResourceException("Error loading WAV: Invalid DATA chunk.");
+    }
+    
+    // set OpenAL format based on channels & bitsPerSample
+    if(wavHeader.fmt.numChannels == 1 && wavHeader.fmt.bitsPerSample == 8)
+    {
+        format = AL_FORMAT_MONO8;
+    }
+    else if(wavHeader.fmt.numChannels == 1 && wavHeader.fmt.bitsPerSample == 16)
+    {
+        format = AL_FORMAT_MONO16;
+    }
+    else if(wavHeader.fmt.numChannels == 2 && wavHeader.fmt.bitsPerSample == 8)
+    {
+        format = AL_FORMAT_STEREO8;
+    }
+    else if(wavHeader.fmt.numChannels == 2 && wavHeader.fmt.bitsPerSample == 16)
+    {
+        format = AL_FORMAT_STEREO16;
+    }
+    else
+    {
+        throw ResourceException("Error loading WAV: Invalid audio format.");
+    }
+
+    // copy size and frequency
+    size = wavHeader.dataSize;
+    freq = wavHeader.fmt.sampleRate;
+
+    // allocate space and copy data
+    data = new ubyte[size];
+    std::memcpy(data, memory+sizeof(WaveHeader), size);
+}
+
+void SampleResourceManager::freeWAVMemory(ubyte*& data)
+{
+    if(data == 0)
+    {
+        assert(0);
+    }
+    
+    delete[] data;
+    data = 0;
 }
 
 }

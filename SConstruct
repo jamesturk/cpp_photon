@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.19 2005/08/08 21:39:40 cozman Exp $
+#  $Id: SConstruct,v 1.20 2005/08/10 05:36:30 cozman Exp $
 
 import os,os.path
 import glob
@@ -27,7 +27,7 @@ INC_DIRS = ["include/%s" % d for d in SUB_DIRS]
 SRC_FILES = [f.replace('src','build') for f in getFilesMulti(SRC_DIRS, '*.cpp')]
 INC_FILES = getFilesMulti(INC_DIRS, '*.hpp')
 
-libsMap = { 'nt':('opengl32','glu32',['openal32','alut']),
+libsMap = { 'nt':('opengl32','glu32','openal32'),
             'posix':('GL','GLU','openal'),
             'mac':('GL','GLU','openal')}
 try:

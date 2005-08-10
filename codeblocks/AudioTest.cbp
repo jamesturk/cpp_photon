@@ -33,7 +33,6 @@
 			<Add library="openal32"/>
 			<Add library="physfs"/>
 			<Add library="freetype"/>
-			<Add library="alut"/>
 			<Add directory="..\lib"/>
 		</Linker>
 		<Unit filename="..\test\Audio_test.cpp">
