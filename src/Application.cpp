@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.20 2005/08/08 21:39:41 cozman Exp $
+//  $Id: Application.cpp,v 1.21 2005/08/10 05:36:58 cozman Exp $
 
 #include "Application.hpp"
 
@@ -21,7 +21,6 @@
 #include "Application.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/filesys/filesys.hpp"
-
 
 namespace photon
 {
@@ -82,13 +81,16 @@ void Application::createDisplay(uint width, uint height,
     {
         throw APIError("Failed to create display.");
     }
-    displayWidth_ = width;
-    displayHeight_ = height;
+    
+    // fetch window size (fixes X11 fullscreen bug)
+    glfwGetWindowSize(reinterpret_cast<int*>(&displayWidth_), 
+                        reinterpret_cast<int*>(&displayHeight_));
     
     glfwSetWindowTitle(title.c_str());  // title is set separately
     
     initOpenGL();
     setOrthoView();
+    
     Kernel::getInstance().addTask(TaskPtr(new VideoTask()));
 
     // register the callbacks (after a window is open)
@@ -127,6 +129,7 @@ void Application::createDisplay(uint width, uint height, uint bpp,
                                     "8,16,24, or 32, passed " +
                                     boost::lexical_cast<std::string>(bpp) );
     }
+    
 }
 
 void Application::setTitle(const std::string& title)
