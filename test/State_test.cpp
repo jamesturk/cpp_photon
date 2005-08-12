@@ -5,11 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State_test.cpp,v 1.1 2005/08/12 07:02:15 cozman Exp $
+//  $Id: State_test.cpp,v 1.2 2005/08/12 07:21:51 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
+
+#include <iostream>
 
 class Demo2D : public State
 {
@@ -57,44 +59,50 @@ public:
 
         Application::getInstance().setPerspectiveView(45.0, 1.0, 100.0);
 
-        glShadeModel(GL_SMOOTH);                // Enable Smooth Shading
-        glClearDepth(1.0f);                     // Depth Buffer Setup
-        glEnable(GL_DEPTH_TEST);                // Enables Depth Testing
+        glShadeModel(GL_SMOOTH);    // smooth shading
+        glClearDepth(1.0f);         // set clear depth
+        glEnable(GL_DEPTH_TEST);    // enable depth testing
         glDepthFunc(GL_LEQUAL);
         
         // create the list to display a box
         glNewList(boxList, GL_COMPILE);
         glBegin(GL_QUADS);
-            // front
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
-            // back
-            glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
-            glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
-            // top
-            glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
-            // bottom
-            glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
-            glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
-            // right
-            glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
-            glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
-            // left
-            glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
-            glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
-            glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
-            glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+            // front - red
+            glColor3ub(255, 0, 0);
+            glVertex3f(-1.0f, -1.0f,  1.0f);
+            glVertex3f( 1.0f, -1.0f,  1.0f);
+            glVertex3f( 1.0f,  1.0f,  1.0f);
+            glVertex3f(-1.0f,  1.0f,  1.0f);
+            // back - green
+            glColor3ub(0, 255, 0);
+            glVertex3f(-1.0f, -1.0f, -1.0f);
+            glVertex3f(-1.0f,  1.0f, -1.0f);
+            glVertex3f( 1.0f,  1.0f, -1.0f);
+            glVertex3f( 1.0f, -1.0f, -1.0f);
+            // top - blue
+            glColor3ub(0, 0, 255);
+            glVertex3f(-1.0f,  1.0f, -1.0f);
+            glVertex3f(-1.0f,  1.0f,  1.0f);
+            glVertex3f( 1.0f,  1.0f,  1.0f);
+            glVertex3f( 1.0f,  1.0f, -1.0f);
+            // bottom - orange
+            glColor3ub(255, 128, 0);
+            glVertex3f(-1.0f, -1.0f, -1.0f);
+            glVertex3f( 1.0f, -1.0f, -1.0f);
+            glVertex3f( 1.0f, -1.0f,  1.0f);
+            glVertex3f(-1.0f, -1.0f,  1.0f);
+            // right - purple
+            glColor3ub(128, 0, 255);
+            glVertex3f( 1.0f, -1.0f, -1.0f);
+            glVertex3f( 1.0f,  1.0f, -1.0f);
+            glVertex3f( 1.0f,  1.0f,  1.0f);
+            glVertex3f( 1.0f, -1.0f,  1.0f);
+            // left - yellow
+            glColor3ub(255, 255, 0);
+            glVertex3f(-1.0f, -1.0f, -1.0f);
+            glVertex3f(-1.0f, -1.0f,  1.0f);
+            glVertex3f(-1.0f,  1.0f,  1.0f);
+            glVertex3f(-1.0f,  1.0f, -1.0f);
         glEnd();
         glEndList();
     }
@@ -116,7 +124,7 @@ public:
     {
         scalar dt = Application::getInstance().getElapsedTime();
         // dt is sporadic and results in terrible choppiness
-        dt = 0.01;
+        //dt = 0.01;
 
         xRot += 30*dt;
         yRot += 40*dt;
@@ -127,9 +135,9 @@ public:
     {
         glLoadIdentity();
         glTranslatef(0.0f,0.0f,-5.0f);
-        glRotatef(xRot,1.0f,0.0f,0.0f);
-        glRotatef(yRot,0.0f,1.0f,0.0f);
-        glRotatef(zRot,0.0f,0.0f,1.0f);
+        glRotated(xRot,1.0f,0.0f,0.0f);
+        glRotated(yRot,0.0f,1.0f,0.0f);
+        glRotated(zRot,0.0f,0.0f,1.0f);
         glBindTexture(GL_TEXTURE_2D, 0);
         glCallList(boxList);
     }
@@ -192,6 +200,11 @@ public:
         {
             Kernel::getInstance().killAllTasks();
         }
+    }
+
+    void update()
+    {
+        std::cout << app.getElapsedTime() << "\n";
     }
 
     void render()
