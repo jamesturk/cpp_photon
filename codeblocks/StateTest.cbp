@@ -31,6 +31,7 @@
 			<Add library="openal32"/>
 			<Add library="physfs"/>
 			<Add library="freetype"/>
+			<Add library="corona"/>
 			<Add directory="..\lib"/>
 		</Linker>
 		<Unit filename="..\test\State_test.cpp">
