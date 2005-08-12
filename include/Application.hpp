@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.17 2005/08/10 21:22:33 cozman Exp $
+//  $Id: Application.hpp,v 1.18 2005/08/12 06:26:00 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -21,11 +21,10 @@
 #include "State.hpp"
 #include "Task.hpp"
 #include "Kernel.hpp"
-#include "InputListener.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/Singleton.hpp"
 
-#include <vector>
+#include <iostream>
 
 namespace photon
 {
@@ -246,29 +245,6 @@ public:
     //  Mouse wheel position, zero assumed to be starting position.
     int getMouseWheelPos();
     
-// Group: Input Listeners
-public:
-    // Function: addInputListener
-    //  Registers an <InputListener> to listen for any input events so that it
-    //  is notified when they occur.
-    //
-    // Parameters:
-    //  listener - Pointer to <InputListener> to add.
-    static void addInputListener(InputListener *listener);
-    
-    // Function: removeInputListener
-    //  Removes an <InputListener> from the list of active listeners.
-    //
-    // Parameters:
-    //  listener - Pointer to <InputListener> to remove.
-    static void removeInputListener(InputListener *listener);
-    
-    static void GLFWCALL keyCallback(int key, int action);
-    //static void GLFWCALL charCallback(int character, int action);
-    static void GLFWCALL mouseButtonCallback(int button, int action);
-    static void GLFWCALL mouseMoveCallback(int x, int y);
-    //static void GLFWCALL mouseWheelCallback(int pos);
-
 // Group: Timing
 public:
 
@@ -304,7 +280,7 @@ public:
     //  StateT - Class derived from <State> to set as current.
     template<class StateT>
     void setState();
-    
+
     // Function: pushState
     //  Push a new <State>, does not remove old <State>.
     //
@@ -312,7 +288,7 @@ public:
     //  StateT - Class derived from <State> to push.
     template<class StateT>
     void pushState();
-    
+
     // Function: popState
     //  Pop the current <State>, returning to the prior <State> on the stack.
     void popState();
@@ -337,6 +313,14 @@ public:
    //               device if none specified.
    void initAudioCore(const std::string& deviceName="");
 #endif //PHOTON_USE_OPENAL
+
+// Callbacks
+public:
+    static void GLFWCALL keyCallback(int key, int action);
+    //static void GLFWCALL charCallback(int character, int action);
+    static void GLFWCALL mouseButtonCallback(int button, int action);
+    static void GLFWCALL mouseMoveCallback(int x, int y);
+    static void GLFWCALL mouseWheelCallback(int pos);
 
 // API Initialization
 private:
@@ -425,11 +409,10 @@ private:
     shared_ptr<StateRender> stateRender_;
 
     // input system variables
-    static std::vector<InputListener*> listeners_;
     static std::vector<KeyCode> pressedKeys_;
     
     // state system
-    std::stack<StatePtr> stateStack_;
+    static std::stack<StatePtr> stateStack_;
 
     // Cores
     #ifdef PHOTON_USE_OPENAL
@@ -467,7 +450,6 @@ void Application::pushState()
     {
         stateStack_.top()->onPause();
     }
-    
     stateStack_.push(newState); // push newState on top of stack
 
     stateRender_->state_ = stateUpdate_->state_ = newState;

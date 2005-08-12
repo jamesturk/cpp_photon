@@ -1,18 +1,20 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.6 2005/08/10 21:22:33 cozman Exp $
+$Id: CHANGELOG.txt,v 1.7 2005/08/12 06:26:00 cozman Exp $
 
-+ : New Features
-- : Feature Removal
-! : Major Changes
-* : Minor Changes/Bugfixes
+! : Major Changes   (potentially breaking existing code)
++ : New Features   
+* : Minor Changes   (bugfixes and behind-the-scenes changes)
 
 
 0.0.2 
+    ! Removed InputListener, opting to move features into State class.
     + Code::Blocks and Dev-C++ support
     + Addition of a State stack allowing for applications to fall back to the 
         previous state when done with a particular state.
+    + Notification of mouse wheel events added.
     * Fixed X11 fullscreen mode 
     * Removed ALUT dependencies by adding custom WAV loading code
+    * Mouse move events now give relative position.
 
 0.0.1 - Released 2005-08-08
     + State-based design that allows easy creation of applications by simply

@@ -8,7 +8,6 @@
 #include "Task.hpp"
 #include "exceptions.hpp"
 #include "photon.hpp"
-#include "InputListener.hpp"
 #include "entrypoint.hpp"
 #include "LogSink.hpp"
 #include "Log.hpp"

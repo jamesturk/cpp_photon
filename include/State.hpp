@@ -5,12 +5,16 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State.hpp,v 1.2 2005/08/10 21:22:33 cozman Exp $
+//  $Id: State.hpp,v 1.3 2005/08/12 06:26:00 cozman Exp $
 
 #ifndef PHOTON_STATE_HPP
 #define PHOTON_STATE_HPP
 
 #include "types.hpp"
+#include "math/Vector2.hpp"
+
+namespace photon
+{
 
 // Class: State
 //  Pure virtual State class, used as base class for Photon's state system.
@@ -18,12 +22,16 @@
 //  Photon's State system is extremely simple yet also very convenient. Simply 
 //  by creating classes that fulfill the <State> interface you can use Photon
 //  to manage the state that the game is in. 
-
+//
 //  Implement as many or as few of the members of State as needed (the only 
 //  necessary member being <render>) and make the state as current via 
 //  <Application::setState>.  Once a state is made current it's 
 //  update and render methods will be called every frame until either a new
 //  state is made current or the application ends.
+//
+//  The active state is also notified of events as they occur, overloading any
+//  of the on* functions will result in the overloaded version being called 
+//  when the particular event happens while the state is active.
 class State
 {
 // Group: (Con/De)structors
@@ -66,8 +74,60 @@ public:
     //  will call onResume allowing the state to undo any work that had been 
     //  done in <onPause>.  
     virtual void onResume() { };
+
+// Group: Keyboard Actions
+public:
+    // Function: onKeyPress
+    //  Called when a key is pressed.
+    // 
+    // Parameters:
+    //  key - <KeyCode> of key that has been pressed. 
+    virtual void onKeyPress(KeyCode key) { };
+    
+    // Function: onKeyRelease
+    //  Called when a key is released.
+    // 
+    // Parameters:
+    //  key - <KeyCode> of key that has been released.
+    virtual void onKeyRelease(KeyCode key) { };
+
+// Group: Mouse Actions
+public:
+    // Function: onMouseButtonPress
+    //  Called when a mouse button is pressed.
+    //
+    // Parameters:
+    //  button - <MouseButton> that was pressed.
+    virtual void onMouseButtonPress(MouseButton button) { };
+    
+    // Function: onMouseButtonRelease
+    //  Called when a mouse button is released.
+    //
+    // Parameters:
+    //  button - <MouseButton> that was released.
+    virtual void onMouseButtonRelease(MouseButton button) { };
+
+    // Function: onMouseMove
+    //  Called when the mouse is moved with the amount the mouse was moved by
+    //  NOT with the new position.
+    //
+    //  If the new position is needed it can be obtained via <getMouseX> and 
+    //  <getMouseY>.
+    //
+    // Parameters:
+    //  delta - Change in mouse position.
+    virtual void onMouseMove(const math::Vector2& delta) { };
+    
+    // Function: onMouseScroll
+    //  Called when mouse wheel is scrolled.
+    //
+    // Parameters:
+    //  dir - <ScrollDir> describing if mouse wheel was scrolled up or down.
+    virtual void onMouseScroll(ScrollDir dir) { };
 };
 
-typedef photon::shared_ptr<State> StatePtr;
+typedef shared_ptr<State> StatePtr;
+
+}
 
 #endif  //PHOTON_STATE_HPP

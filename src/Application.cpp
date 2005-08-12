@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.22 2005/08/10 21:22:33 cozman Exp $
+//  $Id: Application.cpp,v 1.23 2005/08/12 06:26:00 cozman Exp $
 
 #include "Application.hpp"
 
@@ -26,8 +26,8 @@ namespace photon
 {
 
 // static class members
-std::vector<InputListener*> Application::listeners_;
 std::vector<KeyCode> Application::pressedKeys_;
+std::stack<StatePtr> Application::stateStack_;
 
 // (Con/De)structors ///////////////////////////////////////////////////////////
 
@@ -98,7 +98,7 @@ void Application::createDisplay(uint width, uint height,
     //glfwSetCharCallback(Application::charCallback);
     glfwSetMouseButtonCallback(Application::mouseButtonCallback);
     glfwSetMousePosCallback(Application::mouseMoveCallback);
-    //glfwSetMouseWheelCallback(Application::mouseWheelCallback);
+    glfwSetMouseWheelCallback(Application::mouseWheelCallback);
 }
 
 void Application::createDisplay(uint width, uint height, uint bpp,
@@ -262,117 +262,6 @@ int Application::getMouseWheelPos()
     return glfwGetMouseWheel();
 }
 
-// Input Listeners /////////////////////////////////////////////////////////////
-
-void Application::addInputListener(InputListener *listener)
-{
-    // should never happen since listeners add themselves with a this pointer
-    if(!listener)
-    {
-        throw ArgumentException("Null pointer in "
-                                "Application::addInputListener");
-    }
-
-    // add the listener
-    listeners_.push_back(listener);
-}
-
-void Application::removeInputListener(InputListener *listener)
-{
-    // should never happen since listeners remove themselves with a this pointer
-    if(!listener)
-    {
-        throw ArgumentException("Null pointer in "
-                                "Application::removeInputListener");
-    }
-
-    // find and erase the listener
-    std::vector<InputListener*>::iterator it;
-    it = std::find(listeners_.begin(), listeners_.end(), listener);
-
-    if(it != listeners_.end())
-    {
-        listeners_.erase(it);
-    }
-}
-
-void GLFWCALL Application::keyCallback(int key, int action)
-{
-    // notify all listeners
-    for(std::vector<InputListener*>::iterator listener = listeners_.begin();
-        listener != listeners_.end(); 
-        ++listener)
-    {
-        // only active listeners get messages
-        if((*listener)->isActive())
-        {
-            if(action == GLFW_PRESS)
-            {
-                (*listener)->onKeyPress(KeyCode(key));
-            }
-            else
-            {
-                (*listener)->onKeyRelease(KeyCode(key));
-            }
-        }
-    }
-    
-    // maintain a list of pressed keys
-    if(action == GLFW_PRESS)
-    {
-        pressedKeys_.push_back(static_cast<KeyCode>(key));
-    }
-    else
-    {
-        // delete a key from the vector
-        std::vector<KeyCode>::iterator it;
-        it = std::find(pressedKeys_.begin(), pressedKeys_.end(), key);
-    
-        if(it != pressedKeys_.end())
-        {
-            pressedKeys_.erase(it);
-        }
-    }
-}
-
-void GLFWCALL Application::mouseButtonCallback(int button, int action)
-{
-    // notify all listeners
-    for(std::vector<InputListener*>::iterator listener = listeners_.begin();
-        listener != listeners_.end(); 
-        ++listener)
-    {
-        // only active listeners get messages
-        if((*listener)->isActive())
-        {
-            if(action == GLFW_PRESS)
-            {
-                (*listener)->onMouseButtonPress(MouseButton(button));
-            }
-            else
-            {
-                (*listener)->onMouseButtonRelease(MouseButton(button));
-            }
-        }
-    }
-}
-
-void GLFWCALL Application::mouseMoveCallback(int x, int y)
-{
-    // notify all listeners
-    for(std::vector<InputListener*>::iterator listener = listeners_.begin();
-        listener != listeners_.end(); 
-        ++listener)
-    {
-        // only active listeners get messages
-        if((*listener)->isActive())
-        {
-            (*listener)->onMouseMove(math::Vector2(static_cast<scalar>(x),
-                                                    static_cast<scalar>(y)));
-        }
-    }
-}
-
 // Timing //////////////////////////////////////////////////////////////////////
 
 scalar Application::getTime()
@@ -394,9 +283,17 @@ double Application::getFramerate()
 
 void Application::popState()
 {
-    stateStack_.pop();  // pop current state from stack
-    
-    // if there is another state, resume it it 
+    // check for underflow
+    if(stateStack_.empty())
+    {
+        throw PreconditionException("Attempt to popState without at least 2 "
+                                    "states on stack.");
+    }
+
+    // pop current state from stack
+    stateStack_.pop();
+
+    // resume new top state & set tasks for next state
     if(!stateStack_.empty())
     {
         stateStack_.top()->onResume();
@@ -432,6 +329,82 @@ void Application::initAudioCore(const std::string& deviceName)
 }
 
 #endif //PHOTON_USE_OPENAL
+
+// Callbacks ///////////////////////////////////////////////////////////////////
+
+void GLFWCALL Application::keyCallback(int key, int action)
+{
+    if(!stateStack_.empty())
+    {
+        if(action == GLFW_PRESS)
+        {
+            stateStack_.top()->onKeyPress(KeyCode(key));
+        }
+        else
+        {
+            stateStack_.top()->onKeyRelease(KeyCode(key));
+        }
+    }
+
+    // maintain a list of pressed keys
+    if(action == GLFW_PRESS)
+    {
+        pressedKeys_.push_back(static_cast<KeyCode>(key));
+    }
+    else
+    {
+        // delete a key from the vector
+        std::vector<KeyCode>::iterator it;
+        it = std::find(pressedKeys_.begin(), pressedKeys_.end(), key);
+    
+        if(it != pressedKeys_.end())
+        {
+            pressedKeys_.erase(it);
+        }
+    }
+}
+
+void GLFWCALL Application::mouseButtonCallback(int button, int action)
+{
+    if(!stateStack_.empty())
+    {
+        if(action == GLFW_PRESS)
+        {
+            stateStack_.top()->onMouseButtonPress(MouseButton(button));
+        }
+        else
+        {
+            stateStack_.top()->onMouseButtonRelease(MouseButton(button));
+        }
+    }
+}
+
+void GLFWCALL Application::mouseMoveCallback(int x, int y)
+{
+    static math::Point2 lastPos;
+    
+    if(!stateStack_.empty())
+    {
+        // calculate change in position and send delta
+        math::Point2 pos(static_cast<scalar>(x), static_cast<scalar>(y));
+        stateStack_.top()->onMouseMove(pos - lastPos);
+        lastPos = pos;
+    }
+}
+
+void GLFWCALL Application::mouseWheelCallback(int pos)
+{
+    static int lastPos(0);
+    
+    if(!stateStack_.empty())
+    {
+        // if pos < lastPos scrolled up, otherwise scrolled down
+        stateStack_.top()->onMouseScroll( pos < lastPos ? 
+                                            SCROLL_DOWN : 
+                                            SCROLL_UP);
+        lastPos = pos;
+    }
+}
 
 // API initialization //////////////////////////////////////////////////////////
 
@@ -536,7 +509,7 @@ Application::VideoTask::VideoTask() :
 void Application::VideoTask::update()
 {
     // TODO: clear depth/stencil if requested
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 }
 
 Application::StateUpdate::StateUpdate() :

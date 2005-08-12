@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.13 2005/08/10 21:22:33 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.14 2005/08/12 06:26:00 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -17,7 +17,7 @@ using namespace photon;
 using namespace photon::audio;
 
 // sole task of AudioTest
-class MainState : public State , public InputListener
+class MainState : public State
 {
 
 public:

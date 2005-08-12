@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.7 2005/08/08 19:19:25 cozman Exp $
+//  $Id: types.hpp,v 1.8 2005/08/12 06:26:00 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP
@@ -315,6 +315,16 @@ enum MouseButton
     MB_LEFT     =GLFW_MOUSE_BUTTON_LEFT,
     MB_MIDDLE   =GLFW_MOUSE_BUTTON_MIDDLE,
     MB_RIGHT    =GLFW_MOUSE_BUTTON_RIGHT
+};
+
+// Enum: ScrollDir
+// Enumeration defining scroll direction of mouse wheel.
+//
+//  SCROLL_UP   - Wheel was scrolled up.
+//  SCROLL_DOWN - Wheel was scrolled down.
+enum ScrollDir
+{
+    SCROLL_UP, SCROLL_DOWN
 };
 
 }

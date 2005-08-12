@@ -5,13 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.9 2005/08/10 21:22:33 cozman Exp $
+//  $Id: Input_test.cpp,v 1.10 2005/08/12 06:26:00 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
 #include "FPSDisplayTask.hpp"   // used to display FPS in title bar
 
-class MainState : public State, public InputListener
+class MainState : public State
 {
 
 public:
@@ -50,9 +50,15 @@ public:
             " released";
     }
     
-    void onMouseMove(const math::Vector2& pos)
+    void onMouseMove(const math::Vector2& delta)
     {
-        lastEvent = "mouse moved to " +  boost::lexical_cast<std::string>(pos); 
+        lastEvent = "mouse moved by " + boost::lexical_cast<std::string>(delta); 
+    }
+    
+    void onMouseScroll(ScrollDir dir)
+    {
+        lastEvent = "mouse wheel scrolled " +
+            std::string(dir == SCROLL_UP ? "up" : "down");
     }
 
     void render()
