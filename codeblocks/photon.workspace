@@ -13,6 +13,7 @@
 		<Project filename="mathTest.cbp"/>
 		<Project filename="PenTest.cbp"/>
 		<Project filename="RandGenTest.cbp"/>
-		<Project filename="TextureTest.cbp" active="1"/>
+		<Project filename="TextureTest.cbp"/>
+		<Project filename="StateTest.cbp" active="1"/>
 	</Workspace>
 </Code::Blocks_workspace_file>
