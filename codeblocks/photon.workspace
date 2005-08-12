@@ -2,7 +2,7 @@
 <!DOCTYPE Code::Blocks_workspace_file>
 <Code::Blocks_workspace_file>
 	<Workspace title="Photon Workspace">
-		<Project filename="photon.cbp"/>
+		<Project filename="photon.cbp" active="1"/>
 		<Project filename="AudioTest.cbp"/>
 		<Project filename="ImageTest.cbp"/>
 		<Project filename="ConfigFileTest.cbp"/>
@@ -14,6 +14,6 @@
 		<Project filename="PenTest.cbp"/>
 		<Project filename="RandGenTest.cbp"/>
 		<Project filename="TextureTest.cbp"/>
-		<Project filename="StateTest.cbp" active="1"/>
+		<Project filename="StateTest.cbp"/>
 	</Workspace>
 </Code::Blocks_workspace_file>
