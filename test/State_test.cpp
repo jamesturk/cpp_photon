@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State_test.cpp,v 1.2 2005/08/12 07:21:51 cozman Exp $
+//  $Id: State_test.cpp,v 1.3 2005/08/14 07:40:13 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -15,12 +15,37 @@ using namespace photon;
 
 class Demo2D : public State
 {
+    
+struct MovingRect
+{
+    math::Rect pos;
+    math::Vector2 vel;
+};
+
 public:
     Demo2D()
     {
+        util::RandGen rand;
+
         video::Image::addResource("robo","data/robo.png");
+
+        roboImg.open("robo");
         
-        robo.open("robo");
+        robots.resize(5);
+        
+        for(std::vector<MovingRect>::iterator robot( robots.begin() );
+            robot != robots.end();
+            ++robot)
+        {
+            robot->pos.moveTo(math::Point2(
+                                rand.genRand(0.,800-roboImg.getWidth()), 
+                                rand.genRand(0.,600-roboImg.getHeight())));
+            robot->pos.resize(roboImg.getWidth(), roboImg.getHeight());
+
+            // generates -400 or +400
+            robot->vel.x = rand.genRandSign()*400;
+            robot->vel.y = rand.genRandSign()*400;
+        }
         
         Application::getInstance().setOrthoView();
     }
@@ -35,17 +60,51 @@ public:
     
     void update()
     {
-        
+        for(std::vector<MovingRect>::iterator robot( robots.begin() );
+            robot != robots.end();
+            ++robot)
+        {
+            math::Vector2 vel(robot->vel * 
+                Application::getInstance().getTimeDelta());
+            
+            robot->pos.moveRel(vel.x, vel.y);
+            
+            if(robot->pos.getLeft() < 0 || robot->pos.getRight() > 800)
+            {
+                robot->vel.x *= -1;
+            }
+            if(robot->pos.getTop() < 0 || robot->pos.getBottom() > 600)
+            {
+                robot->vel.y *= -1;
+            }
+            
+            // check for robot-robot collisions
+            for(std::vector<MovingRect>::iterator robot2( robot );
+                robot2 != robots.end();
+                ++robot2)
+            {
+                if(robot->pos.intersects(robot2->pos))
+                {
+                    std::swap(robot->vel, robot2->vel);
+                }
+            }
+            
+        }
     }
     
     void render()
     {
-        robo.draw(0,0);
+        for(std::vector<MovingRect>::iterator robot( robots.begin() );
+            robot != robots.end();
+            ++robot)
+        {
+            roboImg.draw(robot->pos.getX(), robot->pos.getY());
+        }
     }
     
 private:
-    video::Image robo;
-    math::Point2 location;
+    video::Image roboImg;
+    std::vector<MovingRect> robots;
 };
 
 class Demo3D : public State
@@ -122,9 +181,7 @@ public:
 
     void update()
     {
-        scalar dt = Application::getInstance().getElapsedTime();
-        // dt is sporadic and results in terrible choppiness
-        //dt = 0.01;
+        scalar dt = Application::getInstance().getTimeDelta();
 
         xRot += 30*dt;
         yRot += 40*dt;
@@ -181,6 +238,7 @@ public:
         }
         
         app.setOrthoView();
+        app.setTimeDeltaMode(TDM_AVERAGE, 250);
     }
 
     void onMouseButtonPress(MouseButton button)  
@@ -200,11 +258,6 @@ public:
         {
             Kernel::getInstance().killAllTasks();
         }
-    }
-
-    void update()
-    {
-        std::cout << app.getElapsedTime() << "\n";
     }
 
     void render()
@@ -228,15 +281,9 @@ public:
         
         
     }
-    
-    void onPause()
-    {
-        //setActive(false);
-    }
 
     void onResume()
     {
-        //setActive(true);
         font.setColor(video::Color(rand.genRand(0,255), rand.genRand(0,255), 
                         rand.genRand(0,255)));
         app.setOrthoView();
@@ -254,9 +301,6 @@ int PhotonMain(const StrVec& args)
 {
     // create window
     Application::getInstance().createDisplay(800,600,32,0,0,false);
-
-    // be sure to add FPSDisplayTask
-    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
     
     // add archives to search path
     util::filesys::addToSearchPath("data/fonts.zip");

@@ -5,13 +5,14 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.18 2005/08/12 06:26:00 cozman Exp $
+//  $Id: Application.hpp,v 1.19 2005/08/14 07:40:13 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
 
 #include <vector>
 #include <stack>
+#include <valarray>
 #include <string>
 
 #include <boost/utility.hpp>
@@ -24,7 +25,12 @@
 #include "audio/AudioCore.hpp"
 #include "util/Singleton.hpp"
 
-#include <iostream>
+enum TimeDeltaMode
+{
+    TDM_ACTUAL,
+    TDM_AVERAGE,
+    TDM_FIXED
+};
 
 namespace photon
 {
@@ -256,19 +262,9 @@ public:
     //  been running.
     scalar getTime();
     
-    // Function: getElapsedTime
-    //  Finds the amount of time passed between frames, useful for time-based
-    //  movement.
-    //
-    // Returns:
-    //  Time between current frame and last frame. (1/<getFramerate>())
-    double getElapsedTime();
-
-    // Function: getFramerate
-    //  Gets number of frames per second the application is currently processing
-    //
-    // Returns:
-    //  Current frames per second.
+    void setTimeDeltaMode(TimeDeltaMode mode, int numFrames=0);
+    void setTimeDeltaMode(TimeDeltaMode mode, scalar fixedStep);
+    double getTimeDelta();
     double getFramerate();
 
 // Group: State Management 
@@ -353,6 +349,7 @@ private:
         scalar pausedTime_;
         scalar secPerFrame_;
         scalar lastUpdate_;
+        std::valarray<scalar> frameTimes_;
     };
     
     // VideoTask, does the updating work of OpenGL
@@ -402,6 +399,8 @@ private:
     uint displayHeight_;
     uint viewportWidth_;
     uint viewportHeight_;
+    
+    TimeDeltaMode timeDeltaMode_;
 
     // tasks
     shared_ptr<UpdateTask> updateTask_;

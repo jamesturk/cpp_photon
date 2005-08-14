@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.23 2005/08/12 06:26:00 cozman Exp $
+//  $Id: Application.cpp,v 1.24 2005/08/14 07:40:13 cozman Exp $
 
 #include "Application.hpp"
 
@@ -22,6 +22,8 @@
 #include "audio/AudioCore.hpp"
 #include "util/filesys/filesys.hpp"
 
+#include <iostream>
+
 namespace photon
 {
 
@@ -35,6 +37,7 @@ Application::Application(const std::string& arg0) :
     photonVer_(0,0,1),  // this is the current version
     displayWidth_(0), displayHeight_(0),
     viewportWidth_(0), viewportHeight_(0),
+    timeDeltaMode_(TDM_ACTUAL),
     updateTask_(new UpdateTask()),
     stateUpdate_(new StateUpdate()),
     stateRender_(new StateRender())
@@ -269,14 +272,56 @@ scalar Application::getTime()
     return glfwGetTime() - updateTask_->pausedTime_;
 }
 
-double Application::getElapsedTime()
+void Application::setTimeDeltaMode(TimeDeltaMode mode, int numFrames)
 {
-    return updateTask_->secPerFrame_;
+    // if the mode is fixed should have speficied a scalar fixedStep
+    if(mode == TDM_FIXED)
+    {
+        throw PreconditionException("setTimeDeltaMode called without fixedStep"
+                                    "but with TDM_FIXED mode.");
+    }
+    // if the mode is average should have at least two frames to average
+    if(mode == TDM_AVERAGE && numFrames <= 1)
+    {
+        throw PreconditionException("setTimeDeltaMode called with TDM_AVERAGE"
+                                    "but numFrames <= 1");
+    }
+    
+    timeDeltaMode_ = mode;
+    updateTask_->frameTimes_.resize(numFrames);
+}
+
+void Application::setTimeDeltaMode(TimeDeltaMode mode, scalar fixedStep)
+{
+    // if the mode is not fixed, should have specified a non-scalar numFrames
+    if(mode != TDM_FIXED)
+    {
+        throw PreconditionException("setTimeDeltaMode called with fixedStep but"
+                                    "mode not TDM_FIXED.");
+    }
+    
+    timeDeltaMode_ = mode;
+    //fixedStep_ = fixedStep;
+}
+
+double Application::getTimeDelta()
+{
+    switch(timeDeltaMode_)
+    {
+    case TDM_ACTUAL:
+        return updateTask_->secPerFrame_;
+    case TDM_AVERAGE:
+        return updateTask_->frameTimes_.sum()/updateTask_->frameTimes_.size();
+    case TDM_FIXED:
+        return 0.01;//fixedStep_;
+    default:
+        return 0;
+    }
 }
 
 double Application::getFramerate()
 {
-    return 1/updateTask_->secPerFrame_;
+    return 1/getTimeDelta();
 }
 
 // States //////////////////////////////////////////////////////////////////////
@@ -458,22 +503,30 @@ Application::UpdateTask::UpdateTask() :
     mouseX_(0), mouseY_(0),
     active_(false), timerPaused_(false),
     unpauseOnActive_(false), lastPause_(0), pausedTime_(0),
-    secPerFrame_(0), lastUpdate_(0)
+    secPerFrame_(0), lastUpdate_(0), frameTimes_(0)
 {
 }
 
 void Application::UpdateTask::update()
 {
-    scalar curTime = glfwGetTime() - pausedTime_;
+    static uint frameIndex(0);
+    
+    scalar curTime( glfwGetTime() - pausedTime_ );
+    
+    // keep track of time between frames
+    if(++frameIndex >= frameTimes_.size())
+    {
+        frameIndex = 0;
+    }
+    secPerFrame_ = frameTimes_[frameIndex] = curTime-lastUpdate_;
+    
+    lastUpdate_ = curTime;
+    
+    glfwSwapBuffers();
 
     // update the display here instead of Application (since it belongs to glfw)
-    glfwSwapBuffers();
     
     glfwGetMousePos(&mouseX_, &mouseY_);
-
-    // keep track of time between frames
-    secPerFrame_ = curTime-lastUpdate_;
-    lastUpdate_ = curTime;
 
     // quit on window closing or Alt-F4/Alt-X
     if(!glfwGetWindowParam(GLFW_OPENED) ||
@@ -495,7 +548,7 @@ void Application::UpdateTask::update()
     }
     else if(active_ && unpauseOnActive_)
     {
-        timerPaused_ = true;
+        timerPaused_ = false;
         pausedTime_ += curTime - lastPause_;
         unpauseOnActive_ = false;
     }

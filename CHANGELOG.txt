@@ -1,5 +1,5 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.7 2005/08/12 06:26:00 cozman Exp $
+$Id: CHANGELOG.txt,v 1.8 2005/08/14 07:40:12 cozman Exp $
 
 ! : Major Changes   (potentially breaking existing code)
 + : New Features   
@@ -8,13 +8,18 @@ $Id: CHANGELOG.txt,v 1.7 2005/08/12 06:26:00 cozman Exp $
 
 0.0.2 
     ! Removed InputListener, opting to move features into State class.
+    ! Changed Application::getElapsedTime to Application::getTimeDelta
     + Code::Blocks and Dev-C++ support
     + Addition of a State stack allowing for applications to fall back to the 
         previous state when done with a particular state.
     + Notification of mouse wheel events added.
+    + Addition of a State test/example program.
+    + Addition of Application::setTimeDeltaMode ability to set how time delta
+        is calculated.  (actual/average currently supported).
     * Fixed X11 fullscreen mode 
     * Removed ALUT dependencies by adding custom WAV loading code
     * Mouse move events now give relative position.
+    * Properly handle regain of focus, unpause Application's timer.
 
 0.0.1 - Released 2005-08-08
     + State-based design that allows easy creation of applications by simply
