@@ -33,7 +33,6 @@
 #include "video/Texture.hpp"
 #include "video/Color.hpp"
 #include "video/TextureResourceManager.hpp"
-#include "video/VideoCore.hpp"
 #include "video/Font.hpp"
 
 #endif // PHOTON_HPP
