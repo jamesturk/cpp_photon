@@ -5,65 +5,141 @@
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_682620075" POSITION="right" TEXT="0.1 Series">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1125660603" TEXT="0.0.1">
+<node ID="_" TEXT="0.0.2">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node ID="Freemind_Link_71129066" TEXT="Features">
+<icon BUILTIN="button_ok"/>
+<node ID="Freemind_Link_424443985" TEXT="variable timeStep config">
+<icon BUILTIN="button_ok"/>
+<node ID="Freemind_Link_1489086385" TEXT="average of X frames">
 <icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_115594103" TEXT="0.1">
+<node ID="Freemind_Link_576151122" TEXT="fixed timeStep">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node ID="Freemind_Link_1902843385" TEXT="depthBuffer enable/disable">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1912839994" TEXT="dual Kernels">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node ID="Freemind_Link_1999404091" TEXT="Improvements">
+<icon BUILTIN="button_ok"/>
+<node ID="Freemind_Link_878549222" TEXT="drop alut dependency">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1174215789" TEXT="bugfixes">
+<node ID="Freemind_Link_51999594" TEXT="fullscreen X11">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_469175607" TEXT="input listener bug(s)">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_789850536" TEXT="pause on lost focus">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node ID="Freemind_Link_858443899" TEXT="IDE support">
+<font NAME="SansSerif" SIZE="12"/>
+<node ID="Freemind_Link_1591642442" TEXT="Dev-C++">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1446425822" TEXT="Code::Blocks">
+<icon BUILTIN="button_ok"/>
+</node>
+<node ID="Freemind_Link_1481289143" TEXT="Visual C++">
+<node ID="Freemind_Link_565019943" TEXT="use SCons">
+<icon BUILTIN="help"/>
+</node>
+</node>
+<node ID="Freemind_Link_1628154157" TEXT="Eclipse/CDT">
+<icon BUILTIN="button_cancel"/>
+</node>
+</node>
+<node ID="Freemind_Link_1906242625" TEXT="State/Task/Kernel demo">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node ID="Freemind_Link_1112766084" TEXT="Publicity">
+<node ID="Freemind_Link_1943285529" TEXT="precompiled versions">
+<node ID="Freemind_Link_586970647" TEXT="gcc3 Linux">
+<node ID="Freemind_Link_1651083711" TEXT="photon-0.0.2-linux-gcc"/>
+</node>
+<node ID="Freemind_Link_1983304402" TEXT="gcc3 MingW">
+<node ID="Freemind_Link_952617031" TEXT="photon-0.0.2-win32-mingw"/>
+</node>
+<node ID="Freemind_Link_1285894291" TEXT="vc7">
+<node ID="Freemind_Link_709815384" TEXT="photon-0.0.2-win32-msvc"/>
+</node>
+<node ID="Freemind_Link_198870490" TEXT="photon-0.0.2-src"/>
+</node>
+</node>
+</node>
+<node FOLDED="true" ID="Freemind_Link_115594103" TEXT="0.1">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1870184326" TEXT="example game">
+<node ID="Freemind_Link_1755478147" TEXT="Features"/>
+<node ID="Freemind_Link_589338965" TEXT="Improvements">
+<node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node ID="Freemind_Link_1084322991" TEXT="Publicity">
+<node ID="Freemind_Link_1156475066" TEXT="update site with more info (distribution .txt files)"/>
+<node FOLDED="true" ID="Freemind_Link_482028560" TEXT="Tutorials">
+<node ID="Freemind_Link_772709351" TEXT="Wikitorials?"/>
+</node>
+<node FOLDED="true" ID="Freemind_Link_1870184326" TEXT="example game">
 <node COLOR="#000000" ID="Freemind_Link_597173063" TEXT="Asteroids"/>
 <node ID="Freemind_Link_719722821" TEXT="Lunar Lander"/>
 <node ID="Freemind_Link_173048174" TEXT="Missile Command"/>
 <node COLOR="#010101" ID="Freemind_Link_1447936394" TEXT="Frogger"/>
 </node>
-<node ID="Freemind_Link_1166438127" TEXT="test release candidate"/>
-<node ID="Freemind_Link_1716705807" TEXT="clean up naturaldocs">
-<icon BUILTIN="button_ok"/>
 </node>
 </node>
-<node FOLDED="true" ID="Freemind_Link_1151493849" TEXT="0.1.x">
+<node ID="Freemind_Link_1151493849" TEXT="0.1.x">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_540349165" TEXT="static-LGPL Free OpenAL on Windows">
-<font NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_968837931" TEXT="drop alut"/>
-<node ID="Freemind_Link_831588763" TEXT="write own wav-loader"/>
+<node ID="Freemind_Link_650619873" TEXT="Features">
+<node FOLDED="true" ID="Freemind_Link_1825420810" TEXT="Music">
+<node ID="Freemind_Link_1677795490" TEXT="ogg"/>
+<node ID="Freemind_Link_510415734" TEXT="wav"/>
 </node>
+</node>
+<node ID="Freemind_Link_1634165944" TEXT="Improvements"/>
+<node ID="Freemind_Link_172144087" TEXT="Publicity"/>
 </node>
 </node>
 <node FOLDED="true" ID="Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_103747781" TEXT="New Features">
+<node FOLDED="true" ID="Freemind_Link_103747781" TEXT="Features">
 <font NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1825420810" TEXT="Music">
-<icon BUILTIN="stop"/>
-<node COLOR="#ff0300" ID="Freemind_Link_1961333678" TEXT="delay until 0.1.x">
-<font ITALIC="true" NAME="SansSerif" SIZE="12"/>
-</node>
-</node>
 <node COLOR="#000000" ID="Freemind_Link_420721466" TEXT="XML/XSLT sink"/>
 <node ID="Freemind_Link_1298931281" TEXT="XML resource files"/>
-<node ID="Freemind_Link_1070201117" TEXT="Transitions">
+<node FOLDED="true" ID="Freemind_Link_1070201117" TEXT="Transitions">
 <node ID="Freemind_Link_664044389" TEXT="investigate what other libs do"/>
 <node ID="Freemind_Link_1667343634" TEXT="render to texture?"/>
+<node ID="Freemind_Link_518905568" TEXT="pixel shaders?"/>
 </node>
 <node ID="Freemind_Link_1339011485" TEXT="Tilemap System"/>
 <node ID="Freemind_Link_1497432478" TEXT="Particle System"/>
 <node ID="Freemind_Link_216021234" TEXT="Sprite System">
 <font NAME="SansSerif" SIZE="12"/>
 </node>
+<node ID="Freemind_Link_639177837" TEXT="interpolation/Extrapolation in calls to State::render"/>
 </node>
+<node FOLDED="true" ID="Freemind_Link_903043501" TEXT="Improvements">
+<node ID="Freemind_Link_1362733907" TEXT="investigate dropping Corona"/>
+</node>
+<node FOLDED="true" ID="Freemind_Link_1821669119" TEXT="Publicity">
 <node FOLDED="true" ID="Freemind_Link_654490435" TEXT="Second Example Game">
 <node ID="Freemind_Link_1191623789" TEXT="Public Project?"/>
 </node>
-<node FOLDED="true" ID="Freemind_Link_903043501" TEXT="Improvements">
-<node ID="Freemind_Link_878549222" TEXT="drop alut dependency"/>
-<node ID="Freemind_Link_1362733907" TEXT="investigate dropping Corona"/>
 </node>
 </node>
-<node ID="Freemind_Link_1111954089" POSITION="right" TEXT="Long Term">
+<node ID="Freemind_Link_1111954089" POSITION="right" TEXT="Future...">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node FOLDED="true" ID="Freemind_Link_1066996987" TEXT="New Features">
+<node FOLDED="true" ID="Freemind_Link_1066996987" TEXT="Features">
 <font NAME="SansSerif" SIZE="12"/>
 <node ID="Freemind_Link_539015028" TEXT="physics:: (similar to math::)"/>
 <node FOLDED="true" ID="Freemind_Link_1107695046" TEXT="gui::">
@@ -80,8 +156,9 @@
 <node ID="Freemind_Link_1220379011" TEXT="other"/>
 </node>
 </node>
+<node FOLDED="true" ID="Freemind_Link_1155128082" TEXT="Improvements">
 <node FOLDED="true" ID="Freemind_Link_1067043723" TEXT="allow for alternate backends ">
-<node ID="Freemind_Link_1997175841" TEXT="audiere for audio">
+<node FOLDED="true" ID="Freemind_Link_1997175841" TEXT="audiere for audio">
 <node ID="Freemind_Link_1142976123" TEXT="is there a point?">
 <node ID="Freemind_Link_396200365" TEXT="compatibility?"/>
 </node>
@@ -99,14 +176,19 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.26 2005/08/08 22:14:55 cozman Exp $">
+<node FOLDED="true" ID="Freemind_Link_1364557080" TEXT="Publicity">
+<node ID="Freemind_Link_1945740551" TEXT="Prepackaged Versions"/>
+<node ID="Freemind_Link_836096408" TEXT="Dependencies"/>
+<node ID="Freemind_Link_1316865000" TEXT="Wiki"/>
+<node ID="Freemind_Link_959094471" TEXT="Contest"/>
+</node>
+</node>
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.27 2005/08/16 06:32:39 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node ID="Freemind_Link_853483912" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_3809219" TEXT="check if fullscreen works in Windows">
-<font NAME="SansSerif" SIZE="12"/>
-</node>
+<node ID="Freemind_Link_1298604697" TEXT="reintegrate FPSDisplayTask"/>
 </node>
 </node>
 </map>

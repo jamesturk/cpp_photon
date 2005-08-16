@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.hpp,v 1.4 2005/08/07 07:12:46 cozman Exp $
+//  $Id: Task.hpp,v 1.5 2005/08/16 06:32:39 cozman Exp $
 
 #ifndef PHOTON_TASK_HPP
 #define PHOTON_TASK_HPP
@@ -16,29 +16,25 @@
 
 namespace photon
 {
+    
+// Title: Task
 
-// Type: TaskPriority
+// Enum: PriorityLevel
+//  Enumeration defining priority of a Task.
+//
+// Values:
+//  PRI_LOWEST  - Lowest priority available.
+//  PRI_LOW     - Lower-than-usual priority.
+//  PRI_NORMAL  - Normal priority, suitable for most tasks.
+//  PRI_HIGH    - Lower-than-usual priority.
+//  PRI_HIGHEST - Highest priority available.
 enum PriorityLevel
 {
-    PRI_APP_UPDATE,     // special priority for Application updating (first)
-    
-    // user-level priorities all lie in logic area
     PRI_HIGHEST,        
     PRI_HIGH, 
     PRI_NORMAL, 
     PRI_LOW,
-    PRI_LOWEST,
-    
-    PRI_VIDEO_UPDATE,   // special priority for clearing screen/video buffers
-    PRI_RENDER          // special priority for rendering (right after clear)
-    
-    // It is also important that no priorities fall between render/app update
-    // so that flow of applications is:
-    //  1) Update & SwapBuffers
-    //  2) Logic & User Level tasks
-    //  3) Clear screen/buffers
-    //  4) Render
-    //  5) SwapBuffers again (see step 1)
+    PRI_LOWEST
 };
 
 // Class: Task
@@ -68,7 +64,11 @@ public:
     // Function: update
     //  Pure virtual, every child task must overload it's own update(), when a 
     //  task is active this is called every 'frame.'
-    virtual void update()=0;
+    //
+    // Parameters:
+    //  timeDelta - The time elapsed between frames, possibly fixed via
+    //              <Application::setFixedUpdateStep>.
+    virtual void update(scalar timeDelta)=0;
     
     // Function: onStart
     //  Virtual function, overload to define behavior when the task is started.

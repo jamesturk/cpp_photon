@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.cpp,v 1.4 2005/08/07 07:12:47 cozman Exp $
+//  $Id: Kernel.cpp,v 1.5 2005/08/16 06:32:39 cozman Exp $
 
 #include "Kernel.hpp"
 
@@ -25,7 +25,7 @@ Kernel::~Kernel()
     killAllTasks();
 }
 
-void Kernel::step()
+void Kernel::step(scalar timeDelta)
 {
     std::list<TaskPtr>::iterator it;
     
@@ -37,7 +37,7 @@ void Kernel::step()
         // only update alive, non-paused tasks
         if(task->isAlive() && !task->isPaused())
         {
-            task->update();
+            task->update(timeDelta);
         }
     }
 
@@ -56,15 +56,6 @@ void Kernel::step()
         {
             ++it;   //advance iterator, if not deleting
         }
-    }
-}
-    
-void Kernel::run()
-{
-    // loop on activeTasks
-    while(!tasks_.empty())
-    {
-        step();
     }
 }
 

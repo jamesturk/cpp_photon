@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.hpp,v 1.3 2005/08/07 07:12:46 cozman Exp $
+//  $Id: Kernel.hpp,v 1.4 2005/08/16 06:32:39 cozman Exp $
 
 #ifndef PHOTON_KERNEL_HPP
 #define PHOTON_KERNEL_HPP
@@ -13,7 +13,6 @@
 #include <list>
 #include <algorithm>
 
-#include "util/Singleton.hpp"
 #include "Task.hpp"
 
 namespace photon
@@ -25,9 +24,8 @@ namespace photon
 //
 //  To use Kernel:
 //      - (1) Add any tasks (should be derived from <Task>)
-//      - (2) call <Kernel::run>
-//      - (3) in order to avoid running forever, all tasks should eventually die
-class Kernel : public util::Singleton<Kernel>
+//      - (2) Call step() every frame when task should update.
+class Kernel
 {
 
 // Group: (Con/De)structors
@@ -47,14 +45,11 @@ public:
     //
     //  Each 'step' all tasks are run in order of their priorities, if two 
     //  tasks have the same priority, they are run in the order they were added.
-    void step();
-
-    // Function: run
-    //  Runs tasks until all tasks are asleep or dead.
     //
-    // See Also:
-    //  <step>
-    void run();
+    // Parameters:
+    //  timeDelta - The time elapsed between frames, possibly fixed via
+    //              <Application::setFixedUpdateStep>.
+    void step(scalar timeDelta);
 
 // Group: Task Management
 public:

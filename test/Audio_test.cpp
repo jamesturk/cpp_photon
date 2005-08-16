@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.14 2005/08/12 06:26:00 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.15 2005/08/16 06:32:39 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -184,19 +184,16 @@ private:
 
 int PhotonMain(const StrVec& args)
 {
-    // create window
-    Application::getInstance().createDisplay(800,600,32,0,0,false);
-    // initialize audio core
-    Application::getInstance().initAudioCore();
+    Application& app(Application::getInstance());
+    
+    app.createDisplay(800,600,32,0,0,false);    // create window
+    app.initAudioCore();                        // initialize audio core
 
     // be sure to add FPSDisplayTask
-    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
+    //Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-    // register state and make active
-    Application::getInstance().setState<MainState>();
-
-    // run until finished
-    Kernel::getInstance().run();
+    app.setState<MainState>();  // register state and make active
+    app.run();                  // run until finished
     
     return 0;
 }

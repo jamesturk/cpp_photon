@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Input_test.cpp,v 1.10 2005/08/12 06:26:00 cozman Exp $
+//  $Id: Input_test.cpp,v 1.11 2005/08/16 06:32:39 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -119,17 +119,15 @@ private:
 
 int PhotonMain(const StrVec& args)
 {
-    // create window
-    Application::getInstance().createDisplay(800,600,32,0,0,false);
+    Application& app(Application::getInstance());
+    
+    app.createDisplay(800,600,32,0,0,false);    // create window
 
     // be sure to add FPSDisplayTask
-    Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
+    //Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
 
-    // set current state
-    Application::getInstance().setState<MainState>();
-
-    // run until finished
-    Kernel::getInstance().run();
+    app.setState<MainState>();  // register state and make active
+    app.run();                  // run until finished
     
     return 0;
 }

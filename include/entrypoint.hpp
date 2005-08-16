@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.9 2005/08/10 21:22:33 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.10 2005/08/16 06:32:39 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -29,16 +29,19 @@
 //
 // int PhotonMain(const StrVec& args)
 // {
+//     // get Application singleton 
+//     Application& app(Application::getInstance);
+//
 //     // create window
-//     Application::getInstance().createDisplay(800,600,32,0,0,false);
+//     app.createDisplay(800,600,32,0,0,false);
 // 
 //     // set current state
-//     Application::getInstance().setState<MainMenu>();
+//     app.setState<MainMenu>();
 //
-//     // can also add any tasks here 
+//     // can also add any tasks before running
 // 
 //     // run until finished
-//     Kernel::getInstance().run();
+//     app.run();
 //     
 //     return 0;
 // }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State.hpp,v 1.3 2005/08/12 06:26:00 cozman Exp $
+//  $Id: State.hpp,v 1.4 2005/08/16 06:32:39 cozman Exp $
 
 #ifndef PHOTON_STATE_HPP
 #define PHOTON_STATE_HPP
@@ -52,7 +52,7 @@ public:
     //  All of a state's logic should go in update, it is called every frame
     //  before the rendering process begins.  Nothing should be drawn to the 
     //  screen within update because it will be cleared before it is shown.
-    virtual void update() { };
+    virtual void update(scalar timeDelta) { };
     
     // Function: render
     //  The only required member of State, anything that should be drawn to the

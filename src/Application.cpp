@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.24 2005/08/14 07:40:13 cozman Exp $
+//  $Id: Application.cpp,v 1.25 2005/08/16 06:32:39 cozman Exp $
 
 #include "Application.hpp"
 
@@ -16,10 +16,7 @@
 
 #include <boost/lexical_cast.hpp>
 #include "exceptions.hpp"
-#include "Log.hpp"
-#include "Kernel.hpp"
 #include "Application.hpp"
-#include "audio/AudioCore.hpp"
 #include "util/filesys/filesys.hpp"
 
 #include <iostream>
@@ -35,38 +32,134 @@ std::stack<StatePtr> Application::stateStack_;
 
 Application::Application(const std::string& arg0) :
     photonVer_(0,0,1),  // this is the current version
-    displayWidth_(0), displayHeight_(0),
-    viewportWidth_(0), viewportHeight_(0),
-    timeDeltaMode_(TDM_ACTUAL),
-    updateTask_(new UpdateTask()),
-    stateUpdate_(new StateUpdate()),
-    stateRender_(new StateRender())
+    displayWidth_(0), displayHeight_(0), viewportWidth_(0), viewportHeight_(0),
+    clearFlags_(GL_COLOR_BUFFER_BIT),
+    mouseX_(0), mouseY_(0),
+    active_(false), timerPaused_(false), unpauseOnActive_(false),
+    lastPause_(0), pausedTime_(0), elapsedTime_(0), lastUpdate_(0),
+    fixedTimeStep_(0), maxTimeStep_(0), timeAccumulator_(0), frameTimes_(0),
+    quit_(true)
 {
     util::VersionInfo physfsReq(1,0,0); // requires PhysFS 1.0.0
     util::ensureVersion("PhysFS", initPhysFS(arg0), physfsReq);
     
     util::VersionInfo glfwReq(2,4,2);   // requires GLFW 2.4.2
     util::ensureVersion("GLFW", initGLFW(), glfwReq);
-
-    new Kernel;     // create Kernel before it is used
-    
-    Kernel::getInstance().addTask(updateTask_);     // add updater task
-    Kernel::getInstance().addTask(stateUpdate_);    // add state updater task
-    Kernel::getInstance().addTask(stateRender_);    // add state renderer task
 }
 
 Application::~Application()
 {
-    if(displayWidth_ && displayHeight_)
-    {
-        glfwCloseWindow();  //close GLFW window
-    }
-    
     glfwTerminate();        // shutdown GLFW
     
     PHYSFS_deinit();        // shutdown PhysFS
+}
+
+void Application::run()
+{
+    while(!quit_)
+    {
+        update();
+    }
+}
+
+void Application::update()
+{
+    // update glfw state 
+    glfwGetMousePos(&mouseX_, &mouseY_);
+
+    // quit on window closing or Alt-F4/Alt-X
+    if(!glfwGetWindowParam(GLFW_OPENED) ||
+        ( (glfwGetKey(GLFW_KEY_LALT) || glfwGetKey(GLFW_KEY_RALT)) &&
+          (glfwGetKey(GLFW_KEY_F4) || glfwGetKey('X')) ) )
+    {
+        quit();
+    }
+
+    // hold active-state
+    active_ = (glfwGetWindowParam(GLFW_ACTIVE) == GL_TRUE);
     
-    Kernel::destroy();      // destroy Kernel on way out
+    //automatically pause/unpause app timer on focus
+    scalar curTime( getTime() );
+    if(!active_ && !timerPaused_)
+    {
+        timerPaused_ = true;
+        lastPause_ = curTime;
+        unpauseOnActive_ = true;
+    }
+    else if(active_ && unpauseOnActive_)
+    {
+        timerPaused_ = false;
+        //pausedTime_ += curTime - lastPause_;
+        unpauseOnActive_ = false;
+    }
+
+    // keep track of time between frames
+    static uint frameIndex(0);
+
+    if(++frameIndex >= frameTimes_.size())
+    {
+        frameIndex = 0;
+    }
+    elapsedTime_ = frameTimes_[frameIndex] = curTime-lastUpdate_;
+    
+    lastUpdate_ = curTime;
+    
+    if(!stateStack_.empty() && !quit_)
+    {
+        if(fixedTimeStep_ > 0)
+        {
+            if(elapsedTime_ > maxTimeStep_)
+            {
+                elapsedTime_ = maxTimeStep_;
+            }
+            
+            timeAccumulator_ += elapsedTime_;
+            
+            while(timeAccumulator_ >= fixedTimeStep_)
+            {
+                stateStack_.top()->update(fixedTimeStep_);
+                updateKernel_.step(fixedTimeStep_);
+                timeAccumulator_ -= fixedTimeStep_;
+            }
+        }
+        else
+        {
+            stateStack_.top()->update(elapsedTime_);
+            updateKernel_.step(elapsedTime_);
+        }
+    }
+
+    // render step
+    if(!stateStack_.empty() && !quit_)
+    {
+        // clear everything before rendering
+        glClear(clearFlags_);
+        stateStack_.top()->render();
+        renderKernel_.step(fixedTimeStep_);
+        glfwSwapBuffers();  // swap buffers after rendering
+    }
+}
+
+void Application::quit()
+{
+    glfwCloseWindow();  //close GLFW window
+    
+    quit_ = true;
+}
+
+Kernel& Application::getUpdateKernel()
+{
+    return updateKernel_;
+}
+
+Kernel& Application::getRenderKernel()
+{
+    return renderKernel_;
+}
+
+bool Application::isActive()
+{
+    return active_;
 }
 
 // Window //////////////////////////////////////////////////////////////////////
@@ -93,15 +186,16 @@ void Application::createDisplay(uint width, uint height,
     
     initOpenGL();
     setOrthoView();
+    setDepthTestMode(false);
     
-    Kernel::getInstance().addTask(TaskPtr(new VideoTask()));
-
     // register the callbacks (after a window is open)
     glfwSetKeyCallback(Application::keyCallback);
     //glfwSetCharCallback(Application::charCallback);
     glfwSetMouseButtonCallback(Application::mouseButtonCallback);
     glfwSetMousePosCallback(Application::mouseMoveCallback);
     glfwSetMouseWheelCallback(Application::mouseWheelCallback);
+    
+    quit_ = false;
 }
 
 void Application::createDisplay(uint width, uint height, uint bpp,
@@ -148,11 +242,6 @@ uint Application::getDisplayWidth()
 uint Application::getDisplayHeight()
 {
     return displayHeight_;
-}
-
-bool Application::isActive()
-{
-    return updateTask_->active_;
 }
 
 // Ortho ///////////////////////////////////////////////////////////////////////
@@ -217,9 +306,12 @@ void Application::setOrthoProjection(scalar width, scalar height)
     //back to modelview
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    
+    setDepthTestMode(true);
 }
 
-void Application::setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFar)
+void Application::setPerspectiveProjection(scalar fovy, scalar zNear, 
+                                            scalar zFar)
 {
     GLdouble ratio = static_cast<GLdouble>(viewportWidth_) / 
                         static_cast<GLdouble>(viewportHeight_);
@@ -232,6 +324,21 @@ void Application::setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFa
     //back to modelview
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+}
+
+void Application::setDepthTestMode(bool enable)
+{
+    if(enable)
+    {
+        glDepthFunc(GL_LEQUAL);
+        glEnable(GL_DEPTH_TEST);
+        clearFlags_ |= GL_DEPTH_BUFFER_BIT;
+    }
+    else
+    {
+        glDisable(GL_DEPTH_TEST);
+        clearFlags_ &= ~GL_DEPTH_BUFFER_BIT;
+    }
 }
 
 // Input ///////////////////////////////////////////////////////////////////////
@@ -252,12 +359,12 @@ bool Application::mouseButtonPressed(MouseButton button)
 
 int Application::getMouseX()
 {
-    return updateTask_->mouseX_;
+    return mouseX_;
 }
 
 int Application::getMouseY()
 {
-    return updateTask_->mouseY_;
+    return mouseY_;
 }
 
 int Application::getMouseWheelPos()
@@ -269,59 +376,53 @@ int Application::getMouseWheelPos()
 
 scalar Application::getTime()
 {
-    return glfwGetTime() - updateTask_->pausedTime_;
+    return glfwGetTime() - pausedTime_;
 }
 
-void Application::setTimeDeltaMode(TimeDeltaMode mode, int numFrames)
+void Application::setFrameTimeSmoothing(int numFrames)
 {
-    // if the mode is fixed should have speficied a scalar fixedStep
-    if(mode == TDM_FIXED)
-    {
-        throw PreconditionException("setTimeDeltaMode called without fixedStep"
-                                    "but with TDM_FIXED mode.");
-    }
-    // if the mode is average should have at least two frames to average
-    if(mode == TDM_AVERAGE && numFrames <= 1)
-    {
-        throw PreconditionException("setTimeDeltaMode called with TDM_AVERAGE"
-                                    "but numFrames <= 1");
-    }
+    if(numFrames <= 1)
+        numFrames = 0;
     
-    timeDeltaMode_ = mode;
-    updateTask_->frameTimes_.resize(numFrames);
+    frameTimes_.resize(numFrames);
 }
 
-void Application::setTimeDeltaMode(TimeDeltaMode mode, scalar fixedStep)
+double Application::getElapsedTime()
 {
-    // if the mode is not fixed, should have specified a non-scalar numFrames
-    if(mode != TDM_FIXED)
+    if(frameTimes_.size() == 0)
     {
-        throw PreconditionException("setTimeDeltaMode called with fixedStep but"
-                                    "mode not TDM_FIXED.");
+        return elapsedTime_;
     }
-    
-    timeDeltaMode_ = mode;
-    //fixedStep_ = fixedStep;
-}
-
-double Application::getTimeDelta()
-{
-    switch(timeDeltaMode_)
+    else
     {
-    case TDM_ACTUAL:
-        return updateTask_->secPerFrame_;
-    case TDM_AVERAGE:
-        return updateTask_->frameTimes_.sum()/updateTask_->frameTimes_.size();
-    case TDM_FIXED:
-        return 0.01;//fixedStep_;
-    default:
-        return 0;
+        return frameTimes_.sum()/frameTimes_.size();
     }
 }
 
 double Application::getFramerate()
 {
-    return 1/getTimeDelta();
+    return 1/getElapsedTime();
+}
+
+void Application::setFixedUpdateStep(bool enable, scalar fixedStep, 
+                                    scalar maxStep)
+{
+    if(!enable)
+    {
+        fixedTimeStep_ = -1;    // set to < 0, disabling fixed timestepping
+    }
+    else
+    {
+        fixedTimeStep_ = fixedStep;
+        if(maxStep <= 0)
+        {
+            maxTimeStep_ = 5*fixedTimeStep_;
+        }
+        else
+        {
+            maxTimeStep_ = maxStep;
+        }
+    }
 }
 
 // States //////////////////////////////////////////////////////////////////////
@@ -331,7 +432,7 @@ void Application::popState()
     // check for underflow
     if(stateStack_.empty())
     {
-        throw PreconditionException("Attempt to popState without at least 2 "
+        throw PreconditionException("Attempt to popState without at least one "
                                     "states on stack.");
     }
 
@@ -342,7 +443,6 @@ void Application::popState()
     if(!stateStack_.empty())
     {
         stateStack_.top()->onResume();
-        stateRender_->state_ = stateUpdate_->state_ = stateStack_.top();
     }
 }
 
@@ -478,10 +578,6 @@ void Application::initOpenGL()
     // Set smooth shading.
     glShadeModel(GL_SMOOTH);
 
-    // Setup depth checking.
-    //glDepthFunc(GL_LEQUAL);
-    //glEnable(GL_DEPTH_TEST);
-
     //setup hints
     glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
     
@@ -494,95 +590,9 @@ void Application::initOpenGL()
     glEnable(GL_BLEND);
     glDisable(GL_LIGHTING);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-}
-
-// Tasks ///////////////////////////////////////////////////////////////////////
-
-Application::UpdateTask::UpdateTask() :
-    Task("Application::UpdateTask", PRI_APP_UPDATE),
-    mouseX_(0), mouseY_(0),
-    active_(false), timerPaused_(false),
-    unpauseOnActive_(false), lastPause_(0), pausedTime_(0),
-    secPerFrame_(0), lastUpdate_(0), frameTimes_(0)
-{
-}
-
-void Application::UpdateTask::update()
-{
-    static uint frameIndex(0);
     
-    scalar curTime( glfwGetTime() - pausedTime_ );
-    
-    // keep track of time between frames
-    if(++frameIndex >= frameTimes_.size())
-    {
-        frameIndex = 0;
-    }
-    secPerFrame_ = frameTimes_[frameIndex] = curTime-lastUpdate_;
-    
-    lastUpdate_ = curTime;
-    
-    glfwSwapBuffers();
-
-    // update the display here instead of Application (since it belongs to glfw)
-    
-    glfwGetMousePos(&mouseX_, &mouseY_);
-
-    // quit on window closing or Alt-F4/Alt-X
-    if(!glfwGetWindowParam(GLFW_OPENED) ||
-        ( (glfwGetKey(GLFW_KEY_LALT) || glfwGetKey(GLFW_KEY_RALT)) &&
-          (glfwGetKey(GLFW_KEY_F4) || glfwGetKey('X')) ) )
-    {
-        Kernel::getInstance().killAllTasks();
-    }
-
-    // hold active-state
-    active_ = (glfwGetWindowParam(GLFW_ACTIVE) == GL_TRUE);
-
-    // automatically pause/unpause app timer on focus
-    if(!active_ && !timerPaused_)
-    {
-        timerPaused_ = true;
-        lastPause_ = curTime;
-        unpauseOnActive_ = true;
-    }
-    else if(active_ && unpauseOnActive_)
-    {
-        timerPaused_ = false;
-        pausedTime_ += curTime - lastPause_;
-        unpauseOnActive_ = false;
-    }
-}
-
-Application::VideoTask::VideoTask() :
-    Task("Application::VideoTask", PRI_VIDEO_UPDATE)
-{
-}
-
-void Application::VideoTask::update()
-{
-    // TODO: clear depth/stencil if requested
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-}
-
-Application::StateUpdate::StateUpdate() :
-    Task("Application::StateUpdate", PRI_NORMAL)
-{
-}
-
-void Application::StateUpdate::update()
-{
-    state_->update();
-}
-
-Application::StateRender::StateRender() :
-    Task("Application::StateRender", PRI_RENDER)
-{
-}
-
-void Application::StateRender::update()
-{
-    state_->render();
+    // depth testing enabled by default
+    setDepthTestMode(false);
 }
 
 }

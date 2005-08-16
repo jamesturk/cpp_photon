@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.19 2005/08/14 07:40:13 cozman Exp $
+//  $Id: Application.hpp,v 1.20 2005/08/16 06:32:39 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -20,17 +20,9 @@
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
 #include "State.hpp"
-#include "Task.hpp"
 #include "Kernel.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/Singleton.hpp"
-
-enum TimeDeltaMode
-{
-    TDM_ACTUAL,
-    TDM_AVERAGE,
-    TDM_FIXED
-};
 
 namespace photon
 {
@@ -39,7 +31,7 @@ namespace photon
 //  Photon main class, contains functions that control creation of the display,
 //  setting the OpenGL view, input handling, timing, and <State> management.
 //
-//  Class is a <Singleton> and therefore should be accessed through 
+//  Application is a <Singleton> and therefore should be accessed through 
 //  Application::getInstance().  (Application Singleton is created/destroyed 
 //  automatically)
 class Application : public util::Singleton<Application>
@@ -54,6 +46,47 @@ public:
     // Function: ~Application
     //  Default destructor, shuts down dependencies.
     virtual ~Application();
+    
+// Group: General
+public:
+    // Function: run
+    //  Runs application until a quit is requested either via the operating 
+    //  system (ex. Alt-F4) or through a call to <quit>.
+    //
+    //  Should not be called before a <State> has been set and a display has
+    //  been created via <createDisplay>.
+    void run();
+    
+    // called by run while !quit()
+    void update();
+    
+    // Function: quit
+    //  Sets Quit flag, terminating application.
+    void quit();
+    
+    // Function: getUpdateKernel
+    //  Access the application's update <Kernel>, <Tasks> registered with this
+    //  kernel are executed after the current <State's> <State::update>.
+    //
+    // Returns:
+    //  Reference to "Update Kernel"
+    Kernel& getUpdateKernel();
+    
+    // Function: getRenderKernel
+    //  Access the application's render <Kernel>, <Tasks> registered with this
+    //  kernel are executed after the current <State's> <State::render>.
+    //
+    // Returns:
+    //  Reference to "Render Kernel"
+    Kernel& getRenderKernel();
+    
+    // Function: isActive
+    //  Checks if application is active, which on most systems simply means it
+    //  has focus.
+    //
+    // Returns:
+    //  True if application is active, false otherwise.
+    bool isActive();
 
 // Group: Window
 public:
@@ -111,14 +144,6 @@ public:
     // Returns:
     //  Height of display in pixels.
     uint getDisplayHeight();
-
-    // Function: isActive
-    //  Checks if application is active, which on most systems simply means it
-    //  has focus.
-    //
-    // Returns:
-    //  True if application is active, false otherwise.
-    bool isActive();
     
 // Group: Ortho 
 public:
@@ -154,6 +179,8 @@ public:
     // Function: setPerspectiveView
     //  Creates a viewport with a given 3D perspective inside of a rectangular
     //  portion of the screen.
+    //
+    //  Note that <setDepthTestMode>(true) will be called as a side effect.
     // 
     // Parameters:
     //  x - X coord for top left corner of new viewport.
@@ -168,6 +195,8 @@ public:
     
     // Function: setPerspectiveView
     //  Sets entire screen as current viewport with a given 3D perspective.
+    //
+    //  Note that <setDepthTestMode>(true) will be called as a side effect.
     // 
     // Parameters:
     //  fovy - The y axis field of view angle, in degrees.
@@ -192,13 +221,23 @@ public:
     void setOrthoProjection(scalar width, scalar height);
     
     // Function: setPerspectiveProjection
-    //  Sets a perspective projection matrix.
+    //  Sets a perspective projection matrix.  
+    //
+    //  Note that <setDepthTestMode>(true) will be called as a side effect.
     // 
     // Parameters:
     //  fovy - The y axis field of view angle, in degrees.
     //  zNear - Distance from viewer to near clipping plane.
     //  zFar - Distance from viewer to far clipping plane.
     void setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFar);
+    
+    // Function: setDepthTestMode
+    //  Toggle depth testing and clearing of depth buffer.
+    //
+    // Parameters:
+    //  enable - if true, testing/clearing depth buffer is enabled, if false
+    //              testing and clearing of depth buffer will be disabled.
+    void setDepthTestMode(bool enable);
 
 // Group: Input
 public:
@@ -262,10 +301,43 @@ public:
     //  been running.
     scalar getTime();
     
-    void setTimeDeltaMode(TimeDeltaMode mode, int numFrames=0);
-    void setTimeDeltaMode(TimeDeltaMode mode, scalar fixedStep);
-    double getTimeDelta();
+    // Function: setFrameTimeSmoothing
+    //  Sets number of frames used to smooth the timeDelta so that minor jitters
+    //  in frramerate do not cause severe stuttering.
+    //
+    // Parameters:
+    //  numFrames - Number of frames to average, setting to <= 1 turns off 
+    //              smoothing of timeDelta.  (Recommend something >= 50, <= 500)
+    void setFrameTimeSmoothing(int numFrames);
+    
+    // Function: getElapsedTime
+    //  Finds the amount of time passed between frames, or average of a number
+    //  of frames if <setFrameTimeSmoothing> has been called.
+    //
+    // Returns:
+    //  Time (or average time) between frames.
+    double getElapsedTime();
+
+    // Function: getFramerate
+    //  Gets number of frames per second the application is currently processing
+    //  subject to smoothing by <setFrameTimeSmoothing>.
+    //
+    // Returns:
+    //  Calculated number of frames per second.
     double getFramerate();
+    
+    // Function: setFixedUpdateStep
+    //  Sets a fixed timestep to be used in calls to the current <State's> 
+    //  update method.  This allows stability in physics systems.
+    //
+    // Parameters:
+    //  enable - if true, will enable fixed timestepping (if false will disable)
+    //  fixedStep - the timestep to use for the fixed step, ignored if disabling
+    //  maxStep - if somehow the update portion get signifigantly behind the
+    //            render portion, to avoid executing a large number of steps
+    //            (hanging the program) an optional maxStep can be specified. 
+    //            [default = 5*fixedStep]
+    void setFixedUpdateStep(bool enable, scalar fixedStep, scalar maxStep=0);
 
 // Group: State Management 
 public:
@@ -323,92 +395,41 @@ private:
     util::VersionInfo initPhysFS(const std::string& arg0);
     util::VersionInfo initGLFW();
     void initOpenGL();
-    
-// Task Classes
-private:
-    // UpdateTask, does the updating work of Application, registered as a Task
-    //  so that user need not call something akin to Application::update() every 
-    //  frame
-    class UpdateTask : public Task
-    {
-
-    friend class Application;
-
-    public:
-        UpdateTask();
-
-        void update();
-
-    private:
-        int mouseX_;
-        int mouseY_;
-        bool active_;
-        bool timerPaused_;
-        bool unpauseOnActive_;
-        scalar lastPause_;
-        scalar pausedTime_;
-        scalar secPerFrame_;
-        scalar lastUpdate_;
-        std::valarray<scalar> frameTimes_;
-    };
-    
-    // VideoTask, does the updating work of OpenGL
-    class VideoTask : public Task
-    {
-    public:
-        VideoTask();
-
-        void update();
-    };
-    
-    // StateUpdate, calls State::update
-    class StateUpdate : public Task
-    {
-
-    friend class Application;
-
-    public:
-        StateUpdate();
-        void update();
-
-    private:
-        StatePtr state_;
-    };
-    
-    // StateRender, calls  State::render
-    class StateRender : public Task
-    {
-
-    friend class Application;
-
-    public:
-        StateRender();
-        void update();
-
-    private:
-        StatePtr state_;
-    };
 
 // Data members
 private:
     // version number for photon
     util::VersionInfo photonVer_;
 
-    // Application info
+    // display variables
     uint displayWidth_;
     uint displayHeight_;
     uint viewportWidth_;
     uint viewportHeight_;
+    GLbitfield clearFlags_;
     
-    TimeDeltaMode timeDeltaMode_;
-
-    // tasks
-    shared_ptr<UpdateTask> updateTask_;
-    shared_ptr<StateUpdate> stateUpdate_;
-    shared_ptr<StateRender> stateRender_;
-
     // input system variables
     static std::vector<KeyCode> pressedKeys_;
+    int mouseX_;
+    int mouseY_;
+    
+    // timing variables
+    bool active_;
+    bool timerPaused_;
+    bool unpauseOnActive_;
+    scalar lastPause_;
+    scalar pausedTime_;
+    scalar elapsedTime_;
+    scalar lastUpdate_;
+    scalar fixedTimeStep_;
+    scalar maxTimeStep_;
+    scalar timeAccumulator_;
+    std::valarray<scalar> frameTimes_;
+    
+    // other
+    bool quit_;
+    Kernel updateKernel_;
+    Kernel renderKernel_;
     
     // state system
     static std::stack<StatePtr> stateStack_;
@@ -427,16 +448,9 @@ void Application::setState()
     // clear stack
     while(!stateStack_.empty())
     {
-        // pop then resume
-        stateStack_.pop();
-        if(!stateStack_.empty())
-        {
-            stateStack_.top()->onResume();
-        }
+        popState();
     }
     stateStack_.push(newState); // make newState the only state on stack
-
-    stateRender_->state_ = stateUpdate_->state_ = newState;
 }
 
 template<class StateT>
@@ -450,8 +464,6 @@ void Application::pushState()
         stateStack_.top()->onPause();
     }
     stateStack_.push(newState); // push newState on top of stack
-
-    stateRender_->state_ = stateUpdate_->state_ = newState;
 }
 
 
