@@ -10,7 +10,7 @@ In addition, I'd like to thank:
         without ZEngine, no photon)
     * The GameDev.net community for answering my (often complex) questions
     * Richard 'Superpig' Fine for his Enginuity articles, which influenced my
-        Kernel/Task design.
+        TaskManager/Task design.
     * Jesse Maurais and DevMaster.net for the OpenAL tutorials
     * Everyone responsible for FreeMind (http://freemind.sf.net)
     * The Ubuntu Team (http://ubuntulinux.com)
@@ -18,4 +18,4 @@ In addition, I'd like to thank:
         algorithm, and making it freely available.
         http://www.math.keio.ac.jp/~matumoto/emt.html
     
-$Id: CREDITS.txt,v 1.2 2005/07/19 18:35:20 cozman Exp $
+$Id: CREDITS.txt,v 1.3 2005/08/17 17:39:49 cozman Exp $

@@ -6,8 +6,8 @@ Process:
     human:  sanity check tests
     human:  sanity check docs
     human:  check building on Windows
-    script: tag CVS with version number
-    script: CVS export `cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r release-VERSION  photon`
+    script: tag CVS with version number `cvs rtag release-MAJOR_MINOR_RELEASE photon`
+    script: fresh CVS export `cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r release-MAJOR_MINOR_RELEASE  photon`
     script: build docs with `scons docs`
     script: remove non-distribution files**
     script: rename directory to photon-MAJOR.MINOR
@@ -26,6 +26,6 @@ Process:
 **Non-Distribution Files:
     photon/.cvsignore
     photon/docs/.cvsignore
-    photon/ndoc/.cvsignore
+    photon/ndoc/
     
-$Id: RELEASE-HOWTO.txt,v 1.4 2005/08/17 06:35:54 cozman Exp $
+$Id: RELEASE-HOWTO.txt,v 1.5 2005/08/17 17:39:49 cozman Exp $
