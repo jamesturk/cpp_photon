@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.25 2005/08/16 06:32:39 cozman Exp $
+//  $Id: Application.cpp,v 1.26 2005/08/17 03:15:23 cozman Exp $
 
 #include "Application.hpp"
 
@@ -186,7 +186,6 @@ void Application::createDisplay(uint width, uint height,
     
     initOpenGL();
     setOrthoView();
-    setDepthTestMode(false);
     
     // register the callbacks (after a window is open)
     glfwSetKeyCallback(Application::keyCallback);
@@ -307,7 +306,7 @@ void Application::setOrthoProjection(scalar width, scalar height)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    setDepthTestMode(true);
+    setDepthBufferParams(true);
 }
 
 void Application::setPerspectiveProjection(scalar fovy, scalar zNear, 
@@ -326,10 +325,11 @@ void Application::setPerspectiveProjection(scalar fovy, scalar zNear,
     glLoadIdentity();
 }
 
-void Application::setDepthTestMode(bool enable)
+void Application::setDepthBufferParams(bool enable, scalar depth)
 {
     if(enable)
     {
+        glClearDepth(depth);
         glDepthFunc(GL_LEQUAL);
         glEnable(GL_DEPTH_TEST);
         clearFlags_ |= GL_DEPTH_BUFFER_BIT;
@@ -592,7 +592,7 @@ void Application::initOpenGL()
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     
     // depth testing enabled by default
-    setDepthTestMode(false);
+    setDepthBufferParams(false);
 }
 
 }

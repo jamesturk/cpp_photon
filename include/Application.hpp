@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.20 2005/08/16 06:32:39 cozman Exp $
+//  $Id: Application.hpp,v 1.21 2005/08/17 03:15:24 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -231,13 +231,14 @@ public:
     //  zFar - Distance from viewer to far clipping plane.
     void setPerspectiveProjection(scalar fovy, scalar zNear, scalar zFar);
     
-    // Function: setDepthTestMode
+    // Function: setDepthBufferParams
     //  Toggle depth testing and clearing of depth buffer.
     //
     // Parameters:
     //  enable - if true, testing/clearing depth buffer is enabled, if false
     //              testing and clearing of depth buffer will be disabled.
-    void setDepthTestMode(bool enable);
+    //  depth  - optional clear depth amount, clamped [0..1], default is 1
+    void setDepthBufferParams(bool enable, scalar depth=1);
 
 // Group: Input
 public:
