@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.26 2005/08/17 03:15:23 cozman Exp $
+//  $Id: Application.cpp,v 1.27 2005/08/17 06:35:56 cozman Exp $
 
 #include "Application.hpp"
 
@@ -118,14 +118,14 @@ void Application::update()
             while(timeAccumulator_ >= fixedTimeStep_)
             {
                 stateStack_.top()->update(fixedTimeStep_);
-                updateKernel_.step(fixedTimeStep_);
+                updateTaskManager_.step(fixedTimeStep_);
                 timeAccumulator_ -= fixedTimeStep_;
             }
         }
         else
         {
             stateStack_.top()->update(elapsedTime_);
-            updateKernel_.step(elapsedTime_);
+            updateTaskManager_.step(elapsedTime_);
         }
     }
 
@@ -135,7 +135,7 @@ void Application::update()
         // clear everything before rendering
         glClear(clearFlags_);
         stateStack_.top()->render();
-        renderKernel_.step(fixedTimeStep_);
+        renderTaskManager_.step(fixedTimeStep_);
         glfwSwapBuffers();  // swap buffers after rendering
     }
 }
@@ -147,14 +147,14 @@ void Application::quit()
     quit_ = true;
 }
 
-Kernel& Application::getUpdateKernel()
+util::TaskManager& Application::getUpdateTaskManager()
 {
-    return updateKernel_;
+    return updateTaskManager_;
 }
 
-Kernel& Application::getRenderKernel()
+util::TaskManager& Application::getRenderTaskManager()
 {
-    return renderKernel_;
+    return renderTaskManager_;
 }
 
 bool Application::isActive()
@@ -305,8 +305,6 @@ void Application::setOrthoProjection(scalar width, scalar height)
     //back to modelview
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    
-    setDepthBufferParams(true);
 }
 
 void Application::setPerspectiveProjection(scalar fovy, scalar zNear, 
@@ -323,6 +321,8 @@ void Application::setPerspectiveProjection(scalar fovy, scalar zNear,
     //back to modelview
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    
+    setDepthBufferParams(true);
 }
 
 void Application::setDepthBufferParams(bool enable, scalar depth)

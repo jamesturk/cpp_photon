@@ -1,22 +1,31 @@
-Sanity Check   
-    Check Compilation from CVS
-    Ensure Tests Run from CVS
-    Sanity Check NaturalDocs
-Bump Version Number
+Process:
+    human:  bump version numbers*
+    script: checkout fresh CVS
+    script: check building of library & tests
+    script: check building of docs
+    human:  sanity check tests
+    human:  sanity check docs
+    human:  check building on Windows
+    script: tag CVS with version number
+    script: CVS export `cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r release-VERSION  photon`
+    script: build docs with `scons docs`
+    script: remove non-distribution files**
+    script: rename directory to photon-MAJOR.MINOR
+    script: package source with tar cjf photon-MAJOR.MINOR.RELEASE-src.tar.bz2 photon-MAJOR.MINOR/ 
+    human:  place in sourceforge File Release System
+    script: upload docs to sourceforge webspace
+    human:  write release announcement
+
+*Version Number Locations:
     ndoc/Menu.txt : Title
     src/Application.cpp : photonVer_
     CHANGELOG.txt
     photon.mm
-    Tag CVS with version number
-Sourceforge.net
-    Get with `cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r release-VERSION  photon`
-    rename directory to photon-MAJOR.MINOR
-    Build docs with `scons docs`
-    prune any files that shouldn't be included (.cvsignores)
-    package source with tar cjf photon-MAJOR.MINOR.RELEASE.tar.bz2 photon-MAJOR.MINOR/ 
-    Upload to Sourceforge and release via Sourceforge release system
-    Upload docs to Sourceforge webspace
-    Write release announcement, post on DevBlog/Mailing list
-
-
-$Id: RELEASE-HOWTO.txt,v 1.3 2005/08/08 22:54:15 cozman Exp $
+    CVS Tag
+    
+**Non-Distribution Files:
+    photon/.cvsignore
+    photon/docs/.cvsignore
+    photon/ndoc/.cvsignore
+    
+$Id: RELEASE-HOWTO.txt,v 1.4 2005/08/17 06:35:54 cozman Exp $

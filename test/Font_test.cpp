@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font_test.cpp,v 1.12 2005/08/16 06:32:39 cozman Exp $
+//  $Id: Font_test.cpp,v 1.13 2005/08/17 06:35:56 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -54,7 +54,7 @@ int PhotonMain(const StrVec& args)
     app.createDisplay(800,600,32,0,0,false);    // create window
 
     // be sure to add FPSDisplayTask
-    //Kernel::getInstance().addTask(TaskPtr(new FPSDisplayTask()));
+    //TaskManager::getInstance().addTask(util::TaskPtr(new FPSDisplayTask()));
 
     app.setState<MainState>();  // register state and make active
     app.run();                  // run until finished

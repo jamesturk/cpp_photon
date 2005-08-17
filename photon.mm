@@ -21,7 +21,7 @@
 <node ID="Freemind_Link_1902843385" TEXT="depthBuffer enable/disable">
 <icon BUILTIN="button_ok"/>
 </node>
-<node ID="Freemind_Link_1912839994" TEXT="dual Kernels">
+<node ID="Freemind_Link_1912839994" TEXT="dual Kernels (TaskManager)">
 <icon BUILTIN="button_ok"/>
 </node>
 </node>
@@ -183,12 +183,11 @@
 <node ID="Freemind_Link_959094471" TEXT="Contest"/>
 </node>
 </node>
-<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.27 2005/08/16 06:32:39 cozman Exp $">
+<node COLOR="#147f1e" ID="Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.28 2005/08/17 06:35:54 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node ID="Freemind_Link_853483912" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="Freemind_Link_1298604697" TEXT="reintegrate FPSDisplayTask"/>
 </node>
 </node>
 </map>

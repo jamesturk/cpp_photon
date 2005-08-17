@@ -5,27 +5,27 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.cpp,v 1.5 2005/08/16 06:32:39 cozman Exp $
+//  $Id: TaskManager.cpp,v 1.1 2005/08/17 06:35:56 cozman Exp $
 
-#include "Kernel.hpp"
+#include "util/TaskManager.hpp"
 
 #include "exceptions.hpp"
 
-#include "Log.hpp"
-
 namespace photon
 {
+namespace util
+{
 
-Kernel::Kernel()
+TaskManager::TaskManager()
 {
 }
 
-Kernel::~Kernel()
+TaskManager::~TaskManager()
 {
     killAllTasks();
 }
 
-void Kernel::step(scalar timeDelta)
+void TaskManager::step(scalar timeDelta)
 {
     std::list<TaskPtr>::iterator it;
     
@@ -59,7 +59,7 @@ void Kernel::step(scalar timeDelta)
     }
 }
 
-void Kernel::addTask(TaskPtr task)
+void TaskManager::addTask(TaskPtr task)
 {
     std::list<TaskPtr>::iterator it = tasks_.begin();
     // attempt to find task
@@ -84,7 +84,7 @@ void Kernel::addTask(TaskPtr task)
     tasks_.insert(it, task);    // insert task after iterator
 }
 
-void Kernel::killTask(const std::string& taskName)
+void TaskManager::killTask(const std::string& taskName)
 {
     // attempt to find the task
     std::list<TaskPtr>::iterator task = std::find_if(tasks_.begin(), 
@@ -102,7 +102,7 @@ void Kernel::killTask(const std::string& taskName)
     }
 }
 
-void Kernel::pauseTask(const std::string& taskName)
+void TaskManager::pauseTask(const std::string& taskName)
 {
     // attempt to find the task
     std::list<TaskPtr>::iterator task = std::find_if(tasks_.begin(), 
@@ -120,7 +120,7 @@ void Kernel::pauseTask(const std::string& taskName)
     }
 }
 
-void Kernel::unpauseTask(const std::string& taskName)
+void TaskManager::unpauseTask(const std::string& taskName)
 {
     // attempt to find the task
     std::list<TaskPtr>::iterator task = std::find_if(tasks_.begin(), 
@@ -138,7 +138,7 @@ void Kernel::unpauseTask(const std::string& taskName)
     }
 }
 
-void Kernel::killAllTasks()
+void TaskManager::killAllTasks()
 {
     // set all tasks to dead
     for(std::list<TaskPtr>::iterator it = tasks_.begin(); 
@@ -149,10 +149,11 @@ void Kernel::killAllTasks()
     }
 }
 
-bool Kernel::TaskNameEq::operator()(const TaskPtr& lhs, 
+bool TaskManager::TaskNameEq::operator()(const TaskPtr& lhs, 
                                     const std::string& rhs) const
 {
     return lhs->getName() == rhs;
 }
 
+}
 }

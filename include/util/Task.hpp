@@ -5,16 +5,18 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.hpp,v 1.5 2005/08/16 06:32:39 cozman Exp $
+//  $Id: Task.hpp,v 1.1 2005/08/17 06:35:56 cozman Exp $
 
-#ifndef PHOTON_TASK_HPP
-#define PHOTON_TASK_HPP
+#ifndef PHOTON_UTIL_TASK_HPP
+#define PHOTON_UTIL_TASK_HPP
 
 #include <string>
 
 #include "types.hpp"
 
 namespace photon
+{
+namespace util
 {
     
 // Title: Task
@@ -38,7 +40,8 @@ enum PriorityLevel
 };
 
 // Class: Task
-//  Abstract class for tasks, which are runnable classes for use with <Kernel>.
+//  Abstract class for tasks, which are runnable classes for use with 
+//  <TaskManager>.
 //
 //  When writing a task, only update() needs to be overloaded.
 class Task
@@ -51,7 +54,7 @@ public:
     // Parameters:
     //  name - Name for task, must be unique!
     //  priority - Optional argument for desired priority for the Task, 
-    //              controls order in which tasks are run by the <Kernel>.
+    //              controls order in which tasks are run by the <TaskManager>.
     //              Default Priority is PRI_NORMAL
     Task(const std::string& name, PriorityLevel priority=PRI_NORMAL);
     
@@ -97,8 +100,8 @@ public:
     virtual void onUnpause();
     
     // Function: kill
-    //  Sets state of application to dead, dead tasks remove themselves from 
-    //  the Kernel's task pool.
+    //  Sets state of task to dead, dead tasks remove themselves from the
+    //  <TaskManager>'s task pool.
     void kill();
     
 // Group: Accessors
@@ -145,5 +148,6 @@ private:
 typedef shared_ptr<Task> TaskPtr;
 
 }
+}
 
-#endif  //PHOTON_TASK_HPP
+#endif  //PHOTON_UTIL_TASK_HPP

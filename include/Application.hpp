@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.21 2005/08/17 03:15:24 cozman Exp $
+//  $Id: Application.hpp,v 1.22 2005/08/17 06:35:56 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -20,7 +20,7 @@
 #include "types.hpp"
 #include "util/VersionInfo.hpp"
 #include "State.hpp"
-#include "Kernel.hpp"
+#include "util/TaskManager.hpp"
 #include "audio/AudioCore.hpp"
 #include "util/Singleton.hpp"
 
@@ -64,21 +64,21 @@ public:
     //  Sets Quit flag, terminating application.
     void quit();
     
-    // Function: getUpdateKernel
-    //  Access the application's update <Kernel>, <Tasks> registered with this
-    //  kernel are executed after the current <State's> <State::update>.
+    // Function: getUpdateTaskManager
+    //  Access the application's update <TaskManager>, <Tasks> registered with
+    //  this TaskManager are executed after the current <State::update>.
     //
     // Returns:
-    //  Reference to "Update Kernel"
-    Kernel& getUpdateKernel();
+    //  Reference to "Update TaskManager"
+    util::TaskManager& getUpdateTaskManager();
     
-    // Function: getRenderKernel
-    //  Access the application's render <Kernel>, <Tasks> registered with this
-    //  kernel are executed after the current <State's> <State::render>.
+    // Function: getRenderTaskManager
+    //  Access the application's render <TaskManager>, <Tasks> registered with
+    //  this TaskManager are executed after the current <State::render>.
     //
     // Returns:
-    //  Reference to "Render Kernel"
-    Kernel& getRenderKernel();
+    //  Reference to "Render TaskManager"
+    util::TaskManager& getRenderTaskManager();
     
     // Function: isActive
     //  Checks if application is active, which on most systems simply means it
@@ -429,8 +429,8 @@ private:
     
     // other
     bool quit_;
-    Kernel updateKernel_;
-    Kernel renderKernel_;
+    util::TaskManager updateTaskManager_;
+    util::TaskManager renderTaskManager_;
     
     // state system
     static std::stack<StatePtr> stateStack_;

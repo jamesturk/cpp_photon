@@ -32,7 +32,6 @@ Group: photon::  {
    File: Application  (Application.hpp)
    File: Basic Types  (types.hpp)
    File: Exception/Error Types  (exceptions.hpp)
-   File: Kernel  (Kernel.hpp)
    File: Log  (Log.hpp)
    File: Logging Utilities  (LogSink.hpp)
    File: PhotonMain  (entrypoint.hpp)
@@ -40,6 +39,7 @@ Group: photon::  {
    File: ResourceManager  (ResourceManager.hpp)
    File: State  (State.hpp)
    File: Task  (Task.hpp)
+   File: TaskManager  (Kernel.hpp)
 
    Group: Audio::  {
 

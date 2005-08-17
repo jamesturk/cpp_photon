@@ -1,11 +1,9 @@
 #ifndef PHOTON_HPP
 #define PHOTON_HPP
 
-#include "Kernel.hpp"
 #include "types.hpp"
 #include "State.hpp"
 #include "Application.hpp"
-#include "Task.hpp"
 #include "exceptions.hpp"
 #include "photon.hpp"
 #include "entrypoint.hpp"
@@ -22,7 +20,9 @@
 #include "math/Circle.hpp"
 #include "util/ConfigFile.hpp"
 #include "util/VersionInfo.hpp"
+#include "util/Task.hpp"
 #include "util/Singleton.hpp"
+#include "util/TaskManager.hpp"
 #include "util/RandGen.hpp"
 #include "util/Timer.hpp"
 #include "util/FileBuffer.hpp"

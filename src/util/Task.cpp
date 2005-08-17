@@ -5,11 +5,13 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.cpp,v 1.4 2005/08/07 07:12:47 cozman Exp $
+//  $Id: Task.cpp,v 1.1 2005/08/17 06:35:56 cozman Exp $
 
-#include "Task.hpp"
+#include "util/Task.hpp"
 
 namespace photon
+{
+namespace util
 {
 
 Task::Task(const std::string& name, PriorityLevel priority) :
@@ -59,4 +61,5 @@ bool Task::isPaused() const
     return paused_;
 }
 
+}
 }

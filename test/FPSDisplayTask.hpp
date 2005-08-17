@@ -7,7 +7,12 @@
 // Used to measure FPS and display it in the title bar.  Pretty good example
 //  of when to use a Task, logic is entirely separate from rest of application
 //  and should be executed regularly.
-class FPSDisplayTask : public photon::Task
+//
+// Note: Realistically framerate should not be displayed in the title bar 
+//          because changing the title causes a stutter, and changing the title
+//          bar every second makes applications with a lot of movement look 
+//          terrible.
+class FPSDisplayTask : public photon::util::Task
 {
 public:
     FPSDisplayTask() :
@@ -16,7 +21,7 @@ public:
         lastUpdate(0)
     { }
 
-    void update()
+    void update(scalar timeDelta)
     {
         // update (at most) once a second
         if(app.getTime() - lastUpdate > 1.0)

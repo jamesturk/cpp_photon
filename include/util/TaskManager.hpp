@@ -5,10 +5,10 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Kernel.hpp,v 1.4 2005/08/16 06:32:39 cozman Exp $
+//  $Id: TaskManager.hpp,v 1.1 2005/08/17 06:35:56 cozman Exp $
 
-#ifndef PHOTON_KERNEL_HPP
-#define PHOTON_KERNEL_HPP
+#ifndef PHOTON_UTIL_TASKMANAGER_HPP
+#define PHOTON_UTIL_TASKMANAGER_HPP
 
 #include <list>
 #include <algorithm>
@@ -17,31 +17,33 @@
 
 namespace photon
 {
+namespace util
+{
 
-// Class: Kernel
-//  Kernel class, maintains a list of <Tasks> and manages their status,
+// Class: TaskManager
+//  TaskManager class, maintains a list of <Tasks> and manages their status,
 //  handles adding, deleting, pausing, and unpausing tasks.
 //
-//  To use Kernel:
+//  To use TaskManager:
 //      - (1) Add any tasks (should be derived from <Task>)
 //      - (2) Call step() every frame when task should update.
-class Kernel
+class TaskManager
 {
 
 // Group: (Con/De)structors
 public:
-    // Function: Kernel
-    //  Kernel constructor, initializes kernel singleton.
-    Kernel();
+    // Function: TaskManager
+    //  TaskManager constructor, initializes task manager
+    TaskManager();
     
-    // Function: ~Kernel
-    //  Kernel destructor, destroys kernel singleton.
-    ~Kernel();
+    // Function: ~TaskManager
+    //  TaskManager destructor, destroys task manager
+    ~TaskManager();
 
 // Group: Running
 public:
     // Function: step
-    //  Steps the kernel, calling each active task once.
+    //  Steps the task manager, calling each active task once.
     //
     //  Each 'step' all tasks are run in order of their priorities, if two 
     //  tasks have the same priority, they are run in the order they were added.
@@ -54,7 +56,7 @@ public:
 // Group: Task Management
 public:
     // Function: addTask
-    //  Add a new <Task> to the Kernel's list.  All tasks MUST have unique 
+    //  Add a new <Task> to the TaskManager's list.  All tasks MUST have unique 
     //  names.
     //
     // Parameters:
@@ -62,7 +64,7 @@ public:
     void addTask(TaskPtr task);
     
     // Function: killTask
-    //  Kill a task in the Kernel task list.
+    //  Kill a task in the TaskManager task list.
     //  Dead tasks are removed in next loop through tasks. 
     //
     // Parameters:
@@ -70,14 +72,14 @@ public:
     void killTask(const std::string& taskName);
     
     // Function: pauseTask
-    //  Pause a task in the Kernel task list.
+    //  Pause a task in the TaskManager task list.
     //
     // Parameters:
     //  taskName - Name of task to pause.
     void pauseTask(const std::string& taskName);
     
     // Function: unpauseTask
-    //  Unpause a task in the Kernel task list.
+    //  Unpause a task in the TaskManager task list.
     //
     // Parameters:
     //  taskName - Name of task to unpause.
@@ -103,5 +105,6 @@ private:
 };
 
 }
+}
 
-#endif  //PHOTON_KERNEL_HPP
+#endif  //PHOTON_UTIL_TASKMANAGER_HPP
