@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.cpp,v 1.5 2005/07/18 06:18:50 cozman Exp $
+//  $Id: filesys.cpp,v 1.6 2005/08/18 06:01:37 cozman Exp $
 
 
 #include "util/filesys/filesys.hpp"
@@ -23,7 +23,7 @@ namespace filesys
 std::vector<std::string> getCDDirs()
 {
     std::vector<std::string> dirs;
-    char** buf( PHYSFS_getCdRomDirs() );
+    char** buf = PHYSFS_getCdRomDirs();
 
     if(buf == 0)
     {
@@ -32,7 +32,7 @@ std::vector<std::string> getCDDirs()
     }
 
     //iterate over list, adding dirs
-    for(char** i(buf); *i != 0; ++i)
+    for(char** i = buf; *i != 0; ++i)
     {
         dirs.push_back(*i);
     }
@@ -71,7 +71,7 @@ void removeFromSearchPath(const std::string& dir)
 std::vector<std::string> getSearchPath()
 {
     std::vector<std::string> dirs;
-    char** buf( PHYSFS_getSearchPath() );
+    char** buf = PHYSFS_getSearchPath();
 
     if(buf == 0)
     {
@@ -80,7 +80,7 @@ std::vector<std::string> getSearchPath()
     }
 
     //iterate over list, adding dirs
-    for(char** i(buf); *i != 0; ++i)
+    for(char** i = buf; *i != 0; ++i)
     {
         dirs.push_back(*i);
     }
@@ -121,7 +121,7 @@ bool remove(const std::string& item)
 std::vector<std::string> listDir(const std::string& dir)
 {
     std::vector<std::string> files;
-    char** buf( PHYSFS_enumerateFiles(dir.c_str()) );
+    char** buf = PHYSFS_enumerateFiles(dir.c_str());
 
     if(buf == 0)
     {
@@ -130,7 +130,7 @@ std::vector<std::string> listDir(const std::string& dir)
     }
 
     //iterate over list, adding dirs
-    for(char** i(buf); *i != 0; ++i)
+    for(char** i = buf; *i != 0; ++i)
     {
         files.push_back(*i);
     }
