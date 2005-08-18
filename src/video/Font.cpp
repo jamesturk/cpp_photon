@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.cpp,v 1.6 2005/07/18 07:19:48 cozman Exp $
+//  $Id: Font.cpp,v 1.7 2005/08/18 06:41:41 cozman Exp $
 
 #include "video/Font.hpp"
 
@@ -94,7 +94,16 @@ void Font::drawText(scalar x, scalar y, const char *str, ...) const
     char buf[1024];
 
     va_start(args,str);
-    std::vsnprintf(buf, 1024, str, args);   // avoid buffer overflow
+    
+    // use vsnprintf to avoid buffer overflow if it's available
+#if _MSC_VER >= 1200
+    _vsnprintf(buf, 1024, str, args);
+#elif __GNUC__ >= 3
+    std::vsnprintf(buf, 1024, str, args);
+#else
+    std::vsprintf(buf, str, args);  //unvavailable
+#endif
+    
     va_end(args);
 
     // push attrib before setting color
