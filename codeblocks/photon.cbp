@@ -30,12 +30,6 @@
 			<Option link="0"/>
 			<Option target="default"/>
 		</Unit>
-		<Unit filename="..\include\Kernel.hpp">
-			<Option compilerVar=""/>
-			<Option compile="0"/>
-			<Option link="0"/>
-			<Option target="default"/>
-		</Unit>
 		<Unit filename="..\include\Log.hpp">
 			<Option compilerVar=""/>
 			<Option compile="0"/>
@@ -61,12 +55,6 @@
 			<Option target="default"/>
 		</Unit>
 		<Unit filename="..\include\State.hpp">
-			<Option compilerVar=""/>
-			<Option compile="0"/>
-			<Option link="0"/>
-			<Option target="default"/>
-		</Unit>
-		<Unit filename="..\include\Task.hpp">
 			<Option compilerVar=""/>
 			<Option compile="0"/>
 			<Option link="0"/>
@@ -162,6 +150,18 @@
 			<Option link="0"/>
 			<Option target="default"/>
 		</Unit>
+		<Unit filename="..\include\util\Task.hpp">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="default"/>
+		</Unit>
+		<Unit filename="..\include\util\TaskManager.hpp">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="default"/>
+		</Unit>
 		<Unit filename="..\include\util\Timer.hpp">
 			<Option compilerVar=""/>
 			<Option compile="0"/>
@@ -226,19 +226,11 @@
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>
-		<Unit filename="..\src\Kernel.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
-		</Unit>
 		<Unit filename="..\src\Log.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>
 		<Unit filename="..\src\LogSink.cpp">
-			<Option compilerVar="CPP"/>
-			<Option target="default"/>
-		</Unit>
-		<Unit filename="..\src\Task.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>
@@ -283,6 +275,14 @@
 			<Option target="default"/>
 		</Unit>
 		<Unit filename="..\src\util\RandGen.cpp">
+			<Option compilerVar="CPP"/>
+			<Option target="default"/>
+		</Unit>
+		<Unit filename="..\src\util\Task.cpp">
+			<Option compilerVar="CPP"/>
+			<Option target="default"/>
+		</Unit>
+		<Unit filename="..\src\util\TaskManager.cpp">
 			<Option compilerVar="CPP"/>
 			<Option target="default"/>
 		</Unit>

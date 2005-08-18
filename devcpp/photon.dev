@@ -1,7 +1,7 @@
 [Project]
 FileName=photon.dev
 Name=photon
-UnitCount=61
+UnitCount=59
 Type=2
 Ver=1
 ObjFiles=
@@ -76,16 +76,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=..\include\Kernel.hpp
-CompileCpp=1
-Folder=include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit5]
 FileName=..\include\Log.hpp
 CompileCpp=1
 Folder=include
@@ -95,7 +85,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit6]
+[Unit5]
 FileName=..\include\LogSink.hpp
 CompileCpp=1
 Folder=include
@@ -105,7 +95,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit7]
+[Unit6]
 FileName=..\include\photon.hpp
 CompileCpp=1
 Folder=include
@@ -115,7 +105,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit8]
+[Unit7]
 FileName=..\include\ResourceManaged.hpp
 CompileCpp=1
 Folder=include
@@ -125,7 +115,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
+[Unit8]
 FileName=..\include\ResourceManager.hpp
 CompileCpp=1
 Folder=include
@@ -135,7 +125,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit10]
+[Unit9]
 FileName=..\include\State.hpp
 CompileCpp=1
 Folder=include
@@ -145,17 +135,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit11]
-FileName=..\include\Task.hpp
-CompileCpp=1
-Folder=include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit12]
+[Unit10]
 FileName=..\include\types.hpp
 CompileCpp=1
 Folder=include
@@ -165,7 +145,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit13]
+[Unit11]
 FileName=..\include\audio\AudioCore.hpp
 CompileCpp=1
 Folder=include/audio
@@ -175,7 +155,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit14]
+[Unit12]
 FileName=..\include\audio\SampleResourceManager.hpp
 CompileCpp=1
 Folder=include/audio
@@ -185,7 +165,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit15]
+[Unit13]
 FileName=..\include\audio\Source.hpp
 CompileCpp=1
 Folder=include/audio
@@ -195,7 +175,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit16]
+[Unit14]
 FileName=..\include\math\Vector2.hpp
 CompileCpp=1
 Folder=include/math
@@ -205,7 +185,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit17]
+[Unit15]
 FileName=..\include\math\Circle.hpp
 CompileCpp=1
 Folder=include/math
@@ -215,7 +195,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit18]
+[Unit16]
 FileName=..\include\math\math.hpp
 CompileCpp=1
 Folder=include/math
@@ -225,7 +205,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit19]
+[Unit17]
 FileName=..\include\math\Rect.hpp
 CompileCpp=1
 Folder=include/math
@@ -235,7 +215,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit20]
+[Unit18]
 FileName=..\include\util\VersionInfo.hpp
 CompileCpp=1
 Folder=include/util
@@ -245,7 +225,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit21]
+[Unit19]
 FileName=..\include\util\ConfigFile.hpp
 CompileCpp=1
 Folder=include/util
@@ -255,7 +235,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit22]
+[Unit20]
 FileName=..\include\util\FileBuffer.hpp
 CompileCpp=1
 Folder=include/util
@@ -265,7 +245,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit23]
+[Unit21]
 FileName=..\include\util\RandGen.hpp
 CompileCpp=1
 Folder=include/util
@@ -275,7 +255,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit24]
+[Unit22]
 FileName=..\include\util\Singleton.hpp
 CompileCpp=1
 Folder=include/util
@@ -285,7 +265,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit25]
+[Unit23]
 FileName=..\include\util\Timer.hpp
 CompileCpp=1
 Folder=include/util
@@ -295,7 +275,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit26]
+[Unit24]
 FileName=..\include\util\filesys\filesys.hpp
 CompileCpp=1
 Folder=include/util
@@ -305,7 +285,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit27]
+[Unit25]
 FileName=..\include\video\Color.hpp
 CompileCpp=1
 Folder=include/video
@@ -315,7 +295,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit28]
+[Unit26]
 FileName=..\include\video\Font.hpp
 CompileCpp=1
 Folder=include/video
@@ -325,7 +305,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit29]
+[Unit27]
 FileName=..\include\video\FontResourceManager.hpp
 CompileCpp=1
 Folder=include/video
@@ -335,7 +315,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit30]
+[Unit28]
 FileName=..\include\video\Image.hpp
 CompileCpp=1
 Folder=include/video
@@ -345,7 +325,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit31]
+[Unit29]
 FileName=..\include\video\Pen.hpp
 CompileCpp=1
 Folder=include/video
@@ -355,7 +335,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit32]
+[Unit30]
 FileName=..\include\video\Texture.hpp
 CompileCpp=1
 Folder=include/video
@@ -365,7 +345,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit33]
+[Unit31]
 FileName=..\include\video\TextureResourceManager.hpp
 CompileCpp=1
 Folder=include/video
@@ -375,17 +355,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit34]
-FileName=..\include\video\VideoCore.hpp
-CompileCpp=1
-Folder=include/video
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit35]
+[Unit32]
 FileName=..\src\Application.cpp
 CompileCpp=1
 Folder=src
@@ -395,7 +365,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit36]
+[Unit33]
 FileName=..\src\entrypoint.cpp
 CompileCpp=1
 Folder=src
@@ -405,7 +375,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit37]
+[Unit34]
 FileName=..\src\exceptions.cpp
 CompileCpp=1
 Folder=src
@@ -415,17 +385,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit38]
-FileName=..\src\Kernel.cpp
-CompileCpp=1
-Folder=src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit39]
+[Unit35]
 FileName=..\src\Log.cpp
 CompileCpp=1
 Folder=src
@@ -435,7 +395,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit40]
+[Unit36]
 FileName=..\src\LogSink.cpp
 CompileCpp=1
 Folder=src
@@ -445,17 +405,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit41]
-FileName=..\src\Task.cpp
-CompileCpp=1
-Folder=src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit42]
+[Unit37]
 FileName=..\src\audio\AudioCore.cpp
 CompileCpp=1
 Folder=src/audio
@@ -465,7 +415,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit43]
+[Unit38]
 FileName=..\src\audio\SampleResourceManager.cpp
 CompileCpp=1
 Folder=src/audio
@@ -475,7 +425,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit44]
+[Unit39]
 FileName=..\src\math\Circle.cpp
 CompileCpp=1
 Folder=src/math
@@ -485,7 +435,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit45]
+[Unit40]
 FileName=..\src\math\math.cpp
 CompileCpp=1
 Folder=src/math
@@ -495,7 +445,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit46]
+[Unit41]
 FileName=..\src\math\Rect.cpp
 CompileCpp=1
 Folder=src/math
@@ -505,7 +455,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit47]
+[Unit42]
 FileName=..\src\math\Vector2.cpp
 CompileCpp=1
 Folder=src/math
@@ -515,7 +465,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit48]
+[Unit43]
 FileName=..\src\util\ConfigFile.cpp
 CompileCpp=1
 Folder=src/util
@@ -525,7 +475,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit49]
+[Unit44]
 FileName=..\src\util\FileBuffer.cpp
 CompileCpp=1
 Folder=src/util
@@ -535,7 +485,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit50]
+[Unit45]
 FileName=..\src\util\RandGen.cpp
 CompileCpp=1
 Folder=src/util
@@ -545,7 +495,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit51]
+[Unit46]
 FileName=..\src\util\Timer.cpp
 CompileCpp=1
 Folder=src/util
@@ -555,7 +505,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit52]
+[Unit47]
 FileName=..\src\util\VersionInfo.cpp
 CompileCpp=1
 Folder=src/util
@@ -565,7 +515,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit53]
+[Unit48]
 FileName=..\src\util\filesys\filesys.cpp
 CompileCpp=1
 Folder=src/util
@@ -575,7 +525,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit54]
+[Unit49]
 FileName=..\src\video\Color.cpp
 CompileCpp=1
 Folder=src/video
@@ -585,7 +535,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit55]
+[Unit50]
 FileName=..\src\video\Font.cpp
 CompileCpp=1
 Folder=src/video
@@ -595,7 +545,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit56]
+[Unit51]
 FileName=..\src\video\FontResourceManager.cpp
 CompileCpp=1
 Folder=src/video
@@ -605,7 +555,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit57]
+[Unit52]
 FileName=..\src\video\Image.cpp
 CompileCpp=1
 Folder=src/video
@@ -615,7 +565,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit58]
+[Unit53]
 FileName=..\src\video\Pen.cpp
 CompileCpp=1
 Folder=src/video
@@ -625,10 +575,60 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit59]
+[Unit54]
 FileName=..\src\video\Texture.cpp
 CompileCpp=1
 Folder=src/video
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit55]
+FileName=..\src\video\TextureResourceManager.cpp
+CompileCpp=1
+Folder=src/video
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit56]
+FileName=..\include\util\TaskManager.hpp
+CompileCpp=1
+Folder=include/util
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit57]
+FileName=..\include\util\Task.hpp
+CompileCpp=1
+Folder=include/util
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit58]
+FileName=..\src\util\Task.cpp
+CompileCpp=1
+Folder=src/util
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit59]
+FileName=..\src\util\TaskManager.cpp
+CompileCpp=1
+Folder=src/util
 Compile=1
 Link=1
 Priority=1000
