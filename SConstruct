@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.22 2005/08/16 06:32:39 cozman Exp $
+#  $Id: SConstruct,v 1.23 2005/08/18 02:23:47 cozman Exp $
 
 import os,os.path
 import glob
@@ -53,7 +53,7 @@ def BuildSuperHeader(target = None, source = None, env = None):
 SuperHeaderAction = Action(BuildSuperHeader)
 
 # Configure the environment
-env = Environment(ENV = os.environ, MSVS_VERSION = 7.0)
+env = Environment(ENV = os.environ)
 env.Append(CPPPATH='include', CPPFLAGS=['-Wall', '-fmessage-length=0'])
 env.ParseConfig('freetype-config --cflags')
 # Configure (Check Libraries)
@@ -108,8 +108,8 @@ for test_src in test_srcs:
 env.Alias('tests',tests)
 
 # Visual C++ Projects
-if(os.name == 'nt'):
-    msvc = env.MSVSProject(target = 'msvc/photon' + env['MSVSPROJECTSUFFIX'],
-        srcs = getFilesMulti(SRC_DIRS, '*.cpp'), incs = INC_FILES,
-        buildtarget = lib, variant = 'Release')
-    env.Alias('msvc',msvc)
+#if(os.name == 'nt'):
+#    msvc = env.MSVSProject(target = 'msvc/photon' + env['MSVSPROJECTSUFFIX'],
+#        srcs = getFilesMulti(SRC_DIRS, '*.cpp'), incs = INC_FILES,
+#        buildtarget = lib, variant = 'Release')
+#    env.Alias('msvc',msvc)
