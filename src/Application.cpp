@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.27 2005/08/17 06:35:56 cozman Exp $
+//  $Id: Application.cpp,v 1.28 2005/08/18 02:24:33 cozman Exp $
 
 #include "Application.hpp"
 
@@ -49,6 +49,12 @@ Application::Application(const std::string& arg0) :
 
 Application::~Application()
 {
+    // clear stack on exit
+    while(!stateStack_.empty())
+    {
+        popState();
+    }
+    
     glfwTerminate();        // shutdown GLFW
     
     PHYSFS_deinit();        // shutdown PhysFS
@@ -143,7 +149,7 @@ void Application::update()
 void Application::quit()
 {
     glfwCloseWindow();  //close GLFW window
-    
+   
     quit_ = true;
 }
 
