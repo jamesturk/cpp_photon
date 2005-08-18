@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.16 2005/08/17 06:35:56 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.17 2005/08/18 05:59:56 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -205,6 +205,7 @@ int PhotonMain(const StrVec& args)
 int PhotonMain(const StrVec& args)
 {
     std::cerr << "Photon compiled without OpenAL support.\n"; 
+	return 0;
 }
 
 #endif //PHOTON_USE_OPENAL
