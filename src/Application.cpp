@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.28 2005/08/18 02:24:33 cozman Exp $
+//  $Id: Application.cpp,v 1.29 2005/08/18 07:05:35 cozman Exp $
 
 #include "Application.hpp"
 
@@ -31,7 +31,7 @@ std::stack<StatePtr> Application::stateStack_;
 // (Con/De)structors ///////////////////////////////////////////////////////////
 
 Application::Application(const std::string& arg0) :
-    photonVer_(0,0,1),  // this is the current version
+    photonVer_(0,0,2),  // this is the current version
     displayWidth_(0), displayHeight_(0), viewportWidth_(0), viewportHeight_(0),
     clearFlags_(GL_COLOR_BUFFER_BIT),
     mouseX_(0), mouseY_(0),

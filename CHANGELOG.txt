@@ -1,17 +1,17 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.10 2005/08/17 03:15:23 cozman Exp $
+$Id: CHANGELOG.txt,v 1.11 2005/08/18 07:05:34 cozman Exp $
 
 ! : Major Changes   (potentially breaking existing code)
 + : New Features   
 * : Minor Changes   (bugfixes and behind-the-scenes changes)
 
 
-0.0.2 
+0.0.2 - Released 2005-18-08
     ! Removed InputListener, opting to move features into State class.
     ! Dropped reliance on Kernel, and added main loop to Application, Kernel
         access now available through Application's getUpdateKernel() and
         getRenderKernel().
-    + Code::Blocks and Dev-C++ support
+    + Code::Blocks and Dev-C++ support, also very shaky MSVC support
     + Addition of a State stack allowing for applications to fall back to the 
         previous state when done with a particular state.
     + Notification of mouse wheel events added.
@@ -25,6 +25,7 @@ $Id: CHANGELOG.txt,v 1.10 2005/08/17 03:15:23 cozman Exp $
     * Removed ALUT dependencies by adding custom WAV loading code
     * Mouse move events now give relative position.
     * Properly handle regain of focus, unpause Application's timer.
+    * Fixed several minor bugs. (random stack crash on exit, doc mismatch)
 
 0.0.1 - Released 2005-08-08
     + State-based design that allows easy creation of applications by simply
