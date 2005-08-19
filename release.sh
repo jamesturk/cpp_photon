@@ -7,7 +7,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: release.sh,v 1.3 2005/08/19 05:34:58 cozman Exp $
+#  $Id: release.sh,v 1.4 2005/08/19 05:38:05 cozman Exp $
 
 major=0
 minor=0
@@ -70,7 +70,7 @@ elif [[ "${1}" = "release" ]]; then
     cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r ${cvsTag} -d ${dirName} photon
     check_errs $? "${cvsTag} export failed"
 
-    cd photon
+    cd ${dirName}
     check_errs $? "No photon directory?! Cannot proceed."
     
     scons docs

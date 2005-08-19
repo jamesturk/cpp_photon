@@ -29,8 +29,17 @@ Process:
     release.sh
     
 **Non-Distribution Files:
-    photon/.cvsignore
+    photon/.sconf_temp/
     photon/docs/.cvsignore
+    photon/include/.sconsign
+    photon/include/*/.sconsign
+    photon/include/*/*/.sconsign
     photon/ndoc/
+    photon/ndoc/.cvsignore
+    photon/.cvsignore
+    photon/config.log
+    photon/RELEASE-HOWTO.txt
+    photon/release.sh
+
     
-$Id: RELEASE-HOWTO.txt,v 1.6 2005/08/18 07:05:34 cozman Exp $
+$Id: RELEASE-HOWTO.txt,v 1.7 2005/08/19 05:34:58 cozman Exp $
