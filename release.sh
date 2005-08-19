@@ -7,15 +7,15 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: release.sh,v 1.2 2005/08/17 17:39:49 cozman Exp $
+#  $Id: release.sh,v 1.3 2005/08/19 05:34:58 cozman Exp $
 
 major=0
-minor=1
-release=0
-suffix="-RC1"
+minor=0
+release=2
+suffix=""
 
 cvsTag="release-${major}_${minor}_${release}${suffix}"
-dirName="photon-${major}.${minor}"
+dirName="photon-${major}.${minor}.${release}"   # after 0.1 drop ${release}
 srcPkgName="photon-${major}.${minor}.${release}${suffix}-src.tar.bz2"
 
 # procedure to abort on errorcodes
@@ -67,8 +67,7 @@ elif [[ "${1}" = "release" ]]; then
     check_errs $? "Tagging photon in CVS failed"
         
     echo "Attempting to export ${cvsTag} tagged copy of photon"
-    rm -rf ./photon
-    cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r ${cvsTag}  photon
+    cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r ${cvsTag} -d ${dirName} photon
     check_errs $? "${cvsTag} export failed"
 
     cd photon
@@ -78,10 +77,20 @@ elif [[ "${1}" = "release" ]]; then
     check_errs $? "Building photon docs failed, aborting."
 
     # remove non-essential files
+    rm -rf .sconf_temp/
+    rm -rf docs/.cvsignore
+    rm -rf include/.sconsign
+    rm -rf include/*/.sconsign
+    rm -rf include/*/*/.sconsign
+    rm -rf ndoc/
+    rm -rf ndoc/.cvsignore
+    rm -rf .cvsignore
+    rm -rf config.log
+    rm -rf RELEASE-HOWTO.txt
+    rm -rf release.sh
     
     # rename directory for packaging
     cd ..
-    mv photon ${dirName}
     tar cjf ${srcPkgName} ${dirName}/ 
     check_errs $? "Failed to create source package."
     
