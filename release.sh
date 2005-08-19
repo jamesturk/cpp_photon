@@ -7,7 +7,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: release.sh,v 1.4 2005/08/19 05:38:05 cozman Exp $
+#  $Id: release.sh,v 1.5 2005/08/19 05:42:51 cozman Exp $
 
 major=0
 minor=0
@@ -65,8 +65,9 @@ elif [[ "${1}" = "release" ]]; then
     echo "Tagging current CVS as ${cvsTag}"
     cvs rtag ${cvsTag} photon
     check_errs $? "Tagging photon in CVS failed"
-        
+    
     echo "Attempting to export ${cvsTag} tagged copy of photon"
+    cd ..               # go up a directory before attempting second checkout
     cvs -z3 -d:ext:cozman@cvs.sourceforge.net:/cvsroot/photon export -r ${cvsTag} -d ${dirName} photon
     check_errs $? "${cvsTag} export failed"
 
