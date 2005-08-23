@@ -1,10 +1,12 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.11 2005/08/18 07:05:34 cozman Exp $
+$Id: CHANGELOG.txt,v 1.12 2005/08/23 21:55:03 cozman Exp $
 
 ! : Major Changes   (potentially breaking existing code)
 + : New Features   
 * : Minor Changes   (bugfixes and behind-the-scenes changes)
 
+0.1.0
+    * Rewrote circle drawing code in Pen, major speed up.
 
 0.0.2 - Released 2005-18-08
     ! Removed InputListener, opting to move features into State class.

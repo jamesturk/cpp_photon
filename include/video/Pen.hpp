@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.hpp,v 1.3 2005/07/20 03:58:54 cozman Exp $
+//  $Id: Pen.hpp,v 1.4 2005/08/23 21:55:03 cozman Exp $
 
 #ifndef PHOTON_VIDEO_PEN_HPP
 #define PHOTON_VIDEO_PEN_HPP
@@ -134,6 +134,9 @@ public:
 // data members
 private:
     Color color_;
+    
+    // 30 seems to be an even tradeoff between speed and roundness
+    static const int CIRCLE_RESOLUTION = 30;    
 };
 
 }

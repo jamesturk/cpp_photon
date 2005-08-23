@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.cpp,v 1.5 2005/07/20 03:58:54 cozman Exp $
+//  $Id: Pen.cpp,v 1.6 2005/08/23 21:55:03 cozman Exp $
 
 #include "video/Pen.hpp"
 
@@ -125,39 +125,21 @@ void Pen::fillRect(const math::Rect &rect) const
 
 void Pen::drawCircle(const math::Circle &circle) const
 {
-    //written from Bresenham's circle algorithm
-    double cx(circle.getCenter().x);
-    double cy(circle.getCenter().y);
-    double d(3-(2*circle.getRadius()));
-    double x(0);
-    double y(circle.getRadius());
-
+    scalar radius(circle.getRadius());
+    scalar cx(circle.getCenter().x);
+    scalar cy(circle.getCenter().y);
+    scalar angle(0);
+    const scalar angleStep(2*math::PI/CIRCLE_RESOLUTION);
+    
     glBindTexture(GL_TEXTURE_2D,0);
     glPushAttrib(GL_CURRENT_BIT);
     color_.makeGLColor();
     
-    glBegin(GL_POINTS); // draw points, creating a circle
-    while(y > x)
+    glBegin(GL_LINE_LOOP);
+    for(int i=0; i<CIRCLE_RESOLUTION; ++i)
     {
-        glVertex2d(cx+x,cy+y);
-        glVertex2d(cx+x,cy-y);
-        glVertex2d(cx-x,cy+y);
-        glVertex2d(cx-x,cy-y);
-        glVertex2d(cx+y,cy+x);
-        glVertex2d(cx+y,cy-x);
-        glVertex2d(cx-y,cy+x);
-        glVertex2d(cx-y,cy-x);
-
-        if(d < 0)
-        {
-            d += x*4 + 6;
-        }
-        else
-        {
-            d += (x-y)*4 + 10;
-            --y;
-        }
-        ++x;
+        glVertex2f(cx+radius*std::cos(angle), cy+radius*std::sin(angle));
+        angle += angleStep;
     }
     glEnd();
     glPopAttrib();
@@ -165,39 +147,21 @@ void Pen::drawCircle(const math::Circle &circle) const
 
 void Pen::fillCircle(const math::Circle &circle) const
 {
-    //written from Bresenham's circle algorithm
-    double cx(circle.getCenter().x);
-    double cy(circle.getCenter().y);
-    double d(3-(2*circle.getRadius()));
-    double x(0);
-    double y(circle.getRadius());
+    scalar radius(circle.getRadius());
+    scalar cx(circle.getCenter().x);
+    scalar cy(circle.getCenter().y);
+    scalar angle(0);
+    const scalar angleStep(2*math::PI/CIRCLE_RESOLUTION);
 
     glBindTexture(GL_TEXTURE_2D,0);
     glPushAttrib(GL_CURRENT_BIT);
     color_.makeGLColor();
-
-    glBegin(GL_LINES);  // draw lines instead of points, filling the circle
-    while(y > x)
+    
+    glBegin(GL_POLYGON);
+    for(int i=0; i<CIRCLE_RESOLUTION; ++i)
     {
-        glVertex2d(cx+x,cy+y);
-        glVertex2d(cx+x,cy-y);
-        glVertex2d(cx-x,cy-y);
-        glVertex2d(cx-x,cy+y);
-        glVertex2d(cx+y,cy+x);
-        glVertex2d(cx-y,cy+x);
-        glVertex2d(cx-y,cy-x);
-        glVertex2d(cx+y,cy-x);
-
-        if(d < 0)
-        {
-            d += x*4 + 6;
-        }
-        else
-        {
-            d += (x-y)*4 + 10;
-            --y;
-        }
-        ++x;
+        glVertex2f(cx+radius*std::cos(angle), cy+radius*std::sin(angle));
+        angle += angleStep;
     }
     glEnd();
     glPopAttrib();
