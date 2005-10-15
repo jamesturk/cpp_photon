@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.13 2005/08/08 21:39:41 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.14 2005/10/15 04:57:19 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -99,13 +99,13 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
     ALCdevice* device(0);
     ALCcontext* context(0);
     std::stringstream ss;   // stream for parsing version
-    std::string junks;      // junk string for parsing
     char junkc;             // junk character for parsing
-    uint major,minor,patch; // version numbers
+    uint major,minor;       // version numbers
+    std::string extra;      // extra string for OpenAL extra info
 
     // obtain default device if no deviceName is set, otherwise use deviceName
     device = alcOpenDevice(deviceName.empty() ? 0 :
-                reinterpret_cast<const ALubyte*>(deviceName.c_str()) );
+                reinterpret_cast<const ALchar*>(deviceName.c_str()) );
 
     if(device == 0)
     {
@@ -131,17 +131,13 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
 	alListenerfv(AL_VELOCITY, posvel);
 	alListenerfv(AL_ORIENTATION, ori);
 
-    // OpenAL needs a standard version string format badly
+    // format is major.minor extra-info
     ss << alGetString(AL_VERSION);
-#if defined(linux)
-    ss >> major >> junkc >> minor >> junkc >> patch;
-#else
-    ss >> junks >> major >> junkc >> minor;   // format is "OpenAL 1.0"
-#endif
+    ss >> major >> junkc >> minor >> extra;
 
     throwOpenALError("AudioCore::initOpenAL");
     
-    return util::VersionInfo(major,minor,patch);
+    return util::VersionInfo(major,minor,0,extra);
 }
 
 }
