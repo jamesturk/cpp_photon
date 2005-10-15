@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.7 2005/07/18 07:19:48 cozman Exp $
+//  $Id: Font.hpp,v 1.8 2005/10/15 04:56:37 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
@@ -98,15 +98,64 @@ public:
     
 // Group: Drawing
 public:
+
+    // Function: drawText
+    //  Draw text to screen at a specific position, using an printf-style 
+    //  format string.
+    //
+    // Parameters:
+    //  x   - X position to start drawing text at
+    //  y   - Y position to start drawing text at.
+    //  str - printf-style format string
+    //  ... - optional variable arguments referenced in str
     void drawText(scalar x, scalar y, const char *str, ...) const;
+    
+    // Function: drawText
+    //  Draw text to screen at a specific position.
+    //
+    // Parameters:
+    //  x   - X position to start drawing text at
+    //  y   - Y position to start drawing text at.
+    //  str - Text to draw at specified posiiton.
     void drawText(scalar x, scalar y, const std::string& str) const;
 
+    // Function: beginDraw
+    //  Begin drawing of text using C++ style output streams.
+    //
+    // Parameters:
+    //  x   - X position to start drawing text at
+    //  y   - Y position to start drawing text at.
+    //
+    // Returns:
+    //  std::ostream& to stream, anything written to the stream before
+    //  <endDraw> will be drawn starting at the specified position.
     std::ostream& beginDraw(scalar x, scalar y);
+    
+    // Function: endDraw
+    //  End drawing of text started with <beginDraw>. 
+    //  Should be passed to the open beginDraw stream, flushing and writing the
+    //  stream to the display.
     StreamFlusher endDraw();
 
 // Group: Font Metrics
 public:
+
+    // Function: calcStringWidth
+    //  Calculate the width of a string when drawn in the current font.
+    //
+    // Parameters:
+    //  str - String to calculate the width of.
+    //
+    // Returns:
+    //  Width of string (in pixels) when drawn in current font.
     uint calcStringWidth(const std::string& str) const;
+    
+    // Function: getHeight
+    //  Get height of the font, which is essentially equal to the height of the
+    //  tallest character plus a font-specified spacing. 
+    //
+    // Returns:
+    //  Height of the loaded font.
     uint getHeight() const;
     
 // Group: Resource Creation
