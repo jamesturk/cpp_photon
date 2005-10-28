@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: AudioCore.cpp,v 1.14 2005/10/15 04:57:19 cozman Exp $
+//  $Id: AudioCore.cpp,v 1.15 2005/10/28 22:13:03 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -19,8 +19,9 @@ namespace photon
 namespace audio
 {
 
-//AudioCore::AudioCore()
-AudioCore::AudioCore(const std::string& deviceName)
+
+OALAudioCore::OALAudioCore(const std::string& deviceName) : 
+    AudioCore(deviceName)
 { 
     //util::VersionInfo oalReq(0,0,7);    // requires OpenAL 1.0 (TODO: check?)
     //util::ensureVersion("OpenAL", initOpenAL(), oalReq);
@@ -28,7 +29,7 @@ AudioCore::AudioCore(const std::string& deviceName)
     initOpenAL(deviceName);   // don't check version for now
 }
 
-AudioCore::~AudioCore()
+OALAudioCore::~OALAudioCore()
 {
     // retrieve both the context and device
     ALCcontext* context( alcGetCurrentContext() );
@@ -42,7 +43,7 @@ AudioCore::~AudioCore()
     alcMakeContextCurrent(0);
 }
 
-std::string AudioCore::getAudioDeviceName() const
+std::string OALAudioCore::getAudioDeviceName() const
 {
     ALCdevice* device (alcGetContextsDevice( alcGetCurrentContext() ));
     std::string name ( reinterpret_cast<const char*>(
@@ -51,7 +52,7 @@ std::string AudioCore::getAudioDeviceName() const
     return name;
 }
 
-std::string AudioCore::checkOpenALError()
+std::string OALAudioCore::checkOpenALError()
 {
     ALenum errCode = alGetError();  // fetch error code
     std::string err;
@@ -85,7 +86,7 @@ std::string AudioCore::checkOpenALError()
     return err;
 }
 
-void AudioCore::throwOpenALError(const std::string& func)
+void OALAudioCore::throwOpenALError(const std::string& func)
 {
     std::string err( checkOpenALError() );
     if(err.length())    // throw exception if non-empty string
@@ -94,7 +95,7 @@ void AudioCore::throwOpenALError(const std::string& func)
     }
 }
 
-util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
+util::VersionInfo OALAudioCore::initOpenAL(const std::string& deviceName)
 {
     ALCdevice* device(0);
     ALCcontext* context(0);
@@ -135,7 +136,7 @@ util::VersionInfo AudioCore::initOpenAL(const std::string& deviceName)
     ss << alGetString(AL_VERSION);
     ss >> major >> junkc >> minor >> extra;
 
-    throwOpenALError("AudioCore::initOpenAL");
+    throwOpenALError("OALAudioCore::initOpenAL");
     
     return util::VersionInfo(major,minor,0,extra);
 }

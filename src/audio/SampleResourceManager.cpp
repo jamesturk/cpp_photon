@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: SampleResourceManager.cpp,v 1.4 2005/08/10 05:36:30 cozman Exp $
+//  $Id: SampleResourceManager.cpp,v 1.5 2005/10/28 22:13:03 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -46,14 +46,14 @@ void SampleResourceManager::loadResourceData(SampleResource &res,
 
     alGenBuffers(1, &res.bufferID);    // create OpenAL buffer
     
-    AudioCore::throwOpenALError("alGenBuffers");
+    OALAudioCore::throwOpenALError("alGenBuffers");
 
     // load WAV and pass it into OpenAL buffer
     loadWAVMemory(&filedata[0], format, data, size, freq);
     alBufferData(res.bufferID, format, (ALvoid*)data, size, freq);
     freeWAVMemory(data);
     
-    AudioCore::throwOpenALError("alBufferData");
+    OALAudioCore::throwOpenALError("alBufferData");
 }
 
 void SampleResourceManager::freeResourceData(SampleResource& res)

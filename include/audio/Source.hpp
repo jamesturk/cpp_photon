@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Source.hpp,v 1.4 2005/08/08 21:39:41 cozman Exp $
+//  $Id: Source.hpp,v 1.5 2005/10/28 22:13:33 cozman Exp $
 
 #ifdef PHOTON_USE_OPENAL
 
@@ -23,17 +23,20 @@ namespace audio
 {
 
 // Class: Source
-//  Simple OO wrapper around an OpenAL source, defines the interface used for
-//  Sample and Music.
+//  Simple wrapper object around an OpenAL source, defines the interface used 
+//  for Sample and Music.
 //
 //  Source is a template class and can not be used directly, use either Sample
 //  or Music.  Sample is for playing small files such as sound effects.  Music
 //  is for streaming files such as background music.
+//
+//  Source is a resource managed class, and therefore all resources should
+//  be registered using <Source::addResource> and then loaded by their assigned
+//  name via <Source::open> or the appropriate constructor.
 // 
 // Operators:
 //  - Source = Source
 //  - bool : True if source has loaded buffer, false if not.
-//  - ostream& << Source
 template <class ResMgrT>
 class Source : public ResourceManaged<ResMgrT>
 {
@@ -69,7 +72,7 @@ public:
 public:
 
     // Function: open
-    //  Opens an audio file, supported formats are WAV and Ogg.
+    //  Opens an audio file, supported formats are WAV and Ogg Vorbis.
     // 
     // Parameters:
     //  name - Name of the Source <Resource> to open.
@@ -168,7 +171,7 @@ template<class ResMgrT>
 Source<ResMgrT>::Source()
 {
     alGenSources(1, &sourceID_);
-    AudioCore::throwOpenALError("Source::Source()");
+    OALAudioCore::throwOpenALError("Source::Source()");
 }
 
 template<class ResMgrT>
@@ -176,14 +179,14 @@ Source<ResMgrT>::Source(const Source &rhs) :
     ResourceManaged<ResMgrT>(rhs)
 {
     alGenSources(1, &sourceID_);
-    AudioCore::throwOpenALError("Source::Source(const Source&)");
+    OALAudioCore::throwOpenALError("Source::Source(const Source&)");
 }
 
 template<class ResMgrT>
 Source<ResMgrT>::Source(const std::string& name)
 {
     alGenSources(1, &sourceID_);
-    AudioCore::throwOpenALError("Source::Source(const std::string&)");
+    OALAudioCore::throwOpenALError("Source::Source(const std::string&)");
     open(name);
 }
 
@@ -205,14 +208,14 @@ void Source<ResMgrT>::open(const std::string& name)
     ResourceManaged<ResMgrT>::resMgr_.getAudioData(
         ResourceManaged<ResMgrT>::getName(), bufferID);
     
-    // attach buffer to source
+    // attach buffer to source and set default settings
     alSourcei(sourceID_, AL_BUFFER, bufferID);
     alSourcef(sourceID_, AL_PITCH, 1.0);
     alSourcef(sourceID_, AL_GAIN, 1.0);
     alSourcefv(sourceID_, AL_POSITION, ORIGIN);
     alSourcefv(sourceID_, AL_VELOCITY, ORIGIN);
     
-    AudioCore::throwOpenALError("Source::open");
+    OALAudioCore::throwOpenALError("Source::open");
 }
 
 template<class ResMgrT>
@@ -233,7 +236,7 @@ Source<ResMgrT>& Source<ResMgrT>::operator=(const Source<ResMgrT>& rhs)
         alSourcefv(sourceID_, AL_POSITION, ORIGIN);
         alSourcefv(sourceID_, AL_VELOCITY, ORIGIN);
         
-        AudioCore::throwOpenALError("Source::operator=");
+        OALAudioCore::throwOpenALError("Source::operator=");
     }
     return *this;
 }
@@ -241,7 +244,7 @@ Source<ResMgrT>& Source<ResMgrT>::operator=(const Source<ResMgrT>& rhs)
 template<class ResMgrT>
 Source<ResMgrT>::operator bool() const
 {
-    return isValid();
+    return isValid();   // do the work in isValid to avoid split implementation
 }
 
 template<class ResMgrT>
@@ -252,7 +255,7 @@ void Source<ResMgrT>::play()
         throw PreconditionException("Invalid Source::play call.");
     }
     
-    alSourcePlay(sourceID_);
+    alSourcePlay(sourceID_);    // play it
 }
 
 template<class ResMgrT>
@@ -263,7 +266,7 @@ void Source<ResMgrT>::stop()
         throw PreconditionException("Invalid Source::stop call.");
     }
     
-    alSourceStop(sourceID_);
+    alSourceStop(sourceID_);    // stop it
 }
 
 template<class ResMgrT>
@@ -274,7 +277,7 @@ void Source<ResMgrT>::pause()
         throw PreconditionException("Invalid Source::pause call.");
     }
     
-    alSourcePause(sourceID_);
+    alSourcePause(sourceID_);   // pause it
 }
 
 template<class ResMgrT>
@@ -285,7 +288,7 @@ void Source<ResMgrT>::rewind()
         throw PreconditionException("Invalid Source::rewind call.");
     }
     
-    alSourceRewind(sourceID_);
+    alSourceRewind(sourceID_);  // rewind it (doesn't stop)
 }
 
 template<class ResMgrT>
@@ -296,13 +299,13 @@ void Source<ResMgrT>::setLooping(bool loop)
         throw PreconditionException("Invalid Source::setLooping call.");
     }
     
-    alSourcei(sourceID_, AL_LOOPING, loop);
+    alSourcei(sourceID_, AL_LOOPING, loop); // toggle looping
 }
 
 template<class ResMgrT>
 bool Source<ResMgrT>::isValid() const
 {
-    return alIsSource(sourceID_) == AL_TRUE;
+    return alIsSource(sourceID_) == AL_TRUE;    // true if valid audio loaded
 }
 
 template<class ResMgrT>
@@ -313,7 +316,7 @@ bool Source<ResMgrT>::isPlaying() const
         throw PreconditionException("Invalid Source::isPlaying call.");
     }
     
-    // check state 
+    // check state using OpenAL query function
     int state;
     alGetSourcei(sourceID_, AL_SOURCE_STATE, &state);
     return state == AL_PLAYING;
@@ -327,7 +330,7 @@ bool Source<ResMgrT>::isLooping() const
         throw PreconditionException("Invalid Source::isLooping call.");
     }
     
-    // check looping status
+    // query looping status
     int loop;
     alGetSourcei(sourceID_, AL_LOOPING, &loop);
     return loop == AL_TRUE;
@@ -337,6 +340,7 @@ template<class ResMgrT>
 void Source<ResMgrT>::addResource(const std::string& name, 
                                     const std::string& path)
 {
+    // adds an aliased resource
     ResourceManaged<ResMgrT>::resMgr_.newResource(name, 
                                                     ResourceDescriptor(path));
 }
@@ -344,6 +348,7 @@ void Source<ResMgrT>::addResource(const std::string& name,
 template<class ResMgrT>
 void Source<ResMgrT>::addResource(const std::string& path)
 {
+    // add non-aliased resource
     ResourceManaged<ResMgrT>::resMgr_.newResource(path, 
                                                     ResourceDescriptor(path));
 }
