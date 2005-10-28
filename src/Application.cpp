@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.29 2005/08/18 07:05:35 cozman Exp $
+//  $Id: Application.cpp,v 1.30 2005/10/28 22:12:44 cozman Exp $
 
 #include "Application.hpp"
 
@@ -62,6 +62,18 @@ Application::~Application()
 
 void Application::run()
 {
+    if(quit_)
+    {
+        throw PreconditionException("Call to Application::run prior to creation"
+                                    " of display.");
+    }
+    
+    if(stateStack_.empty())
+    {
+        throw PreconditionException("Call to Application::run with no state"
+                                    " active.");
+    }
+    
     while(!quit_)
     {
         update();
@@ -471,7 +483,7 @@ void Application::initAudioCore(const std::string& deviceName)
     // create AudioCore, avoid double initializaiton
     if(audioCore_.get() == 0)
     {
-        audioCore_.reset(new audio::AudioCore(deviceName));
+        audioCore_.reset(new audio::OALAudioCore(deviceName));
     }
     else
     {
