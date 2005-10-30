@@ -16,6 +16,6 @@ In addition, I'd like to thank:
     * The Ubuntu Team (http://ubuntulinux.com)
     * Makoto Matsumoto and Takuji Nishimura for authoring the Mersenne Twister 
         algorithm, and making it freely available.
-        http://www.math.keio.ac.jp/~matumoto/emt.html
+        http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
     
-$Id: CREDITS.txt,v 1.3 2005/08/17 17:39:49 cozman Exp $
+$Id: CREDITS.txt,v 1.4 2005/10/30 21:08:57 cozman Exp $

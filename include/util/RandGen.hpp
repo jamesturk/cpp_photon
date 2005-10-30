@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.hpp,v 1.5 2005/07/18 06:18:51 cozman Exp $
+//  $Id: RandGen.hpp,v 1.6 2005/10/30 21:08:57 cozman Exp $
 
 #ifndef PHOTON_UTIL_RANDGEN_HPP
 #define PHOTON_UTIL_RANDGEN_HPP
@@ -17,7 +17,8 @@ namespace util
 
 // Class: RandGen
 //  Psuedorandom number generator class which uses Mersenne Twister.
-//  MT19937 is described at <http://www.math.keio.ac.jp/matumoto/emt.html>.
+//  MT19937 is described at 
+//  <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html>.
 class RandGen
 {
 // Group: (Con/De)structors

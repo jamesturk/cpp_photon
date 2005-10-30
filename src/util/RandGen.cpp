@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: RandGen.cpp,v 1.5 2005/03/03 09:25:47 cozman Exp $
+//  $Id: RandGen.cpp,v 1.6 2005/10/30 21:08:57 cozman Exp $
 
 //  The source in this file is based on MT19937, with much of the source
 // replicated from mt19937ar.c, because of this the original license
@@ -51,8 +51,8 @@
 //
 //
 //Any feedback is very welcome.
-//http://www.math.keio.ac.jp/matumoto/emt.html
-//email: matumoto@math.keio.ac.jp
+//http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+//m-mat @ math.sci.hiroshima-u.ac.jp
 
 #include "util/RandGen.hpp"
 #include <ctime>
