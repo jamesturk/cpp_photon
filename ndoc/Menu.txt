@@ -24,55 +24,61 @@ Footer: Documentation for <a href="http://photon.sourceforge.net">photon</a>. Co
 # time it is run.  When working with groups, just deal with the braces and
 # forget about the indentation and comments.
 # 
+# You can use this file on other computers even if they use different
+# directories.  As long as the command line points to the same source files,
+# Natural Docs will be able to correct the locations automatically.
+# 
 # --------------------------------------------------------------------------
 
 
+File: Photon Documentation  (/home/james/src/photon/ndoc/pages/index.txt)
+
 Group: photon::  {
 
-   File: Application  (Application.hpp)
-   File: Basic Types  (types.hpp)
-   File: Exception/Error Types  (exceptions.hpp)
-   File: Log  (Log.hpp)
-   File: Logging Utilities  (LogSink.hpp)
-   File: PhotonMain  (entrypoint.hpp)
-   File: ResourceManaged  (ResourceManaged.hpp)
-   File: ResourceManager  (ResourceManager.hpp)
-   File: State  (State.hpp)
-   File: Task  (Task.hpp)
-   File: TaskManager  (Kernel.hpp)
+   File: Application  (/home/james/src/photon/include/Application.hpp)
+   File: Basic Types  (/home/james/src/photon/include/types.hpp)
+   File: Exception/Error Types  (/home/james/src/photon/include/exceptions.hpp)
+   File: Log  (/home/james/src/photon/include/Log.hpp)
+   File: Logging Utilities  (/home/james/src/photon/include/LogSink.hpp)
+   File: PhotonMain  (/home/james/src/photon/include/entrypoint.hpp)
+   File: ResourceManaged  (/home/james/src/photon/include/ResourceManaged.hpp)
+   File: ResourceManager  (/home/james/src/photon/include/ResourceManager.hpp)
+   File: State  (/home/james/src/photon/include/State.hpp)
 
    Group: Audio::  {
 
-      File: AudioCore  (audio/AudioCore.hpp)
-      File: Source  (audio/Source.hpp)
+      File: AudioCore  (/home/james/src/photon/include/audio/AudioCore.hpp)
+      File: Source  (/home/james/src/photon/include/audio/Source.hpp)
       }  # Group: Audio::
 
    Group: Math::  {
 
-      File: Circle  (math/Circle.hpp)
-      File: Math Utilities  (math/math.hpp)
-      File: Rect  (math/Rect.hpp)
-      File: Vector2  (math/Vector2.hpp)
+      File: Circle  (/home/james/src/photon/include/math/Circle.hpp)
+      File: Math Utilities  (/home/james/src/photon/include/math/math.hpp)
+      File: Rect  (/home/james/src/photon/include/math/Rect.hpp)
+      File: Vector2  (/home/james/src/photon/include/math/Vector2.hpp)
       }  # Group: Math::
 
    Group: Util::  {
 
-      File: ConfigFile  (util/ConfigFile.hpp)
-      File: FileBuffer  (util/FileBuffer.hpp)
-      File: filesys::  (util/filesys/filesys.hpp)
-      File: RandGen  (util/RandGen.hpp)
-      File: Singleton  (util/Singleton.hpp)
-      File: Timer  (util/Timer.hpp)
-      File: VersionInfo  (util/VersionInfo.hpp)
+      File: ConfigFile  (/home/james/src/photon/include/util/ConfigFile.hpp)
+      File: FileBuffer  (/home/james/src/photon/include/util/FileBuffer.hpp)
+      File: filesys::  (/home/james/src/photon/include/util/filesys/filesys.hpp)
+      File: RandGen  (/home/james/src/photon/include/util/RandGen.hpp)
+      File: Singleton  (/home/james/src/photon/include/util/Singleton.hpp)
+      File: Task  (/home/james/src/photon/include/util/Task.hpp)
+      File: TaskManager  (/home/james/src/photon/include/util/TaskManager.hpp)
+      File: Timer  (/home/james/src/photon/include/util/Timer.hpp)
+      File: VersionInfo  (/home/james/src/photon/include/util/VersionInfo.hpp)
       }  # Group: Util::
 
    Group: Video::  {
 
-      File: Color  (video/Color.hpp)
-      File: Font  (video/Font.hpp)
-      File: Image  (video/Image.hpp)
-      File: Pen  (video/Pen.hpp)
-      File: Texture  (video/Texture.hpp)
+      File: Color  (/home/james/src/photon/include/video/Color.hpp)
+      File: Font  (/home/james/src/photon/include/video/Font.hpp)
+      File: Image  (/home/james/src/photon/include/video/Image.hpp)
+      File: Pen  (/home/james/src/photon/include/video/Pen.hpp)
+      File: Texture  (/home/james/src/photon/include/video/Texture.hpp)
       }  # Group: Video::
 
    }  # Group: photon::
@@ -85,5 +91,11 @@ Group: Index  {
    Function Index: Functions
    Type Index: Types
    Variable Index: Variables
+   File Index: Files
    }  # Group: Index
 
+
+
+##### Do not change or remove these lines. #####
+Data: 1(D3333RuEG3lpEG636H93IRutu\38\9oNfG)
+Data: 1(h3333RuEG3lpEG636H93IRutu\3\fu93Ip`G6)

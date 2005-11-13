@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Pen.hpp,v 1.4 2005/08/23 21:55:03 cozman Exp $
+//  $Id: Pen.hpp,v 1.5 2005/11/13 07:59:49 cozman Exp $
 
 #ifndef PHOTON_VIDEO_PEN_HPP
 #define PHOTON_VIDEO_PEN_HPP
@@ -25,7 +25,8 @@ namespace video
 //  Class which is used for drawing primitives.
 //
 //  Each instance of pen has a color, and the various members simply draw 
-//  primitives in that color.
+//  primitives in that color.  Since it is possible to change the color 
+//  associated with a pen, there is often no need for multiple instances of Pen.
 class Pen
 {
 

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: TaskManager.hpp,v 1.1 2005/08/17 06:35:56 cozman Exp $
+//  $Id: TaskManager.hpp,v 1.2 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_TASKMANAGER_HPP
 #define PHOTON_UTIL_TASKMANAGER_HPP
@@ -25,8 +25,8 @@ namespace util
 //  handles adding, deleting, pausing, and unpausing tasks.
 //
 //  To use TaskManager:
-//      - (1) Add any tasks (should be derived from <Task>)
-//      - (2) Call step() every frame when task should update.
+//      - Add any tasks (should be derived from <Task>)
+//      - Call step() every frame when task should update.
 class TaskManager
 {
 
@@ -49,8 +49,7 @@ public:
     //  tasks have the same priority, they are run in the order they were added.
     //
     // Parameters:
-    //  timeDelta - The time elapsed between frames, possibly fixed via
-    //              <Application::setFixedUpdateStep>.
+    //  timeDelta - The time elapsed between frames.
     void step(scalar timeDelta);
 
 // Group: Task Management

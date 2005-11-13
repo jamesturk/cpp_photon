@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.8 2005/08/12 06:26:00 cozman Exp $
+//  $Id: types.hpp,v 1.9 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP
@@ -39,7 +39,7 @@ typedef double scalar;
 // Group: STL/Boost Types
 
 // Type: StrVec
-//  Typedef for vector of strings, which is used all throughout photon.
+//  Typedef for vector of strings, which is used throughout photon.
 typedef std::vector<std::string> StrVec;
 
 // Type: shared_ptr
@@ -49,7 +49,10 @@ using boost::shared_ptr;
 // Group: Enums
 
 // Enum: KeyCode
-// Enumeration defining keys, used in <Application::keyPressed>.
+// Enumeration for keys, includes printable characters and special keys.
+//
+//  Keys are shown roughly in the order they appear on the keyboard to aid 
+//  finding a specific key.
 //
 // Enums:
 //  KEY_ESC  - Escape key
@@ -305,7 +308,7 @@ enum KeyCode
 };
 
 // Enum: MouseButton
-// Enumeration defining buttons, used in <Application::mouseButtonPressed>.
+// Enumeration defining mouse buttons.
 //
 //  MB_LEFT     - Left mouse button.
 //  MB_MIDDLE   - Middle mouse button.

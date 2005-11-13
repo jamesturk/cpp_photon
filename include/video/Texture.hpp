@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Texture.hpp,v 1.4 2005/07/04 03:06:48 cozman Exp $
+//  $Id: Texture.hpp,v 1.5 2005/11/13 07:59:49 cozman Exp $
 
 #ifndef PHOTON_VIDEO_TEXTURE_HPP
 #define PHOTON_VIDEO_TEXTURE_HPP
@@ -19,10 +19,12 @@ namespace video
 {
     
 // Class: Texture
-//  Simple OO wrapper around the concept of a texture in openGL. 
+//  Simple OO wrapper around the concept of a texture in OpenGL. 
 // 
 //  Since Texture is a child of <ResourceManaged>, all memory management is 
 //  taken care of.
+//
+//  Texture loading is done via Corona (<http://corona.sf.net>)
 // 
 //  Children:
 //   <Image>
@@ -30,7 +32,6 @@ namespace video
 // Operators:
 //  - Texture = Texture
 //  - bool : True if texture is loaded, false if not.
-//  - ostream& << Texture
 class Texture : public ResourceManaged<TextureResourceManager>
 {
 
@@ -65,7 +66,7 @@ public:
     //  Opens an image file, currently supported image types are BMP, GIF, JPEG,
     //  PCX, PNG, and TGA. 
     // 
-    //  Loading is done via <a href="http://corona.sf.net">Corona</a>.
+    //  Loading is done via Corona (<http://corona.sf.net>)
     // 
     // Parameters:
     //  name - Name of the Texture <Resource> to open.
@@ -102,7 +103,7 @@ public:
 
     // Function: addResource
     //  Define a new named resource.
-    //  (Ex. Image::addResource("monkey","images/monkey.png") would 
+    //  (Ex. Texture::addResource("monkey","images/monkey.png") would 
     //   make it so that any attempts to load "monkey" would load the image 
     //   images/monkey.png)
     //
@@ -113,10 +114,10 @@ public:
     
     // Function: addResource
     //  Define a new unaliased resource. (name == path).
-    //  (Ex. Image::addResource("images/monkey.png") is essentially the same as
-    //   Image::addResource("images/monkey.png","images/monkey.png")
+    //  (Ex. Texture::addResource("images/monkey.png") is essentially the same 
+    //   as Texture::addResource("images/monkey.png","images/monkey.png")
     //
-    // Parameters:.
+    // Parameters:
     //  path - Path of resource data file.
     static void addResource(const std::string& path);
     

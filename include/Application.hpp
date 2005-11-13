@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.22 2005/08/17 06:35:56 cozman Exp $
+//  $Id: Application.hpp,v 1.23 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -28,8 +28,9 @@ namespace photon
 {
 
 // Class: Application
-//  Photon main class, contains functions that control creation of the display,
-//  setting the OpenGL view, input handling, timing, and <State> management.
+//  Application main class, contains functions that control creation of the 
+//  display, setting the OpenGL view, input handling, timing, and <State> 
+//  management.
 //
 //  Application is a <Singleton> and therefore should be accessed through 
 //  Application::getInstance().  (Application Singleton is created/destroyed 
@@ -51,17 +52,18 @@ public:
 public:
     // Function: run
     //  Runs application until a quit is requested either via the operating 
-    //  system (ex. Alt-F4) or through a call to <quit>.
+    //  system (ex Alt-F4) or through a call to <quit>.
     //
-    //  Should not be called before a <State> has been set and a display has
-    //  been created via <createDisplay>.
+    // Throws: 
+    //  <PreconditionException> if called before a <State> has been set 
+    //  and a display has been created via <createDisplay>.
     void run();
     
-    // called by run while !quit()
+    // called internally by run while !quit()
     void update();
     
     // Function: quit
-    //  Sets Quit flag, terminating application.
+    //  Sets quit flag, terminating application.
     void quit();
     
     // Function: getUpdateTaskManager
@@ -69,7 +71,7 @@ public:
     //  this TaskManager are executed after the current <State::update>.
     //
     // Returns:
-    //  Reference to "Update TaskManager"
+    //  Reference to "Update <TaskManager>"
     util::TaskManager& getUpdateTaskManager();
     
     // Function: getRenderTaskManager
@@ -77,7 +79,7 @@ public:
     //  this TaskManager are executed after the current <State::render>.
     //
     // Returns:
-    //  Reference to "Render TaskManager"
+    //  Reference to "Render <TaskManager>"
     util::TaskManager& getRenderTaskManager();
     
     // Function: isActive
@@ -91,7 +93,8 @@ public:
 // Group: Window
 public:
     // Function: createDisplay
-    //  This function attempts to create a display with the given parameters.
+    //  This function attempts to create a display with the given parameters. 
+    //  Takes arguments for R,G,B,A values separately, generally not needed.
     //
     // Parameters:
     //  width       - desired width of display
@@ -103,7 +106,7 @@ public:
     //  depthBits   - desired bitdepth of depth buffer
     //  stencilBits - desired bitdepth of stencil buffer
     //  fullscreen  - true: fullscreen, false: windowed
-    //  [title       - title of application, optional]
+    //  [title      - title of application, optional]
     void createDisplay(uint width, uint height,
                         uint redBits, uint greenBits, uint blueBits,
                         uint alphaBits, uint depthBits, uint stencilBits,
@@ -111,6 +114,8 @@ public:
 
     // Function: createDisplay
     //  This function attempts to create a display with the given parameters.
+    //  Takes one consolidated bpp value, which is generally preferred over 
+    //  separate R,G,B,A values.
     //
     // Parameters:
     //  width       - desired width of display
@@ -180,7 +185,7 @@ public:
     //  Creates a viewport with a given 3D perspective inside of a rectangular
     //  portion of the screen.
     //
-    //  Note that <setDepthTestMode>(true) will be called as a side effect.
+    //  Note that <setDepthBufferParams> (true) will be called as a side effect.
     // 
     // Parameters:
     //  x - X coord for top left corner of new viewport.
@@ -196,7 +201,7 @@ public:
     // Function: setPerspectiveView
     //  Sets entire screen as current viewport with a given 3D perspective.
     //
-    //  Note that <setDepthTestMode>(true) will be called as a side effect.
+    //  Note that <setDepthBufferParams> (true) will be called as a side effect.
     // 
     // Parameters:
     //  fovy - The y axis field of view angle, in degrees.
@@ -329,7 +334,7 @@ public:
     
     // Function: setFixedUpdateStep
     //  Sets a fixed timestep to be used in calls to the current <State's> 
-    //  update method.  This allows stability in physics systems.
+    //  update method.  This greatly enhances stability in physics systems.
     //
     // Parameters:
     //  enable - if true, will enable fixed timestepping (if false will disable)
@@ -343,10 +348,10 @@ public:
 // Group: State Management 
 public:
     // Function: setState
-    //  Set the current Application <State>, removing all other <States>.
+    //  Set the current Application <State>, first popping all current states.
     //
     // Template Parameters:
-    //  StateT - Class derived from <State> to set as current.
+    //  StateT - <State>-derived class to make current state.
     template<class StateT>
     void setState();
 
@@ -354,7 +359,7 @@ public:
     //  Push a new <State>, does not remove old <State>.
     //
     // Template Parameters:
-    //  StateT - Class derived from <State> to push.
+    //  StateT - <State>-derived class to push.
     template<class StateT>
     void pushState();
 
@@ -369,18 +374,24 @@ public:
     //  Get the Application's <AudioCore>, should only be called after 
     //  <initAudioCore>.
     //
+    //  Note that this function only exists if photon is compiled with Audio
+    //   support enabled.
+    //
     // Return:
     //  Reference to the <AudioCore>.
-   audio::AudioCore& getAudioCore();
-   
-   // Function: initAudioCore
-   //  Initialize the <AudioCore>, should be done before attempting to access
-   //  it via <getAudioCore>.
-   //
-   // Arguments:
-   //  deviceName - Optional name for desired Audio device, will use default 
-   //               device if none specified.
-   void initAudioCore(const std::string& deviceName="");
+    audio::AudioCore& getAudioCore();
+    
+    // Function: initAudioCore
+    //  Initialize the <AudioCore>, should be done before attempting to access
+    //  it via <getAudioCore>.
+    //
+    //  Note that this function only exists if photon is compiled with Audio
+    //   support enabled.
+    //
+    // Arguments:
+    //  deviceName - Optional name for desired Audio device, will use default 
+    //               device if none specified.
+    void initAudioCore(const std::string& deviceName="");
 #endif //PHOTON_USE_OPENAL
 
 // Callbacks

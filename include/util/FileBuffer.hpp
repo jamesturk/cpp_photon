@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: FileBuffer.hpp,v 1.4 2005/06/10 07:06:06 cozman Exp $
+//  $Id: FileBuffer.hpp,v 1.5 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILEBUFFER_HPP
 #define PHOTON_UTIL_FILEBUFFER_HPP
@@ -23,8 +23,14 @@ namespace util
 {
 
 // Class: FileBuffer
-// Class for reading data from a file, uses PhysFS <http://physfs.icculus.org>
-// and is capable of reading from archives on the search path.
+//  Class for reading data from a file, uses PhysFS 
+//  (<http://physfs.icculus.org>)
+//  and is capable of reading from archives on the search path.  
+//
+//  All paths used are relative to the search path.  
+//  By default only files within the directory the application is running or 
+//  it's subdirectories are accessible.  Additional directories may be added
+//  to the search path via <addToSearchPath>.
 class FileBuffer
 {
 
@@ -38,7 +44,8 @@ public:
     //  Initializing constructor, calls <open>.
     //
     // Parameters:
-    //   filename - Name of file to load.
+    //   filename - Name of file to load.  (See notes on how FileBuffer handles
+    //              paths at top of page)
     FileBuffer(const std::string& filename);
 
     //  Function: ~FileBuffer
@@ -51,18 +58,20 @@ public:
     //  Loads a file into the FileBuffer.
     //
     // Parameters:
-    //   filename - Name of file to load.
+    //   filename - Name of file to load.  (See notes on how FileBuffer handles
+    //              paths at top of page)
     void open(const std::string& filename);
 
     // Function: close
-    //  Frees memory occupied by loaded data.
+    //  Closes the file, all future read attempts will fail until <open> is 
+    //  called agian.
     void close();
 
 // Group: Accessors
 public:
 
     // Function: getData
-    //  Loads an amount of data, returns a pointer to the loaded data.
+    //  Reads data from file into a <ubyte>-vector.
     //  If the requested amount of data wasn't available, returns only
     //  what could be loaded.  If amount is 0 (default), returns entire buffer.
     //
@@ -88,7 +97,7 @@ public:
     uint getSize() const;
     
     // Function: isEOF
-    //  Checks if internal cursor is at end of file.
+    //  Checks if internal cursor has reached end of file.
     //
     // Returns:
     //  True iff eof, false otherwise.

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Rect.hpp,v 1.2 2005/03/03 09:25:19 cozman Exp $
+//  $Id: Rect.hpp,v 1.3 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_MATH_RECT_HPP
 #define PHOTON_MATH_RECT_HPP
@@ -22,8 +22,11 @@ class Circle;
 // Class: Rect
 //  Defines geometric entity known as a rectangle.
 // 
-//  A four-sided plane figure with four right angles. <http://dictionary.com>
+//  A four-sided plane figure with four right angles. (<http://dictionary.com>)
 // 
+//  Exists mainly to provide a bounding rectangle for objects, simplifying 
+//  collision detection.
+//
 // Operators:
 //  - Rect == Rect
 //  - ostream& << Rect
@@ -33,7 +36,7 @@ class Rect
 public:
 
     // Function: Rect
-    //  Initializes rectangle at (0,0) with size of 0.
+    //  Initializes rectangle at (0,0) with width/height of 0.
     Rect();
     
     // Function: Rect
@@ -64,14 +67,14 @@ bool operator==(const Rect &rhs) const;
 public:
 
     // Function: moveTo
-    //  move rectangle to new location.
+    //  Move rectangle to new location.
     //  
     // Parameters:
     //  topleft - Point describing new top left corner.
     void moveTo(const Point2 &topleft);
     
     // Function: moveRel
-    //  move rectangle relative to current position.
+    //  Move rectangle relative to current position.
     //  
     // Parameters:
     //  xMove - Distance to move horizontally.
@@ -79,7 +82,7 @@ public:
     void moveRel(scalar xMove, scalar yMove);
     
     // Function: resize
-    //  set new size for rectangle.
+    //  Set new size for rectangle.
     //  
     // Parameters:
     //  width - New width for rectangle.
@@ -87,7 +90,7 @@ public:
     void resize(scalar width, scalar height);
     
     // Function: resizeRel
-    //  set new size for rectangle, relative to current size.
+    //  Set new size for rectangle, relative to current size.
     //  
     // Parameters:
     //  widthDelta - Change to be applied to width of rectangle.
@@ -139,7 +142,7 @@ public:
     bool contains(const Rect &rect) const;
     
     // Function: calcIntersection
-    //  calculates & returns the intersection of two rectangles.
+    //  Calculates & returns the intersection of two rectangles.
     // 
     // Parameters:
     //  rect - Rectangle to find & calculate area of intersection with.
@@ -155,87 +158,51 @@ public:
 public:
 
     // Function: getX
-    //  Get x coord of rectangle. (top left corner)
-    // 
-    // Returns:
-    //  Returns x coord of top left corner of rectangle.
+    //  Get x coord of top left corner of rectangle.
     scalar getX() const;
     
     // Function: getY
-    //  Get y coord of rectangle. (top left corner)
-    // 
-    // Returns:
-    //  Returns y coord of top left corner of rectangle.
+    //  Get y coord of top left corner of rectangle.
     scalar getY() const;
     
     // Function: getTop
     //  Get y coord of top side of rectangle.
-    // 
-    // Returns:
-    //  Returns y coord of top side of rectangle.
     scalar getTop() const;
     
     // Function: getLeft
     //  Get x coord of left side of rectangle.
-    // 
-    // Returns:
-    //  Returns x coord of left side rectangle.  
     scalar getLeft() const;
     
     // Function: getBottom
     //  Get y coord of bottom side of rectangle.
-    // 
-    // Returns:
-    //  Returns y coord of bottom side of rectangle.
     scalar getBottom() const;
     
     // Function: getRight
     //  Get x coord of right side of rectangle.
-    // 
-    // Returns:
-    //  Returns x coord of right side rectangle.
     scalar getRight() const;
     
     // Function: getWidth
     //  Get width of rectangle.
-    // 
-    // Returns:
-    //  Returns width of rectangle.
     scalar getWidth() const;
     
     // Function: getHeight
     //  Get height of rectangle.
-    // 
-    // Returns:
-    //  Height of rectangle.
     scalar getHeight() const;
     
     // Function: getTopLeft
     //  Get top left corner of rectangle.
-    // 
-    // Returns: 
-    //  Top left corner of rectangle.
     Point2 getTopLeft() const;
     
     // Function: getTopRight
     //  Get top right corner of rectangle.
-    // 
-    // Returns: 
-    //  Top right corner of rectangle.
     Point2 getTopRight() const;
     
     // Function: getBottomLeft
     //  Get bottom left corner of rectangle.
-    // 
-    // Returns: 
-    //  Bottom left corner of rectangle.
     Point2 getBottomLeft() const;
     
     // Function: getBottomRight
     //  Get bottom right corner of rectangle.
-    // 
-    // Returns: 
-    //  Bottom right corner of rectangle.
     Point2 getBottomRight() const;
 
     friend std::ostream& operator<<(std::ostream &o, const Rect &rect);

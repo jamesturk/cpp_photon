@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Color.hpp,v 1.1 2005/03/02 08:40:11 cozman Exp $
+//  $Id: Color.hpp,v 1.2 2005/11/13 07:59:49 cozman Exp $
 
 #ifndef PHOTON_VIDEO_COLOR_HPP
 #define PHOTON_VIDEO_COLOR_HPP
@@ -23,6 +23,8 @@ namespace video
 // Class for storing components of a color.
 // 
 // Operators:
+//     - Color = Color
+//     - Color == Color
 //     - ostream& << Color
 class Color
 {
@@ -65,7 +67,7 @@ public:
 
 // Group: Utility
 public:
-    // Functions: setColor
+    // Function: setColor
     //  Creates color, component by component.
     // 
     // Parameters:
@@ -75,7 +77,7 @@ public:
     //  a - Value for alpha component. [default: 255]
     void setColor(ubyte r, ubyte g, ubyte b, ubyte a=255);
 
-    // Functions: makeGLColor
+    // Function: makeGLColor
     //  Makes the Color the current openGL color.  (glColor4ub)
     void makeGLColor() const;
 

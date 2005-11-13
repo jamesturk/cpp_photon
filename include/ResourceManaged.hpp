@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ResourceManaged.hpp,v 1.8 2005/08/08 19:19:24 cozman Exp $
+//  $Id: ResourceManaged.hpp,v 1.9 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_RESOURCEMANAGED_HPP
 #define PHOTON_RESOURCEMANAGED_HPP
@@ -22,20 +22,24 @@ namespace photon
 //  resources that can be controlled, such as textures and music, can be
 //  derived.  Resource managed classes rely on a <ResourceManager>.
 // 
+//  Unless extending Photon, generally ResourceManaged does not need to be
+//  directly used.  For this reason public documentation is not availble.  See
+//  ResourceManaged.hpp for documentation.
+//
 // Children:
 //  <Texture>, <Image>
 // 
-//  <Sample>
+//  <Source>
 template<class ResMgrT>
 class ResourceManaged
 {
-// Group: (Con/De)structors 
+// Nondoc-Group: (Con/De)structors 
 public:
-    // Function: ResourceManaged
+    // Nondoc-Function: ResourceManaged
     //  Default constructor.
     ResourceManaged();
 
-    // Function: ResourceManaged
+    // Nondoc-Function: ResourceManaged
     //  Initializing constructor, calls <open> with a filename/zipname.
     // 
     // Parameters: 
@@ -45,45 +49,45 @@ public:
     //  <open>
     ResourceManaged(const std::string& name);
 
-    // Function: ~ResourceManaged
+    // Nondoc-Function: ~ResourceManaged
     //  Destructor, calls <release>.
     virtual ~ResourceManaged();
 
     ResourceManaged& operator=(const ResourceManaged &rhs);
 
-// Group: General
+// Nondoc-Group: General
 public:
-    // Function: open
+    // Nondoc-Function: open
     //  Opens new resource via the associated <ResourceManager>.
     // 
     // Parameters: 
     //  name - name of resource
     virtual void open(const std::string& name);
 
-    // Function: release
+    // Nondoc-Function: release
     //  Removes a reference to the resource, releasing if needed. 
     //  Generally called by destructor, so should rarely be called.
     virtual void release();
     
-// Group: Accessors
+// Nondoc-Group: Accessors
 public:
-    // Function: getName
+    // Nondoc-Function: getName
     //  Get the name associated with the resource.  
     //
     // Returns:
     //  Name of resource, or empty string if no resource is loaded.
     std::string getName() const;
     
-// Group: Resource Manager Access
+// Nondoc-Group: Resource Manager Access
 public:
     static ResMgrT resMgr_;
     
-    // Function: cleanUp
+    // Nondoc-Function: cleanUp
     //  Cleans up any unused resources of the type.
     //  (Ex. Image::cleanUp() will unload all images.)
     static void cleanUp();
     
-    // Function: addResource
+    // Nondoc-Function: addResource
     //  Define a new named resource.
     //  (Ex. Image::addResource("monkey","images/monkey.png") would 
     //   make it so that any attempts to load "monkey" would load the image 
@@ -95,7 +99,7 @@ public:
     static void addResource(const std::string& name, 
                             const typename ResMgrT::ResDescT& desc);
     
-    // Function: addResource
+    // Nondoc-Function: addResource
     //  Define a new unaliased resource. (name == path).
     //  (Ex. Image::addResource("images/monkey.png") is essentially the same as
     //   Image::addResource("images/monkey.png","images/monkey.png")

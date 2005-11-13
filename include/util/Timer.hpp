@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Timer.hpp,v 1.4 2005/08/08 07:27:50 cozman Exp $
+//  $Id: Timer.hpp,v 1.5 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_TIMER_HPP
 #define PHOTON_UTIL_TIMER_HPP
@@ -18,7 +18,7 @@ namespace util
 
 // Class: Timer
 //  Class capable of keeping track of time.
-//  Time is returned in double format, in seconds.
+//  Time is kept in double format, representing seconds.
 class Timer
 {
 
@@ -30,7 +30,7 @@ public:
     //
     // Parameters:
     //  appTimeLinked - Option only available on creation of timer. When true  
-    //      timer will pause when the <Application::timer> is paused. 
+    //      timer will pause when the Application timer is paused. 
     //      [default: true]
     Timer(bool appTimeLinked=true);
     
@@ -57,16 +57,10 @@ public:
 public:
     // Function: getTime
     //  Get time in seconds.  (ie. A value of .001 means 1 millisecond.)
-    // 
-    // Returns:
-    //  Time on timer, in seconds.
     double getTime() const;
     
     // Function: isPaused
     //  Check paused/unpaused status of timer.
-    // 
-    // Returns:
-    //  True if timer is paused, false if timer is running.
     bool isPaused() const;
     
 private:

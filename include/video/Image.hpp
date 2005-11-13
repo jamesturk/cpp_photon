@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image.hpp,v 1.2 2005/07/18 07:19:48 cozman Exp $
+//  $Id: Image.hpp,v 1.3 2005/11/13 07:59:49 cozman Exp $
 
 #ifndef PHOTON_VIDEO_IMAGE_HPP
 #define PHOTON_VIDEO_IMAGE_HPP
@@ -21,17 +21,15 @@ namespace video
 //  Image is a class which is used to store a single image, for use in 2D games.
 // 
 //  Image is derived from <Texture>, which is a resource managed class.  
-//  <Texture> is a simple OO wrapper around the concept of a texture in OpenGL. 
-//  An Image simply adds the ability to draw to a quad, as well as some rotation
-//  per-vertex tinting, and several other bonuses.
+//  An Image simply adds the ability to draw to a quad, as well as some scaling, 
+//  rotation, per-vertex tinting, and several other bonuses.
 // 
 //  Since Image is a child of <ResourceManaged>, all memory management is taken 
 //  care of.
 // 
 // Operators:
-//  - Texture = Texture
-//  - operator bool
-//  - ostream& << Texture
+//  - Image = Image
+//  - bool : True if texture is loaded, false if not.
 class Image : public Texture
 {
 
@@ -67,7 +65,7 @@ public:
     //  Opens an image file, currently supported image types are BMP, GIF, JPEG,
     //  PCX, PNG, and TGA. (Images can be any dimensions)
     // 
-    //  Loading is done via <a href="http://corona.sf.net">Corona</a>.
+    //  Loading is done via Corona (<http://corona.sf.net>)
     // 
     // Parameters:
     //   name - Name of the Image <Resource> to open.

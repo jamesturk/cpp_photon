@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: LogSink.hpp,v 1.2 2005/02/16 06:58:05 cozman Exp $
+//  $Id: LogSink.hpp,v 1.3 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_LOGSINK_HPP
 #define PHOTON_LOGSINK_HPP
@@ -42,8 +42,8 @@ enum LogLevel
 };
 
 // Class: LogSink
-//  Base class for all LogSinks to be used with <Log>, derived classes must
-//  define message(LogLevel level, std::string string).
+//  Virtual base class for all LogSinks to be used with <Log>, derived classes 
+//  must define writeMessage(LogLevel level, std::string string).
 //  A LogSink recieves any messages passed to the log it's registered with.
 //
 // Children:
@@ -103,7 +103,9 @@ private:
 typedef shared_ptr<LogSink> LogSinkPtr;
 
 // Class: ConsoleSink
-//  <LogSink> to be used with <Log> for simple console output.
+//  <LogSink> to be used with <Log> for simple console output.  Note that due
+//  to nature of buffered I/O it is important to flush the stream to see output
+//  in realtime with ConsoleSink
 //
 // See Also:
 //  <TextSink>, <HTMLSink>

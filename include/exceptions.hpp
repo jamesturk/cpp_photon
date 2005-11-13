@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: exceptions.hpp,v 1.6 2005/07/19 01:31:37 cozman Exp $
+//  $Id: exceptions.hpp,v 1.7 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_EXCEPTIONS_HPP
 #define PHOTON_EXCEPTIONS_HPP
@@ -101,8 +101,8 @@ public:
 };
 
 // Class: ArgumentException
-//  ArgumentException should be thrown when an argument is passed to a function
-//  that is invalid.
+//  ArgumentException should be thrown when an invalid argument is passed to a 
+//  function.
 //
 // Parent:
 //  <Exception>
@@ -130,7 +130,7 @@ public:
 }; 
 
 // Class: RangeException
-//  RangeException should be thrown if something (such as an array bound) is out
+//  RangeException should be thrown if something (such as an array index) is out
 //  of bounds.
 //
 // Parent:

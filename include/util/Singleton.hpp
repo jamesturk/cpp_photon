@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Singleton.hpp,v 1.8 2005/07/18 06:18:51 cozman Exp $
+//  $Id: Singleton.hpp,v 1.9 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_SINGLETON_HPP
 #define PHOTON_UTIL_SINGLETON_HPP
@@ -44,19 +44,19 @@ template<class T>
 class Singleton : public boost::noncopyable
 {
 public:
-    // Function: initialize
-    //  Initialize the instance of the singleton, can be done explicitly if
-    //  order of construction matters.  Will be done on first call to
-    //  getInstance otherwise.
-    static void initialize();
-    
     // Function: destroy
-    //  Destroy the instance of the singleton, can be done explicitly if order
-    //  of destruction matters.  Will be done automatically if not done.
+    //  Destroy the instance of the singleton, must be done for every singleton
+    //  created.
+    //
+    // Throws:
+    //  <PreconditionException> if called for uninitialized singleton
     static void destroy();
 
     // Function: getInstance
     //  Get a reference to the instance of the derived class.
+    //
+    // Throws:
+    //  <PreconditionException> if called for uninitialized singleton
     static T& getInstance();
 
 protected:
@@ -69,22 +69,6 @@ private:
 
 
 // template implementation
-
-template<class T>
-Singleton<T>::Singleton()
-{
-    if(instance_ != 0)
-    {
-        throw PreconditionException("Attempt to double-initialize singleton.");
-    }
-
-    instance_ = static_cast<T*>(this);  // cast self to type of T*
-}
-
-template<class T>
-Singleton<T>::~Singleton() 
-{
-}
 
 template<class T>
 void Singleton<T>::destroy()
@@ -110,6 +94,22 @@ T& Singleton<T>::getInstance()
     }
 
     return *instance_;  //return dereferenced instance
+}
+
+template<class T>
+Singleton<T>::Singleton()
+{
+    if(instance_ != 0)
+    {
+        throw PreconditionException("Attempt to double-initialize singleton.");
+    }
+
+    instance_ = static_cast<T*>(this);  // cast self to type of T*
+}
+
+template<class T>
+Singleton<T>::~Singleton() 
+{
 }
 
 template<class T> 

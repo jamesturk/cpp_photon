@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Font.hpp,v 1.8 2005/10/15 04:56:37 cozman Exp $
+//  $Id: Font.hpp,v 1.9 2005/11/13 07:59:49 cozman Exp $
 
 #ifndef PHOTON_VIDEO_FONT_HPP
 #define PHOTON_VIDEO_FONT_HPP
@@ -23,16 +23,19 @@ class StreamFlusher { };
 std::ostream& operator<<(std::ostream& os, const StreamFlusher& rhs);
 
 // Class: Font
-//  Simple OO wrapper around a TrueType font that can be drawn to textures and
-//  rendered via OpenGL.
+//  Simple wrapper object around a TrueType font that can be drawn to textures 
+//  and rendered via OpenGL.
 // 
 //  Since Font is a child of <ResourceManaged>, all memory management is 
 //  taken care of.
+//
+//  Font is a resource managed class, and therefore all resources should
+//  be registered using <Font::addResource> and then loaded by their assigned
+//  name via <Font::open> or the appropriate constructor.
 // 
 // Operators:
 //  - Font = Font
 //  - bool : True if font is loaded, false if not.
-//  - ostream& << Font
 class Font : public ResourceManaged<FontResourceManager>
 {
 // Group: (Con/De)structors 
@@ -127,7 +130,7 @@ public:
     //  y   - Y position to start drawing text at.
     //
     // Returns:
-    //  std::ostream& to stream, anything written to the stream before
+    //  std::ostream reference, anything written to the stream before
     //  <endDraw> will be drawn starting at the specified position.
     std::ostream& beginDraw(scalar x, scalar y);
     
@@ -162,9 +165,9 @@ public:
 public:
     // Function: addResource
     //  Define a new named resource.
-    //  (Ex. Image::addResource("monkey","images/monkey.png") would 
-    //   make it so that any attempts to load "monkey" would load the image 
-    //   images/monkey.png)
+    //  (Ex. Font::addResource("sans","freesans.ttf") would 
+    //   make it so that any attempts to load "sans" would load the font 
+    //   freesans.ttf)
     //
     // Parameters:
     //  name - Name to give to resource.
@@ -174,10 +177,10 @@ public:
     
     // Function: addResource
     //  Define a new unaliased resource. (name == path).
-    //  (Ex. Image::addResource("images/monkey.png") is essentially the same as
-    //   Image::addResource("images/monkey.png","images/monkey.png")
+    //  (Ex. Font::addResource("freesans.ttf") is essentially the same as
+    //   Font::addResource("freesans.ttf","freesans.ttf")
     //
-    // Parameters:.
+    // Parameters:
     //  path - Path of resource data file.
     static void addResource(const std::string& path, uint size);
     

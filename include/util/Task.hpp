@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Task.hpp,v 1.1 2005/08/17 06:35:56 cozman Exp $
+//  $Id: Task.hpp,v 1.2 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_TASK_HPP
 #define PHOTON_UTIL_TASK_HPP
@@ -21,15 +21,18 @@ namespace util
     
 // Title: Task
 
+// Group: Task-Related
+//  Two helper types related to the <Task> class.
+
 // Enum: PriorityLevel
 //  Enumeration defining priority of a Task.
 //
 // Values:
-//  PRI_LOWEST  - Lowest priority available.
-//  PRI_LOW     - Lower-than-usual priority.
-//  PRI_NORMAL  - Normal priority, suitable for most tasks.
-//  PRI_HIGH    - Lower-than-usual priority.
 //  PRI_HIGHEST - Highest priority available.
+//  PRI_HIGH    - Lower-than-usual priority.
+//  PRI_NORMAL  - Normal priority, suitable for most tasks.
+//  PRI_LOW     - Lower-than-usual priority.
+//  PRI_LOWEST  - Lowest priority available.
 enum PriorityLevel
 {
     PRI_HIGHEST,        
@@ -38,6 +41,12 @@ enum PriorityLevel
     PRI_LOW,
     PRI_LOWEST
 };
+
+// Type: TaskPtr
+//  Pointer to a task, used since Task is abstract and will always be accessed 
+//  via a pointer.
+class Task;
+typedef shared_ptr<Task> TaskPtr;
 
 // Class: Task
 //  Abstract class for tasks, which are runnable classes for use with 
@@ -53,9 +62,9 @@ public:
     //
     // Parameters:
     //  name - Name for task, must be unique!
-    //  priority - Optional argument for desired priority for the Task, 
-    //              controls order in which tasks are run by the <TaskManager>.
-    //              Default Priority is PRI_NORMAL
+    //  priority - Optional <PriorityLevel> argument for desired priority for 
+    //              the Task,  controls order in which tasks are run by the
+    //              <TaskManager>. Default Priority is PRI_NORMAL.
     Task(const std::string& name, PriorityLevel priority=PRI_NORMAL);
     
     // Function: ~Task
@@ -86,8 +95,8 @@ public:
     //  task is paused.
     //
     // Note:
-    //  Children of onPause should call Task::onPause to let the task know it's
-    //  been paused.
+    //  Derived tasks with overloaded onPause methods should call Task::onPause 
+    //  to let the task know it's been paused.
     virtual void onPause();
     
     // Function: onUnpause
@@ -95,8 +104,8 @@ public:
     //  task is unpaused.
     //
     // Note:
-    //  Children of onUnpause should call Task::onUnpause to let the task know 
-    //  it's been paused.
+    //  Derived tasks with overloaded onUnpaus methods should call 
+    //  Task::onUnpause to let the task know it's been paused.
     virtual void onUnpause();
     
     // Function: kill
@@ -141,11 +150,6 @@ private:
     bool alive_;                // if false, task will be pruned
     bool paused_;               // if false task won't be executed
 };
-
-// Type: TaskPtr
-//  Pointer to a task, used since Task is abstract and will always be accessed 
-//  via a pointer.
-typedef shared_ptr<Task> TaskPtr;
 
 }
 }

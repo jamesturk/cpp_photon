@@ -1,8 +1,9 @@
-$Id: LIBRARIES.txt,v 1.1 2005/07/20 21:56:33 cozman Exp $
+$Id: LIBRARIES.txt,v 1.2 2005/11/13 07:59:48 cozman Exp $
 
 Photon uses several other libraries, which fall under a variety of licenses:
 
 GLFW      - http://glfw.sourceforge.net/    - zlib license   
+Boost     - http://boost.org/               - Boost Software License
 PhysFS    - http://icculus.org/physfs/      - zlib license
 Corona    - http://corona.sourceforge.net/  - zlib license
 Freetype2 - http://freetype.org/            - Freetype License (FTL)
@@ -20,11 +21,14 @@ uses photon and it's dependencies you must do the following:
     1) To satisfy the zlib license that photon and most of the other libs use, 
         you simply must not claim you wrote them & not remove the zlib license 
         in license.txt, also any changes must be marked if that applies to you.
-    2) To comply with the Freetype license you must not claim you wrote it,
+    2) Complying with the Boost Software License is the easiest, if distributing
+        Boost source code, you must include the BSL, if distributing object
+        code (eg. library or executable) nothing actually needs to be done.
+    3) To comply with the Freetype license you must not claim you wrote it,
         but you must also give credit to the authors.  The credit clause is 
         the only real difference between the Freetype License and the zlib 
         license.
-    3) If you are using OpenAL, you are most likely dynamically linking (using
+    4) If you are using OpenAL, you are most likely dynamically linking (using
         a .dll or .so) which means that in order to comply with the LGPL you 
         must: Make it clear that you are using OpenAL in your credits file,
         include a copy of the LGPL with any binaries, provide a link to the
@@ -45,13 +49,15 @@ libraries which isn't necessary but I feel it's proper.)
 This application uses Photon which is available from 
 http://photon.sourceforge.net/ and is licensed under a zlib license.
 
-Photon (and this application) uses several other zlib-licensed libraries:
-    GLFW      - http://glfw.sourceforge.net/
-    PhysFS    - http://icculus.org/physfs/
-    Corona    - http://corona.sourceforge.net/
-Photon (and this application) also uses Freetype2 which is licensed under the
-    Freetype license.
-Photon (and this application) also uses OpenAL which is licensed under the LGPL
-    To comply with the LGPL a copy of a copy of the LGPL is provided in this 
-    directory as LGPL.txt.  A copy of the OpenAL source is available from 
-    http://openal.org/
+Other libraries used indirectly or directly by this program include:
+    GLFW      - http://glfw.sourceforge.net/    - zlib license   
+    Boost     - http://boost.org/               - Boost Software License
+    PhysFS    - http://icculus.org/physfs/      - zlib license
+    Corona    - http://corona.sourceforge.net/  - zlib license
+    Freetype2 - http://freetype.org/            - Freetype License (FTL)
+    OpenAL    - http://openal.org/              - LGPL
+    
+To comply with the LGPL a copy of a copy of the LGPL is provided in this 
+directory as LGPL.txt.  
+
+A copy of the OpenAL source is available from http://openal.org/

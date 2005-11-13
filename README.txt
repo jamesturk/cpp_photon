@@ -4,10 +4,10 @@ accelerated 2D games with OpenGL and other open source & cross platform
 libraries. Photon aims to simplify portable game development, enabling 
 developers to focus on the gameplay. Photon uses OpenGL for hardware accelerated
 rotation, alpha blending, resizing, and drawing. Photon is built entirely on 
-free software, using libraries like GLFW, PhysFS, OpenAL, and boost. Using 
-Photon does not require knowledge of any of these libraries as their needed 
-functionality is wrapped entirely within Photon’s rich class library so that 
-anyone with a decent grasp of C++ can use Photon.
+free software, using libraries including including GLFW, PhysFS, OpenAL, Corona,
+Freetype and boost.. Using Photon does not require knowledge of any of these 
+libraries as their needed functionality is wrapped entirely within Photon’s rich
+class library so that anyone with a decent grasp of C++ can use Photon.
     photon is a cross platform API, designed primarily for game development.
 photon is designed to run on as many operating systems as possible, and OS 
 support is only limited by libraries which Photon depends on, at the moment
@@ -27,4 +27,4 @@ with your applications.
 If you need any help or have any questions check out IFAQ.txt or visit photon's
 homepage at http://photon.sourceforge.net/.
 
-$Id: README.txt,v 1.1 2005/07/17 22:41:03 cozman Exp $
+$Id: README.txt,v 1.2 2005/11/13 07:59:48 cozman Exp $

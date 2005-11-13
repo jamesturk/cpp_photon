@@ -1,0 +1,24 @@
+Document: Photon Documentation
+
+Introduction:
+This is the photon developer documentation, generated via  NaturalDocs (http://naturaldocs.org) from
+comments embedded directly in the code.  If you're writing something with public documentation I'd 
+highly recommend it, since as you can see it's output looks signifigantly better than some of those
+other documentation generators ;).
+
+How To Use The Docs:
+In the left pane the public namespaces are listed, click on a namespace name
+to expand or collapse it.  Clicking on a class/topic name will show the documentation
+for that class or topic.  
+
+Helping Out:
+If you see anything that is incorrect, incomplete, or is just poorly described .
+and could use clarification, please be sure to let me know (cozman@users.sf.net).
+I want this documentation to be as helpful as possible to both new and 
+experienced users of photon, so feel free to contact me with quesions, criticisms,
+or suggestions of any kind.
+
+If you're interested in helping out, but don't feel like you could contribute useful code
+someone to help keep the documentation current would be appreciated.  If interested
+in helping out in any way, I'd love to hear from you.
+

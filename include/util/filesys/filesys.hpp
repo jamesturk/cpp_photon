@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: filesys.hpp,v 1.4 2005/07/20 07:30:13 cozman Exp $
+//  $Id: filesys.hpp,v 1.5 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_FILESYS_FILESYS_HPP
 #define PHOTON_UTIL_FILESYS_FILESYS_HPP
@@ -18,6 +18,34 @@
 #include <vector>
 
 // Title: filesys::
+//  The util::filesys:: namespace is a group of functions all related to dealing
+//  with the filesystem.  Photon uses PhysFS (http://physfs.icculus.org) to
+//  provide this functionality.  
+//
+// The Search Path:
+//  The search path is an important concept in Photon, due to the nature of 
+//  PhysFS when a file is referenced Photon attempts to resolve it by checking
+//  for it within the search path.  By default the search path only includes
+//  the directory where the application resides.  Nothing which is not within
+//  this directory or a directory within it can be accessed. 
+//
+//  It is possible to add other directories to the search path using 
+//  <addToSearchPath>.  Keep in mind that the search path is a list of 
+//  directories which will be searched in order for any requested files.
+//  In other words if you wish to store your game media in a format like:
+// | game/
+// |      bin/
+// |      images/
+// |      audio/
+// |      user-audio/
+// |
+//
+//  You will need to add images/ and audio/ to the search path since they 
+//  do not reside within bin (where the game is stored).  Also assuming 
+//  users are allowed to place custom audio files within user-audio/ you must
+//  also add it to the path.  If you wish for files within it to override 
+//  existing audio files, it should preceed audio/ in the search path, otherwise
+//  it should come be placed in the search path after audio/.
 
 namespace photon
 {
@@ -30,21 +58,24 @@ namespace filesys
 
 // Function: getCDDirs
 //  Gets a listing of the CD directories on a system (not supported on all
-//  systems)
+//  systems)  On Windows it would return something like D:/ or E:/, whereas on
+//  Linux it would return something like /media/cdrom0.
 //
 // Returns:
 //  A vector of strings containing the path to the CD directories.
 std::vector<std::string> getCDDirs();
 
 // Function: getBaseDir
-//  Get the path to the directory that the application is running in.
+//  Get the path of the directory that the application is running in.
 //
 // Returns:
 //  Path to directory that application is running from.
 std::string getBaseDir();
 
 // Function: getUserDir
-//  Get the path to the directory that the OS specifies for the user's home.
+//  Get the path of the directory that the OS specifies for the user's home. 
+//  On Windows would resemble C:/Documents and Settings/User, on Linux something
+//  like /home/user/
 //
 // Returns:
 //  Path to user's home directory.
@@ -69,8 +100,7 @@ void addToSearchPath(const std::string& dir, bool append=true);
 //  Removes a directory from the search path, if it exists on the path.
 //
 // Parameters:
-//  dir - Directory to remove from the search path, if it doesn't exist
-//        nothing happens.
+//  dir - Directory to remove from the search path. Ignored if nonexistant.
 //
 // See Also:
 //  <addToSearchPath>
@@ -91,7 +121,8 @@ std::vector<std::string> getSearchPath();
 // Group: Manipulation /////////////////////////////////////////////////////////
 
 // Function: setWriteDir
-//  Sets the writing directory, used by <mkdir> and <remove>.
+//  Sets the writing directory, used by <mkdir> and <remove>.  Unlike search 
+//  path only one writable directory can be set at once.
 //
 // Parameters:
 //  dir - Directory to make writeable

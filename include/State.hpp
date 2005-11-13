@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State.hpp,v 1.4 2005/08/16 06:32:39 cozman Exp $
+//  $Id: State.hpp,v 1.5 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_STATE_HPP
 #define PHOTON_STATE_HPP
@@ -24,10 +24,10 @@ namespace photon
 //  to manage the state that the game is in. 
 //
 //  Implement as many or as few of the members of State as needed (the only 
-//  necessary member being <render>) and make the state as current via 
-//  <Application::setState>.  Once a state is made current it's 
-//  update and render methods will be called every frame until either a new
-//  state is made current or the application ends.
+//  necessary member being <render>) and make the state current via 
+//  <Application::setState>/<Application::pushState>.  Once a state is made  
+//  current it's update and render methods will be called every frame until 
+//  either a new state is made current or the application ends.
 //
 //  The active state is also notified of events as they occur, overloading any
 //  of the on* functions will result in the overloaded version being called 
@@ -111,8 +111,8 @@ public:
     //  Called when the mouse is moved with the amount the mouse was moved by
     //  NOT with the new position.
     //
-    //  If the new position is needed it can be obtained via <getMouseX> and 
-    //  <getMouseY>.
+    //  If the new position is needed it can be obtained via 
+    //  <Application::getMouseX> and <Application::getMouseY>.
     //
     // Parameters:
     //  delta - Change in mouse position.

@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.23 2005/08/18 02:23:47 cozman Exp $
+#  $Id: SConstruct,v 1.24 2005/11/13 07:59:48 cozman Exp $
 
 import os,os.path
 import glob
@@ -70,9 +70,12 @@ if not env.GetOption('clean'):
         Exit(1)
     if not conf.CheckLibWithHeader('freetype', 'ft2build.h', 'C++'):
         print 'Freetype2 not found, exiting.'
-        Exit(1)    
+        Exit(1)
     if not conf.CheckLibWithHeader('corona', 'corona.h', 'C++'):
         print 'Corona not found, exiting.'
+        Exit(1)
+    if not conf.CheckCXXHeader('boost/utility.hpp'):
+        print 'Boost not found, exiting.'
         Exit(1)
     if conf.CheckLibWithHeader(OAL_LIB, 'AL/al.h', 'C++'):
         conf.env.Append(CPPFLAGS='-DPHOTON_USE_OPENAL')
@@ -93,8 +96,10 @@ env.Default(LIBRARY)
 
 # Documentation
 ndoc = env.Command('docs/index.html', './include',
-    """NaturalDocs -nag -i $SOURCES -o HTML ./docs -p ./ndoc""")
+    """NaturalDocs -nag -i $SOURCES -i ndoc/pages -o HTML ./docs -p ./ndoc""")
 env.Alias("docs",ndoc)
+env.AlwaysBuild(ndoc)
+
 
 # Tests:
 tests = []

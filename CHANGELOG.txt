@@ -1,11 +1,17 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.12 2005/08/23 21:55:03 cozman Exp $
+$Id: CHANGELOG.txt,v 1.13 2005/11/13 07:59:48 cozman Exp $
 
 ! : Major Changes   (potentially breaking existing code)
 + : New Features   
 * : Minor Changes   (bugfixes and behind-the-scenes changes)
 
 0.1.0
+    * Major documentation sweep, much more useful for casual users. Also fixed 
+        tons of documentation mismatches.
+    * Fixed bug where app would hang if run() was called with no active state or
+        before the display was created.
+    * Changed AudioCore to be pure virtual with OALAudioCore implementing it.
+    * Fixed issues with OpenAL 1.1 new types.
     * Rewrote circle drawing code in Pen, major speed up.
 
 0.0.2 - Released 2005-18-08

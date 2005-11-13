@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Circle.hpp,v 1.3 2005/07/18 05:58:03 cozman Exp $
+//  $Id: Circle.hpp,v 1.4 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_MATH_CIRCLE_HPP
 #define PHOTON_MATH_CIRCLE_HPP
@@ -23,7 +23,10 @@ class Rect;
 //  Defines geometric entity known as a circle.
 // 
 //  A plane curve everywhere equidistant from a given fixed point, the center. 
-//  <http://dictionary.com>
+//  (<http://dictionary.com>)
+//
+//  Exists mainly to provide a bounding circle for objects, simplifying 
+//  collision detection.
 // 
 // Operators:
 //  - Circle == Circle
@@ -116,17 +119,11 @@ public:
 // Group: Accessors
 public:    
     // Function: getCenter
-    //  Get center <Point2>.
-    // 
-    // Returns: 
-    //  Center point.
+    //  Get center <Vector2::Point2>.
     Point2 getCenter() const;
     
     // Function: getRadius
     //  Get radius of Circle.
-    // 
-    // Returns: 
-    //  Radius of circle.
     scalar getRadius() const;
     
     friend std::ostream& operator<<(std::ostream &o, const Circle &circle);

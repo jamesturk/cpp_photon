@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Vector2.hpp,v 1.5 2005/07/17 02:40:58 cozman Exp $
+//  $Id: Vector2.hpp,v 1.6 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_MATH_VECTOR2_HPP
 #define PHOTON_MATH_VECTOR2_HPP
@@ -21,7 +21,7 @@ namespace math
 
 // Class: Vector2
 //  Represents a two-dimensional vector.  A quantity specified by a magnitude 
-//  and a direction.  Vector is oriented in classical 2D graphics format with 
+//  and a direction.  Vector is oriented in classic 2D graphics format with 
 //  origin at top corner of screen.
 // 
 // Operators:
@@ -83,7 +83,7 @@ public:
     void set(scalar nx, scalar ny);
    
     // Function: resolveDeg
-    //  resolve vector, given a magnitude & angle in degrees.
+    //  Resolve vector, given a magnitude & angle in degrees.
     // 
     // Parameters:
     //  magnitude - Magnitude of new vector.
@@ -95,7 +95,7 @@ public:
     
     
     // Function: resolveRad
-    //  resolve vector, given a magnitude & angle in radians.
+    //  Resolve vector, given a magnitude & angle in radians.
     // 
     // Parameters:
     //  magnitude - Magnitude of new vector.
@@ -137,7 +137,7 @@ public:
 public:
 
     // Function: getMagnitude
-    //  Get length of vector.
+    //  Determine length of vector.
     // 
     // Returns: 
     //  Length of the vector.
@@ -147,13 +147,13 @@ public:
     //  Angle of vector in degrees, angle is calculated with respect to positive
     //  X axis.
     // 
-    // |               |90�
+    // |               |90
     // |               |
     // |               |
-    // |180�-----------------------0� or 360�
+    // |180-----------------------0 or 360
     // |               |
     // |               |
-    // |               |270�
+    // |               |270
     // 
     // Returns: 
     //  Angle of vector (in degrees).

@@ -1,195 +1,142 @@
-<map version="0.8.0 RC2">
+<map version="0.8.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node ID="_Freemind_Link_1676542623" TEXT="Photon">
+<node CREATED="1129352407401" ID="_Freemind_Link_1676542623" MODIFIED="1129352407401" TEXT="Photon">
 <cloud/>
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="_Freemind_Link_682620075" POSITION="right" TEXT="0.1 Series">
+<node CREATED="1129352407402" ID="_Freemind_Link_682620075" MODIFIED="1129352407402" POSITION="right" TEXT="0.1 Series">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="_" TEXT="0.0.2">
+<node CREATED="1129352407402" ID="_Freemind_Link_115594103" MODIFIED="1130559303873" TEXT="0.1.0" VSHIFT="-14">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node FOLDED="true" ID="_Freemind_Link_71129066" TEXT="Features">
-<icon BUILTIN="button_ok"/>
-<node ID="_Freemind_Link_424443985" TEXT="variable timeStep config">
-<icon BUILTIN="button_ok"/>
-<node ID="_Freemind_Link_1489086385" TEXT="average of X frames">
-<icon BUILTIN="button_ok"/>
+<node CREATED="1129352407404" ID="_Freemind_Link_1084322991" MODIFIED="1129352407404" TEXT="Publicity">
+<node CREATED="1129352407404" ID="_Freemind_Link_482028560" MODIFIED="1129352407404" TEXT="Tutorials">
+<node CREATED="1130465655991" ID="Freemind_Link_1572314923" MODIFIED="1130465660152" TEXT="NDocTorials"/>
 </node>
-<node ID="_Freemind_Link_576151122" TEXT="fixed timeStep">
-<icon BUILTIN="button_ok"/>
+<node CREATED="1129352407404" ID="_Freemind_Link_1870184326" MODIFIED="1129352407404" TEXT="example game">
+<node CREATED="1130471560606" ID="Freemind_Link_613629773" MODIFIED="1130471562533" TEXT="tank game"/>
 </node>
 </node>
-<node ID="_Freemind_Link_1902843385" TEXT="depthBuffer enable/disable">
-<icon BUILTIN="button_ok"/>
 </node>
-<node ID="_Freemind_Link_1912839994" TEXT="dual Kernels (TaskManager)">
-<icon BUILTIN="button_ok"/>
-</node>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1999404091" TEXT="Improvements">
-<icon BUILTIN="button_ok"/>
-<node ID="_Freemind_Link_878549222" TEXT="drop alut dependency">
-<icon BUILTIN="button_ok"/>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1174215789" TEXT="bugfixes">
-<icon BUILTIN="button_ok"/>
-<node ID="_Freemind_Link_51999594" TEXT="fullscreen X11">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="_Freemind_Link_469175607" TEXT="input listener bug(s)">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="_Freemind_Link_789850536" TEXT="pause on lost focus">
-<icon BUILTIN="button_ok"/>
+<node CREATED="1129352407405" HGAP="65" ID="_Freemind_Link_1151493849" MODIFIED="1130559300141" TEXT="0.1.x" VSHIFT="38">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1129352407407" ID="_Freemind_Link_650619873" MODIFIED="1129352407407" TEXT="Features">
+<node CREATED="1129352407407" FOLDED="true" ID="_Freemind_Link_1825420810" MODIFIED="1129352407407" TEXT="Music">
+<node CREATED="1129352407407" ID="_Freemind_Link_1677795490" MODIFIED="1129352407407" TEXT="ogg"/>
+<node CREATED="1129352407407" ID="_Freemind_Link_510415734" MODIFIED="1129352407407" TEXT="wav"/>
 </node>
 </node>
-<node FOLDED="true" ID="_Freemind_Link_858443899" TEXT="IDE support">
+<node CREATED="1129352407407" ID="_Freemind_Link_1634165944" MODIFIED="1129352407407" TEXT="Improvements">
+<node CREATED="1129352407407" ID="Freemind_Link_442862681" MODIFIED="1129352407407" TEXT="vc7">
+<node CREATED="1129352407407" ID="Freemind_Link_1309064355" MODIFIED="1129352407407" TEXT="photon-0.1.x-win32-msvc"/>
+</node>
+<node CREATED="1130644868777" ID="Freemind_Link_1077081589" MODIFIED="1130644894214" TEXT="allow compilation without PhysFS?"/>
+</node>
+<node CREATED="1129352407407" ID="_Freemind_Link_172144087" MODIFIED="1129352407407" TEXT="Publicity"/>
+</node>
+</node>
+<node CREATED="1129352407407" ID="_Freemind_Link_486829238" MODIFIED="1130559294471" POSITION="right" TEXT="0.2 Release" VSHIFT="107">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1129352407407" FOLDED="true" ID="_Freemind_Link_103747781" MODIFIED="1130472449741" TEXT="Features">
 <font NAME="SansSerif" SIZE="12"/>
-<icon BUILTIN="button_ok"/>
-<node ID="_Freemind_Link_1591642442" TEXT="Dev-C++">
-<icon BUILTIN="button_ok"/>
+<node COLOR="#000000" CREATED="1129352407408" ID="_Freemind_Link_420721466" MODIFIED="1129352407408" TEXT="XML/XSLT sink"/>
+<node CREATED="1129352407409" ID="_Freemind_Link_1298931281" MODIFIED="1129352407409" TEXT="XML resource files"/>
+<node CREATED="1129352407409" FOLDED="true" ID="_Freemind_Link_1070201117" MODIFIED="1129352407409" TEXT="Transitions">
+<node CREATED="1129352407410" ID="_Freemind_Link_664044389" MODIFIED="1129352407410" TEXT="investigate what other libs do"/>
+<node CREATED="1129352407411" ID="_Freemind_Link_1667343634" MODIFIED="1129352407411" TEXT="render to texture?"/>
+<node CREATED="1129352407411" ID="_Freemind_Link_518905568" MODIFIED="1129352407411" TEXT="pixel shaders?"/>
 </node>
-<node ID="_Freemind_Link_1446425822" TEXT="Code::Blocks">
-<icon BUILTIN="button_ok"/>
-</node>
-<node ID="_Freemind_Link_1481289143" TEXT="Visual C++">
-<icon BUILTIN="clanbomber"/>
-<node TEXT="unstable"/>
-</node>
-<node ID="_Freemind_Link_1628154157" TEXT="Eclipse/CDT">
-<icon BUILTIN="button_cancel"/>
-</node>
-</node>
-<node ID="_Freemind_Link_1906242625" TEXT="State/Task/Kernel demo">
-<icon BUILTIN="button_ok"/>
-</node>
-</node>
-<node ID="_Freemind_Link_1112766084" TEXT="Publicity">
-<node ID="_Freemind_Link_1943285529" TEXT="precompiled versions">
-<node ID="_Freemind_Link_586970647" TEXT="gcc3 Linux">
-<icon BUILTIN="button_ok"/>
-<node ID="_Freemind_Link_1651083711" TEXT="photon-0.0.2-linux-gcc"/>
-</node>
-<node ID="_Freemind_Link_1983304402" TEXT="gcc3 MingW">
-<node ID="_Freemind_Link_952617031" TEXT="photon-0.0.2-win32-mingw"/>
-</node>
-</node>
-</node>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_115594103" TEXT="0.1">
-<font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="_Freemind_Link_1755478147" TEXT="Features"/>
-<node ID="_Freemind_Link_589338965" TEXT="Improvements">
-<node ID="_Freemind_Link_1716705807" TEXT="clean up naturaldocs">
-<icon BUILTIN="button_ok"/>
-</node>
-</node>
-<node ID="_Freemind_Link_1084322991" TEXT="Publicity">
-<node ID="_Freemind_Link_1156475066" TEXT="update site with more info (distribution .txt files)"/>
-<node FOLDED="true" ID="_Freemind_Link_482028560" TEXT="Tutorials">
-<node ID="_Freemind_Link_772709351" TEXT="Wikitorials?"/>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1870184326" TEXT="example game">
-<node COLOR="#000000" ID="_Freemind_Link_597173063" TEXT="Asteroids"/>
-<node ID="_Freemind_Link_719722821" TEXT="Lunar Lander"/>
-<node ID="_Freemind_Link_173048174" TEXT="Missile Command"/>
-<node COLOR="#010101" ID="_Freemind_Link_1447936394" TEXT="Frogger"/>
-</node>
-</node>
-</node>
-<node ID="_Freemind_Link_1151493849" TEXT="0.1.x">
-<font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node ID="_Freemind_Link_650619873" TEXT="Features">
-<node FOLDED="true" ID="_Freemind_Link_1825420810" TEXT="Music">
-<node ID="_Freemind_Link_1677795490" TEXT="ogg"/>
-<node ID="_Freemind_Link_510415734" TEXT="wav"/>
-</node>
-</node>
-<node ID="_Freemind_Link_1634165944" TEXT="Improvements">
-<node ID="Freemind_Link_442862681" TEXT="vc7">
-<node ID="Freemind_Link_1309064355" TEXT="photon-0.1.x-win32-msvc"/>
-</node>
-</node>
-<node ID="_Freemind_Link_172144087" TEXT="Publicity"/>
-</node>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_486829238" POSITION="right" TEXT="0.2 Release">
-<font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node FOLDED="true" ID="_Freemind_Link_103747781" TEXT="Features">
-<font NAME="SansSerif" SIZE="12"/>
-<node COLOR="#000000" ID="_Freemind_Link_420721466" TEXT="XML/XSLT sink"/>
-<node ID="_Freemind_Link_1298931281" TEXT="XML resource files"/>
-<node FOLDED="true" ID="_Freemind_Link_1070201117" TEXT="Transitions">
-<node ID="_Freemind_Link_664044389" TEXT="investigate what other libs do"/>
-<node ID="_Freemind_Link_1667343634" TEXT="render to texture?"/>
-<node ID="_Freemind_Link_518905568" TEXT="pixel shaders?"/>
-</node>
-<node ID="_Freemind_Link_1339011485" TEXT="Tilemap System"/>
-<node ID="_Freemind_Link_1497432478" TEXT="Particle System"/>
-<node ID="_Freemind_Link_216021234" TEXT="Sprite System">
+<node CREATED="1129352407411" ID="_Freemind_Link_1339011485" MODIFIED="1129352407411" TEXT="Tilemap System"/>
+<node CREATED="1129352407411" ID="_Freemind_Link_1497432478" MODIFIED="1129352407411" TEXT="Particle System"/>
+<node CREATED="1129352407411" ID="_Freemind_Link_216021234" MODIFIED="1129352407411" TEXT="Sprite System">
 <font NAME="SansSerif" SIZE="12"/>
 </node>
-<node ID="_Freemind_Link_639177837" TEXT="interpolation/Extrapolation in calls to State::render"/>
+<node CREATED="1129352407411" ID="_Freemind_Link_639177837" MODIFIED="1129352407411" TEXT="interpolation/Extrapolation in calls to State::render"/>
 </node>
-<node FOLDED="true" ID="_Freemind_Link_903043501" TEXT="Improvements">
-<node ID="_Freemind_Link_1362733907" TEXT="investigate dropping Corona"/>
+<node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_903043501" MODIFIED="1129352407411" TEXT="Improvements">
+<node CREATED="1129352407411" ID="_Freemind_Link_1362733907" MODIFIED="1129352407411" TEXT="investigate dropping Corona"/>
 </node>
-<node FOLDED="true" ID="_Freemind_Link_1821669119" TEXT="Publicity">
-<node FOLDED="true" ID="_Freemind_Link_654490435" TEXT="Second Example Game">
-<node ID="_Freemind_Link_1191623789" TEXT="Public Project?"/>
-</node>
-</node>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1111954089" POSITION="right" TEXT="Future...">
-<font BOLD="true" NAME="SansSerif" SIZE="12"/>
-<node FOLDED="true" ID="_Freemind_Link_1066996987" TEXT="Features">
-<font NAME="SansSerif" SIZE="12"/>
-<node ID="_Freemind_Link_539015028" TEXT="physics:: (similar to math::)"/>
-<node FOLDED="true" ID="_Freemind_Link_1107695046" TEXT="gui::">
-<node ID="_Freemind_Link_548983970" TEXT="skinnable XML based"/>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_304523376" TEXT="network::">
-<node ID="_Freemind_Link_717482997" TEXT="wrap enet?"/>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1766405270" TEXT="scripting">
-<node ID="_Freemind_Link_918658782" TEXT="lua"/>
-<node ID="_Freemind_Link_1079584283" TEXT="python"/>
-<node ID="_Freemind_Link_512949260" TEXT="angelscript"/>
-<node ID="_Freemind_Link_1813241804" TEXT="custom"/>
-<node ID="_Freemind_Link_1220379011" TEXT="other"/>
-</node>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1155128082" TEXT="Improvements">
-<node FOLDED="true" ID="_Freemind_Link_1067043723" TEXT="allow for alternate backends ">
-<node FOLDED="true" ID="_Freemind_Link_1997175841" TEXT="audiere for audio">
-<node ID="_Freemind_Link_1142976123" TEXT="is there a point?">
-<node ID="_Freemind_Link_396200365" TEXT="compatibility?"/>
-</node>
-</node>
-<node ID="_Freemind_Link_961284194" TEXT="SDL backend">
-<icon BUILTIN="help"/>
-</node>
-</node>
-<node FOLDED="true" ID="_Freemind_Link_1036629371" TEXT="other languages">
-<node ID="_Freemind_Link_21483700" TEXT="python interface">
-<icon BUILTIN="help"/>
-</node>
-<node ID="_Freemind_Link_1083759822" TEXT="java interface">
-<icon BUILTIN="help"/>
+<node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_1821669119" MODIFIED="1129352407411" TEXT="Publicity">
+<node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_654490435" MODIFIED="1129352407411" TEXT="Second Example Game">
+<node CREATED="1129352407411" ID="_Freemind_Link_1191623789" MODIFIED="1129352407411" TEXT="Public Project?"/>
 </node>
 </node>
 </node>
-<node FOLDED="true" ID="_Freemind_Link_1364557080" TEXT="Publicity">
-<node ID="_Freemind_Link_1945740551" TEXT="Prepackaged Versions"/>
-<node ID="_Freemind_Link_836096408" TEXT="Dependencies"/>
-<node ID="_Freemind_Link_1316865000" TEXT="Wiki"/>
-<node ID="_Freemind_Link_959094471" TEXT="Contest"/>
-</node>
-</node>
-<node COLOR="#147f1e" ID="_Freemind_Link_438641521" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.30 2005/08/19 06:14:50 cozman Exp $">
+<node COLOR="#147f1e" CREATED="1129352407415" ID="_Freemind_Link_438641521" MODIFIED="1129352407415" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.31 2005/11/13 07:59:48 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
-<node ID="_Freemind_Link_853483912" POSITION="left" TEXT="Current Problems">
+<node CREATED="1129352407415" ID="_Freemind_Link_853483912" MODIFIED="1129352407415" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_1111954089" MODIFIED="1130559286266" POSITION="left" TEXT="Future..." VSHIFT="-1">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_1066996987" MODIFIED="1129352407411" TEXT="Features">
+<font NAME="SansSerif" SIZE="12"/>
+<node CREATED="1129352407411" ID="_Freemind_Link_539015028" MODIFIED="1129352407411" TEXT="physics:: (similar to math::)"/>
+<node CREATED="1129352407412" FOLDED="true" ID="_Freemind_Link_1107695046" MODIFIED="1129352407412" TEXT="gui::">
+<node CREATED="1129352407412" ID="_Freemind_Link_548983970" MODIFIED="1129352407412" TEXT="skinnable XML based"/>
+</node>
+<node CREATED="1129352407412" FOLDED="true" ID="_Freemind_Link_304523376" MODIFIED="1129352407412" TEXT="network::">
+<node CREATED="1129352407412" ID="_Freemind_Link_717482997" MODIFIED="1129352407412" TEXT="wrap enet?"/>
+</node>
+<node CREATED="1129352407412" FOLDED="true" ID="_Freemind_Link_1766405270" MODIFIED="1129352407412" TEXT="scripting">
+<node CREATED="1129352407412" ID="_Freemind_Link_918658782" MODIFIED="1129352407412" TEXT="lua"/>
+<node CREATED="1129352407412" ID="_Freemind_Link_1079584283" MODIFIED="1129352407412" TEXT="python"/>
+<node CREATED="1129352407413" ID="_Freemind_Link_512949260" MODIFIED="1129352407413" TEXT="angelscript"/>
+<node CREATED="1129352407413" ID="_Freemind_Link_1813241804" MODIFIED="1129352407413" TEXT="custom"/>
+<node CREATED="1129352407413" ID="_Freemind_Link_1220379011" MODIFIED="1129352407413" TEXT="other"/>
+</node>
+</node>
+<node CREATED="1129352407413" ID="_Freemind_Link_1155128082" MODIFIED="1129352407413" TEXT="Improvements">
+<node CREATED="1129352407413" FOLDED="true" ID="_Freemind_Link_1067043723" MODIFIED="1129352407413" TEXT="allow for alternate backends ">
+<node CREATED="1129352407413" FOLDED="true" ID="_Freemind_Link_1997175841" MODIFIED="1129352407413" TEXT="audiere for audio">
+<node CREATED="1129352407414" ID="_Freemind_Link_1142976123" MODIFIED="1129352407414" TEXT="is there a point?">
+<node CREATED="1129352407414" ID="_Freemind_Link_396200365" MODIFIED="1129352407414" TEXT="compatibility?"/>
+</node>
+</node>
+<node CREATED="1129352407414" ID="_Freemind_Link_961284194" MODIFIED="1129352407414" TEXT="SDL backend">
+<icon BUILTIN="help"/>
+</node>
+</node>
+<node CREATED="1129352407414" ID="_Freemind_Link_1036629371" MODIFIED="1129352407414" TEXT="other languages">
+<node CREATED="1129352407414" ID="_Freemind_Link_21483700" MODIFIED="1129352407414" TEXT="python interface">
+<icon BUILTIN="help"/>
+<node CREATED="1130472430178" FOLDED="true" ID="Freemind_Link_1181436549" MODIFIED="1130472451458" TEXT="hotyth">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1130472573323" ID="Freemind_Link_577743930" MODIFIED="1130472686339" TEXT="potentially the justification for photon altogether">
+<node CREATED="1130472687051" FOLDED="true" ID="Freemind_Link_1124537894" MODIFIED="1130472780347" TEXT="potentially much faster than PyGame">
+<node CREATED="1130472717147" ID="Freemind_Link_1689800437" MODIFIED="1130472725955" TEXT="look into using Psyco"/>
+<node CREATED="1130472785878" ID="Freemind_Link_464299414" MODIFIED="1130472790515" TEXT="already using OpenGL-based backend"/>
+</node>
+<node CREATED="1130472695759" ID="Freemind_Link_284363350" MODIFIED="1130472714269" TEXT="more game-oriented"/>
+</node>
+<node CREATED="1130472815278" ID="Freemind_Link_1495903252" MODIFIED="1130472816993" TEXT="how?">
+<node CREATED="1130472475758" ID="Freemind_Link_145040084" MODIFIED="1130472479477" TEXT="custom wrapped code">
+<node CREATED="1130472481825" ID="Freemind_Link_304193465" MODIFIED="1130472489589" TEXT="extremely hard for something the size of photon"/>
+</node>
+<node CREATED="1130472461642" ID="Freemind_Link_974152072" MODIFIED="1130472463393" TEXT="SWIG">
+<node CREATED="1130472491657" ID="Freemind_Link_203364687" MODIFIED="1130472503947" TEXT="evaluation needed"/>
+</node>
+<node CREATED="1130472453122" ID="Freemind_Link_681824771" MODIFIED="1130472457183" TEXT="boost::python">
+<node CREATED="1130472504752" ID="Freemind_Link_1098125228" MODIFIED="1130472509211" TEXT="hard to get working on Windows"/>
+<node CREATED="1130472513731" ID="Freemind_Link_615148079" MODIFIED="1130472516889" TEXT="evalution needed"/>
+</node>
+</node>
+</node>
+</node>
+<node CREATED="1129352407414" ID="_Freemind_Link_1083759822" MODIFIED="1129352407414" TEXT="java interface">
+<icon BUILTIN="help"/>
+</node>
+</node>
+</node>
+<node CREATED="1129352407415" FOLDED="true" ID="_Freemind_Link_1364557080" MODIFIED="1129352407415" TEXT="Publicity">
+<node CREATED="1129352407415" FOLDED="true" ID="_Freemind_Link_1945740551" MODIFIED="1129352407415" TEXT="Prepackaged Versions">
+<node CREATED="1130472887914" ID="Freemind_Link_1188152165" MODIFIED="1130472889315" TEXT="deb"/>
+<node CREATED="1130472893474" ID="Freemind_Link_1518311946" MODIFIED="1130472894690" TEXT="rpm"/>
+<node CREATED="1130472896908" ID="Freemind_Link_1315075072" MODIFIED="1130472904857" TEXT="Dev-C++ .devpak"/>
+</node>
+<node CREATED="1129352407415" ID="_Freemind_Link_836096408" MODIFIED="1129352407415" TEXT="Dependencies"/>
+<node CREATED="1129352407415" ID="_Freemind_Link_1316865000" MODIFIED="1129352407415" TEXT="Wiki"/>
+<node CREATED="1129352407415" ID="_Freemind_Link_959094471" MODIFIED="1129352407415" TEXT="Contest"/>
+</node>
 </node>
 </node>
 </map>

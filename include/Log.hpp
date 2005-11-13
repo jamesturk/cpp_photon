@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Log.hpp,v 1.8 2005/08/02 23:07:52 cozman Exp $
+//  $Id: Log.hpp,v 1.9 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_LOG_HPP
 #define PHOTON_LOG_HPP
@@ -28,11 +28,11 @@ class Log
 // Group: (Con/De)structors
 public:
     // Function: Log
-    //  Log constructor, initializes log singleton.
+    //  Log constructor, initializes a log with no sinks.
     Log();
     
     // Function: ~Log
-    //  Log destructor, destroys log singleton.
+    //  Log destructor, destroys log, flushing output streams/closing sinks.
     ~Log();
 
 // Group: Sink Maintenance

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: math.hpp,v 1.6 2005/07/18 05:58:03 cozman Exp $
+//  $Id: math.hpp,v 1.7 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_MATH_MATH_HPP
 #define PHOTON_MATH_MATH_HPP
@@ -48,7 +48,7 @@ T clamp(T val, C low, C high);
 // Parameters:
 //  val1 - First value to compare.
 //  val2 - Second value to compare.
-//  epsilon - Epsilon value, defaults to 0.0001.
+//  epsilon - Epsilon value, defaults to 0.000001.
 // 
 // Returns:
 //  true if |val1-val2| < epsilon, meaning values are approximately equal

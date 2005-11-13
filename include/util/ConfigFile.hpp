@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: ConfigFile.hpp,v 1.6 2005/07/19 01:31:37 cozman Exp $
+//  $Id: ConfigFile.hpp,v 1.7 2005/11/13 07:59:48 cozman Exp $
 
 #ifndef PHOTON_UTIL_CONFIGFILE_HPP
 #define PHOTON_UTIL_CONFIGFILE_HPP
@@ -69,7 +69,7 @@ public:
 public:
 
     // Function: open
-    //  open a file, processing it as an INI-like config file.
+    //  Open a file, processing it as an INI-like config file.
     //
     // Parameters:
     //  filename - Name of ConfigFile to open.
