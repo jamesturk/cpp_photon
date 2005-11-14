@@ -1,0 +1,259 @@
+Document: Photon Tutorial 01 - Getting Started
+
+Group: Introduction
+
+Topic: Before We Start
+
+This tutorial serves as an introduction to using Photon with C++.  It is written
+so that those with a moderate amount of C++ experience can follow it and be able
+to get started with Photon. This tutorial does *NOT* aim to teach
+C++, Game Programming, or how to use every arcane feature available in Photon.
+After reading this tutorial, the basic structure of a Photon application should
+be understood, and by reading the available <Photon Documentation>
+one should be able to start with Photon without much difficulty.
+
+In addition to having C++ experience, it is assumed that the reader of this 
+tutorial has already set up Photon and all dependency libraries.  For help doing
+this look at the page <http://photon.sourceforge.net/index.php/getting-photon>.
+You can also ask for help on the Photon mailing lists (<http://lists.sourceforge.net/lists/listinfo/photon-users>).
+
+Topic: Getting Started
+Perhaps the best way to get started it to show what an extremely simple Photon
+application looks like.  
+
+(code)
+#include <photon.hpp>
+using namespace photon;
+
+class SomeState : public State
+{
+public:
+    void render()
+    {
+        // do any rendering in here
+    }
+    
+    void update()
+    {
+        // do any updating of logic in here
+    }
+};
+
+int PhotonMain(const StrVec& args)
+{
+    Application& app(Application::getInstance());
+    
+    app.createDisplay(800,600,32,0,0,false);
+
+    app.setState<SomeState>();
+    app.run();
+    
+    return 0;
+}
+(end)
+
+Perhaps you can follow the example above fairly well, if so you 
+probably won't have a tough time picking up Photon as you go.  For 
+those who aren't so sure as to what is going on, fear not, by the end of the 
+tutorial everything you see will have been addressed.  Even if you don't know
+what it means, the fact that the above application is all it takes to get 
+an empty window should indicate Photon really isn't too difficult to use.
+
+The entrypoint function in any Photon application is a function called 
+<PhotonMain>. In order to be as simple to use as possible, Photon 
+takes care of it's own initialization by defining a main() function that
+does all of the work for you.  In other libraries you often would write a main
+function and fill it with copy & pasted initialization code that doesn't change
+from one project to the next, when using Photon you simply create a function
+called <PhotonMain> and everything is taken care of.
+
+As the entrypoint, <PhotonMain> is generally where you'll create the display and
+set the initial <State>.  The state system will be covered in more detail in a 
+short while. 
+
+One thing you'll notice is that <PhotonMain> takes something called a <StrVec>,
+which is simply a typedef for std::vector<std::string>.  Just like a standard
+main() function, it also returns an integer return code which is interpreted
+by the operating system as success or failure.
+
+Group: Digging In: Application and the State system
+
+Topic: Application
+All Photon applications use <Application>. Generally Photon applications will
+contain code similar to the above example : a display will be created, the state 
+system will be 
+initialized, and finally the run method of <Application> will be called.  We
+will now cover exactly what all of this means.
+
+The first thing you may notice is that <Application> is declared as a reference
+and accessed in a funny sort of way.  <Application> is a special kind of class
+known as a singleton due to the fact that in any photon application there can 
+only be one instance.  The single instance of Application is 
+created before any of the code you write is executed, so there is no need to 
+ever create it.  What this means for you is that you cannot write code like:
+| Application app;
+or 
+| Application* appPtr = new Application();
+
+Instead <Application> must always be used via a reference.  A reference can
+be obtained via Application::getInstance(), which can be called any number of 
+times, always returning the single instance of <Application>.  This means that 
+the following two pieces of code produce identical results:
+
+(code)
+// Sample 1 : Too Much Typing :(
+Application::getInstance().createDisplay(800,600,32,0,0,true);
+Application::getInstance().setState<SomeState>();
+Application::getInstance().run();
+(end)
+
+
+(code)
+// Sample 2 : Preferred
+Application& app(Application::getInstance());
+app.createDisplay(800,600,32,0,0,true);
+app.setState<SomeState>();
+app.run();
+(end)
+
+<Application> is a fairly important class, it provides the means for managing
+the display, input, timer, task and state system.  For simple 2D applications
+the only thing that needs to be done to configure the display is a single call
+to <Application::createDisplay> (width, height, depth, 0, 0, fullscreen, title).
+The input, timing, and task systems will be addressed in future tutorials, or
+check them out in <Application's> docs.  What about the state system?  Well that
+brings us to our next topic...
+
+Topic: The State System
+<States> are probably the most important entities in Photon.  A good portion of
+your application's code with be within classes which derive from <State>.  Photon
+uses the idea that generally a game or application can be derived into a set of
+states each of which have their own characteristics and behavior.  If you've 
+ever written a game before you've likely encountered this concept, it is often 
+solved using a switch statement or something similar.  An example of states in 
+a simple game might be a menu state, a play state, and an options screen state.
+Complex games could define a much larger number of states, and it is certainly
+possible to only use one state in a photon application.  
+
+Photon's state system is designed to be simple yet powerful, and this tutorial
+will only cover the basics of using <States>, however with the available 
+documentation it isn't hard to do more advanced things with states, a topic that
+a future tutorial will cover.
+
+Creating States:
+
+<State> is a simple class with a set of virtual functions.  In order to define
+the behavior of a given state in your application, simply derive from <State>
+overloading as few or as many of <State's> functions as you desire.  The only
+function that must be overloaded is <State::render>, although generally 
+<State::update> will be overloaded as well.  <State> also has other functions
+available allowing for special behavior when a state is paused/resumed or global
+input handlers for a state.
+
+The <State::update> method and <State::render> update method are called
+regularly in the update and render portions of the <Application's> state machine
+which is the next topic we'll address.
+
+Running States:
+
+Once the <Application::run> method is called, it does not return until all
+<States> exit.  Therefore before it is called it is required that at least one
+<State>-derived class is made active using either <Application::setState> or 
+<Application::pushState>.  You'll notice from the <Getting Started> example that 
+these functions both have an odd syntax, they take
+a template argument which should be the name of the <State>-derived class, but
+they take no formal parameters.  The reason for this is an issue of 
+implementation, and is basically a way of overcoming one of C++'s limitations
+(namely that types are not first class entities).
+
+Group: Wrapping Up
+
+Topic: Review
+
+Let's take a look at what we've covered in this tutorial.  First let's revisit
+the example from earlier and see what it all meant.
+
+(code)
+#include <photon.hpp>
+using namespace photon;
+
+// State-derived class used for application
+class SomeState : public State
+{
+public:
+    void render()
+    {
+        // do any rendering in here
+    }
+    
+    void update()
+    {
+        // do any updating of logic in here
+    }
+};
+
+// the Photon entrypoint, present for all Photon applications
+int PhotonMain(const StrVec& args)  
+{
+    // obtain a reference to the Application singleton
+    Application& app(Application::getInstance());
+    
+    // create the display, in this case a 800x600 window with 32 bit depth
+    app.createDisplay(800,600,32,0,0,false);
+
+    // set the application state to SomeState (a State-derived class)
+    app.setState<SomeState>();
+    // run the application until the state quits or an exit request is received
+    app.run();
+    
+    // return 0, just like in a normal application
+    return 0;
+}
+(end)
+
+Hopefully you have a better understanding of what's going on now.  The other 
+tutorials will start assuming a basic understanding of the structure of a Photon
+application.
+
+Topic: Topics Covered
+
+    PhotonMain - The entrypoint for all photon applications. (see <PhotonMain>)
+    Application - Important singleton class used in all Photon applications. 
+                    (see <Application>)
+    Application::createDisplay - Function used to initialize the display.
+    Application::setState - Function used to set active state.
+    Application::run - Function called to start processing of active state.
+    State - Base class for Photon application states, which are vital to 
+                    using Photon. (see <State>)
+    
+
+Group: Building a Photon application
+
+Topic: Compilation
+Once you know how to write a basic photon application, you'll need to know how
+to compile it in your compiler/build environment of choice. Since I cannot possibly cover 
+the full range of development environments, I'll speak in general terms and assume
+you are familiar with the environment you are using.  If you need extra help either
+obtain help from a site related to your environment or ask on the Photon mailing
+lists.
+
+Things to do when compiling a photon application:
+
+    - When compiling make sure all includes are in the include path of your compiler.
+    - When linking make sure all libraries are in the library path of your compiler.
+    - Ensure that you link against photon and all dependency libraries (photon, 
+        GLFW, OpenAL, OpenGL, GLU, PhysFS, Corona, and Freetype).
+    - If you are using OpenAL, be sure to define PHOTON_USE_OPENAL
+
+If you are using a command line compiler (like g++) it will resemble
+
+| g++ -DPHOTON_USE_OPENAL -c -o test.o test.cpp
+| g++ -o test test.o -lphoton -lglfw -lopenal -lGL -lGLU -lphysfs -lcorona -lfreetype
+
+If you are using an IDE (like Dev-C++, MS Visual C++, or Code::Blocks) you'll
+generally only need to specify the libraries you wish to link against.  Again,
+if you need specific help try asking for help on the Photon mailing lists 
+(<http://lists.sourceforge.net/lists/listinfo/photon-users>).
+
+Written for Photon 0.1.0 by James:
+     $Id: tutorial01.txt,v 1.1 2005/11/14 20:02:39 cozman Exp $

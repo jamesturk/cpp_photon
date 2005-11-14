@@ -83,6 +83,11 @@ Group: photon::  {
 
    }  # Group: photon::
 
+Group: Tutorials  {
+
+   File: 01 - Getting Started  (no auto-title, /home/james/src/photon/ndoc/tutorials/tutorial01.txt)
+   }  # Group: Tutorials
+
 Group: Index  {
 
    Index: Everything
@@ -99,3 +104,4 @@ Group: Index  {
 ##### Do not change or remove these lines. #####
 Data: 1(D3333RuEG3lpEG636H93IRutu\38\9oNfG)
 Data: 1(h3333RuEG3lpEG636H93IRutu\3\fu93Ip`G6)
+Data: 1(T3333RuEG3lpEG636H93IRutu\3\fu93tNtuH8po6)
