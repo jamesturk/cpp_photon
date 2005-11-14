@@ -33,7 +33,7 @@ Footer: Documentation for <a href="http://photon.sourceforge.net">photon</a>. Co
 
 File: Photon Documentation  (/home/james/src/photon/ndoc/pages/index.txt)
 
-Group: photon::  {
+Group: photon:: Library Documentation  {
 
    File: Application  (/home/james/src/photon/include/Application.hpp)
    File: Basic Types  (/home/james/src/photon/include/types.hpp)
@@ -81,10 +81,11 @@ Group: photon::  {
       File: Texture  (/home/james/src/photon/include/video/Texture.hpp)
       }  # Group: Video::
 
-   }  # Group: photon::
+   }  # Group: photon:: Library Documentation
 
 Group: Tutorials  {
 
+   File: Photon Tutorials  (/home/james/src/photon/ndoc/tutorials/index.txt)
    File: 01 - Getting Started  (no auto-title, /home/james/src/photon/ndoc/tutorials/tutorial01.txt)
    }  # Group: Tutorials
 
