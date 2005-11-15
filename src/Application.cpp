@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.30 2005/10/28 22:12:44 cozman Exp $
+//  $Id: Application.cpp,v 1.31 2005/11/15 02:59:08 cozman Exp $
 
 #include "Application.hpp"
 
@@ -185,12 +185,12 @@ bool Application::isActive()
 void Application::createDisplay(uint width, uint height,
                             uint redBits, uint greenBits, uint blueBits,
                             uint alphaBits, uint depthBits, uint stencilBits,
-                            bool fullscreen, const std::string &title)
+                            DisplayMode mode, const std::string &title)
 {
     GLboolean status;
-    status = glfwOpenWindow(width, height, redBits, greenBits,
-                            blueBits, alphaBits, depthBits, stencilBits,
-                            fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW);
+    status = glfwOpenWindow(width, height, redBits, greenBits, blueBits, 
+                    alphaBits, depthBits, stencilBits,
+                    mode == DISP_FULLSCREEN ? GLFW_FULLSCREEN : GLFW_WINDOW);
     if(status == GL_FALSE)
     {
         throw APIError("Failed to create display.");
@@ -216,7 +216,7 @@ void Application::createDisplay(uint width, uint height,
 }
 
 void Application::createDisplay(uint width, uint height, uint bpp,
-                            uint depthBits, uint stencilBits, bool fullscreen,
+                            uint depthBits, uint stencilBits, DisplayMode mode,
                             const std::string &title)
 {
     // call main version of createDisplay with individual values for rgba bits
@@ -224,19 +224,19 @@ void Application::createDisplay(uint width, uint height, uint bpp,
     {
         case 8:
             createDisplay(width, height, 3, 3, 2, 0, depthBits, stencilBits,
-                            fullscreen, title);
+                            mode, title);
             break;
         case 16:
             createDisplay(width, height, 5, 6, 5, 0, depthBits, stencilBits,
-                            fullscreen, title);
+                            mode, title);
             break;
         case 24:
             createDisplay(width, height, 8, 8, 8, 0, depthBits, stencilBits,
-                            fullscreen, title);
+                            mode, title);
             break;
         case 32:
             createDisplay(width, height, 8, 8, 8, 8, depthBits, stencilBits,
-                            fullscreen, title);
+                            mode, title);
             break;
         default:
             throw ArgumentException("bpp argument of createDisplay must be "

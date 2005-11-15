@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Audio_test.cpp,v 1.17 2005/08/18 05:59:56 cozman Exp $
+//  $Id: Audio_test.cpp,v 1.18 2005/11/15 02:59:08 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -186,7 +186,7 @@ int PhotonMain(const StrVec& args)
 {
     Application& app(Application::getInstance());
     
-    app.createDisplay(800,600,32,0,0,false);    // create window
+    app.createDisplay(800,600,32,0,0,DISP_WINDOWED);    // create window
     app.initAudioCore();                        // initialize audio core
 
     // be sure to add FPSDisplayTask

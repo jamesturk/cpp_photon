@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Image_test.cpp,v 1.13 2005/08/17 06:35:56 cozman Exp $
+//  $Id: Image_test.cpp,v 1.14 2005/11/15 02:59:08 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -62,7 +62,7 @@ int PhotonMain(const StrVec& args)
 {
     Application& app(Application::getInstance());
     
-    app.createDisplay(800,600,32,0,0,false);    // create window
+    app.createDisplay(800,600,32,0,0,DISP_WINDOWED);    // create window
 
     // be sure to add FPSDisplayTask
     app.getUpdateTaskManager().addTask(util::TaskPtr(new FPSDisplayTask()));

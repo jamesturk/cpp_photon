@@ -43,7 +43,7 @@ int PhotonMain(const StrVec& args)
 {
     Application& app(Application::getInstance());
     
-    app.createDisplay(800,600,32,0,0,false);
+    app.createDisplay(800,600,32,0,0,DISP_WINDOWED);
 
     app.setState<SomeState>();
     app.run();
@@ -102,7 +102,7 @@ the following two pieces of code produce identical results:
 
 (code)
 // Sample 1 : Too Much Typing :(
-Application::getInstance().createDisplay(800,600,32,0,0,true);
+Application::getInstance().createDisplay(800,600,32,0,0,DISP_FULLSCREEN);
 Application::getInstance().setState<SomeState>();
 Application::getInstance().run();
 (end)
@@ -111,7 +111,7 @@ Application::getInstance().run();
 (code)
 // Sample 2 : Preferred
 Application& app(Application::getInstance());
-app.createDisplay(800,600,32,0,0,true);
+app.createDisplay(800,600,32,0,0,DISP_FULLSCREEN);
 app.setState<SomeState>();
 app.run();
 (end)
@@ -119,7 +119,7 @@ app.run();
 <Application> is a fairly important class, it provides the means for managing
 the display, input, timer, task and state system.  For simple 2D applications
 the only thing that needs to be done to configure the display is a single call
-to <Application::createDisplay> (width, height, depth, 0, 0, fullscreen, title).
+to <Application::createDisplay> (width, height, depth, 0, 0, displayMode, title).
 The input, timing, and task systems will be addressed in future tutorials, or
 check them out in <Application's> docs.  What about the state system?  Well that
 brings us to our next topic...
@@ -199,7 +199,7 @@ int PhotonMain(const StrVec& args)
     Application& app(Application::getInstance());
     
     // create the display, in this case a 800x600 window with 32 bit depth
-    app.createDisplay(800,600,32,0,0,false);
+    app.createDisplay(800,600,32,0,0,DISP_WINDOWED);
 
     // set the application state to SomeState (a State-derived class)
     app.setState<SomeState>();
@@ -256,4 +256,4 @@ if you need specific help try asking for help on the Photon mailing lists
 (<http://lists.sourceforge.net/lists/listinfo/photon-users>).
 
 Written for Photon 0.1.0 by James:
-     $Id: tutorial01.txt,v 1.2 2005/11/14 20:14:18 cozman Exp $
+     $Id: tutorial01.txt,v 1.3 2005/11/15 02:59:08 cozman Exp $

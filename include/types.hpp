@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: types.hpp,v 1.9 2005/11/13 07:59:48 cozman Exp $
+//  $Id: types.hpp,v 1.10 2005/11/15 02:59:08 cozman Exp $
 
 #ifndef PHOTON_TYPES_HPP
 #define PHOTON_TYPES_HPP
@@ -328,6 +328,16 @@ enum MouseButton
 enum ScrollDir
 {
     SCROLL_UP, SCROLL_DOWN
+};
+
+// Enum: DisplayMode
+// Enumeration defining types of displays.
+//
+//  DISP_WINDOWED   - Windowed Mode
+//  DISP_FULLSCREEN - Fullscreen Mode
+enum DisplayMode
+{
+    DISP_WINDOWED, DISP_FULLSCREEN
 };
 
 }

@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.hpp,v 1.23 2005/11/13 07:59:48 cozman Exp $
+//  $Id: Application.hpp,v 1.24 2005/11/15 02:59:08 cozman Exp $
 
 #ifndef PHOTON_APPLICATION_HPP
 #define PHOTON_APPLICATION_HPP
@@ -105,12 +105,13 @@ public:
     //  alphaBits   - desired bits per pixel for alpha value
     //  depthBits   - desired bitdepth of depth buffer
     //  stencilBits - desired bitdepth of stencil buffer
-    //  fullscreen  - true: fullscreen, false: windowed
+    //  fullscreen  - <DisplayMode>, DISP_FULLSCREEN or DISP_WINDOWED
     //  [title      - title of application, optional]
     void createDisplay(uint width, uint height,
                         uint redBits, uint greenBits, uint blueBits,
                         uint alphaBits, uint depthBits, uint stencilBits,
-                        bool fullscreen, const std::string& title="Photon App");
+                        DisplayMode mode, 
+                        const std::string& title="Photon App");
 
     // Function: createDisplay
     //  This function attempts to create a display with the given parameters.
@@ -123,10 +124,10 @@ public:
     //  bpp         - desired bits per pixel (aka bitdepth) of display
     //  depthBits   - desired bitdepth of depth buffer
     //  stencilBits - desired bitdepth of stencil buffer
-    //  fullscreen  - true: fullscreen, false: windowed
+    //  fullscreen  - <DisplayMode>, DISP_FULLSCREEN or DISP_WINDOWED
     //  [title       - title of application, optional]
     void createDisplay(uint width, uint height, uint bpp,
-                        uint depthBits, uint stencilBits, bool fullscreen,
+                        uint depthBits, uint stencilBits, DisplayMode mode, 
                         const std::string& title="Photon App");
                         
     // Function: setTitle

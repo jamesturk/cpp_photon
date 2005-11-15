@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: entrypoint.hpp,v 1.10 2005/08/16 06:32:39 cozman Exp $
+//  $Id: entrypoint.hpp,v 1.11 2005/11/15 02:59:08 cozman Exp $
 
 
 #ifndef PHOTON_ENTRYPOINT_HPP
@@ -33,7 +33,7 @@
 //     Application& app(Application::getInstance);
 //
 //     // create window
-//     app.createDisplay(800,600,32,0,0,false);
+//     app.createDisplay(800,600,32,0,0,DISP_WINDOWED);
 // 
 //     // set current state
 //     app.setState<MainMenu>();

@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.24 2005/11/13 07:59:48 cozman Exp $
+#  $Id: SConstruct,v 1.25 2005/11/15 02:59:08 cozman Exp $
 
 import os,os.path
 import glob
@@ -96,7 +96,7 @@ env.Default(LIBRARY)
 
 # Documentation
 ndoc = env.Command('docs/index.html', './include',
-    """NaturalDocs -nag -i $SOURCES -i ndoc/pages -o HTML ./docs -p ./ndoc""")
+    """NaturalDocs -nag -i $SOURCES -i ndoc/pages -i ndoc/tutorials -o HTML ./docs -p ./ndoc""")
 env.Alias("docs",ndoc)
 env.AlwaysBuild(ndoc)
 
@@ -112,9 +112,3 @@ for test_src in test_srcs:
                             'physfs','corona','freetype']))
 env.Alias('tests',tests)
 
-# Visual C++ Projects
-#if(os.name == 'nt'):
-#    msvc = env.MSVSProject(target = 'msvc/photon' + env['MSVSPROJECTSUFFIX'],
-#        srcs = getFilesMulti(SRC_DIRS, '*.cpp'), incs = INC_FILES,
-#        buildtarget = lib, variant = 'Release')
-#    env.Alias('msvc',msvc)

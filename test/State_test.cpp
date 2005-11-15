@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: State_test.cpp,v 1.4 2005/08/16 06:32:39 cozman Exp $
+//  $Id: State_test.cpp,v 1.5 2005/11/15 02:59:08 cozman Exp $
 
 #include "photon.hpp"
 using namespace photon;
@@ -314,7 +314,7 @@ int PhotonMain(const StrVec& args)
 {
     Application& app(Application::getInstance());
     
-    app.createDisplay(800,600,32,0,0,false);    // create window
+    app.createDisplay(800,600,32,0,0,DISP_WINDOWED);    // create window
     app.setFixedUpdateStep(true, .01);
 
     // add archives to search path
