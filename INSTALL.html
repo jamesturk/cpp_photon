@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-AU">
+<head>
+<title>Photon iFAQ (inFrequently Asked Questions)</title>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+</head>
+<body>
+
+<!-- cut here for DevBlog -->
+
+<p>There are several ways to build photon:</p>
+<ul>
+	<li><a href="http://www.scons.org">SCons</a> Build Tool</li>
+	<li><a href="http://www.bloodshed.net/devcpp.html">Dev-C++ 5</a> Windows IDE</li>
+	<li><a href="http://codeblocks.org">Code::Blocks</a> Windows/Linux IDE</li>
+</ul>
+
+<h2>Building with SCons</h2>
+<ol>
+<li>Enter the photon directory.
+</li><li>Type 'scons' - building should begin assuming all dependencies are found.
+        this will result in the photon library being built in the lib/ folder.</li>
+<li><em>Optional:</em> Type 'scons test' to build test programs, test programs will be
+        built in the test/ folder.</li>
+<li><em>Optional:</em> Type 'scons docs' to build documentation in the docs/ folder.
+        [requires <a href="http://naturaldocs.org">NaturalDocs</a>]</li>
+<li>Copy the photon library from the lib/ folder and the contents of photon's
+        include/ directory to somewhere in your compilers search path.</li>
+</ol>
+
+<h2>Building with Code::Blocks</h2>
+<ol>
+<li>Open the photon.workspace file in Code::Blocks</li>
+<li>Build the library by compiling the project named photon.</li>
+<li><em>Optional:</em> Build any tests by running the other projects.</li>
+<li>Copy the photon library from the lib/ folder and the contents of photon's
+        include/ directory to somewhere in your compilers search path.</li>
+</ol>
+
+<h2>Building with Dev-C++</h2>
+<ol>
+<li>Run the photon.dev project in the devcpp directory, building libphoton.a</li>
+<li><em>Optional:</em> Build any tests by running the other projects in the devcpp
+        directory.</li>
+<li>Copy the photon library from the lib/ folder and the contents of photon's
+        include/ directory to somewhere in your compilers search path.</li>
+</ol>
+
+<p><em>$Id: INSTALL.html,v 1.1 2005/11/15 05:48:31 cozman Exp $</em></p>
+
+<!-- cut here for DevBlog -->
+
+</body>
+</html>
