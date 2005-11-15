@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-AU">
+<head><title>iFAQ (inFrequently Asked Questions)</title></head>
+<body>
+
+<!-- cut here for DevBlog -->
+
+<ul>
+	<li><strong>General Questions</strong>
+<ul>
+	<li><a href="#ans1-1">What is Photon?</a></li>
+	<li><a href="#ans1-2">Where do I get Photon?</a></li>
+	<li><a href="#ans1-3">How do I build Photon?</a></li>
+	<li><a href="#ans1-4">Does Photon use proprietary libraries like DirectX?</a></li>
+	<li><a href="#ans1-5">When will features X, Y, and Z be completed?</a></li>
+	<li><a href="#ans1-6">What if I have something to add?</a></li>
+</ul></li>
+	<li><strong>Usage Questions</strong>
+<ul>
+	<li><a href="#ans2-1">How do I compile a Photon application?</a></li>
+	<li><a href="#ans2-2">Are there any tutorials?</a></li>
+	<li><a href="#ans2-3">I am using Photon, can I tell the world?</a></li>
+</ul></li>
+	<li><strong>Licensing Questions</strong>
+<ul>
+	<li><a href="#ans3-1">How is Photon licensed?</a></li>
+    <li><a href="#ans3-2"> Why is Photon licensed like that, why not use LGPL or something?</a></li>
+	<li><a href="#ans3-3">I don't get it. What can I do with Photon?</a></li>
+	<li><a href="#ans3-4">So what can't I do with Photon?</a></li>
+</ul></li>
+	<li><strong>History Questions</strong>
+<ul>
+	<li><a href="#ans4-1">Photon seems familiar.. where have I seen a similar API before?</a></li>
+	<li><a href="#ans4-2">Why shouldn't I use ZEngine?</a></li>
+	<li><a href="#ans4-3">Why should I use ZEngine?</a></li>
+	<li><a href="#ans4-4">Wasn't there some GUI lib for ZEngine?</a></li>
+</ul></li>
+	<li><strong>Other Questions</strong>
+<ul>
+	<li><a href="#ans5-1">You are a king, can I give you money?</a></li>
+	<li><a href="#ans5-2">How can I be as great as you?</a></li>
+	<li><a href="#ans5-3">What else are you working on?</a></li>
+	<li><a href="#ans5-4">Want to work on something with me?</a></li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h2>General Questions</h2>
+<h3><a name="ans1-1">What is Photon?</a></h3>
+<p>Photon is an API which is designed primarily to ease creation of hardware 
+accelerated 2D games with OpenGL and other open source &amp; cross platform 
+libraries. Photon aims to simplify portable game development, enabling 
+developers to focus on the gameplay. Photon uses OpenGL for hardware 
+accelerated rotation, alpha blending, resizing, and drawing. Photon is built
+entirely on free software, using libraries like GLFW, PhysFS, OpenAL, and 
+boost. Using Photon does not require knowledge of any of these libraries as
+their needed functionality is wrapped entirely within Photon's rich class 
+library so that anyone with a decent grasp of C++ can use Photon.
+<br /><br />
+Photon is a cross platform API, designed to run on as many operating systems 
+as possible, and OS support is only limited by libraries which Photon 
+depends on, at the moment Photon should run on Windows, Linux, OSX, and 
+other Operating Systems which have OpenGL support.</p>
+
+<h3><a name="ans1-2">Where do I get Photon?</a></h3>
+
+<p><a href="http://photon.sourceforge.net">http://photon.sourceforge.net</a> 
+is the home page.
+<a href="http://sourceforge.net/projects/photon/">http://sourceforge.net/projects/photon/</a>
+ is the project page.</p>
+
+<h3><a name="ans1-3">How do I build Photon?</a></h3>
+<p>At the moment building photon relies upon SCons.  As of Photon 0.0.2 experimental
+project files are available for <a href="http://www.codeblocks.org/">Code::Blocks</a>
+and <a href="http://www.bloodshed.net/devcpp.html">Dev-C++</a>. 
+Visual C++ project files are a high priority.</p>
+
+<h3><a name="ans1-4">Does Photon use proprietary libraries like DirectX?</a></h3>
+<p>Photon only uses free open source libraries, so that by using Photon you are
+not subjected to any proprietary licensing terms.</p>
+    
+<h3><a name="ans1-5">When will features X, Y, and Z be completed?</a></h3>
+<p>When I get to them, I can only work on Photon in my spare time, if you have a
+specific request let me know and I can give you an estimate of when I plan 
+on getting to it.  There's always the option that you help out and then the 
+feature will be added sooner rather than later.</p>
+    
+<h3><a name="ans1-6">What if I have something to add?</a></h3>
+<p> Feel free to contribute to Photon, bugfixes are greatly appreciated.  Not
+all submitted features can be accepted, but I'll usually at least add a
+link to your submission if it cannot be included in the standard 
+distribution for some reason. (Extensions to Photon which uses non-free
+or non-portable libraries fall into this category, I appreciate them
+but usually won't make them part of the standard distribution.)</p>
+
+<h2>Usage Questions</h2>
+<h3><a name="ans2-1">How do I compile a Photon application?</a></h3>
+<p>That depends upon your compiler, generally there are several things that
+need to be done:</p>
+<ul>
+<li>When compiling make sure all includes are in the include path of your compiler.</li>
+<li>When linking make sure all libraries are in the library path of your compiler.</li>
+<li>Ensure that you link against photon and all dependency libraries (photon, GLFW, OpenAL, OpenGL, GLU, PhysFS, Corona, and Freetype).</li>
+<li>If you are using OpenAL, be sure to define PHOTON_USE_OPENAL</li>
+</ul>
+<p>
+On a command line compiler like g++ this would look something like:</p>
+<pre>
+g++ -DPHOTON_USE_OPENAL -c -o test.o test.cpp
+g++ -o test test.o -lphoton -lglfw -lopenal -lGL -lGLU -lphysfs -lcorona -lfreetype
+</pre>
+   
+<h3><a name="ans2-2">Are there any tutorials?</a></h3>
+<p>No.  Well not yet, I do have intent to write basic tutorials on using
+Photon, as well as porting some existing tutorials on various subjects to
+Photon.</p>
+
+<h3><a name="ans2-3">I am using Photon, can I tell the world?</a></h3>
+<p>Sure, if you're using it and you feel comfortable admitting that, I admire
+your honesty.  In all seriousness, this is greatly appreciated, and greatly
+beneficial to the Photon community, the more people using it the more people
+to help find bugs, suggest features, and maybe some of them will think of
+something cool to add for the rest of us.</p>
+
+<h2>Licensing Questions</h2>
+<h3><a name="ans3-1">How is Photon licensed?</a></h3>
+<p>Photon is licensed under a zlib-style license, see LICENSE.txt. </p>
+
+<h3><a name="ans3-2">Why is Photon licensed like that, why not use LGPL or something?</a></h3>
+<p>First of all, I prefer zlib licensed libraries, as you can see, Photon      
+depends primarily on zlib licensed libraries.  I also don't feel that I 
+should try to restrict what people do with Photon, as the people who will 
+try to steal work aren't going to care what license it was under in the    
+first place.</p>
+
+<h3><a name="ans3-3">I don't get it. What can I do with Photon?</a></h3>
+<p>You are allowed to do almost anything you want with Photon including use it 
+in commercial applications.</p>
+
+<h3><a name="ans3-4">So what can't I do with Photon?</a></h3>
+<p>You cannot claim you wrote it, distribute altered versions that are not
+clearly marked as such, or remove or alter the license of the Photon
+source.  You also cannot sue me for damages if Photon hurts you, your 
+pet, or your feelings.</p>
+
+<h2>History Questions</h2>
+<h3><a name="ans4-1">Photon seems familiar.. where have I seen a similar API before?</a></h3>
+<p>Photon used to be ZEngine, but when I decided to do a major rewrite the name
+changed.  I am the author of both ZEngine and Photon, but thank you for your
+concern.</p>
+
+<h3><a name="ans4-2">Why shouldn't I use ZEngine?</a></h3>
+<p>Photon does practically everything ZEngine did, but is being actively 
+developed. Photon also uses a fairly different design than ZEngine, which I 
+hope most will enjoy.</p>
+
+<h3><a name="ans4-3">Why should I use ZEngine?</a></h3>
+<p>In case you want to port to a platform with no OpenGL, or maybe you like
+the letter 'Z' before every class name.  If you hate the new style, and 
+would prefer to kick it old school, ZEngine is a fine choice.</p>
+
+<h3><a name="ans4-4">Wasn't there some GUI lib for ZEngine?</a></h3>
+<p>Yes, Gewi was the GUI for ZEngine, and was separate from the core of
+ZEngine.  In Photon Gewi will become photon::gui, but is not yet completed.
+Because of the modular core method and resource management, the inside has 
+been rewritten, and a number of bugs have been fixed.  photon::gui will be
+a major improvement over Gewi.</p>
+
+<h2>Other Questions</h2>
+<h3><a name="ans5-1">You are a king, can I give you money?</a></h3>
+<p>Sure.. I guess, I'd prefer you donate it to a better project than Photon
+but if you have to donate money to me because you're using Photon in some
+amazing application and you feel guilty making millions off of my "hard"
+work.. email me, I'll try to talk you out of it, or suggest a better use
+of funds.</p>
+
+<h3><a name="ans5-2">How can I be as great as you?</a></h3>
+<p>Help me out on Photon.. write some documentation, anything, if you're not 
+sure how to help, email me, I'll let you know what needs to be done.</p>
+
+<h3><a name="ans5-3">What else are you working on?</a></h3>
+<p>That's a secret right now.</p>
+
+<h3><a name="ans5-4">Want to work on something with me?</a></h3>
+<p>Depending on how much time I have, and how interested I am in the project, 
+maybe.  If you want me to work on something I'd love to hear from you,
+even if I don't have time at the moment.  If the project in question
+uses Photon you get bonus points, but is not a requirement for me to work
+with you.</p>
+
+<p><em>$Id: IFAQ.html,v 1.1 2005/11/15 04:01:43 cozman Exp $</em></p>
+
+<!-- cut here for DevBlog -->
+
+</body>
+</html>
