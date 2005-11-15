@@ -10,6 +10,7 @@
 <node CREATED="1129352407404" ID="_Freemind_Link_1084322991" MODIFIED="1129352407404" TEXT="Publicity">
 <node CREATED="1129352407404" ID="_Freemind_Link_1870184326" MODIFIED="1129352407404" TEXT="example game">
 <node CREATED="1130471560606" ID="Freemind_Link_613629773" MODIFIED="1130471562533" TEXT="tank game"/>
+<node CREATED="1132033214477" ID="_" MODIFIED="1132033217023" TEXT="flippers"/>
 </node>
 </node>
 </node>
@@ -57,7 +58,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" CREATED="1129352407415" ID="_Freemind_Link_438641521" MODIFIED="1129352407415" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.32 2005/11/15 02:59:08 cozman Exp $">
+<node COLOR="#147f1e" CREATED="1129352407415" ID="_Freemind_Link_438641521" MODIFIED="1129352407415" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.33 2005/11/15 06:01:12 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
 </node>
 <node CREATED="1129352407415" ID="_Freemind_Link_853483912" MODIFIED="1129352407415" POSITION="left" TEXT="Current Problems">

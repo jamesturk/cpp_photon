@@ -1,5 +1,5 @@
 Changelog for Photon
-$Id: CHANGELOG.txt,v 1.14 2005/11/15 02:59:08 cozman Exp $
+$Id: CHANGELOG.txt,v 1.15 2005/11/15 06:01:12 cozman Exp $
 
 ! : Major Changes   (potentially breaking existing code)
 + : New Features   
@@ -8,6 +8,8 @@ $Id: CHANGELOG.txt,v 1.14 2005/11/15 02:59:08 cozman Exp $
 0.1.0
     ! Changed createDisplay to use an enum to set fullscreen/windowed mode.
     * Added first official tutorial.
+    * Converted text-file documentation to HTML documentation, allowing online
+        docs to more closely mirror offline docs in content.
     * Major documentation sweep, much more useful for casual users. Also fixed 
         tons of documentation mismatches.
     * Fixed bug where app would hang if run() was called with no active state or

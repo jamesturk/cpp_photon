@@ -1,5 +1,5 @@
 Thank you for downloading photon,
-    photon is an API which is designed primarily to ease creation of hardware 
+    Photon is an API which is designed primarily to ease creation of hardware 
 accelerated 2D games with OpenGL and other open source & cross platform 
 libraries. Photon aims to simplify portable game development, enabling 
 developers to focus on the gameplay. Photon uses OpenGL for hardware accelerated
@@ -18,13 +18,13 @@ which have OpenGL support.
 
 If this is a source distribution you'll need to build photon before you can use 
 it in your own applications, for details on how to build and install photon 
-check out INSTALL.txt.  
+check out INSTALL.html
 
 If this is a binary distribution you can start using photon right away by 
 linking the photon library (found in the lib/ subfolder) and it's dependencies
 with your applications.
 
-If you need any help or have any questions check out IFAQ.txt or visit photon's
+If you need any help or have any questions check out IFAQ.html or visit photon's
 homepage at http://photon.sourceforge.net/.
 
-$Id: README.txt,v 1.2 2005/11/13 07:59:48 cozman Exp $
+$Id: README.txt,v 1.3 2005/11/15 06:01:12 cozman Exp $
