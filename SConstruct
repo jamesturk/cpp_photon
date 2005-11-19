@@ -5,7 +5,7 @@
 #  James Turk (jpt2433@rit.edu)
 #
 # Version:
-#  $Id: SConstruct,v 1.25 2005/11/15 02:59:08 cozman Exp $
+#  $Id: SConstruct,v 1.26 2005/11/19 05:30:53 cozman Exp $
 
 import os,os.path
 import glob
@@ -110,5 +110,10 @@ for test_src in test_srcs:
     tests.append(env.Program(test_name, source=test_src, LIBPATH='./lib', 
                     LIBS=['photon','glfw',OAL_LIB,OGL_LIB,GLU_LIB,
                             'physfs','corona','freetype']))
+                            
+env.Program('SpinDoctor', source='test/SpinDoctor.cpp', LIBPATH='./lib',
+            LIBS=['photon','glfw',OAL_LIB,OGL_LIB,GLU_LIB,'physfs','corona',
+                    'freetype'])
+                        
 env.Alias('tests',tests)
 
