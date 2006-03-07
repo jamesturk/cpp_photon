@@ -8,10 +8,7 @@
 <node CREATED="1129352407402" ID="_Freemind_Link_115594103" MODIFIED="1130559303873" TEXT="0.1.0" VSHIFT="-14">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node CREATED="1129352407404" ID="_Freemind_Link_1084322991" MODIFIED="1129352407404" TEXT="Publicity">
-<node CREATED="1129352407404" ID="_Freemind_Link_1870184326" MODIFIED="1129352407404" TEXT="example game">
-<node CREATED="1130471560606" ID="Freemind_Link_613629773" MODIFIED="1130471562533" TEXT="tank game"/>
-<node CREATED="1132033214477" ID="_" MODIFIED="1132033217023" TEXT="flippers"/>
-</node>
+<node CREATED="1133401622902" ID="Freemind_Link_658038500" MODIFIED="1133401625693" TEXT="Dr. Spin 0.1"/>
 </node>
 </node>
 <node CREATED="1129352407405" HGAP="65" ID="_Freemind_Link_1151493849" MODIFIED="1130559300141" TEXT="0.1.x" VSHIFT="38">
@@ -58,13 +55,17 @@
 </node>
 </node>
 </node>
-<node COLOR="#147f1e" CREATED="1129352407415" ID="_Freemind_Link_438641521" MODIFIED="1129352407415" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.33 2005/11/15 06:01:12 cozman Exp $">
+<node COLOR="#147f1e" CREATED="1129352407415" ID="_Freemind_Link_438641521" MODIFIED="1129352407415" POSITION="left" TEXT="Version: $Id: photon.mm,v 1.34 2006/03/07 23:28:09 cozman Exp $">
 <font ITALIC="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node CREATED="1133401600459" ID="Freemind_Link_201004580" MODIFIED="1133401605896" POSITION="left" TEXT="Projects">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1133401288927" ID="_" LINK="../drspin/DrSpin.mm" MODIFIED="1133401520418" TEXT="Dr Spin"/>
 </node>
 <node CREATED="1129352407415" ID="_Freemind_Link_853483912" MODIFIED="1129352407415" POSITION="left" TEXT="Current Problems">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 </node>
-<node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_1111954089" MODIFIED="1130559286266" POSITION="left" TEXT="Future..." VSHIFT="-1">
+<node CREATED="1129352407411" ID="_Freemind_Link_1111954089" MODIFIED="1130559286266" POSITION="left" TEXT="Future..." VSHIFT="-1">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node CREATED="1129352407411" FOLDED="true" ID="_Freemind_Link_1066996987" MODIFIED="1129352407411" TEXT="Features">
 <font NAME="SansSerif" SIZE="12"/>
@@ -75,7 +76,8 @@
 <node CREATED="1129352407412" FOLDED="true" ID="_Freemind_Link_304523376" MODIFIED="1129352407412" TEXT="network::">
 <node CREATED="1129352407412" ID="_Freemind_Link_717482997" MODIFIED="1129352407412" TEXT="wrap enet?"/>
 </node>
-<node CREATED="1129352407412" FOLDED="true" ID="_Freemind_Link_1766405270" MODIFIED="1129352407412" TEXT="scripting">
+<node CREATED="1129352407412" FOLDED="true" ID="_Freemind_Link_1766405270" MODIFIED="1141774045790" TEXT="scripting">
+<icon BUILTIN="help"/>
 <node CREATED="1129352407412" ID="_Freemind_Link_918658782" MODIFIED="1129352407412" TEXT="lua"/>
 <node CREATED="1129352407412" ID="_Freemind_Link_1079584283" MODIFIED="1129352407412" TEXT="python"/>
 <node CREATED="1129352407413" ID="_Freemind_Link_512949260" MODIFIED="1129352407413" TEXT="angelscript"/>
@@ -84,7 +86,8 @@
 </node>
 </node>
 <node CREATED="1129352407413" ID="_Freemind_Link_1155128082" MODIFIED="1129352407413" TEXT="Improvements">
-<node CREATED="1129352407413" FOLDED="true" ID="_Freemind_Link_1067043723" MODIFIED="1129352407413" TEXT="allow for alternate backends ">
+<node CREATED="1129352407413" FOLDED="true" ID="_Freemind_Link_1067043723" MODIFIED="1141773979456" TEXT="allow for alternate backends">
+<icon BUILTIN="help"/>
 <node CREATED="1129352407413" FOLDED="true" ID="_Freemind_Link_1997175841" MODIFIED="1129352407413" TEXT="audiere for audio">
 <node CREATED="1129352407414" ID="_Freemind_Link_1142976123" MODIFIED="1129352407414" TEXT="is there a point?">
 <node CREATED="1129352407414" ID="_Freemind_Link_396200365" MODIFIED="1129352407414" TEXT="compatibility?"/>
@@ -93,10 +96,12 @@
 <node CREATED="1129352407414" ID="_Freemind_Link_961284194" MODIFIED="1129352407414" TEXT="SDL backend">
 <icon BUILTIN="help"/>
 </node>
+<node CREATED="1141773911841" FOLDED="true" ID="Freemind_Link_373492192" MODIFIED="1141773966402" TEXT="is feature consistency realistic?">
+<node CREATED="1141773921761" ID="Freemind_Link_515087403" MODIFIED="1141773961618" TEXT="without feature consistency alternate backends &#xa;makes the code worse (too complex) without real gain "/>
 </node>
-<node CREATED="1129352407414" ID="_Freemind_Link_1036629371" MODIFIED="1129352407414" TEXT="other languages">
-<node CREATED="1129352407414" ID="_Freemind_Link_21483700" MODIFIED="1129352407414" TEXT="python interface">
-<icon BUILTIN="help"/>
+</node>
+<node CREATED="1129352407414" FOLDED="true" ID="_Freemind_Link_1036629371" MODIFIED="1129352407414" TEXT="other languages">
+<node CREATED="1129352407414" ID="_Freemind_Link_21483700" MODIFIED="1141773889502" TEXT="python interface">
 <node CREATED="1130472430178" FOLDED="true" ID="Freemind_Link_1181436549" MODIFIED="1130472451458" TEXT="hotyth">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
 <node CREATED="1130472573323" ID="Freemind_Link_577743930" MODIFIED="1130472686339" TEXT="potentially the justification for photon altogether">
@@ -105,23 +110,14 @@
 <node CREATED="1130472785878" ID="Freemind_Link_464299414" MODIFIED="1130472790515" TEXT="already using OpenGL-based backend"/>
 </node>
 <node CREATED="1130472695759" ID="Freemind_Link_284363350" MODIFIED="1130472714269" TEXT="more game-oriented"/>
+<node CREATED="1141773852825" ID="Freemind_Link_787719405" MODIFIED="1141773862551" TEXT="a 2nd real choice for python game devs"/>
 </node>
-<node CREATED="1130472815278" ID="Freemind_Link_1495903252" MODIFIED="1130472816993" TEXT="how?">
-<node CREATED="1130472475758" ID="Freemind_Link_145040084" MODIFIED="1130472479477" TEXT="custom wrapped code">
-<node CREATED="1130472481825" ID="Freemind_Link_304193465" MODIFIED="1130472489589" TEXT="extremely hard for something the size of photon"/>
-</node>
-<node CREATED="1130472461642" ID="Freemind_Link_974152072" MODIFIED="1130472463393" TEXT="SWIG">
-<node CREATED="1130472491657" ID="Freemind_Link_203364687" MODIFIED="1130472503947" TEXT="evaluation needed"/>
-</node>
-<node CREATED="1130472453122" ID="Freemind_Link_681824771" MODIFIED="1130472457183" TEXT="boost::python">
-<node CREATED="1130472504752" ID="Freemind_Link_1098125228" MODIFIED="1130472509211" TEXT="hard to get working on Windows"/>
-<node CREATED="1130472513731" ID="Freemind_Link_615148079" MODIFIED="1130472516889" TEXT="evalution needed"/>
+<node CREATED="1141773829602" ID="Freemind_Link_1489817655" MODIFIED="1141773839377" TEXT="using SWIG (planning in progress)"/>
 </node>
 </node>
-</node>
-</node>
-<node CREATED="1129352407414" ID="_Freemind_Link_1083759822" MODIFIED="1129352407414" TEXT="java interface">
+<node CREATED="1129352407414" FOLDED="true" ID="_Freemind_Link_1083759822" MODIFIED="1129352407414" TEXT="java interface">
 <icon BUILTIN="help"/>
+<node CREATED="1141773866877" ID="Freemind_Link_162384371" MODIFIED="1141773879159" TEXT="if using SWIG trivial(?) to implement"/>
 </node>
 </node>
 </node>
