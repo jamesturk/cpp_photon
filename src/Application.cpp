@@ -5,7 +5,7 @@
 //  James Turk (jpt2433@rit.edu)
 //
 // Version:
-//  $Id: Application.cpp,v 1.31 2005/11/15 02:59:08 cozman Exp $
+//  $Id: Application.cpp,v 1.32 2007/05/13 15:18:37 cozman Exp $
 
 #include "Application.hpp"
 
@@ -118,7 +118,11 @@ void Application::update()
     {
         frameIndex = 0;
     }
-    elapsedTime_ = frameTimes_[frameIndex] = curTime-lastUpdate_;
+    
+    elapsedTime_ = curTime-lastUpdate_;
+    if(frameTimes_.size() > 0) {
+        frameTimes_[frameIndex] = elapsedTime_;
+    }
     
     lastUpdate_ = curTime;
     
